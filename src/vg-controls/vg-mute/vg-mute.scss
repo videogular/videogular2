@@ -1,0 +1,29 @@
+@import "../vg-mixins";
+
+:host {
+    @include control(50px);
+
+    .icon {
+        pointer-events: none;
+
+        &.level3:before {
+            content: "\e002";
+        }
+
+        &.level2:before {
+            content: "\e003";
+        }
+
+        &.level1:before {
+            content: "\e004";
+        }
+
+        &.level0:before {
+            content: "\e005";
+        }
+
+        &.mute:before {
+            content: "\e006";
+        }
+    }
+}

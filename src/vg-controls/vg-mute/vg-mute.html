@@ -1,0 +1,9 @@
+<style>@import 'vg-mute.css';</style>
+
+<div class="icon"
+     [class.level3]="getVolume() >= 0.75"
+     [class.level2]="getVolume() >= 0.5 && getVolume() < 0.75"
+     [class.level1]="getVolume() >= 0.25 && getVolume() < 0.5"
+     [class.level0]="getVolume() > 0 && getVolume() < 0.25"
+     [class.mute]="getVolume() === 0">
+</div>

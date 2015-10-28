@@ -1,0 +1,17 @@
+@import "../vg-mixins";
+
+:host {
+    @include control(50px);
+
+    .icon {
+        pointer-events: none;
+
+        &.play:before {
+            content: "\e000";
+        }
+
+        &.pause:before {
+            content: "\e001";
+        }
+    }
+}

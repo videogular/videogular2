@@ -1,0 +1,27 @@
+@import "../../vg-mixins";
+
+:host {
+    display: flex;
+    width: 100%;
+    height: 5px;
+    pointer-events: none;
+    position: absolute;
+
+    .background {
+        background-color: white;
+    }
+}
+
+vg-controls :host {
+    position: absolute;
+    top: calc(50% - 3px);
+    background-color: rgba(0, 0, 0, 0.6);
+
+    @include border-radius(2px);
+
+    .background {
+        border: 1px solid white;
+        @include border-radius(2px);
+    }
+}
+

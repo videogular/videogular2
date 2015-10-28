@@ -1,0 +1,17 @@
+@import "../vg-mixins";
+
+:host {
+    @include control(50px);
+
+    .icon {
+        pointer-events: none;
+
+        &.normal:before {
+            content: "\e007";
+        }
+
+        &.fullscreen:before {
+            content: "\e008";
+        }
+    }
+}
