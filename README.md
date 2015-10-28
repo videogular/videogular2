@@ -12,13 +12,13 @@ You could see a demo here: http://www.videogular.com
 Run `build` to compile the project:
 
 ```
-npm run-script build
+npm run build
 ```
 
 Run `dev` to develop and test. Open `localhost:10000` for testing purposes:
 
 ```
-npm run-script dev
+npm run dev
 ```
 
 ## Supported by
