@@ -6,7 +6,7 @@
         "emitDecoratorMetadata": true,
         "module": "commonjs",
         "noImplicitAny": false,
-        "outDir": "built",
+        "outDir": ".",
         "rootDir": ".",
         "sourceMap": false
     },

@@ -38,7 +38,7 @@ gulp.task('compile-ts', function() {
       tsResult.dts.pipe(gulp.dest('dist/definitions')),
       tsResult.js
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('dist/'))
+        .pipe(gulp.dest('./'))
   ]);
 });
 

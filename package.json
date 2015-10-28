@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "del": "^1.1.1",
-    "gulp": "~3.8.11",
+    "gulp": "~3.9.0",
     "gulp-live-server": "0.0.14",
     "gulp-plumber": "^1.0.0",
     "gulp-sass": "~2.0.1",
