@@ -13,66 +13,66 @@ var del = require('del');
 var tsProject = ts.createProject('tsconfig.json', { typescript: require('typescript') });
 
 gulp.task('clean-js', function() {
-    del(['build/**/*.js', 'build/**/*.js.map']);
+    del(['dist/**/*.js', 'dist/**/*.js.map']);
 });
 gulp.task('clean-css', function() {
-    del(['build/**/*.css', 'build/**/*.css.map']);
+    del(['dist/**/*.css', 'dist/**/*.css.map']);
 });
 gulp.task('clean-html', function() {
-    del(['build/**/*.html']);
+    del(['dist/**/*.html']);
 });
 gulp.task('clean-fonts', function() {
-    del(['build/**/fonts']);
+    del(['dist/**/fonts']);
 });
 gulp.task('clean-libs', function() {
-    del(['build/libs/**/*']);
+    del(['dist/libs/**/*']);
 });
 
 gulp.task('compile-ts', function() {
-  var tsResult = gulp.src(['**/*.ts', '!node_modules/**/*.*', '!build/**/*.*'])
+  var tsResult = gulp.src(['**/*.ts', '!node_modules/**/*.*', '!dist/**/*.*'])
                   .pipe(plumber())
                   .pipe(sourcemaps.init())
                   .pipe(ts(tsProject));
 
   return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done.
-      tsResult.dts.pipe(gulp.dest('build/definitions')),
+      tsResult.dts.pipe(gulp.dest('dist/definitions')),
       tsResult.js
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('build/'))
+        .pipe(gulp.dest('dist/'))
   ]);
 });
 
 gulp.task('sass', function () {
-  gulp.src(['**/*.scss', '!node_modules/**/*.*', '!build/**/*.*'])
+  gulp.src(['**/*.scss', '!node_modules/**/*.*', '!dist/**/*.*'])
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('html', function() {
-  gulp.src(['**/*.html', '!node_modules/**/*.*', '!build/**/*.*'])
+  gulp.src(['**/*.html', '!node_modules/**/*.*', '!dist/**/*.*'])
     .pipe(plumber())
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('fonts', function() {
-  gulp.src(['**/fonts/*.*', '!node_modules/**/*.*', '!build/**/*.*'])
+  gulp.src(['**/fonts/*.*', '!node_modules/**/*.*', '!dist/**/*.*'])
     .pipe(plumber())
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('copy-external-modules', function() {
   gulp.src(['node_modules/angular2/**/*'])
     .pipe(plumber())
-    .pipe(gulp.dest('build/node_modules/angular2'));
+    .pipe(gulp.dest('dist/node_modules/angular2'));
   gulp.src(['node_modules/systemjs/**/*'])
     .pipe(plumber())
-    .pipe(gulp.dest('build/node_modules/systemjs'));
+    .pipe(gulp.dest('dist/node_modules/systemjs'));
   gulp.src(['node_modules/es6-shim/**/*'])
     .pipe(plumber())
-    .pipe(gulp.dest('build/node_modules/es6-shim'));
+    .pipe(gulp.dest('dist/node_modules/es6-shim'));
 });
 
 gulp.task('clean', function() {
@@ -93,22 +93,22 @@ gulp.task('build', function() {
 });
 
 gulp.task('serve', function() {
-    var server = gls.static('build', 10000);
+    var server = gls.static('dist', 10000);
     server.start();
 
-    watch(['build/**/*.css', 'build/**/*.html', 'build/**/*.js'], server.notify).on('error', gutil.log);
+    watch(['dist/**/*.css', 'dist/**/*.html', 'dist/**/*.js'], server.notify).on('error', gutil.log);
 });
 
 gulp.task("watch", function() {
-    watch(["**/*.ts", "!node_modules/**/*.ts", "!build/**/*.ts"], function() {
+    watch(["**/*.ts", "!node_modules/**/*.ts", "!dist/**/*.ts"], function() {
       runSequence('clean-js',
                   'compile-ts');
     });
-    watch(["**/*.html", "!node_modules/**/*.html", "!build/**/*.html"], function() {
+    watch(["**/*.html", "!node_modules/**/*.html", "!dist/**/*.html"], function() {
       runSequence(//'clean-html',
                   'html');
     });
-    watch(["**/*.scss", "!node_modules/**/*.scss", "!build/**/*.scss"], function() {
+    watch(["**/*.scss", "!node_modules/**/*.scss", "!dist/**/*.scss"], function() {
       runSequence('clean-css',
                   'sass');
     });

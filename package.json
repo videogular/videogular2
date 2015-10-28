@@ -43,6 +43,12 @@
     "javascript"
   ],
   "author": "Raul Jimenez <elecash@gmail.com> (http://twofuckingdevelopers.com/)",
+  "contributors": [
+    {
+      "name": "Alberto García",
+      "email": "cernhelm@gmail.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/videogular/videogular2/issues"
