@@ -1,11 +1,11 @@
 {
-  "name": "videogular",
+  "name": "videogular2",
   "version": "2.0.0-alpha",
   "description": "Videogular is a video application framework for desktop and mobile powered by Angular 2.0",
   "typings": "./videogular2.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/2fdevs/videogular/"
+    "url": "https://github.com/videogular/videogular2"
   },
   "dependencies": {
     "angular2": "2.0.0-alpha.44",
@@ -45,7 +45,7 @@
   "author": "Raul Jimenez <elecash@gmail.com> (http://twofuckingdevelopers.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/2fdevs/videogular/issues"
+    "url": "https://github.com/videogular/videogular2/issues"
   },
   "homepage": "http://videogular.com"
 }
