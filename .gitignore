@@ -4,3 +4,5 @@ node_modules
 /src/**/*.js
 /src/**/*.css
 /src/**/*.map
+videogular2.js
+videogular2.js.map
