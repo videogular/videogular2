@@ -2,15 +2,14 @@
   "name": "videogular2",
   "version": "2.0.0-alpha",
   "description": "Videogular is a video application framework for desktop and mobile powered by Angular 2.0",
+  "main": "videogular2.js",
   "typings": "./videogular2.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/videogular/videogular2"
   },
   "dependencies": {
-    "angular2": "2.0.0-alpha.44",
-    "es6-shim": "^0.33.6",
-    "systemjs": "0.18.4"
+    "angular2": "2.0.0-alpha.45"
   },
   "devDependencies": {
     "del": "^1.1.1",
@@ -28,13 +27,11 @@
     "typescript": "^1.6.2"
   },
   "scripts": {
-    "build": "./node_modules/.bin/gulp",
-    "dev": "./node_modules/.bin/gulp dev"
+    "prepublish": "tsc"
   },
   "engines": {
     "node": ">=0.8.0"
   },
-  "main": "gulpfile.js",
   "keywords": [
     "video",
     "player",
@@ -42,7 +39,7 @@
     "angular2",
     "javascript"
   ],
-  "author": "Raul Jimenez <elecash@gmail.com> (http://twofuckingdevelopers.com/)",
+  "author": "Raúl Jiménez <elecash@gmail.com> (http://twofuckingdevelopers.com/)",
   "contributors": [
     {
       "name": "Alberto García",

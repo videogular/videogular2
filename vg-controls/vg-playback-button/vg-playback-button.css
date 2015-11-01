@@ -1,0 +1,18 @@
+:host {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  color: white;
+  line-height: 50px;
+  width: 50px;
+  color: white; }
+
+/*# sourceMappingURL=vg-playback-button.css.map */

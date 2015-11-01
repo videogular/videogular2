@@ -1,14 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "removeComments": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
+        "target": "ES5",
         "module": "commonjs",
-        "noImplicitAny": false,
-        "outDir": ".",
-        "rootDir": ".",
-        "sourceMap": false
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": false,
+        "declaration": true,
+        "noImplicitAny": true
     },
     "files": [
         "videogular2.ts"

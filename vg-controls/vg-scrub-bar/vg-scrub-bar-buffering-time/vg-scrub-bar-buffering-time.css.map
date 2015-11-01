@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,KAAM;EACF,OAAO,EAAE,IAAI;EACb,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,GAAG;EACX,cAAc,EAAE,IAAI;EACpB,QAAQ,EAAE,QAAQ;EAElB,iBAAY;IACR,gBAAgB,EAAE,wBAAwB;;AAIlD,iBAAkB;EACd,QAAQ,EAAE,QAAQ;EAClB,GAAG,EAAE,eAAe;EAEpB,6BAAY;ICSZ,qBAAqB,EDRM,GAAG;ICS9B,kBAAkB,EDTS,GAAG;ICU9B,aAAa,EDVc,GAAG",
+"sources": ["vg-scrub-bar-buffering-time.scss","../../vg-mixins.scss"],
+"names": [],
+"file": "vg-scrub-bar-buffering-time.css"
+}
