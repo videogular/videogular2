@@ -45,7 +45,9 @@ export class VgPlayer implements OnInit {
         this.elem = ref.nativeElement;
 
         this.API.registerElement(this.elem);
+    }
 
+    ngOnInit() {
         var slice:Function = Array.prototype.slice;
         var videos:Array<any> = slice.call(this.elem.querySelectorAll("video"));
         var audios:Array<any> = slice.call(this.elem.querySelectorAll("audio"));
@@ -54,9 +56,7 @@ export class VgPlayer implements OnInit {
         for (var i=0, l=medias.length; i<l; i++) {
             this.API.registerMedia(medias[i]);
         }
-    }
 
-    ngOnInit() {
         this.onPlayerReady.next(this.API);
     }
 
