@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Example TODO Application using the ng2-store</title>
+
+    <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="/node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="/node_modules/angular2/bundles/http.min.js"></script>
+
+    <script>
+        System.config({
+            defaultJSExtensions: true,
+            map: {
+                'videogular2': 'node_modules/videogular2'
+            }
+        });
+    </script>
+
+    <script src="/node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="/node_modules/angular2/bundles/angular2.js"></script>
+
+    <script>
+        System.import('build/app').catch(console.log.bind(console));
+    </script>
+
+</head>
+<body>
+
+<vg-demo></vg-demo>
+
+</body>
+</html>

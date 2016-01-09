@@ -1,33 +1,22 @@
 {
   "name": "videogular2",
-  "version": "2.0.0-alpha",
+  "version": "2.0.0-beta.0",
   "description": "Videogular is a video application framework for desktop and mobile powered by Angular 2.0",
   "main": "videogular2.js",
-  "typings": "./videogular2.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/videogular/videogular2"
   },
   "dependencies": {
-    "angular2": "2.0.0-alpha.45"
+    "angular2": "2.0.0-beta.0",
+    "rxjs": "5.0.0-beta.0"
   },
   "devDependencies": {
-    "del": "^1.1.1",
-    "gulp": "~3.9.0",
-    "gulp-live-server": "0.0.14",
-    "gulp-plumber": "^1.0.0",
-    "gulp-sass": "~2.0.1",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-typescript": "~2.9.2",
-    "gulp-util": "^3.0.4",
-    "gulp-watch": "~4.2.4",
-    "merge2": "~0.3.5",
-    "run-sequence": "^1.1.0",
-    "tsd": "0.6.5",
-    "typescript": "^1.6.2"
+    "typescript": "^1.7.5"
   },
   "scripts": {
-    "dev": "./node_modules/.bin/gulp dev"
+    "watch": "tsc -p src -w",
+    "build": "rm -rf lib && tsc -p src"
   },
   "engines": {
     "node": ">=0.8.0"

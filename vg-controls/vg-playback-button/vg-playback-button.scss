@@ -1,7 +1,0 @@
-@import "../vg-mixins";
-
-:host {
-    @include control(50px);
-    width: 50px;
-    color: white;
-}
