@@ -12,20 +12,25 @@ You could see a demo here: http://www.videogular.com
 Run `build` to compile the project:
 
 ```
+npm install
 npm run build
 ```
 
-Run `dev` to develop and test. Open `localhost:10000` for testing purposes:
+To start the example app run the following commands and open http://localhost:8080:
 
 ```
-npm run dev
+cd examples
+npm install
+npm run build
+npm start
 ```
 
 ## Supported by
 
 Videogular wants to thank you to this companies for support this project:
 
-[![](http://www.videogular.com/wp-content/uploads/2015/03/BrowserStackLogo.png)](http://www.browserstack.com)
+[![](http://www.videogular.com/wp-content/uploads/2015/08/browserstack.png)](https://www.browserstack.com)
+[![](http://www.videogular.com/wp-content/uploads/2015/08/logo_jetbrains.png)](https://www.jetbrains.com)
 [![](http://www.videogular.com/wp-content/uploads/2015/03/logo-q.png)](http://q-interactiva.com)
 
 ## Credits
