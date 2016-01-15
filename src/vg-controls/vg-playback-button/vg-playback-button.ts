@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from 'angular2/core';
+import {Component, OnInit, Input, ElementRef} from 'angular2/core';
 
 import {VgAPI} from '../../services/vg-api';
 
@@ -29,19 +29,21 @@ import {VgAPI} from '../../services/vg-api';
     `]
 })
 export class VgPlaybackButton implements OnInit {
-    playbackValues: Array<string>;
-    playbackIndex: number;
+    elem:HTMLElement;
+    vgFor: string;
     target: any;
 
-    @Input() vgFor: string;
+    playbackValues: Array<string>;
+    playbackIndex: number;
 
-
-    constructor(public API:VgAPI) {
+    constructor(ref:ElementRef, public API:VgAPI) {
+        this.elem = ref.nativeElement;
         this.playbackValues = ['0.5', '1.0', '1.5', '2.0'];
         this.playbackIndex = 1;
     }
 
     ngOnInit() {
+        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
 

@@ -33,16 +33,16 @@ import {VgAPI} from '../../services/vg-api';
     `]
 })
 export class VgScrubBar implements OnInit {
-    elem: any;
+    elem: HTMLElement;
+    vgFor: string;
     target: any;
-
-    @Input() vgFor: string;
 
     constructor(ref:ElementRef, public API:VgAPI) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
+        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
 

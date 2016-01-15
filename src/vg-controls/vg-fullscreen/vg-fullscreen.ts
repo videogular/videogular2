@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from 'angular2/core';
+import {Component, OnInit, Input, ElementRef} from 'angular2/core';
 
 import {VgAPI} from '../../services/vg-api';
 
@@ -43,15 +43,16 @@ import {VgAPI} from '../../services/vg-api';
     `]
 })
 export class VgFullscreen implements OnInit {
-    target: Object;
+    elem:HTMLElement;
+    vgFor:string;
+    target:Object;
 
-    @Input() vgFor: string;
-
-    constructor(public API:VgAPI) {
-
+    constructor(ref:ElementRef, public API:VgAPI) {
+        this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
+        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
 

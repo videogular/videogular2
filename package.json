@@ -8,7 +8,7 @@
     "url": "https://github.com/videogular/videogular2"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.0",
+    "angular2": "2.0.0-beta.1",
     "rxjs": "5.0.0-beta.0"
   },
   "devDependencies": {

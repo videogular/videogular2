@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from 'angular2/core';
+import {Component, OnInit, Input, ElementRef} from 'angular2/core';
 
 import {VgAPI} from '../../services/vg-api';
 
@@ -58,16 +58,19 @@ import {VgAPI} from '../../services/vg-api';
     `]
 })
 export class VgMute implements OnInit {
-    currentVolume:number;
+    elem:HTMLElement;
+    vgFor: string;
     target: any;
 
-    @Input() vgFor: string;
+    currentVolume:number;
 
-    constructor(public API:VgAPI) {
 
+    constructor(ref:ElementRef, public API:VgAPI) {
+        this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
+        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
         this.currentVolume = this.target.volume;
     }
