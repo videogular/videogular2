@@ -12,11 +12,12 @@
     "rxjs": "5.0.0-beta.0"
   },
   "devDependencies": {
+    "jasmine-core": "2.4.1",
     "typescript": "^1.7.5"
   },
   "scripts": {
     "watch": "tsc -p src -w",
-    "build": "rm -rf lib && tsc -p src"
+    "build": "rm -rf dist && tsc -p src"
   },
   "engines": {
     "node": ">=0.8.0"
