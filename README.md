@@ -16,6 +16,18 @@ npm install
 npm run build
 ```
 
+Run `test` to test the project:
+
+```
+npm test
+```
+
+Run `coverage` to check the coverage report:
+
+```
+npm run coverage
+```
+
 To start the example app run the following commands and open http://localhost:8080:
 
 ```

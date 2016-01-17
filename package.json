@@ -12,6 +12,7 @@
     "rxjs": "5.0.0-beta.0"
   },
   "devDependencies": {
+    "http-server": "0.8.5",
     "jasmine-core": "2.4.1",
     "karma": "0.13.19",
     "karma-chrome-launcher": "0.2.2",
@@ -25,7 +26,8 @@
   "scripts": {
     "watch": "tsc -p src -w",
     "build": "rm -rf dist && tsc -p src",
-    "test": "karma start karma.conf.js && node_modules/.bin/remap-istanbul -i coverage/coverage-final.json -o coverage -t html"
+    "test": "karma start karma.conf.js && node_modules/.bin/remap-istanbul -i coverage/coverage-final.json -o coverage -t html",
+    "coverage": "http-server -c-1 -o -p 9875 ./coverage"
   },
   "engines": {
     "node": ">=0.8.0"
