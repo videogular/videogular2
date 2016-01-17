@@ -13,11 +13,19 @@
   },
   "devDependencies": {
     "jasmine-core": "2.4.1",
+    "karma": "0.13.19",
+    "karma-chrome-launcher": "0.2.2",
+    "karma-coverage": "0.5.3",
+    "karma-jasmine": "0.3.6",
+    "phantomjs": "1.9.19",
+    "remap-istanbul": "0.5.1",
+    "systemjs": "0.19.16",
     "typescript": "^1.7.5"
   },
   "scripts": {
     "watch": "tsc -p src -w",
-    "build": "rm -rf dist && tsc -p src"
+    "build": "rm -rf dist && tsc -p src",
+    "test": "karma start karma.conf.js && node_modules/.bin/remap-istanbul -i coverage/coverage-final.json -o coverage -t html"
   },
   "engines": {
     "node": ">=0.8.0"
