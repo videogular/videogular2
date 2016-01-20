@@ -59,8 +59,4 @@ export class VgPlayer implements OnInit {
 
         this.onPlayerReady.next(this.API);
     }
-
-    onVgMediaReady(event) {
-        this.onMediaReady.next(this.API);
-    }
 }

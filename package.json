@@ -26,7 +26,7 @@
   "scripts": {
     "watch": "tsc -p src -w",
     "build": "rm -rf dist && tsc -p src",
-    "test": "karma start karma.conf.js && node_modules/.bin/remap-istanbul -i coverage/coverage-final.json -o coverage -t html",
+    "test": "npm run build && karma start karma.conf.js && node_modules/.bin/remap-istanbul -i coverage/coverage-final.json -o coverage -t html",
     "coverage": "http-server -c-1 -o -p 9875 ./coverage"
   },
   "engines": {
