@@ -46,7 +46,7 @@ module.exports = function(config) {
         // proxied base paths
         proxies: {
             // required for component assests fetched by Angular's compiler
-            '/src': '/base/src/'
+            '/src/': '/base/src/'
         },
 
         port: 9876,
@@ -57,13 +57,13 @@ module.exports = function(config) {
 
         autoWatch: true,
 
-        browsers: ['PhantomJS2'],
+        browsers: ['Chrome'],
 
         // Karma plugins loaded
         plugins: [
             'karma-jasmine',
             'karma-coverage',
-            'karma-phantomjs2-launcher'
+            'karma-chrome-launcher'
         ],
 
         // Coverage reporter generates the coverage
@@ -83,7 +83,6 @@ module.exports = function(config) {
 
         singleRun: true
     };
-
 
     if (process.env.TRAVIS) {
         configuration.browsers = ['Chrome_travis_ci'];
