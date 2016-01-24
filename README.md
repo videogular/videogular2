@@ -1,3 +1,5 @@
+[![travis build](https://img.shields.io/travis/videogular/videogular2.svg)](https://travis-ci.org/videogular/videogular2)
+
 ## Videogular
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/2fdevs/videogular?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
