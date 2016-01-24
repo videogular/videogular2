@@ -1,6 +1,6 @@
 {
   "name": "videogular2",
-  "version": "2.0.0-beta.0",
+  "version": "0.0.0-semantically-released",
   "description": "Videogular is a video application framework for desktop and mobile powered by Angular 2.0",
   "main": "videogular2.js",
   "repository": {
@@ -9,9 +9,16 @@
   },
   "dependencies": {
     "angular2": "2.0.0-beta.1",
-    "rxjs": "5.0.0-beta.0"
+    "es6-shim": "^0.33.3",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "zone.js": "0.5.10"
   },
   "devDependencies": {
+    "codecov.io": "0.1.6",
+    "commitizen": "2.5.0",
+    "cz-conventional-changelog": "1.1.5",
+    "ghooks": "1.0.3",
     "http-server": "0.8.5",
     "jasmine-core": "2.4.1",
     "karma": "0.13.19",
@@ -19,16 +26,21 @@
     "karma-coverage": "0.5.3",
     "karma-jasmine": "0.3.6",
     "remap-istanbul": "0.5.1",
+    "semantic-release": "^4.3.5",
     "systemjs": "0.19.16",
     "typescript": "^1.7.5"
   },
   "scripts": {
-    "watch": "tsc -p src -w",
-    "build": "rm -rf dist && tsc -p src",
+    "start": "npm run test",
     "pretest": "npm run build",
     "test": "karma start karma.conf.js",
     "posttest": "node_modules/.bin/remap-istanbul -i coverage/coverage-final.json -o coverage -t html",
-    "coverage": "http-server -c-1 -o -p 9875 ./coverage"
+    "prebuild": "rm -rf dist && mkdir dist",
+    "build": "rm -rf dist && tsc -p src",
+    "commit": "git-cz",
+    "coverage": "http-server -c-1 -o -p 9875 ./coverage",
+    "report-coverage": "cat ./coverage/lcov.info | codecov",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "engines": {
     "node": ">=0.8.0"
@@ -50,6 +62,14 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/videogular/videogular2/issues"
+  },
+  "czConfig": {
+    "path": "node_modules/cz-conventional-changelog"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run test"
+    }
   },
   "homepage": "http://videogular.com"
 }
