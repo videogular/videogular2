@@ -1,5 +1,13 @@
 module.exports = function(config) {
-    config.set({
+    var configuration = {
+
+        // Only for travis
+        customLaunchers: {
+            Chrome_travis_ci: {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            }
+        },
 
         basePath: '.',
 
@@ -61,5 +69,12 @@ module.exports = function(config) {
         },
 
         singleRun: true
-    })
+    };
+
+
+    if (process.env.TRAVIS) {
+        configuration.browsers = ['Chrome_travis_ci'];
+    }
+
+    config.set(configuration);
 };
