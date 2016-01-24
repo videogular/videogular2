@@ -18,6 +18,7 @@
     "codecov.io": "0.1.6",
     "commitizen": "2.5.0",
     "cz-conventional-changelog": "1.1.5",
+    "es6-module-loader": "0.17.10",
     "ghooks": "1.0.3",
     "http-server": "0.8.5",
     "jasmine-core": "2.4.1",
@@ -25,9 +26,13 @@
     "karma-chrome-launcher": "0.2.2",
     "karma-coverage": "0.5.3",
     "karma-jasmine": "0.3.6",
+    "karma-phantomjs2-launcher": "0.4.0",
+    "phantomjs": "1.9.19",
+    "phantomjs2": "2.0.2",
     "remap-istanbul": "0.5.1",
     "semantic-release": "^4.3.5",
     "systemjs": "0.19.16",
+    "traceur": "0.0.96",
     "typescript": "^1.7.5"
   },
   "scripts": {

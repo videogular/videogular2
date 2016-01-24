@@ -15,19 +15,32 @@ module.exports = function(config) {
 
         files: [
             // paths loaded by Karma
-            {pattern: 'node_modules/angular2/bundles/angular2-polyfills.js', included: true, watched: true},
-            {pattern: 'node_modules/systemjs/dist/system.src.js', included: true, watched: true},
-            {pattern: 'node_modules/rxjs/bundles/Rx.js', included: true, watched: true},
-            {pattern: 'node_modules/angular2/bundles/angular2.dev.js', included: true, watched: true},
-            {pattern: 'node_modules/angular2/bundles/testing.dev.js', included: true, watched: true},
-            {pattern: 'karma-test-shim.js', included: true, watched: true},
+            'node_modules/zone.js/dist/zone-microtask.js',
+            'node_modules/zone.js/dist/long-stack-trace-zone.js',
+            'node_modules/zone.js/dist/jasmine-patch.js',
+
+            'node_modules/es6-module-loader/dist/es6-module-loader.js',
+
+            'node_modules/traceur/bin/traceur-runtime.js', // Required by PhantomJS2, otherwise it shouts ReferenceError: Can't find variable: require
+            'node_modules/traceur/bin/traceur.js',
+
+            'node_modules/systemjs/dist/system.src.js',
+            'node_modules/reflect-metadata/Reflect.js',
+
+            {pattern: 'node_modules/angular2/**/*.js', included: false, watched: false},
+            {pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false},
+
+            {pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: false, watched: false }, // PhantomJS2 (and possibly others) might require it
+
 
             // paths loaded via module imports
             {pattern: 'dist/**/*.js', included: false, watched: true},
 
             // paths to support debugging with source maps in dev tools
             {pattern: 'src/**/*.ts', included: false, watched: false},
-            {pattern: 'dist/**/*.js.map', included: false, watched: false}
+            {pattern: 'dist/**/*.js.map', included: false, watched: false},
+
+            'karma-test-shim.js'
         ],
 
         // proxied base paths
@@ -44,13 +57,13 @@ module.exports = function(config) {
 
         autoWatch: true,
 
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS2'],
 
         // Karma plugins loaded
         plugins: [
             'karma-jasmine',
             'karma-coverage',
-            'karma-chrome-launcher'
+            'karma-phantomjs2-launcher'
         ],
 
         // Coverage reporter generates the coverage
