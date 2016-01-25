@@ -1,6 +1,6 @@
 {
   "name": "videogular2",
-  "version": "0.0.0-semantically-released",
+  "version": "0.0.0",
   "description": "Videogular is a video application framework for desktop and mobile powered by Angular 2.0",
   "main": "videogular2.js",
   "repository": {
