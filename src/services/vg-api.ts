@@ -17,7 +17,7 @@ export class VgAPI {
         }
     }
 
-    getMediaById(id:string) {
+    getMediaById(id:string = null) {
         var media = this.medias[id];
 
         if (!id || id === '*') {
@@ -95,13 +95,13 @@ export class VgAPI {
         return this.$$getAllProperties('buffered');
     }
 
-    seekTime(value:number = 0, byPercent:boolean = false) {
+    seekTime(value:number, byPercent:boolean = false) {
         for (var id in this.medias) {
             this.$$seek(this.medias[id], value, byPercent);
         }
     }
 
-    $$seek(media:HTMLVideoElement|HTMLAudioElement, value:number = 0, byPercent:boolean = false) {
+    $$seek(media:HTMLVideoElement|HTMLAudioElement, value:number, byPercent:boolean = false) {
         var second;
 
         if (byPercent) {
@@ -155,7 +155,7 @@ export class VgAPI {
         media.isWaiting = false;
         media.isCompleted = false;
         media.state = 'pause';
-        media.seekTime = (value:number=0, byPercent:boolean=false) => {
+        media.seekTime = (value:number, byPercent:boolean = false) => {
             this.$$seek(media, value, byPercent);
         };
 
@@ -165,7 +165,7 @@ export class VgAPI {
     }
 
     // TODO: Add support for mobile devices
-    toggleFullscreen(element) {
+    toggleFullscreen(element:any = null) {
         if (!element) element = this.videogularElement;
 
         if (VgFullscreenAPI.isFullscreen()) {
@@ -180,7 +180,7 @@ export class VgAPI {
         return VgFullscreenAPI.isFullscreen();
     }
 
-    connect(media:HTMLElement) {
+    connect(media:any) {
         media.addEventListener(VgEvents.VG_CAN_PLAY, this.onCanPlay.bind(this, media.id), false);
         media.addEventListener(VgEvents.VG_CAN_PLAY_THROUGH, this.onCanPlayThrough.bind(this, media.id), false);
         media.addEventListener(VgEvents.VG_LOADED_METADATA, this.onLoadMetadata.bind(this, media.id), false);
@@ -231,7 +231,7 @@ export class VgAPI {
         this.medias[id].state = 'pause';
     }
 
-    onPlaybackChange(id: string, rate: string) {
+    onPlaybackChange(id: string, rate: number) {
         this.medias[id].playbackRate = rate;
     }
 
@@ -246,10 +246,10 @@ export class VgAPI {
     }
 
     onVolumeChange(id:string) {
-        //this.medias[id].volume = this.medias[id].volume;
+        // TODO: Save to localstorage the current volume
     }
 
     onError(id:string) {
-        console.log('error');
+        // TODO: Handle error messages
     }
 }
