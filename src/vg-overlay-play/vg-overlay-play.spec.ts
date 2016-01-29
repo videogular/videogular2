@@ -11,9 +11,6 @@ describe('Videogular Player', () => {
     beforeEach(() => {
         ref = {
             nativeElement: {
-                querySelectorAll: () => {
-                    return [{}];
-                },
                 getAttribute: (name) => {
                     return name;
                 }
