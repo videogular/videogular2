@@ -28,7 +28,7 @@
     "karma-jasmine": "0.3.7",
     "remap-istanbul": "0.5.1",
     "semantic-release": "4.3.5",
-    "systemjs": "0.19.16",
+    "systemjs": "0.19.18",
     "traceur": "0.0.96",
     "tsd": "0.6.5",
     "typescript": "1.7.5"
