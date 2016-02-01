@@ -25,7 +25,7 @@
     "karma": "0.13.19",
     "karma-chrome-launcher": "0.2.2",
     "karma-coverage": "0.5.3",
-    "karma-jasmine": "0.3.6",
+    "karma-jasmine": "0.3.7",
     "remap-istanbul": "0.5.1",
     "semantic-release": "4.3.5",
     "systemjs": "0.19.16",
