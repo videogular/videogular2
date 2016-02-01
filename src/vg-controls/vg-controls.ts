@@ -1,7 +1,5 @@
 import {Component} from 'angular2/core';
 
-import {VgAPI} from '../services/vg-api';
-
 @Component({
     selector: 'vg-controls',
     template: `<ng-content></ng-content>`,
@@ -35,7 +33,5 @@ import {VgAPI} from '../services/vg-api';
     `]
 })
 export class VgControls {
-    constructor(public API:VgAPI) {
-
-    }
+    constructor() {}
 }

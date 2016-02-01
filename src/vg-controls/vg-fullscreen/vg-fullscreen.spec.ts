@@ -36,7 +36,7 @@ describe('Videogular Player', () => {
             spyOn(api, 'toggleFullscreen');
         });
 
-        it('should call toggleFullscreen with null param if target is API', () => {
+        it('Should call toggleFullscreen with null param if target is API', () => {
             fullscreen.target = api;
 
             fullscreen.onClick();
@@ -44,7 +44,7 @@ describe('Videogular Player', () => {
             expect(api.toggleFullscreen).toHaveBeenCalledWith(null);
         });
 
-        it('should call toggleFullscreen with target param if target', () => {
+        it('Should call toggleFullscreen with target param if target', () => {
             fullscreen.target = 'test';
 
             fullscreen.onClick();
