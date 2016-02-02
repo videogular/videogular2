@@ -3,7 +3,7 @@ import {VgPlaybackButton} from "./vg-playback-button";
 import {VgAPI} from "../../services/vg-api";
 import {ElementRef} from "angular2/core";
 
-describe('Play/Pause Button', () => {
+describe('Playback Button', () => {
     let playbackButton:VgPlaybackButton;
     let ref:ElementRef;
     let api:VgAPI;
@@ -37,11 +37,7 @@ describe('Play/Pause Button', () => {
 
     it('Should get media by id on init', () => {
         spyOn(playbackButton.elem, 'getAttribute').and.callThrough();
-        spyOn(api, 'getMediaById').and.callFake(() => {
-            return {
-                volume: 1
-            };
-        });
+        spyOn(api, 'getMediaById');
 
         playbackButton.ngOnInit();
 
