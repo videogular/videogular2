@@ -67,7 +67,7 @@ module.exports = function(config) {
         ],
 
         // Coverage reporter generates the coverage
-        reporters: ['progress', 'dots', 'coverage'],
+        reporters: [/*'progress',*/ 'dots', 'coverage'],
 
         // Source files that you wanna generate coverage for.
         // Do not include tests or libraries (these files will be instrumented by Istanbul)
@@ -86,6 +86,7 @@ module.exports = function(config) {
 
     if (process.env.TRAVIS) {
         configuration.browsers = ['Chrome_travis_ci'];
+        configuration.reporters = ['progress', 'dots', 'coverage'];
     }
 
     config.set(configuration);

@@ -78,7 +78,6 @@ export class VgMute implements OnInit {
     onClick() {
         var volume = this.getVolume();
 
-        console.log('volume', volume);
         if (volume === 0) {
             this.target.volume = this.currentVolume;
         }

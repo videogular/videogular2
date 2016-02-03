@@ -26,24 +26,29 @@
     "karma-chrome-launcher": "0.2.2",
     "karma-coverage": "0.5.3",
     "karma-jasmine": "0.3.7",
+    "parallelshell": "2.0.0",
     "remap-istanbul": "0.5.1",
     "semantic-release": "4.3.5",
     "systemjs": "0.19.18",
     "traceur": "0.0.96",
     "tsd": "0.6.5",
-    "typescript": "1.7.5"
+    "typescript": "1.7.5",
+    "watch": "0.17.1"
   },
   "scripts": {
-    "start": "npm run test",
-    "pretest": "npm run build",
-    "test": "karma start karma.conf.js",
-    "posttest": "node_modules/.bin/remap-istanbul -i coverage/coverage-final.json -o coverage -t html",
-    "prebuild": "rm -rf dist && mkdir dist",
-    "build": "rm -rf dist && tsc -p src",
+    "prebuild": "npm run clean && mkdir dist",
+    "build": "tsc -p src",
+    "postbuild": "npm run test",
+    "clean": "rm -rf dist",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -p 9875 ./coverage",
+    "start": "parallelshell 'npm run watch:ts' 'npm run start:coverage-server'",
+    "start:coverage-server": "http-server -c-1 -o -p 9875 ./coverage",
+    "test": "karma start karma.conf.js",
+    "posttest": "remap-istanbul -i coverage/coverage-final.json -o coverage -t html",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "watch:ts": "watch 'npm run build' src"
   },
   "engines": {
     "node": ">=0.8.0"
