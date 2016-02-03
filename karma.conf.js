@@ -63,11 +63,12 @@ module.exports = function(config) {
         plugins: [
             'karma-jasmine',
             'karma-coverage',
-            'karma-chrome-launcher'
+            'karma-chrome-launcher',
+            'karma-spec-reporter'
         ],
 
         // Coverage reporter generates the coverage
-        reporters: [/*'progress',*/ 'dots', 'coverage'],
+        reporters: [/*'spec', 'progress',*/ 'dots', 'coverage'],
 
         // Source files that you wanna generate coverage for.
         // Do not include tests or libraries (these files will be instrumented by Istanbul)
@@ -86,7 +87,7 @@ module.exports = function(config) {
 
     if (process.env.TRAVIS) {
         configuration.browsers = ['Chrome_travis_ci'];
-        configuration.reporters = ['progress', 'dots', 'coverage'];
+        configuration.reporters = ['spec', 'coverage'];
     }
 
     config.set(configuration);
