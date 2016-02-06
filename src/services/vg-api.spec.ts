@@ -501,6 +501,35 @@ describe('Videogular Player', () => {
         expect((<any>api.medias).main.buffer.end).toBe(40000);
     });
 
+    it('Should handle onTimeUpdate event before metadata is loaded', () => {
+        api.medias = {
+            main: {
+                id: 'main',
+                currentTime: 12.345,
+                duration: 97.317,
+                buffered: {
+                    length: 0,
+                    end: () => {
+                        return 40;
+                    }
+                },
+                time: {
+                    current: 0,
+                    left: 0
+                },
+                buffer: {
+                    end: 0
+                }
+            }
+        };
+
+        spyOn((<any>api.medias).main.buffered, 'end').and.callThrough();
+
+        api.onTimeUpdate('main');
+
+        expect((<any>api.medias).main.buffered.end).toHaveBeenCalledWith(0);
+    });
+
     it('Should handle onProgress event', () => {
         api.medias = {
             main: {
@@ -523,6 +552,29 @@ describe('Videogular Player', () => {
 
         expect((<any>api.medias).main.buffered.end).toHaveBeenCalledWith(1);
         expect((<any>api.medias).main.buffer.end).toBe(40000);
+    });
+
+    it('Should handle onProgress event before metadata is loaded', () => {
+        api.medias = {
+            main: {
+                id: 'main',
+                buffered: {
+                    length: 0,
+                    end: () => {
+                        return 40;
+                    }
+                },
+                buffer: {
+                    end: 0
+                }
+            }
+        };
+
+        spyOn((<any>api.medias).main.buffered, 'end').and.callThrough();
+
+        api.onProgress('main');
+
+        expect((<any>api.medias).main.buffered.end).toHaveBeenCalledWith(0);
     });
 
     it('Should handle onVolumeChange event', () => {

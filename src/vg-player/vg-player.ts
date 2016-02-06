@@ -10,11 +10,11 @@ import {VgAPI} from '../services/vg-api';
     styles: [`
         @font-face {
             font-family: 'videogular';
-            src: url('node_modules/videogular2/src/fonts/videogular.eot');
-            src: url('node_modules/videogular2/src/fonts/videogular.eot?#iefix') format('embedded-opentype'),
-                 url('node_modules/videogular2/src/fonts/videogular.woff') format('woff'),
-                 url('node_modules/videogular2/src/fonts/videogular.ttf') format('truetype'),
-                 url('node_modules/videogular2/src/fonts/videogular.svg#videogular') format('svg');
+            src: url('node_modules/videogular2/fonts/videogular.eot');
+            src: url('node_modules/videogular2/fonts/videogular.eot?#iefix') format('embedded-opentype'),
+                 url('node_modules/videogular2/fonts/videogular.woff') format('woff'),
+                 url('node_modules/videogular2/fonts/videogular.ttf') format('truetype'),
+                 url('node_modules/videogular2/fonts/videogular.svg#videogular') format('svg');
             font-weight: normal;
             font-style: normal;
         }
