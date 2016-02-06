@@ -21,11 +21,27 @@
 
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.js"></script>
+    <script src="node_modules/angular2/bundles/router.js"></script>
 
     <script>
         System.import('build/app').catch(console.log.bind(console));
     </script>
 
+    <base href="/">
+
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
 

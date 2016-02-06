@@ -1,0 +1,31 @@
+<h2>Multiple media objects</h2>
+
+<vg-player (on-player-ready)="onPlayerReady($event)"
+           (on-media-ready)="onMediaReady($event)"
+           (on-video-event)="onVideoEvent($event)">
+
+    <vg-controls>
+        <vg-play-pause vg-for="*"></vg-play-pause>
+        <vg-play-pause vg-for="mainVideo"></vg-play-pause>
+        <vg-play-pause vg-for="pipVideo"></vg-play-pause>
+
+        <vg-scrub-bar vg-for="*"></vg-scrub-bar>
+
+        <vg-time-display>{{ main?.time?.left | date:'mm:ss' }}</vg-time-display>
+
+        <vg-mute vg-for="*"></vg-mute>
+
+        <vg-fullscreen vg-for="*"></vg-fullscreen>
+        <vg-fullscreen vg-for="mainVideo"></vg-fullscreen>
+        <vg-fullscreen vg-for="pipVideo"></vg-fullscreen>
+    </vg-controls>
+
+    <video #main id="mainVideo" [controls]="controls" [autoplay]="autoplay" [loop]="loop" [preload]="preload" style="width: 50%;">
+        <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
+    </video>
+
+    <video #pip id="pipVideo" [controls]="controls" [autoplay]="autoplay" [loop]="loop" [preload]="preload" style="width: 50%;">
+        <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
+    </video>
+
+</vg-player>

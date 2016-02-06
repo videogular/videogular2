@@ -1,0 +1,36 @@
+<h2>One media object</h2>
+
+<vg-player (on-player-ready)="onPlayerReady($event)"
+           (on-media-ready)="onMediaReady($event)">
+
+    <vg-overlay-play vg-for="singleVideo"></vg-overlay-play>
+
+    <vg-scrub-bar vg-for="singleVideo">
+        <vg-scrub-bar-current-time vg-for="singleVideo"></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time vg-for="singleVideo"></vg-scrub-bar-buffering-time>
+    </vg-scrub-bar>
+
+    <vg-controls>
+        <vg-play-pause></vg-play-pause>
+        <vg-playback-button></vg-playback-button>
+
+        <vg-time-display>{{ single?.time?.current | date:'mm:ss' }}</vg-time-display>
+
+        <vg-scrub-bar vg-for="singleVideo">
+            <vg-scrub-bar-current-time vg-for="singleVideo"></vg-scrub-bar-current-time>
+            <vg-scrub-bar-buffering-time vg-for="singleVideo"></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+
+        <vg-time-display>{{ single?.time?.left | date:'mm:ss' }}</vg-time-display>
+        <vg-time-display>{{ single?.time?.total | date:'mm:ss' }}</vg-time-display>
+
+        <vg-mute></vg-mute>
+
+        <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+
+    <video #single id="singleVideo" [autoplay]="autoplay" [loop]="loop" [preload]="preload">
+        <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
+    </video>
+
+</vg-player>

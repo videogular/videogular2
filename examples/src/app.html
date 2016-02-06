@@ -1,73 +1,19 @@
-<h2>One media object</h2>
+<header>
+    <h1>Videogular 2 Example</h1>
+</header>
 
-<vg-player (on-player-ready)="onPlayerReady($event)"
-           (on-media-ready)="onMediaReady($event)">
+<aside>
+    <nav>
+        <ul>
+            <li><a [routerLink]="['SingleMediaPlayer']">Single Media Player</a></li>
+            <li><a [routerLink]="['MultipleMediaPlayer']">Multiple Media Player</a></li>
+        </ul>
+    </nav>
+</aside>
 
-    <vg-overlay-play vg-for="singleVideo"></vg-overlay-play>
-
-    <vg-scrub-bar vg-for="singleVideo">
-        <vg-scrub-bar-current-time vg-for="singleVideo"></vg-scrub-bar-current-time>
-        <vg-scrub-bar-buffering-time vg-for="singleVideo"></vg-scrub-bar-buffering-time>
-    </vg-scrub-bar>
-
-    <vg-controls>
-        <vg-play-pause></vg-play-pause>
-        <vg-playback-button></vg-playback-button>
-
-        <vg-time-display>{{ single?.time?.current | date:'mm:ss' }}</vg-time-display>
-
-        <vg-scrub-bar vg-for="singleVideo">
-            <vg-scrub-bar-current-time vg-for="singleVideo"></vg-scrub-bar-current-time>
-            <vg-scrub-bar-buffering-time vg-for="singleVideo"></vg-scrub-bar-buffering-time>
-        </vg-scrub-bar>
-
-        <vg-time-display>{{ single?.time?.left | date:'mm:ss' }}</vg-time-display>
-        <vg-time-display>{{ single?.time?.total | date:'mm:ss' }}</vg-time-display>
-
-        <vg-mute></vg-mute>
-
-        <vg-fullscreen></vg-fullscreen>
-    </vg-controls>
-
-    <video #single id="singleVideo" [autoplay]="autoplay" [loop]="loop" [preload]="preload">
-        <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
-    </video>
-
-</vg-player>
-
-<h2>Multiple media objects</h2>
-
-<vg-player (on-player-ready)="onPlayerReady($event)"
-           (on-media-ready)="onMediaReady($event)"
-           (on-video-event)="onVideoEvent($event)">
-
-    <vg-controls>
-        <vg-play-pause vg-for="*"></vg-play-pause>
-        <vg-play-pause vg-for="mainVideo"></vg-play-pause>
-        <vg-play-pause vg-for="pipVideo"></vg-play-pause>
-
-        <vg-scrub-bar vg-for="*"></vg-scrub-bar>
-
-        <vg-time-display>{{ main?.time?.left | date:'mm:ss' }}</vg-time-display>
-
-        <vg-mute vg-for="*"></vg-mute>
-
-        <vg-fullscreen vg-for="*"></vg-fullscreen>
-        <vg-fullscreen vg-for="mainVideo"></vg-fullscreen>
-        <vg-fullscreen vg-for="pipVideo"></vg-fullscreen>
-    </vg-controls>
-
-    <video #main id="mainVideo" [controls]="controls" [autoplay]="autoplay" [loop]="loop" [preload]="preload" style="width: 50%;">
-        <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
-    </video>
-
-    <video #pip id="pipVideo" [controls]="controls" [autoplay]="autoplay" [loop]="loop" [preload]="preload" style="width: 50%;">
-        <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
-    </video>
-
-</vg-player>
-
-
-
-
+<section>
+    <div class="router-container">
+        <router-outlet></router-outlet>
+    </div>
+</section>
 

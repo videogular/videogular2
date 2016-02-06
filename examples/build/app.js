@@ -8,59 +8,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
-var common_1 = require('angular2/common');
+var router_1 = require('angular2/router');
 var browser_1 = require('angular2/platform/browser');
-var videogular2_1 = require('videogular2/videogular2');
+var single_media_player_1 = require("./single-media-player");
+var multiple_media_player_1 = require("./multiple-media-player");
 var VgDemo = (function () {
-    function VgDemo() {
-        this.controls = false;
-        this.autoplay = false;
-        this.loop = false;
-        this.preload = 'auto';
-        this.sources = [
-            {
-                src: "http://static.videogular.com/assets/videos/videogular.mp4",
-                type: "video/mp4"
-            },
-            {
-                src: "http://static.videogular.com/assets/videos/videogular.ogg",
-                type: "video/ogg"
-            },
-            {
-                src: "http://static.videogular.com/assets/videos/videogular.webm",
-                type: "video/webm"
-            }
-        ];
+    function VgDemo(router, location) {
+        this.router = router;
+        this.location = location;
     }
-    VgDemo.prototype.onPlayerReady = function (API) {
-        console.log("player ready");
-        console.log(API);
-    };
-    VgDemo.prototype.onMediaReady = function (API) {
-        console.log("media ready");
-        API.seekTime("pipVideo", 50, true);
+    VgDemo.prototype.ngOnInit = function () {
+        var _this = this;
+        this.router.subscribe(function () {
+            _this.activeView = _this.location.path();
+        });
     };
     VgDemo = __decorate([
         core_1.Component({
             selector: 'vg-demo',
             templateUrl: './src/app.html',
+            styles: [
+                "\n        :host {\n            display: block;\n            margin: 0 auto;\n            max-width: 1200px;\n            font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n        }\n\n        :host header {\n            width: 94%;\n            padding: 3%;\n            color: white;\n            background-color: #507EB3;\n        }\n\n        :host aside {\n            width: 24%;\n            height: 100%;\n            position: fixed;\n            color: white;\n            background-color: #507EB3;\n        }\n\n        :host aside nav {\n            width: 97%;\n            color: white;\n            background-color: #507EB3;\n            padding: 0 1.5% 0 1.5%;\n        }\n\n        :host aside nav ul {\n            padding: 0;\n            list-style-type: none;\n        }\n\n        :host aside nav ul li a {\n            text-decoration: none;\n            color: #ffffff;\n            font-size: 1.2em;\n            width: 100%;\n            display: inline-block;\n            padding: 10px;\n        }\n\n        :host aside nav ul li a:hover {\n            color: #507EB3;\n            background-color: white;\n            text-decoration: none;\n        }\n\n        :host aside nav ul li a.router-link-active {\n            color: #507EB3;\n            background-color: white;\n            text-decoration: none;\n        }\n\n        :host section {\n            width: calc(76% - 60px);\n            padding-left: 30px;\n            padding-right: 30px;\n            float: right;\n        }\n\n        :host section .router-container {\n            margin: 0 auto;\n        }\n        "
+            ],
             directives: [
-                videogular2_1.VgPlayer,
-                videogular2_1.VgOverlayPlay,
-                videogular2_1.VgControls,
-                videogular2_1.VgPlayPause,
-                videogular2_1.VgPlaybackButton,
-                videogular2_1.VgScrubBar,
-                videogular2_1.VgScrubBarCurrentTime,
-                videogular2_1.VgScrubBarBufferingTime,
-                videogular2_1.VgMute,
-                videogular2_1.VgFullscreen,
-                common_1.NgFor
+                router_1.ROUTER_DIRECTIVES
             ]
-        }), 
-        __metadata('design:paramtypes', [])
+        }),
+        router_1.RouteConfig([
+            { path: '/single-media-player', name: 'SingleMediaPlayer', component: single_media_player_1.SingleMediaPlayer, useAsDefault: true },
+            { path: '/multiple-media-player', name: 'MultipleMediaPlayer', component: multiple_media_player_1.MultipleMediaPlayer },
+            { path: '/**', redirectTo: ['SingleMediaPlayer'] }
+        ]), 
+        __metadata('design:paramtypes', [router_1.Router, router_1.Location])
     ], VgDemo);
     return VgDemo;
 })();
-browser_1.bootstrap(VgDemo);
+exports.VgDemo = VgDemo;
+browser_1.bootstrap(VgDemo, [
+    router_1.ROUTER_PROVIDERS
+]);
 //# sourceMappingURL=app.js.map
