@@ -3,6 +3,7 @@ import {RouteConfig, Router, Location, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from
 import {bootstrap} from 'angular2/platform/browser';
 import {SingleMediaPlayer} from "./single-media-player";
 import {MultipleMediaPlayer} from "./multiple-media-player";
+import {AudioPlayer} from "./audio-player";
 
 @Component({
     selector: 'vg-demo',
@@ -83,6 +84,7 @@ import {MultipleMediaPlayer} from "./multiple-media-player";
 @RouteConfig([
     {path: '/single-media-player', name: 'SingleMediaPlayer', component: SingleMediaPlayer, useAsDefault: true},
     {path: '/multiple-media-player', name: 'MultipleMediaPlayer', component: MultipleMediaPlayer},
+    {path: '/audio-player', name: 'AudioPlayer', component: AudioPlayer},
     {path: '/**', redirectTo: ['SingleMediaPlayer']}
 ])
 export class VgDemo {

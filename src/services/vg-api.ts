@@ -91,6 +91,10 @@ export class VgAPI {
         return this.$$getAllProperties('time');
     }
 
+    get buffer() {
+        return this.$$getAllProperties('buffer');
+    }
+
     get buffered() {
         return this.$$getAllProperties('buffered');
     }
@@ -238,19 +242,20 @@ export class VgAPI {
     onTimeUpdate(id:string) {
         var end = this.medias[id].buffered.length - 1;
 
-        if (end < 0) end = 0;
-
         this.medias[id].time.current = this.medias[id].currentTime * 1000;
         this.medias[id].time.left = (this.medias[id].duration - this.medias[id].currentTime) * 1000;
-        this.medias[id].buffer.end = this.medias[id].buffered.end(end) * 1000;
+
+        if (end >= 0) {
+            this.medias[id].buffer.end = this.medias[id].buffered.end(end) * 1000;
+        }
     }
 
     onProgress(id:string) {
         var end = this.medias[id].buffered.length - 1;
 
-        if (end < 0) end = 0;
-
-        this.medias[id].buffer.end = this.medias[id].buffered.end(end) * 1000;
+        if (end >= 0) {
+            this.medias[id].buffer.end = this.medias[id].buffered.end(end) * 1000;
+        }
     }
 
     onVolumeChange(id:string) {

@@ -1,13 +1,10 @@
-<h2>Multiple media objects</h2>
+<h2>Multiple media player</h2>
 
-<vg-player (on-player-ready)="onPlayerReady($event)"
-           (on-media-ready)="onMediaReady($event)"
-           (on-video-event)="onVideoEvent($event)">
+<p>Video player with two video objects controlled in parallel by an overlay plugin and custom controls.</p>
 
+<vg-player>
     <vg-controls>
         <vg-play-pause vg-for="*"></vg-play-pause>
-        <vg-play-pause vg-for="mainVideo"></vg-play-pause>
-        <vg-play-pause vg-for="pipVideo"></vg-play-pause>
 
         <vg-scrub-bar vg-for="*"></vg-scrub-bar>
 
@@ -16,16 +13,13 @@
         <vg-mute vg-for="*"></vg-mute>
 
         <vg-fullscreen vg-for="*"></vg-fullscreen>
-        <vg-fullscreen vg-for="mainVideo"></vg-fullscreen>
-        <vg-fullscreen vg-for="pipVideo"></vg-fullscreen>
     </vg-controls>
 
-    <video #main id="mainVideo" [controls]="controls" [autoplay]="autoplay" [loop]="loop" [preload]="preload" style="width: 50%;">
+    <video #main id="mainVideo" preload="auto" style="width: 50%;">
         <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
     </video>
 
-    <video #pip id="pipVideo" [controls]="controls" [autoplay]="autoplay" [loop]="loop" [preload]="preload" style="width: 50%;">
+    <video #pip id="pipVideo" preload="auto" style="width: 50%;">
         <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
     </video>
-
 </vg-player>

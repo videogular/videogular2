@@ -187,6 +187,14 @@ describe('Videogular Player', () => {
         expect(api.$$getAllProperties).toHaveBeenCalledWith('time');
     });
 
+    it('Should get buffer', () => {
+        spyOn(api, '$$getAllProperties').and.callFake(() => {});
+
+        var time = api.buffer;
+
+        expect(api.$$getAllProperties).toHaveBeenCalledWith('buffer');
+    });
+
     it('Should get buffered', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
 
@@ -527,7 +535,7 @@ describe('Videogular Player', () => {
 
         api.onTimeUpdate('main');
 
-        expect((<any>api.medias).main.buffered.end).toHaveBeenCalledWith(0);
+        expect((<any>api.medias).main.buffered.end).not.toHaveBeenCalled();
     });
 
     it('Should handle onProgress event', () => {
@@ -574,7 +582,7 @@ describe('Videogular Player', () => {
 
         api.onProgress('main');
 
-        expect((<any>api.medias).main.buffered.end).toHaveBeenCalledWith(0);
+        expect((<any>api.medias).main.buffered.end).not.toHaveBeenCalled();
     });
 
     it('Should handle onVolumeChange event', () => {
