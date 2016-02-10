@@ -26,7 +26,7 @@
     "karma-chrome-launcher": "0.2.2",
     "karma-coverage": "0.5.3",
     "karma-jasmine": "0.3.7",
-    "karma-spec-reporter": "0.0.23",
+    "karma-spec-reporter": "0.0.24",
     "parallelshell": "2.0.0",
     "remap-istanbul": "0.5.1",
     "semantic-release": "4.3.5",
