@@ -5,7 +5,7 @@ import {bootstrap} from 'angular2/platform/browser';
 import {VgPlayer, VgOverlayPlay, VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/videogular2';
 
 @Component({
-    selector: 'vg-demo',
+    selector: 'single-media-player',
     templateUrl: './src/single-media-player.html',
     directives: [
         VgPlayer,
@@ -23,10 +23,6 @@ import {VgPlayer, VgOverlayPlay, VgControls, VgPlayPause, VgPlaybackButton, VgSc
 })
 export class SingleMediaPlayer {
     sources:Array<Object>;
-    controls:boolean = false;
-    autoplay:boolean = false;
-    loop:boolean = false;
-    preload:string = 'auto';
 
     constructor() {
         this.sources = [

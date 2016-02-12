@@ -10,8 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var common_1 = require('angular2/common');
 var videogular2_1 = require('videogular2/videogular2');
-var SingleMediaPlayer = (function () {
-    function SingleMediaPlayer() {
+var BoundPlayer = (function () {
+    function BoundPlayer() {
+        this.controls = false;
+        this.autoplay = false;
+        this.loop = false;
+        this.preload = 'auto';
         this.sources = [
             {
                 src: "http://static.videogular.com/assets/videos/videogular.mp4",
@@ -27,10 +31,13 @@ var SingleMediaPlayer = (function () {
             }
         ];
     }
-    SingleMediaPlayer = __decorate([
+    BoundPlayer.prototype.onPlayerReady = function (api) {
+        this.api = api;
+    };
+    BoundPlayer = __decorate([
         core_1.Component({
-            selector: 'single-media-player',
-            templateUrl: './src/single-media-player.html',
+            selector: 'vg-demo',
+            templateUrl: './src/bound-player.html',
             directives: [
                 videogular2_1.VgPlayer,
                 videogular2_1.VgOverlayPlay,
@@ -42,12 +49,13 @@ var SingleMediaPlayer = (function () {
                 videogular2_1.VgScrubBarBufferingTime,
                 videogular2_1.VgMute,
                 videogular2_1.VgFullscreen,
-                common_1.NgFor
+                common_1.NgFor,
+                common_1.NgIf
             ]
         }), 
         __metadata('design:paramtypes', [])
-    ], SingleMediaPlayer);
-    return SingleMediaPlayer;
+    ], BoundPlayer);
+    return BoundPlayer;
 })();
-exports.SingleMediaPlayer = SingleMediaPlayer;
-//# sourceMappingURL=single-media-player.js.map
+exports.BoundPlayer = BoundPlayer;
+//# sourceMappingURL=bound-player.js.map

@@ -4,6 +4,7 @@ import {bootstrap} from 'angular2/platform/browser';
 import {SingleMediaPlayer} from "./single-media-player";
 import {MultipleMediaPlayer} from "./multiple-media-player";
 import {AudioPlayer} from "./audio-player";
+import {BoundPlayer} from "./bound-player";
 
 @Component({
     selector: 'vg-demo',
@@ -85,6 +86,7 @@ import {AudioPlayer} from "./audio-player";
     {path: '/single-media-player', name: 'SingleMediaPlayer', component: SingleMediaPlayer, useAsDefault: true},
     {path: '/multiple-media-player', name: 'MultipleMediaPlayer', component: MultipleMediaPlayer},
     {path: '/audio-player', name: 'AudioPlayer', component: AudioPlayer},
+    {path: '/bound-player', name: 'BoundPlayer', component: BoundPlayer},
     {path: '/**', redirectTo: ['SingleMediaPlayer']}
 ])
 export class VgDemo {

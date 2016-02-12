@@ -43,6 +43,14 @@ export class VgAPI {
         return this.$$getAllProperties('duration');
     }
 
+    set currentTime(seconds) {
+        this.$$setAllProperties('currentTime', seconds);
+    }
+
+    get currentTime() {
+        return this.$$getAllProperties('currentTime');
+    }
+
     set state(state) {
         this.$$setAllProperties('state', state);
     }

@@ -107,6 +107,22 @@ describe('Videogular Player', () => {
         expect(api.$$getAllProperties).toHaveBeenCalledWith('state');
     });
 
+    it('Should set a currentTime', () => {
+        spyOn(api, '$$setAllProperties').and.callFake(() => {});
+
+        api.currentTime = 50;
+
+        expect(api.$$setAllProperties).toHaveBeenCalledWith('currentTime', 50);
+    });
+
+    it('Should get currentTime', () => {
+        spyOn(api, '$$getAllProperties').and.callFake(() => {});
+
+        var currentTime = api.currentTime;
+
+        expect(api.$$getAllProperties).toHaveBeenCalledWith('currentTime');
+    });
+
     it('Should set a volume', () => {
         spyOn(api, '$$setAllProperties').and.callFake(() => {});
 

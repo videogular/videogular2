@@ -30,6 +30,6 @@ describe('Videogular Player', () => {
 
         expect(player.elem.querySelectorAll).toHaveBeenCalledWith('video');
         expect(api.registerMedia).toHaveBeenCalledWith({});
-        expect(player.onPlayerReady.next).toHaveBeenCalledWith(player.API);
+        expect(player.onPlayerReady.next).toHaveBeenCalledWith(player.api);
     });
 });

@@ -13,6 +13,7 @@ var browser_1 = require('angular2/platform/browser');
 var single_media_player_1 = require("./single-media-player");
 var multiple_media_player_1 = require("./multiple-media-player");
 var audio_player_1 = require("./audio-player");
+var bound_player_1 = require("./bound-player");
 var VgDemo = (function () {
     function VgDemo(router, location) {
         this.router = router;
@@ -39,6 +40,7 @@ var VgDemo = (function () {
             { path: '/single-media-player', name: 'SingleMediaPlayer', component: single_media_player_1.SingleMediaPlayer, useAsDefault: true },
             { path: '/multiple-media-player', name: 'MultipleMediaPlayer', component: multiple_media_player_1.MultipleMediaPlayer },
             { path: '/audio-player', name: 'AudioPlayer', component: audio_player_1.AudioPlayer },
+            { path: '/bound-player', name: 'BoundPlayer', component: bound_player_1.BoundPlayer },
             { path: '/**', redirectTo: ['SingleMediaPlayer'] }
         ]), 
         __metadata('design:paramtypes', [router_1.Router, router_1.Location])

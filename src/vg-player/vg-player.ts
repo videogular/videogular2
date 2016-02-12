@@ -1,11 +1,10 @@
-import {Component, EventEmitter, ElementRef, OnInit} from 'angular2/core';
+import {Output, Component, EventEmitter, ElementRef, OnInit} from 'angular2/core';
 
 import {VgAPI} from '../services/vg-api';
 
 @Component({
     selector: 'vg-player',
     bindings: [VgAPI],
-    outputs: ['onPlayerReady', 'onMediaReady'],
     template: `<ng-content></ng-content>`,
     styles: [`
         @font-face {
@@ -35,16 +34,19 @@ import {VgAPI} from '../services/vg-api';
 })
 export class VgPlayer implements OnInit {
     elem:HTMLElement;
-    API:VgAPI;
+    api:VgAPI;
 
-    onPlayerReady:EventEmitter<any> = new EventEmitter();
-    onMediaReady:EventEmitter<any>= new EventEmitter();
+    @Output()
+    onPlayerReady:EventEmitter<VgAPI> = new EventEmitter();
 
-    constructor(ref:ElementRef, API:VgAPI) {
-        this.API = API;
+    @Output()
+    onMediaReady:EventEmitter<any> = new EventEmitter();
+
+    constructor(ref:ElementRef, api:VgAPI) {
+        this.api = api;
         this.elem = ref.nativeElement;
 
-        this.API.registerElement(this.elem);
+        this.api.registerElement(this.elem);
     }
 
     ngOnInit() {
@@ -54,9 +56,9 @@ export class VgPlayer implements OnInit {
         var medias:Array<any> = videos.concat(audios);
 
         for (var i=0, l=medias.length; i<l; i++) {
-            this.API.registerMedia(medias[i]);
+            this.api.registerMedia(medias[i]);
         }
 
-        this.onPlayerReady.next(this.API);
+        this.onPlayerReady.next(this.api);
     }
 }

@@ -1,12 +1,10 @@
 import {Component} from 'angular2/core';
-import {RouteConfig} from 'angular2/router';
-import {NgFor} from 'angular2/common';
-import {bootstrap} from 'angular2/platform/browser';
-import {VgPlayer, VgOverlayPlay, VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/videogular2';
+import {NgFor, NgIf} from 'angular2/common';
+import {VgAPI, VgPlayer, VgOverlayPlay, VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/videogular2';
 
 @Component({
     selector: 'vg-demo',
-    templateUrl: './src/multiple-media-player.html',
+    templateUrl: './src/bound-player.html',
     directives: [
         VgPlayer,
         VgOverlayPlay,
@@ -18,11 +16,17 @@ import {VgPlayer, VgOverlayPlay, VgControls, VgPlayPause, VgPlaybackButton, VgSc
         VgScrubBarBufferingTime,
         VgMute,
         VgFullscreen,
-        NgFor
+        NgFor,
+        NgIf
     ]
 })
-export class MultipleMediaPlayer {
+export class BoundPlayer {
     sources:Array<Object>;
+    controls:boolean = false;
+    autoplay:boolean = false;
+    loop:boolean = false;
+    preload:string = 'auto';
+    api:VgAPI;
 
     constructor() {
         this.sources = [
@@ -39,5 +43,9 @@ export class MultipleMediaPlayer {
                 type: "video/webm"
             }
         ];
+    }
+
+    onPlayerReady(api:VgAPI) {
+        this.api = api;
     }
 }

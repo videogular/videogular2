@@ -12,10 +12,6 @@ var common_1 = require('angular2/common');
 var videogular2_1 = require('videogular2/videogular2');
 var MultipleMediaPlayer = (function () {
     function MultipleMediaPlayer() {
-        this.controls = false;
-        this.autoplay = false;
-        this.loop = false;
-        this.preload = 'auto';
         this.sources = [
             {
                 src: "http://static.videogular.com/assets/videos/videogular.mp4",
