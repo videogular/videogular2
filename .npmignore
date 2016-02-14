@@ -2,3 +2,5 @@ examples
 node_modules
 src
 coverage
+typings
+typings.json
