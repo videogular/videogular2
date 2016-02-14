@@ -38,6 +38,7 @@
     "watch": "0.17.1"
   },
   "scripts": {
+    "postinstall": "npm run typings",
     "typings": "typings install",
     "prebuild": "npm run clean && mkdir dist",
     "build": "tsc -p src",
