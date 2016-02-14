@@ -1,3 +1,5 @@
+/// <reference path="../../typings/main/ambient/jasmine/jasmine.d.ts" />
+
 import {it, describe, expect, beforeEach, inject} from 'angular2/testing';
 import {VgPlayer} from "./vg-player";
 import {VgAPI} from "../services/vg-api";

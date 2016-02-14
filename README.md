@@ -3,7 +3,7 @@
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/2fdevs/videogular?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Dependency Status](https://david-dm.org/videogular/videogular2.svg)](https://david-dm.org/videogular/videogular2)
 
-**Videogular is an HTML5 video player for Angular 2.0**. Videogular is a wrapper over the HTML5 video tag, so you just could add whatever you want. This provides a very powerful, but simple to use solution, for everybody.
+**Videogular is an HTML5 video player for Angular 2.0**. Videogular is a wrapper over the HTML5 video tag, so you can just add whatever you want. This provides a very powerful, but simple to use solution, for everybody.
 
 You could see a demo here: http://www.videogular.com
 
@@ -11,10 +11,15 @@ You could see a demo here: http://www.videogular.com
 
 ## NPM commands
 
+Run `start` to compile the project, execute tests and check coverage:
+
+```
+npm start
+```
+
 Run `build` to compile the project:
 
 ```
-npm install
 npm run build
 ```
 
@@ -49,9 +54,6 @@ Videogular wants to thank you to this companies for support this project:
 
 ## Credits
 
-Videogular is an open source project maintained by (literally) [two fucking developers] (http://twofuckingdevelopers.com/).
+Videogular is a project created by [Raúl Jiménez] (https://github.com/Elecash) and released under [MIT license](https://github.com/videogular/videogular2/blob/master/LICENSE).
 
-We want to thank all our contributors: [Raúl Jiménez] (https://github.com/Elecash), [Robert Zhang] (https://github.com/rogerz), [Javier Tejero] (https://github.com/javiertejero), [Marcos González](https://github.com/qmarcos), [Rafał Lindemann](https://github.com/panrafal), [Alberto Tafoya](https://github.com/withattribution), [Sergey Okhotnitski](https://github.com/5erg), [Javier Cejudo](https://github.com/javiercejudo), [Sam Lau](https://github.com/schmooie), [paxal78](https://github.com/paxal78), [Raymond Klass](https://github.com/RaymondKlass), [Harry Cutts](https://github.com/Fodaro), [Chris MacPherson](https://github.com/chrismacp), [stefanvonderkrone](https://github.com/stefanvonderkrone), [Emil Ibatullin](https://github.com/cawabunga), [Uzair Sajid](https://github.com/UzEE), [pavelnikolov](https://github.com/pavelnikolov), [Frank3K](https://github.com/Frank3K), [EmilioAiolfi](https://github.com/EmilioAiolfi), [Bernhelm](https://github.com/Bernhelm), [Morriz](https://github.com/Morriz), [Chris Funk](https://github.com/a727891), [Johann Beishline](https://github.com/techmodo), [edisonh](https://github.com/edisonh) and [our bug submitters] (https://github.com/2fdevs/videogular/issues?state=open).
-
-## Changelog
-Here you can see the complete [changelog] (https://github.com/2fdevs/videogular/blob/master/CHANGELOG.md)
+This project would not be possible without our [team members](https://github.com/orgs/videogular/people) and an [amazing community](https://github.com/videogular/videogular2/graphs/contributors),
