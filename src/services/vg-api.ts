@@ -1,6 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {VgEvents} from '../events/vg-events';
 import {VgFullscreenAPI} from '../services/vg-fullscreen-api';
+import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class VgAPI {
@@ -113,7 +114,7 @@ export class VgAPI {
         }
     }
 
-    $$seek(media:HTMLVideoElement|HTMLAudioElement, value:number, byPercent:boolean = false) {
+    $$seek(media:any, value:number, byPercent:boolean = false) {
         var second;
 
         if (byPercent) {
@@ -171,6 +172,8 @@ export class VgAPI {
             this.$$seek(media, value, byPercent);
         };
 
+        media.subscriptions = {};
+
         this.medias[media.id] = media;
 
         this.connect(media);
@@ -193,84 +196,102 @@ export class VgAPI {
     }
 
     connect(media:any) {
-        media.addEventListener(VgEvents.VG_CAN_PLAY, this.onCanPlay.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_CAN_PLAY_THROUGH, this.onCanPlayThrough.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_LOADED_METADATA, this.onLoadMetadata.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_WAITING, this.onWait.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_PROGRESS, this.onProgress.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_ENDED, this.onComplete.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_PLAYING, this.onStartPlaying.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_PLAY, this.onPlay.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_PAUSE, this.onPause.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_PLAYBACK_CHANGE, this.onPlaybackChange.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_TIME_UPDATE, this.onTimeUpdate.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_VOLUME_CHANGE, this.onVolumeChange.bind(this, media.id), false);
-        media.addEventListener(VgEvents.VG_ERROR, this.onError.bind(this, media.id), false);
+        media.subscriptions.canPlay = Observable.fromEvent(media, VgEvents.VG_CAN_PLAY);
+        media.subscriptions.canPlay.subscribe(this.onCanPlay.bind(this));
+
+        media.subscriptions.canPlayThrough = Observable.fromEvent(media, VgEvents.VG_CAN_PLAY_THROUGH);
+        media.subscriptions.canPlayThrough.subscribe(this.onCanPlayThrough.bind(this));
+
+        media.subscriptions.loadedMetadata = Observable.fromEvent(media, VgEvents.VG_LOADED_METADATA);
+        media.subscriptions.loadedMetadata.subscribe(this.onLoadMetadata.bind(this));
+
+        media.subscriptions.waiting = Observable.fromEvent(media, VgEvents.VG_WAITING);
+        media.subscriptions.waiting.subscribe(this.onWait.bind(this));
+
+        media.subscriptions.progress = Observable.fromEvent(media, VgEvents.VG_PROGRESS);
+        media.subscriptions.progress.subscribe(this.onProgress.bind(this));
+
+        media.subscriptions.ended = Observable.fromEvent(media, VgEvents.VG_ENDED);
+        media.subscriptions.ended.subscribe(this.onComplete.bind(this));
+
+        media.subscriptions.playing = Observable.fromEvent(media, VgEvents.VG_PLAYING);
+        media.subscriptions.playing.subscribe(this.onStartPlaying.bind(this));
+
+        media.subscriptions.play = Observable.fromEvent(media, VgEvents.VG_PLAY);
+        media.subscriptions.play.subscribe(this.onPlay.bind(this));
+
+        media.subscriptions.pause = Observable.fromEvent(media, VgEvents.VG_PAUSE);
+        media.subscriptions.pause.subscribe(this.onPause.bind(this));
+
+        media.subscriptions.timeUpdate = Observable.fromEvent(media, VgEvents.VG_TIME_UPDATE);
+        media.subscriptions.timeUpdate.subscribe(this.onTimeUpdate.bind(this));
+
+        media.subscriptions.volumeChange = Observable.fromEvent(media, VgEvents.VG_VOLUME_CHANGE);
+        media.subscriptions.volumeChange.subscribe(this.onVolumeChange.bind(this));
+
+        media.subscriptions.error = Observable.fromEvent(media, VgEvents.VG_ERROR);
+        media.subscriptions.error.subscribe(this.onError.bind(this));
     }
 
-    onCanPlay(id:string) {
-        this.medias[id].canPlay = true;
+    onCanPlay(event) {
+        this.medias[event.target.id].canPlay = true;
     }
 
-    onCanPlayThrough(id:string) {
-        this.medias[id].canPlayThrough = true;
+    onCanPlayThrough(event) {
+        this.medias[event.target.id].canPlayThrough = true;
     }
 
-    onLoadMetadata(id:string) {
-        this.medias[id].isMetadataLoaded = true;
+    onLoadMetadata(event) {
+        this.medias[event.target.id].isMetadataLoaded = true;
 
-        this.medias[id].time.total = this.medias[id].duration * 1000;
+        this.medias[event.target.id].time.total = this.medias[event.target.id].duration * 1000;
     }
 
-    onWait(id:string) {
-        this.medias[id].isWaiting = true;
+    onWait(event) {
+        this.medias[event.target.id].isWaiting = true;
     }
 
-    onComplete(id:string) {
-        this.medias[id].isCompleted = true;
-        this.medias[id].state = 'pause';
+    onComplete(event) {
+        this.medias[event.target.id].isCompleted = true;
+        this.medias[event.target.id].state = 'pause';
     }
 
-    onStartPlaying(id:string) {
-        this.medias[id].state = 'play';
+    onStartPlaying(event) {
+        this.medias[event.target.id].state = 'play';
     }
 
-    onPlay(id:string) {
-        this.medias[id].state = 'play';
+    onPlay(event) {
+        this.medias[event.target.id].state = 'play';
     }
 
-    onPause(id:string) {
-        this.medias[id].state = 'pause';
+    onPause(event) {
+        this.medias[event.target.id].state = 'pause';
     }
 
-    onPlaybackChange(id: string, rate: number) {
-        this.medias[id].playbackRate = rate;
-    }
+    onTimeUpdate(event) {
+        var end = this.medias[event.target.id].buffered.length - 1;
 
-    onTimeUpdate(id:string) {
-        var end = this.medias[id].buffered.length - 1;
-
-        this.medias[id].time.current = this.medias[id].currentTime * 1000;
-        this.medias[id].time.left = (this.medias[id].duration - this.medias[id].currentTime) * 1000;
+        this.medias[event.target.id].time.current = this.medias[event.target.id].currentTime * 1000;
+        this.medias[event.target.id].time.left = (this.medias[event.target.id].duration - this.medias[event.target.id].currentTime) * 1000;
 
         if (end >= 0) {
-            this.medias[id].buffer.end = this.medias[id].buffered.end(end) * 1000;
+            this.medias[event.target.id].buffer.end = this.medias[event.target.id].buffered.end(end) * 1000;
         }
     }
 
-    onProgress(id:string) {
-        var end = this.medias[id].buffered.length - 1;
+    onProgress(event) {
+        var end = this.medias[event.target.id].buffered.length - 1;
 
         if (end >= 0) {
-            this.medias[id].buffer.end = this.medias[id].buffered.end(end) * 1000;
+            this.medias[event.target.id].buffer.end = this.medias[event.target.id].buffered.end(end) * 1000;
         }
     }
 
-    onVolumeChange(id:string) {
+    onVolumeChange(event) {
         // TODO: Save to localstorage the current volume
     }
 
-    onError(id:string) {
+    onError(event) {
         // TODO: Handle error messages
     }
 }

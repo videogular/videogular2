@@ -260,10 +260,11 @@ describe('Videogular Player', () => {
     it('Should seek media files to a specified time by percentage', () => {
         var media = {
             duration: 200,
-            currentTime: 0
+            currentTime: 0,
+            subscriptions: {}
         };
 
-        api.$$seek(<HTMLVideoElement>media, 10, true);
+        api.$$seek(<any>media, 10, true);
 
         expect(media.currentTime).toBe(20);
     });
@@ -379,121 +380,173 @@ describe('Videogular Player', () => {
         expect(VgFullscreenAPI.isFullscreen).toHaveBeenCalled();
     });
 
-    it('Should add event listeners to media', () => {
+    it('Should subscribe to media listeners through Observables', () => {
         var media = {
             id: 'main',
-            addEventListener: () => {}
+            subscriptions: {}
         };
-
-        spyOn(media, 'addEventListener').and.callFake(() => {});
 
         api.connect(media);
 
-        expect(media.addEventListener).toHaveBeenCalled();
+        expect((<any>media.subscriptions).canPlay).toBeDefined();
+        expect((<any>media.subscriptions).canPlayThrough).toBeDefined();
+        expect((<any>media.subscriptions).loadedMetadata).toBeDefined();
+        expect((<any>media.subscriptions).waiting).toBeDefined();
+        expect((<any>media.subscriptions).progress).toBeDefined();
+        expect((<any>media.subscriptions).ended).toBeDefined();
+        expect((<any>media.subscriptions).playing).toBeDefined();
+        expect((<any>media.subscriptions).play).toBeDefined();
+        expect((<any>media.subscriptions).pause).toBeDefined();
+        expect((<any>media.subscriptions).timeUpdate).toBeDefined();
+        expect((<any>media.subscriptions).volumeChange).toBeDefined();
+        expect((<any>media.subscriptions).error).toBeDefined();
     });
 
     it('Should handle onCanPlay event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {id: 'main', canPlay: false},
             secondary: {id: 'secondary', canPlay: false}
         };
 
-        api.onCanPlay('main');
+        api.onCanPlay(event);
 
         expect((<any>api.medias).main.canPlay).toBeTruthy();
     });
 
     it('Should handle onCanPlayThrough event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {id: 'main', canPlayThrough: false},
             secondary: {id: 'secondary', canPlayThrough: false}
         };
 
-        api.onCanPlayThrough('main');
+        api.onCanPlayThrough(event);
 
         expect((<any>api.medias).main.canPlayThrough).toBeTruthy();
     });
 
     it('Should handle onLoadMetadata event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {id: 'main', isMetadataLoaded: false, duration: 97.317, time: {total: 0}},
             secondary: {id: 'secondary', isMetadataLoaded: false, duration: 297.317, time: {total: 0}}
         };
 
-        api.onLoadMetadata('main');
+        api.onLoadMetadata(event);
 
         expect((<any>api.medias).main.isMetadataLoaded).toBeTruthy();
         expect((<any>api.medias).main.time.total).toBe(97317);
     });
 
     it('Should handle onWait event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {id: 'main', isWaiting: false},
             secondary: {id: 'secondary', isWaiting: false}
         };
 
-        api.onWait('main');
+        api.onWait(event);
 
         expect((<any>api.medias).main.isWaiting).toBeTruthy();
     });
 
     it('Should handle onComplete event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {id: 'main', isCompleted: false, state: 'play'},
             secondary: {id: 'secondary', isCompleted: false, state: 'play'}
         };
 
-        api.onComplete('main');
+        api.onComplete(event);
 
         expect((<any>api.medias).main.isCompleted).toBeTruthy();
         expect((<any>api.medias).main.state).toBe('pause');
     });
 
     it('Should handle onStartPlaying event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {id: 'main', state: 'pause'},
             secondary: {id: 'secondary', state: 'pause'}
         };
 
-        api.onStartPlaying('main');
+        api.onStartPlaying(event);
 
         expect((<any>api.medias).main.state).toBe('play');
     });
 
     it('Should handle onPlay event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {id: 'main', state: 'pause'},
             secondary: {id: 'secondary', state: 'pause'}
         };
 
-        api.onPlay('main');
+        api.onPlay(event);
 
         expect((<any>api.medias).main.state).toBe('play');
     });
 
     it('Should handle onPause event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {id: 'main', state: 'play'},
             secondary: {id: 'secondary', state: 'play'}
         };
 
-        api.onPause('main');
+        api.onPause(event);
 
         expect((<any>api.medias).main.state).toBe('pause');
     });
 
-    it('Should handle onPlaybackChange event', () => {
-        api.medias = {
-            main: {id: 'main', playbackRate: 1},
-            secondary: {id: 'secondary', playbackRate: 1}
+    it('Should handle onTimeUpdate event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
         };
 
-        api.onPlaybackChange('main', 2);
-
-        expect((<any>api.medias).main.playbackRate).toBe(2);
-    });
-
-    it('Should handle onTimeUpdate event', () => {
         api.medias = {
             main: {
                 id: 'main',
@@ -517,7 +570,7 @@ describe('Videogular Player', () => {
 
         spyOn((<any>api.medias).main.buffered, 'end').and.callThrough();
 
-        api.onTimeUpdate('main');
+        api.onTimeUpdate(event);
 
         expect((<any>api.medias).main.buffered.end).toHaveBeenCalledWith(1);
         expect((<any>api.medias).main.time.current).toBe(12345);
@@ -526,6 +579,12 @@ describe('Videogular Player', () => {
     });
 
     it('Should handle onTimeUpdate event before metadata is loaded', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {
                 id: 'main',
@@ -549,12 +608,18 @@ describe('Videogular Player', () => {
 
         spyOn((<any>api.medias).main.buffered, 'end').and.callThrough();
 
-        api.onTimeUpdate('main');
+        api.onTimeUpdate(event);
 
         expect((<any>api.medias).main.buffered.end).not.toHaveBeenCalled();
     });
 
     it('Should handle onProgress event', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {
                 id: 'main',
@@ -572,13 +637,19 @@ describe('Videogular Player', () => {
 
         spyOn((<any>api.medias).main.buffered, 'end').and.callThrough();
 
-        api.onProgress('main');
+        api.onProgress(event);
 
         expect((<any>api.medias).main.buffered.end).toHaveBeenCalledWith(1);
         expect((<any>api.medias).main.buffer.end).toBe(40000);
     });
 
     it('Should handle onProgress event before metadata is loaded', () => {
+        var event = {
+            target: {
+                id: 'main'
+            }
+        };
+
         api.medias = {
             main: {
                 id: 'main',
@@ -596,7 +667,7 @@ describe('Videogular Player', () => {
 
         spyOn((<any>api.medias).main.buffered, 'end').and.callThrough();
 
-        api.onProgress('main');
+        api.onProgress(event);
 
         expect((<any>api.medias).main.buffered.end).not.toHaveBeenCalled();
     });
