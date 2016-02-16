@@ -1,13 +1,18 @@
 ///<reference path="../../node_modules/angular2/typings/browser.d.ts"/>
 
-import {Output, Component, EventEmitter, ElementRef, OnInit} from 'angular2/core';
+import {Output, Component, EventEmitter, ElementRef, OnInit, ContentChild} from 'angular2/core';
 
 import {VgAPI} from '../services/vg-api';
+import {VgControls} from '../vg-controls/vg-controls';
 
 @Component({
     selector: 'vg-player',
     bindings: [VgAPI],
     template: `<ng-content></ng-content>`,
+    host: {
+        '(mouseenter)': 'showControls()',
+        '(mouseleave)': 'hideControls()'
+    },
     styles: [`
         @font-face {
             font-family: 'videogular';
@@ -26,6 +31,7 @@ import {VgAPI} from '../services/vg-api';
             display: flex;
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
 
         :host video {
@@ -37,6 +43,8 @@ import {VgAPI} from '../services/vg-api';
 export class VgPlayer implements OnInit {
     elem:HTMLElement;
     api:VgAPI;
+
+    @ContentChild(VgControls) vgControls: VgControls;
 
     @Output()
     onPlayerReady:EventEmitter<VgAPI> = new EventEmitter();
@@ -62,5 +70,13 @@ export class VgPlayer implements OnInit {
         }
 
         this.onPlayerReady.next(this.api);
+    }
+
+    showControls() {
+      this.vgControls.show();
+    }
+
+    hideControls() {
+      this.vgControls.hide();
     }
 }
