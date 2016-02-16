@@ -14,6 +14,7 @@ var single_media_player_1 = require("./single-media-player");
 var multiple_media_player_1 = require("./multiple-media-player");
 var audio_player_1 = require("./audio-player");
 var bound_player_1 = require("./bound-player");
+var cue_points_player_1 = require("./cue-points-player");
 var VgDemo = (function () {
     function VgDemo(router, location) {
         this.router = router;
@@ -41,6 +42,7 @@ var VgDemo = (function () {
             { path: '/multiple-media-player', name: 'MultipleMediaPlayer', component: multiple_media_player_1.MultipleMediaPlayer },
             { path: '/audio-player', name: 'AudioPlayer', component: audio_player_1.AudioPlayer },
             { path: '/bound-player', name: 'BoundPlayer', component: bound_player_1.BoundPlayer },
+            { path: '/cue-points-player', name: 'CuePointsPlayer', component: cue_points_player_1.CuePointsPlayer },
             { path: '/**', redirectTo: ['SingleMediaPlayer'] }
         ]), 
         __metadata('design:paramtypes', [router_1.Router, router_1.Location])

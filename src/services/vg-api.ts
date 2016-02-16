@@ -108,6 +108,10 @@ export class VgAPI {
         return this.$$getAllProperties('buffered');
     }
 
+    get subscriptions() {
+        return this.$$getAllProperties('subscriptions');
+    }
+
     seekTime(value:number, byPercent:boolean = false) {
         for (var id in this.medias) {
             this.$$seek(this.medias[id], value, byPercent);

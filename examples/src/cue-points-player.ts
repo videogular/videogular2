@@ -2,13 +2,13 @@ import {Component} from 'angular2/core';
 import {RouteConfig} from 'angular2/router';
 import {NgFor} from 'angular2/common';
 import {bootstrap} from 'angular2/platform/browser';
-import {VgPlayer} from 'videogular2/core';
+import {VgPlayer, VgCuePoints, ICuePoint} from 'videogular2/core';
 import {VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
 import {VgOverlayPlay} from 'videogular2/overlay-play';
 
 @Component({
-    selector: 'vg-demo',
-    templateUrl: './src/multiple-media-player.html',
+    selector: 'cue-points-player',
+    templateUrl: './src/cue-points-player.html',
     directives: [
         VgPlayer,
         VgOverlayPlay,
@@ -20,11 +20,13 @@ import {VgOverlayPlay} from 'videogular2/overlay-play';
         VgScrubBarBufferingTime,
         VgMute,
         VgFullscreen,
+        VgCuePoints,
         NgFor
     ]
 })
-export class MultipleMediaPlayer {
+export class CuePointsPlayer {
     sources:Array<Object>;
+    cuePoints:Array<ICuePoint>;
 
     constructor() {
         this.sources = [
@@ -41,5 +43,23 @@ export class MultipleMediaPlayer {
                 type: "video/webm"
             }
         ];
+
+        this.cuePoints = [];
+
+        for (var i:number=0, l:number=5; i<l; i++) {
+            var cp:ICuePoint = <ICuePoint>{};
+            cp.start = i * 10;
+            cp.end = cp.start + 5;
+            cp.params = {
+                id: i,
+                text: 'cue point #' + i
+            };
+
+            this.cuePoints.push(cp);
+        }
+    }
+
+    onEnterCuePoint($event) {
+        console.log($event);
     }
 }

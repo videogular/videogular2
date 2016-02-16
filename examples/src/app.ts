@@ -5,6 +5,7 @@ import {SingleMediaPlayer} from "./single-media-player";
 import {MultipleMediaPlayer} from "./multiple-media-player";
 import {AudioPlayer} from "./audio-player";
 import {BoundPlayer} from "./bound-player";
+import {CuePointsPlayer} from "./cue-points-player";
 
 @Component({
     selector: 'vg-demo',
@@ -87,6 +88,7 @@ import {BoundPlayer} from "./bound-player";
     {path: '/multiple-media-player', name: 'MultipleMediaPlayer', component: MultipleMediaPlayer},
     {path: '/audio-player', name: 'AudioPlayer', component: AudioPlayer},
     {path: '/bound-player', name: 'BoundPlayer', component: BoundPlayer},
+    {path: '/cue-points-player', name: 'CuePointsPlayer', component: CuePointsPlayer},
     {path: '/**', redirectTo: ['SingleMediaPlayer']}
 ])
 export class VgDemo {
