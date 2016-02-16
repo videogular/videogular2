@@ -1,4 +1,10 @@
-import {Component} from 'angular2/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ElementRef,
+  Renderer
+} from 'angular2/core';
 
 @Component({
     selector: 'vg-controls',
@@ -12,6 +18,15 @@ import {Component} from 'angular2/core';
             z-index: 300;
             bottom: 0;
             background-color: rgba(0, 0, 0, 0.5);
+            -webkit-transition: bottom 1s;
+            -khtml-transition: bottom 1s;
+            -moz-transition: bottom 1s;
+            -ms-transition: bottom 1s;
+            transition: bottom 1s;
+        }
+
+        :host.hide {
+          bottom: -50px;
         }
 
         :host vg-time-display {
@@ -33,5 +48,38 @@ import {Component} from 'angular2/core';
     `]
 })
 export class VgControls {
-    constructor() {}
+
+    @Input('autohide') autohide: boolean = false;
+    @Input('autohide-time') autohideTime: number = 3;
+
+    private timer: number;
+
+    constructor(private element: ElementRef, private renderer: Renderer) {}
+
+    ngAfterViewInit() {
+      if (this.autohide) {
+        this.hide();
+      } else {
+        this.show();
+      }
+    }
+
+    hide() {
+      if(this.autohide) {
+        window.clearTimeout(this.timer);
+        this.hideAsync();
+      }
+    }
+
+    show() {
+      window.clearTimeout(this.timer);
+      this.renderer.setElementClass(this.element.nativeElement, 'hide', false);
+    }
+
+    private hideAsync() {
+      this.timer = window.setTimeout(() => {
+        this.renderer.setElementClass(this.element.nativeElement, 'hide', true);
+      }, this.autohideTime * 1000);
+    }
+
 }
