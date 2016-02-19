@@ -41,7 +41,16 @@ var CuePointsPlayer = (function () {
         }
     }
     CuePointsPlayer.prototype.onEnterCuePoint = function ($event) {
-        console.log($event);
+        console.log('enter', $event);
+    };
+    CuePointsPlayer.prototype.onUpdateCuePoint = function ($event) {
+        console.log('update', $event);
+    };
+    CuePointsPlayer.prototype.onLeaveCuePoint = function ($event) {
+        console.log('leave', $event);
+    };
+    CuePointsPlayer.prototype.onCompleteCuePoint = function ($event) {
+        console.log('complete', $event);
     };
     CuePointsPlayer = __decorate([
         core_1.Component({

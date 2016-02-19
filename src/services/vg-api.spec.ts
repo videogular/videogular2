@@ -219,6 +219,14 @@ describe('Videogular Player', () => {
         expect(api.$$getAllProperties).toHaveBeenCalledWith('buffered');
     });
 
+    it('Should get subscriptions', () => {
+        spyOn(api, '$$getAllProperties').and.callFake(() => {});
+
+        var subscriptions = api.subscriptions;
+
+        expect(api.$$getAllProperties).toHaveBeenCalledWith('subscriptions');
+    });
+
     it('Should seek to a specified time by second', () => {
         api.medias = {
             main: {id: 'main'},

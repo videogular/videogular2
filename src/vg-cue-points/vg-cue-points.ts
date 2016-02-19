@@ -1,24 +1,19 @@
-import {Directive} from "angular2/core";
-import {Output} from "angular2/core";
-import {Input} from "angular2/core";
-import {EventEmitter} from "angular2/core";
+import {Directive, Output, Input, EventEmitter, ElementRef} from "angular2/core";
 import {ICuePoint} from "./icue-point";
-import {VgAPI} from "../services/vg-api";
-import {ElementRef} from "angular2/core";
 import {CuePointEvent} from "./cue-point-event";
 
 @Directive({
     selector: '[vgCuePoints]'
 })
 export class VgCuePoints {
-    @Output('onEnterCuePoint') onEnterCuePoint:EventEmitter<any> = new EventEmitter();
-    @Output('onUpdateCuePoint') onUpdateCuePoint:EventEmitter<any> = new EventEmitter();
-    @Output('onLeaveCuePoint') onLeaveCuePoint:EventEmitter<any> = new EventEmitter();
-    @Output('onCompleteCuePoint') onCompleteCuePoint:EventEmitter<any> = new EventEmitter();
+    @Output('onEnterCuePoint') onEnterCuePoint:EventEmitter<CuePointEvent> = new EventEmitter();
+    @Output('onUpdateCuePoint') onUpdateCuePoint:EventEmitter<CuePointEvent> = new EventEmitter();
+    @Output('onLeaveCuePoint') onLeaveCuePoint:EventEmitter<CuePointEvent> = new EventEmitter();
+    @Output('onCompleteCuePoint') onCompleteCuePoint:EventEmitter<CuePointEvent> = new EventEmitter();
 
     @Input('vgCuePoints') vgCuePoints:Array<ICuePoint>;
 
-    constructor(public api:VgAPI, public ref:ElementRef) {
+    constructor(public ref:ElementRef) {
 
     }
 

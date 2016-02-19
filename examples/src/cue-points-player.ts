@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 import {RouteConfig} from 'angular2/router';
 import {NgFor} from 'angular2/common';
 import {bootstrap} from 'angular2/platform/browser';
-import {VgPlayer, VgCuePoints, ICuePoint} from 'videogular2/core';
+import {VgPlayer, VgCuePoints, ICuePoint, CuePointEvent} from 'videogular2/core';
 import {VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
 import {VgOverlayPlay} from 'videogular2/overlay-play';
 
@@ -59,7 +59,19 @@ export class CuePointsPlayer {
         }
     }
 
-    onEnterCuePoint($event) {
-        console.log($event);
+    onEnterCuePoint($event:CuePointEvent) {
+        console.log('enter', $event);
+    }
+
+    onUpdateCuePoint($event:CuePointEvent) {
+        console.log('update', $event);
+    }
+
+    onLeaveCuePoint($event:CuePointEvent) {
+        console.log('leave', $event);
+    }
+
+    onCompleteCuePoint($event:CuePointEvent) {
+        console.log('complete', $event);
     }
 }

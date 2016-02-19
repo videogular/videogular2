@@ -1,6 +1,7 @@
-import {Component} from 'angular2/core';
-import {RouteConfig, Router, Location, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
+import {Component, bind} from 'angular2/core';
+import {RouteConfig, Router, Location, LocationStrategy, HashLocationStrategy, ROUTER_DIRECTIVES, ROUTER_PROVIDERS} from 'angular2/router';
 import {bootstrap} from 'angular2/platform/browser';
+
 import {SingleMediaPlayer} from "./single-media-player";
 import {MultipleMediaPlayer} from "./multiple-media-player";
 import {AudioPlayer} from "./audio-player";
@@ -20,25 +21,27 @@ import {CuePointsPlayer} from "./cue-points-player";
         }
 
         :host header {
-            width: 94%;
-            padding: 3%;
+            padding: 10px 30px;
             color: white;
             background-color: #507EB3;
+            z-index: 1;
+            position: relative;
         }
 
         :host aside {
-            width: 24%;
+            width: 250px;
             height: 100%;
             position: fixed;
+            top: 0;
+            padding-top: 100px;
             color: white;
             background-color: #507EB3;
         }
 
         :host aside nav {
-            width: 97%;
+            width: 100%;
             color: white;
             background-color: #507EB3;
-            padding: 0 1.5% 0 1.5%;
         }
 
         :host aside nav ul {
@@ -50,7 +53,7 @@ import {CuePointsPlayer} from "./cue-points-player";
             text-decoration: none;
             color: #ffffff;
             font-size: 1.2em;
-            width: 100%;
+            width: calc(100% - 20px);
             display: inline-block;
             padding: 10px;
         }
@@ -68,10 +71,9 @@ import {CuePointsPlayer} from "./cue-points-player";
         }
 
         :host section {
-            width: calc(76% - 60px);
-            padding-left: 30px;
+            padding-left: 280px;
             padding-right: 30px;
-            float: right;
+            margin: auto;
         }
 
         :host section .router-container {
@@ -106,5 +108,6 @@ export class VgDemo {
 }
 
 bootstrap(VgDemo, [
-    ROUTER_PROVIDERS
+    ROUTER_PROVIDERS,
+    bind(LocationStrategy).toClass(HashLocationStrategy)
 ]);
