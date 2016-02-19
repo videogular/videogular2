@@ -1,6 +1,8 @@
 import {Component} from 'angular2/core';
 import {NgFor, NgIf} from 'angular2/common';
-import {VgAPI, VgPlayer, VgOverlayPlay, VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/videogular2';
+import {VgPlayer, VgAPI} from 'videogular2/core';
+import {VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
+import {VgOverlayPlay} from 'videogular2/overlay-play';
 
 @Component({
     selector: 'vg-demo',

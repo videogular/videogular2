@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,7 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var common_1 = require('angular2/common');
-var videogular2_1 = require('videogular2/videogular2');
+var core_2 = require('videogular2/core');
+var controls_1 = require('videogular2/controls');
+var overlay_play_1 = require('videogular2/overlay-play');
 var SingleMediaPlayer = (function () {
     function SingleMediaPlayer() {
         this.sources = [
@@ -33,22 +34,22 @@ var SingleMediaPlayer = (function () {
             selector: 'single-media-player',
             templateUrl: './src/single-media-player.html',
             directives: [
-                videogular2_1.VgPlayer,
-                videogular2_1.VgOverlayPlay,
-                videogular2_1.VgControls,
-                videogular2_1.VgPlayPause,
-                videogular2_1.VgPlaybackButton,
-                videogular2_1.VgScrubBar,
-                videogular2_1.VgScrubBarCurrentTime,
-                videogular2_1.VgScrubBarBufferingTime,
-                videogular2_1.VgMute,
-                videogular2_1.VgFullscreen,
+                core_2.VgPlayer,
+                overlay_play_1.VgOverlayPlay,
+                controls_1.VgControls,
+                controls_1.VgPlayPause,
+                controls_1.VgPlaybackButton,
+                controls_1.VgScrubBar,
+                controls_1.VgScrubBarCurrentTime,
+                controls_1.VgScrubBarBufferingTime,
+                controls_1.VgMute,
+                controls_1.VgFullscreen,
                 common_1.NgFor
             ]
         }), 
         __metadata('design:paramtypes', [])
     ], SingleMediaPlayer);
     return SingleMediaPlayer;
-}());
+})();
 exports.SingleMediaPlayer = SingleMediaPlayer;
 //# sourceMappingURL=single-media-player.js.map

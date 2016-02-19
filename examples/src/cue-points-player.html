@@ -1,14 +1,9 @@
 <h2>One media object</h2>
 
-<p>Video player with one video object, overlay play plugin and custom controls. Seek bar is outside of the control bar.</p>
+<p>Videogular cue points. Watch console log to see cue points triggers.</p>
 
 <vg-player>
     <vg-overlay-play></vg-overlay-play>
-
-    <vg-scrub-bar>
-        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-    </vg-scrub-bar>
 
     <vg-controls>
         <vg-play-pause></vg-play-pause>
@@ -16,7 +11,10 @@
 
         <vg-time-display>{{ media?.time?.current | date:'mm:ss' }}</vg-time-display>
 
-        <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+        <vg-scrub-bar>
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
 
         <vg-time-display>{{ media?.time?.left | date:'mm:ss' }}</vg-time-display>
         <vg-time-display>{{ media?.time?.total | date:'mm:ss' }}</vg-time-display>
@@ -26,7 +24,11 @@
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video #media id="singleVideo" preload="auto">
+    <video #media id="singleVideo" preload="auto" [vgCuePoints]="cuePoints"
+           (onEnterCuePoint)="onEnterCuePoint($event)"
+           (onUpdateCuePoint)="onUpdateCuePoint($event)"
+           (onLeaveCuePoint)="onLeaveCuePoint($event)"
+           (onCompleteCuePoint)="onCompleteCuePoint($event)">
         <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
     </video>
 </vg-player>
