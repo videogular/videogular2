@@ -3,7 +3,6 @@
 import {Output, Component, EventEmitter, ElementRef, OnInit, ContentChild} from 'angular2/core';
 
 import {VgAPI} from '../services/vg-api';
-import {VgControls} from '../vg-controls/vg-controls';
 
 @Component({
     selector: 'vg-player',
@@ -44,8 +43,6 @@ export class VgPlayer implements OnInit {
     elem:HTMLElement;
     api:VgAPI;
 
-    @ContentChild(VgControls) vgControls: VgControls;
-
     @Output()
     onPlayerReady:EventEmitter<VgAPI> = new EventEmitter();
 
@@ -70,13 +67,5 @@ export class VgPlayer implements OnInit {
         }
 
         this.onPlayerReady.next(this.api);
-    }
-
-    showControls() {
-      this.vgControls.show();
-    }
-
-    hideControls() {
-      this.vgControls.hide();
     }
 }

@@ -1,10 +1,6 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ElementRef,
-  Renderer
-} from 'angular2/core';
+import {Component, Input, OnInit, ElementRef, Renderer} from 'angular2/core';
+import {Observable} from "rxjs/Observable";
+import {VgAPI} from "../services/vg-api";
 
 @Component({
     selector: 'vg-controls',
@@ -49,37 +45,47 @@ import {
 })
 export class VgControls {
 
-    @Input('autohide') autohide: boolean = false;
-    @Input('autohide-time') autohideTime: number = 3;
+    @Input('autohide') autohide:boolean = false;
+    @Input('autohide-time') autohideTime:number = 3;
 
-    private timer: number;
+    private timer:number;
 
-    constructor(private element: ElementRef, private renderer: Renderer) {}
+    constructor(private api:VgAPI, private element:ElementRef, private renderer:Renderer) {
+
+    }
+
+    ngOnInit() {
+        var mouseEnter = Observable.fromEvent(this.api.videogularElement, 'mouseenter');
+        mouseEnter.subscribe(this.show.bind(this));
+
+        var mouseLeave = Observable.fromEvent(this.api.videogularElement, 'mouseleave');
+        mouseLeave.subscribe(this.hide.bind(this));
+    }
 
     ngAfterViewInit() {
-      if (this.autohide) {
-        this.hide();
-      } else {
-        this.show();
-      }
+        if (this.autohide) {
+            this.hide();
+        }
+        else {
+            this.show();
+        }
     }
 
     hide() {
-      if(this.autohide) {
-        window.clearTimeout(this.timer);
-        this.hideAsync();
-      }
+        if (this.autohide) {
+            clearTimeout(this.timer);
+            this.hideAsync();
+        }
     }
 
     show() {
-      window.clearTimeout(this.timer);
-      this.renderer.setElementClass(this.element.nativeElement, 'hide', false);
+        clearTimeout(this.timer);
+        this.renderer.setElementClass(this.element.nativeElement, 'hide', false);
     }
 
     private hideAsync() {
-      this.timer = window.setTimeout(() => {
-        this.renderer.setElementClass(this.element.nativeElement, 'hide', true);
-      }, this.autohideTime * 1000);
+        this.timer = setTimeout(() => {
+            this.renderer.setElementClass(this.element.nativeElement, 'hide', true);
+        }, this.autohideTime * 1000);
     }
-
 }
