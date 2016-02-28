@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Rx';
 @Injectable()
 export class VgAPI {
     medias:Object = {};
-    videogularElement: Object;
+    videogularElement: any;
 
     constructor() {
         VgFullscreenAPI.init();
