@@ -12,8 +12,9 @@
         <vg-time-display>{{ media?.time?.current | date:'mm:ss' }}</vg-time-display>
 
         <vg-scrub-bar>
-            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
             <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            <vg-scrub-bar-cue-points [cuePoints]="cuePoints"></vg-scrub-bar-cue-points>
         </vg-scrub-bar>
 
         <vg-time-display>{{ media?.time?.left | date:'mm:ss' }}</vg-time-display>

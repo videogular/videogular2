@@ -6,3 +6,4 @@ exports.VgPlaybackButton = require('./dist/vg-controls/vg-playback-button/vg-pla
 exports.VgScrubBar = require('./dist/vg-controls/vg-scrub-bar/vg-scrub-bar').VgScrubBar;
 exports.VgScrubBarBufferingTime = require('./dist/vg-controls/vg-scrub-bar/vg-scrub-bar-buffering-time/vg-scrub-bar-buffering-time').VgScrubBarBufferingTime;
 exports.VgScrubBarCurrentTime = require('./dist/vg-controls/vg-scrub-bar/vg-scrub-bar-current-time/vg-scrub-bar-current-time').VgScrubBarCurrentTime;
+exports.VgScrubBarCuePoints = require('./dist/vg-controls/vg-scrub-bar/vg-scrub-bar-cue-points/vg-scrub-bar-cue-points').VgScrubBarCuePoints;

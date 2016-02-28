@@ -21,7 +21,6 @@ import {VgAPI} from '../../../services/vg-api';
         vg-controls :host {
             position: absolute;
             top: calc(50% - 3px);
-            background-color: rgba(0, 0, 0, 0.6);
             -webkit-border-radius: 2px;
             -moz-border-radius: 2px;
             border-radius: 2px;

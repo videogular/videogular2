@@ -65,6 +65,7 @@ var CuePointsPlayer = (function () {
                 controls_1.VgScrubBar,
                 controls_1.VgScrubBarCurrentTime,
                 controls_1.VgScrubBarBufferingTime,
+                controls_1.VgScrubBarCuePoints,
                 controls_1.VgMute,
                 controls_1.VgFullscreen,
                 core_2.VgCuePoints,
