@@ -8,10 +8,6 @@ import {VgAPI} from '../services/vg-api';
     selector: 'vg-player',
     bindings: [VgAPI],
     template: `<ng-content></ng-content>`,
-    host: {
-        '(mouseenter)': 'showControls()',
-        '(mouseleave)': 'hideControls()'
-    },
     styles: [`
         @font-face {
             font-family: 'videogular';

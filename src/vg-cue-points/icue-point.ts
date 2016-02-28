@@ -4,4 +4,5 @@ export interface ICuePoint {
     params?:any;
     isCompleted?:boolean;
     isDirty?:boolean;
+    $$style?:any;
 }

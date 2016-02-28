@@ -7,3 +7,4 @@ export * from './dist/vg-controls/vg-playback-button/vg-playback-button';
 export * from './dist/vg-controls/vg-scrub-bar/vg-scrub-bar';
 export * from './dist/vg-controls/vg-scrub-bar/vg-scrub-bar-buffering-time/vg-scrub-bar-buffering-time';
 export * from './dist/vg-controls/vg-scrub-bar/vg-scrub-bar-current-time/vg-scrub-bar-current-time';
+export * from './dist/vg-controls/vg-scrub-bar/vg-scrub-bar-cue-points/vg-scrub-bar-cue-points';
