@@ -8,7 +8,7 @@ import {VgOverlayPlay} from 'videogular2/overlay-play';
 
 @Component({
     selector: 'single-media-player',
-    templateUrl: './src/single-media-player.html',
+    templateUrl: 'src/single-media-player.html',
     directives: [
         VgPlayer,
         VgOverlayPlay,

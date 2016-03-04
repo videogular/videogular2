@@ -55,7 +55,7 @@ var CuePointsPlayer = (function () {
     CuePointsPlayer = __decorate([
         core_1.Component({
             selector: 'cue-points-player',
-            templateUrl: './src/cue-points-player.html',
+            templateUrl: 'src/cue-points-player.html',
             directives: [
                 core_2.VgPlayer,
                 overlay_play_1.VgOverlayPlay,

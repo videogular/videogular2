@@ -6,7 +6,7 @@ import {VgOverlayPlay} from 'videogular2/overlay-play';
 
 @Component({
     selector: 'vg-demo',
-    templateUrl: './src/bound-player.html',
+    templateUrl: 'src/bound-player.html',
     directives: [
         VgPlayer,
         VgOverlayPlay,

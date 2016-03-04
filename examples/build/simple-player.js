@@ -15,7 +15,7 @@ var SimplePlayer = (function () {
     SimplePlayer = __decorate([
         core_1.Component({
             selector: 'simple-player',
-            templateUrl: './src/simple-player.html',
+            templateUrl: 'src/simple-player.html',
             directives: [
                 core_2.VgPlayer
             ]

@@ -32,7 +32,7 @@ var MultipleMediaPlayer = (function () {
     MultipleMediaPlayer = __decorate([
         core_1.Component({
             selector: 'vg-demo',
-            templateUrl: './src/multiple-media-player.html',
+            templateUrl: 'src/multiple-media-player.html',
             directives: [
                 core_2.VgPlayer,
                 overlay_play_1.VgOverlayPlay,

@@ -32,7 +32,7 @@ var SingleMediaPlayer = (function () {
     SingleMediaPlayer = __decorate([
         core_1.Component({
             selector: 'single-media-player',
-            templateUrl: './src/single-media-player.html',
+            templateUrl: 'src/single-media-player.html',
             directives: [
                 core_2.VgPlayer,
                 overlay_play_1.VgOverlayPlay,

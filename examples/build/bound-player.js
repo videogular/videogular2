@@ -39,7 +39,7 @@ var BoundPlayer = (function () {
     BoundPlayer = __decorate([
         core_1.Component({
             selector: 'vg-demo',
-            templateUrl: './src/bound-player.html',
+            templateUrl: 'src/bound-player.html',
             directives: [
                 core_2.VgPlayer,
                 overlay_play_1.VgOverlayPlay,
