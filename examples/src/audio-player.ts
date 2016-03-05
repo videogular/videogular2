@@ -8,7 +8,7 @@ import {VgOverlayPlay} from 'videogular2/overlay-play';
 
 @Component({
     selector: 'vg-demo',
-    templateUrl: './src/audio-player.html',
+    templateUrl: 'src/audio-player.html',
     directives: [
         VgPlayer,
         VgControls,

@@ -1,12 +1,12 @@
 import {Component} from 'angular2/core';
-import {NgFor, NgIf} from 'angular2/common';
-import {VgPlayer, VgAPI} from 'videogular2/core';
+import {NgFor, NgIf, NgModel} from 'angular2/common';
+import {VgPlayer, VgAPI, VgFullscreenAPI} from 'videogular2/core';
 import {VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
 import {VgOverlayPlay} from 'videogular2/overlay-play';
 
 @Component({
     selector: 'vg-demo',
-    templateUrl: './src/bound-player.html',
+    templateUrl: 'src/bound-player.html',
     directives: [
         VgPlayer,
         VgOverlayPlay,
@@ -19,7 +19,8 @@ import {VgOverlayPlay} from 'videogular2/overlay-play';
         VgMute,
         VgFullscreen,
         NgFor,
-        NgIf
+        NgIf,
+        NgModel
     ]
 })
 export class BoundPlayer {
@@ -29,8 +30,11 @@ export class BoundPlayer {
     loop:boolean = false;
     preload:string = 'auto';
     api:VgAPI;
+    fsAPI:VgFullscreenAPI;
 
     constructor() {
+        this.fsAPI = VgFullscreenAPI;
+
         this.sources = [
             {
                 src: "http://static.videogular.com/assets/videos/videogular.mp4",

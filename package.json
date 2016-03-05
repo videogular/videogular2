@@ -38,11 +38,13 @@
     "watch": "0.17.1"
   },
   "scripts": {
-    "postinstall": "npm run typings",
     "typings": "typings install",
     "prebuild": "npm run clean && mkdir dist",
     "build": "tsc -p src",
     "postbuild": "npm run test",
+    "prebuild:travis": "npm run typings",
+    "build:travis": "tsc -p src",
+    "postbuild:travis": "npm run test",
     "clean": "rm -rf dist",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -p 9875 ./coverage",

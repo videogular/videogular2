@@ -10,7 +10,7 @@ import {CuePointsPlayer} from "./cue-points-player";
 
 @Component({
     selector: 'vg-demo',
-    templateUrl: './src/app.html',
+    templateUrl: 'src/app.html',
     styles: [
         `
         :host {

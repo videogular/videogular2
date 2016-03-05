@@ -11,12 +11,6 @@ describe('Videogular Player', () => {
         api = new VgAPI();
     });
 
-    it('Should initialize fullscreen api when api is created', () => {
-        spyOn(VgFullscreenAPI, 'init').and.callFake(() => {});
-        api = new VgAPI();
-        expect(VgFullscreenAPI.init).toHaveBeenCalled();
-    });
-
     it('Should get the default media', () => {
         api.medias = {
             main: {id: 'main'},
@@ -342,50 +336,6 @@ describe('Videogular Player', () => {
 
         expect(api.$$seek).toHaveBeenCalledWith(media, 10, false);
         expect(api.$$seek).toHaveBeenCalledWith(media, 20, true);
-    });
-
-    it('Should enter videogular element to fullscreen mode', () => {
-        api.videogularElement = {id: 'vgElem'};
-
-        spyOn(VgFullscreenAPI, 'isFullscreen').and.callFake(() => {return false;});
-        spyOn(VgFullscreenAPI, 'request').and.callFake(() => {});
-
-        api.toggleFullscreen();
-
-        expect(VgFullscreenAPI.isFullscreen).toHaveBeenCalled();
-        expect(VgFullscreenAPI.request).toHaveBeenCalledWith(api.videogularElement);
-    });
-
-    it('Should enter other element to fullscreen mode', () => {
-        var element = {id: 'main'};
-
-        api.videogularElement = {id: 'vgElem'};
-
-        spyOn(VgFullscreenAPI, 'isFullscreen').and.callFake(() => {return false;});
-        spyOn(VgFullscreenAPI, 'request').and.callFake(() => {});
-
-        api.toggleFullscreen(element);
-
-        expect(VgFullscreenAPI.isFullscreen).toHaveBeenCalled();
-        expect(VgFullscreenAPI.request).toHaveBeenCalledWith(element);
-    });
-
-    it('Should exit from fullscreen mode', () => {
-        spyOn(VgFullscreenAPI, 'isFullscreen').and.callFake(() => {return true;});
-        spyOn(VgFullscreenAPI, 'exit').and.callFake(() => {});
-
-        api.toggleFullscreen();
-
-        expect(VgFullscreenAPI.isFullscreen).toHaveBeenCalled();
-        expect(VgFullscreenAPI.exit).toHaveBeenCalled();
-    });
-
-    it('Should return if player is in fullscreen mode', () => {
-        spyOn(VgFullscreenAPI, 'isFullscreen').and.callFake(() => {});
-
-        api.isFullscreen();
-
-        expect(VgFullscreenAPI.isFullscreen).toHaveBeenCalled();
     });
 
     it('Should subscribe to media listeners through Observables', () => {

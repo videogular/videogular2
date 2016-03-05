@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, ElementRef} from 'angular2/core';
 
 import {VgAPI} from '../../services/vg-api';
+import {VgFullscreenAPI} from "../../services/vg-fullscreen-api";
 
 @Component({
     selector: 'vg-fullscreen',
@@ -9,8 +10,8 @@ import {VgAPI} from '../../services/vg-api';
     },
     template:
         `<div class="icon"
-             [class.normal]="!API.isFullscreen()"
-             [class.fullscreen]="API.isFullscreen()">
+             [class.normal]="!fsAPI.isFullscreen"
+             [class.fullscreen]="fsAPI.isFullscreen">
         </div>`,
     styles: [`
         :host {
@@ -46,9 +47,11 @@ export class VgFullscreen implements OnInit {
     elem:HTMLElement;
     vgFor:string;
     target:Object;
+    fsAPI:VgFullscreenAPI;
 
     constructor(ref:ElementRef, public API:VgAPI) {
         this.elem = ref.nativeElement;
+        this.fsAPI = VgFullscreenAPI;
     }
 
     ngOnInit() {
@@ -63,6 +66,6 @@ export class VgFullscreen implements OnInit {
             element = null;
         }
 
-        this.API.toggleFullscreen(element);
+        VgFullscreenAPI.toggleFullscreen(element);
     }
 }

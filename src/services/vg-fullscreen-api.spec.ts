@@ -4,7 +4,7 @@ import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
 
 describe('Videogular Player', () => {
     beforeEach(() => {
-        VgFullscreenAPI.init();
+        VgFullscreenAPI.init(<HTMLElement>document.body, [{}]);
     });
 
     it('Should create polyfills on init', () => {
@@ -16,34 +16,18 @@ describe('Videogular Player', () => {
         expect(VgFullscreenAPI.polyfill.onerror).toBe('webkitfullscreenerror');
     });
 
-    it('Should return if an element is in fullscreen mode', () => {
-        let isFullscreen;
-
-        VgFullscreenAPI.polyfill.element = 'mockedElementFunction';
-
-        (<any>document).mockedElementFunction = {};
-
-        isFullscreen = VgFullscreenAPI.isFullscreen();
-
-        expect(isFullscreen).toBeTruthy();
-
-        (<any>document).mockedElementFunction = undefined;
-
-        isFullscreen = VgFullscreenAPI.isFullscreen();
-
-        expect(isFullscreen).toBeFalsy();
-    });
-
     it('Should request an element to enter in fullscreen mode', () => {
         let elem = {
             webkitRequestFullscreen: () => {}
         };
 
-        spyOn(elem, 'webkitRequestFullscreen').and.callThrough();
+        spyOn(document.body, 'webkitRequestFullscreen').and.callThrough();
 
+        console.log(VgFullscreenAPI.polyfill);
         VgFullscreenAPI.request(elem);
 
-        expect(elem.webkitRequestFullscreen).toHaveBeenCalled();
+        expect(VgFullscreenAPI.isFullscreen).toBeTruthy();
+        expect((<HTMLElement>document.body).webkitRequestFullscreen).toHaveBeenCalled();
     });
 
     it('Should request an element to exit from fullscreen mode', () => {
@@ -55,6 +39,39 @@ describe('Videogular Player', () => {
 
         VgFullscreenAPI.exit();
 
+        expect(VgFullscreenAPI.isFullscreen).toBeFalsy();
         expect((<any>document).mockedExitFunction).toHaveBeenCalled();
+    });
+
+    it('Should enter videogular element to fullscreen mode', () => {
+        VgFullscreenAPI.videogularElement = <HTMLElement>{id: 'vgElem'};
+
+        spyOn(VgFullscreenAPI, 'request').and.callFake(() => {});
+
+        VgFullscreenAPI.toggleFullscreen();
+
+        expect(VgFullscreenAPI.request).toHaveBeenCalledWith(null);
+    });
+
+    it('Should enter other element to fullscreen mode', () => {
+        var element = {id: 'main'};
+
+        VgFullscreenAPI.videogularElement = <HTMLElement>{id: 'vgElem'};
+
+        spyOn(VgFullscreenAPI, 'request').and.callFake(() => {});
+
+        VgFullscreenAPI.toggleFullscreen(element);
+
+        expect(VgFullscreenAPI.request).toHaveBeenCalledWith(element);
+    });
+
+    it('Should exit from fullscreen mode', () => {
+        VgFullscreenAPI.isFullscreen = true;
+
+        spyOn(VgFullscreenAPI, 'exit').and.callFake(() => {});
+
+        VgFullscreenAPI.toggleFullscreen();
+
+        expect(VgFullscreenAPI.exit).toHaveBeenCalled();
     });
 });

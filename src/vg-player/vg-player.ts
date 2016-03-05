@@ -1,8 +1,10 @@
 ///<reference path="../../node_modules/angular2/typings/browser.d.ts"/>
 
-import {Output, Component, EventEmitter, ElementRef, OnInit, ContentChild} from 'angular2/core';
+import {Output, Component, EventEmitter, ElementRef, OnInit, ContentChild, HostBinding} from 'angular2/core';
 
 import {VgAPI} from '../services/vg-api';
+import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
+import {VgUtils} from "../services/vg-utils";
 
 @Component({
     selector: 'vg-player',
@@ -27,17 +29,27 @@ import {VgAPI} from '../services/vg-api';
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background-color: black;
         }
 
         :host video {
             width: 100%;
             height: 100%;
         }
+
+        :host.fullscreen {
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
     `]
 })
 export class VgPlayer implements OnInit {
     elem:HTMLElement;
     api:VgAPI;
+
+    @HostBinding('class.fullscreen') isFullscreen:boolean = false;
+    @HostBinding('style.z-index') zIndex:string;
 
     @Output()
     onPlayerReady:EventEmitter<VgAPI> = new EventEmitter();
@@ -63,5 +75,15 @@ export class VgPlayer implements OnInit {
         }
 
         this.onPlayerReady.next(this.api);
+
+        VgFullscreenAPI.init(this.elem, medias);
+        VgFullscreenAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
+    }
+
+    onChangeFullscreen(fsState) {
+        if (!VgFullscreenAPI.nativeFullscreen) {
+            this.isFullscreen = fsState;
+            this.zIndex = fsState ? VgUtils.getZIndex().toString() : 'auto';
+        }
     }
 }

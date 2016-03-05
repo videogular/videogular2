@@ -8,7 +8,7 @@ import {VgOverlayPlay} from 'videogular2/overlay-play';
 
 @Component({
     selector: 'cue-points-player',
-    templateUrl: './src/cue-points-player.html',
+    templateUrl: 'src/cue-points-player.html',
     directives: [
         VgPlayer,
         VgOverlayPlay,

@@ -23,7 +23,7 @@ var AudioPlayer = (function () {
     AudioPlayer = __decorate([
         core_1.Component({
             selector: 'vg-demo',
-            templateUrl: './src/audio-player.html',
+            templateUrl: 'src/audio-player.html',
             directives: [
                 core_2.VgPlayer,
                 controls_1.VgControls,

@@ -2,6 +2,7 @@ import {it, describe, expect, beforeEach, inject} from 'angular2/testing';
 import {VgFullscreen} from "./vg-fullscreen";
 import {VgAPI} from "../../services/vg-api";
 import {ElementRef} from "angular2/core";
+import {VgFullscreenAPI} from "../../services/vg-fullscreen-api";
 
 describe('Videogular Player', () => {
     let fullscreen: VgFullscreen;
@@ -33,7 +34,7 @@ describe('Videogular Player', () => {
 
     describe('onClick', () => {
         beforeEach(() => {
-            spyOn(api, 'toggleFullscreen');
+            spyOn(VgFullscreenAPI, 'toggleFullscreen');
         });
 
         it('Should call toggleFullscreen with null param if target is API', () => {
@@ -41,7 +42,7 @@ describe('Videogular Player', () => {
 
             fullscreen.onClick();
 
-            expect(api.toggleFullscreen).toHaveBeenCalledWith(null);
+            expect(VgFullscreenAPI.toggleFullscreen).toHaveBeenCalledWith(null);
         });
 
         it('Should call toggleFullscreen with target param if target', () => {
@@ -49,7 +50,7 @@ describe('Videogular Player', () => {
 
             fullscreen.onClick();
 
-            expect(api.toggleFullscreen).toHaveBeenCalledWith('test');
+            expect(VgFullscreenAPI.toggleFullscreen).toHaveBeenCalledWith('test');
         });
     });
 });

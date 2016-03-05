@@ -18,6 +18,7 @@ var BoundPlayer = (function () {
         this.autoplay = false;
         this.loop = false;
         this.preload = 'auto';
+        this.fsAPI = core_2.VgFullscreenAPI;
         this.sources = [
             {
                 src: "http://static.videogular.com/assets/videos/videogular.mp4",
@@ -39,7 +40,7 @@ var BoundPlayer = (function () {
     BoundPlayer = __decorate([
         core_1.Component({
             selector: 'vg-demo',
-            templateUrl: './src/bound-player.html',
+            templateUrl: 'src/bound-player.html',
             directives: [
                 core_2.VgPlayer,
                 overlay_play_1.VgOverlayPlay,
@@ -52,7 +53,8 @@ var BoundPlayer = (function () {
                 controls_1.VgMute,
                 controls_1.VgFullscreen,
                 common_1.NgFor,
-                common_1.NgIf
+                common_1.NgIf,
+                common_1.NgModel
             ]
         }), 
         __metadata('design:paramtypes', [])
