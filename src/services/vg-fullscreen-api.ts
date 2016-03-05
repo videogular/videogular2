@@ -1,12 +1,24 @@
-import {Injectable} from 'angular2/core';
+import {Injectable, EventEmitter} from 'angular2/core';
+import {VgUtils} from "./vg-utils";
+import {VgAPI} from "./vg-api";
 
 @Injectable()
 export class VgFullscreenAPI {
     static polyfill:any;
     static onchange:string;
     static onerror:string;
+    static nativeFullscreen:boolean = true;
+    static isFullscreen:boolean = false;
+    static isAvailable:boolean;
+    static videogularElement:HTMLElement;
+    static medias:Array<any>;
 
-    static init() {
+    static onChangeFullscreen:EventEmitter<boolean> = new EventEmitter();
+
+    static init(elem:HTMLElement, medias:Array<any>) {
+        this.videogularElement = elem;
+        this.medias = medias;
+
         const APIs = {
             w3: {
                 enabled: 'fullscreenEnabled',
@@ -64,17 +76,54 @@ export class VgFullscreenAPI {
                 break;
             }
         }
+
+        this.isAvailable = (this.polyfill != null);
     }
 
-    static isFullscreen() {
-        return (document[this.polyfill.element] != null);
+    static toggleFullscreen(element:any = null) {
+        if (this.isFullscreen) {
+            this.exit();
+        }
+        else {
+            this.request(element);
+        }
     }
 
     static request(elem) {
+        if (!elem) elem = this.videogularElement;
+
+        this.isFullscreen = true;
+        this.onChangeFullscreen.next(true);
+
+        // Perform native full screen support
+        if (this.isAvailable && this.nativeFullscreen) {
+            // Fullscreen for mobile devices
+            if (VgUtils.isMobileDevice()) {
+                // We should make fullscreen the video object if it doesn't have native fullscreen support
+                // Fallback! We can't set vg-player on fullscreen, only video/audio objects
+                if (!this.polyfill.enabled && elem === this.videogularElement) {
+                    elem = this.medias[0];
+                }
+
+                this.enterElementInFullScreen(elem);
+            }
+            else {
+                this.enterElementInFullScreen(this.videogularElement);
+            }
+        }
+    }
+
+    static enterElementInFullScreen(elem) {
         elem[this.polyfill.request]();
     }
 
     static exit() {
-        document[this.polyfill.exit]();
+        this.isFullscreen = false;
+        this.onChangeFullscreen.next(false);
+
+        // Exit from native fullscreen
+        if (this.isAvailable && this.nativeFullscreen) {
+            document[this.polyfill.exit]();
+        }
     }
 }

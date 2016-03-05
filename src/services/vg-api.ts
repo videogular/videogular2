@@ -1,6 +1,5 @@
 import {Injectable} from 'angular2/core';
 import {VgEvents} from '../events/vg-events';
-import {VgFullscreenAPI} from '../services/vg-fullscreen-api';
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()
@@ -9,7 +8,7 @@ export class VgAPI {
     videogularElement: any;
 
     constructor() {
-        VgFullscreenAPI.init();
+
     }
 
     getDefaultMedia() {
@@ -181,22 +180,6 @@ export class VgAPI {
         this.medias[media.id] = media;
 
         this.connect(media);
-    }
-
-    // TODO: Add support for mobile devices
-    toggleFullscreen(element:any = null) {
-        if (!element) element = this.videogularElement;
-
-        if (VgFullscreenAPI.isFullscreen()) {
-            VgFullscreenAPI.exit();
-        }
-        else {
-            VgFullscreenAPI.request(element);
-        }
-    }
-
-    isFullscreen() {
-        return VgFullscreenAPI.isFullscreen();
     }
 
     connect(media:any) {

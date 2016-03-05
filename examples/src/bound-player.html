@@ -39,5 +39,9 @@
     <input #nativeControls id="nativeControls" type="checkbox" (change)="controls = nativeControls.checked">
 </div>
 <div>
+    <label for="nativeFullscreen">Native Fullscreen</label>
+    <input #nativeFullscreen id="nativeFullscreen" type="checkbox" [(ngModel)]="fsAPI.nativeFullscreen">
+</div>
+<div>
     <label>{{ 'Current time: ' + api?.time?.current}}</label>
 </div>
