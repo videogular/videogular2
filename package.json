@@ -23,7 +23,7 @@
     "ghooks": "1.0.3",
     "http-server": "0.9.0",
     "jasmine-core": "2.4.1",
-    "karma": "0.13.21",
+    "karma": "0.13.22",
     "karma-chrome-launcher": "0.2.2",
     "karma-coverage": "0.5.5",
     "karma-jasmine": "0.3.7",
