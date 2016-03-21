@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core';
 import {RouteConfig} from 'angular2/router';
-import {NgFor} from 'angular2/common';
+import {NgFor, NgIf} from 'angular2/common';
 import {bootstrap} from 'angular2/platform/browser';
-import {VgPlayer, VgCuePoints, ICuePoint, CuePointEvent} from 'videogular2/core';
+import {VgPlayer, VgCuePoints} from 'videogular2/core';
 import {VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgScrubBarCuePoints, VgMute, VgFullscreen} from 'videogular2/controls';
 import {VgOverlayPlay} from 'videogular2/overlay-play';
 
@@ -22,12 +22,13 @@ import {VgOverlayPlay} from 'videogular2/overlay-play';
         VgMute,
         VgFullscreen,
         VgCuePoints,
-        NgFor
+        NgFor,
+        NgIf
     ]
 })
 export class CuePointsPlayer {
     sources:Array<Object>;
-    cuePoints:Array<ICuePoint>;
+    cuePointData:Object = {};
 
     constructor() {
         this.sources = [
@@ -44,35 +45,13 @@ export class CuePointsPlayer {
                 type: "video/webm"
             }
         ];
-
-        this.cuePoints = [];
-
-        for (var i:number=0, l:number=5; i<l; i++) {
-            var cp:ICuePoint = <ICuePoint>{};
-            cp.start = i * 10;
-            cp.end = cp.start + 5;
-            cp.params = {
-                id: i,
-                text: 'cue point #' + i
-            };
-
-            this.cuePoints.push(cp);
-        }
     }
 
-    onEnterCuePoint($event:CuePointEvent) {
-        console.log('enter', $event);
+    onEnterCuePoint($event) {
+        this.cuePointData = JSON.parse($event.text);
     }
 
-    onUpdateCuePoint($event:CuePointEvent) {
-        console.log('update', $event);
-    }
-
-    onLeaveCuePoint($event:CuePointEvent) {
-        console.log('leave', $event);
-    }
-
-    onCompleteCuePoint($event:CuePointEvent) {
-        console.log('complete', $event);
+    onExitCuePoint($event) {
+        this.cuePointData = {};
     }
 }

@@ -14,6 +14,7 @@ var controls_1 = require('videogular2/controls');
 var overlay_play_1 = require('videogular2/overlay-play');
 var CuePointsPlayer = (function () {
     function CuePointsPlayer() {
+        this.cuePointData = {};
         this.sources = [
             {
                 src: "http://static.videogular.com/assets/videos/videogular.mp4",
@@ -28,29 +29,12 @@ var CuePointsPlayer = (function () {
                 type: "video/webm"
             }
         ];
-        this.cuePoints = [];
-        for (var i = 0, l = 5; i < l; i++) {
-            var cp = {};
-            cp.start = i * 10;
-            cp.end = cp.start + 5;
-            cp.params = {
-                id: i,
-                text: 'cue point #' + i
-            };
-            this.cuePoints.push(cp);
-        }
     }
     CuePointsPlayer.prototype.onEnterCuePoint = function ($event) {
-        console.log('enter', $event);
+        this.cuePointData = JSON.parse($event.text);
     };
-    CuePointsPlayer.prototype.onUpdateCuePoint = function ($event) {
-        console.log('update', $event);
-    };
-    CuePointsPlayer.prototype.onLeaveCuePoint = function ($event) {
-        console.log('leave', $event);
-    };
-    CuePointsPlayer.prototype.onCompleteCuePoint = function ($event) {
-        console.log('complete', $event);
+    CuePointsPlayer.prototype.onExitCuePoint = function ($event) {
+        this.cuePointData = {};
     };
     CuePointsPlayer = __decorate([
         core_1.Component({
@@ -69,7 +53,8 @@ var CuePointsPlayer = (function () {
                 controls_1.VgMute,
                 controls_1.VgFullscreen,
                 core_2.VgCuePoints,
-                common_1.NgFor
+                common_1.NgFor,
+                common_1.NgIf
             ]
         }), 
         __metadata('design:paramtypes', [])

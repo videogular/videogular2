@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ElementRef} from 'angular2/core';
+import {Component, OnInit, OnChanges, Input, ElementRef, SimpleChange} from 'angular2/core';
 import {NgFor} from "angular2/common";
 
 import {VgAPI} from '../../../services/vg-api';
@@ -34,12 +34,12 @@ import {ICuePoint} from "../../../vg-cue-points/icue-point";
         }
     `]
 })
-export class VgScrubBarCuePoints implements OnInit {
+export class VgScrubBarCuePoints implements OnChanges, OnInit {
     elem:HTMLElement;
     vgFor: string;
     target: any;
 
-    @Input('cuePoints') cuePoints:Array<ICuePoint>;
+    @Input('cuePoints') cuePoints:TextTrackCueList;
 
     constructor(ref:ElementRef, public API:VgAPI) {
         this.elem = ref.nativeElement;
@@ -56,21 +56,27 @@ export class VgScrubBarCuePoints implements OnInit {
     onLoadedMetadata() {
         if (this.cuePoints) {
             for (var i = 0, l = this.cuePoints.length; i < l; i++) {
-                var end = (this.cuePoints[i].end >= 0) ? this.cuePoints[i].end : this.cuePoints[i].start + 1;
-                var cuePointDuration = (end - this.cuePoints[i].start) * 1000;
+                var end = (this.cuePoints[i].endTime >= 0) ? this.cuePoints[i].endTime : this.cuePoints[i].startTime + 1;
+                var cuePointDuration = (end - this.cuePoints[i].startTime) * 1000;
                 var position:string = '0';
                 var percentWidth:string = '0';
 
                 if (typeof cuePointDuration === 'number' && this.target.time.total) {
                     percentWidth = ((cuePointDuration * 100) / this.target.time.total) + "%";
-                    position = (this.cuePoints[i].start * 100 / (Math.round(this.target.time.total / 1000))) + "%";
+                    position = (this.cuePoints[i].startTime * 100 / (Math.round(this.target.time.total / 1000))) + "%";
                 }
 
-                this.cuePoints[i].$$style = {
+                (<any>this.cuePoints[i]).$$style = {
                     width: percentWidth,
                     left: position
                 };
             }
+        }
+    }
+
+    ngOnChanges(changes: {[propName: string]: SimpleChange}) {
+        if (changes['cuePoints'].currentValue) {
+            this.onLoadedMetadata();
         }
     }
 }
