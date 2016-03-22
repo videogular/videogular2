@@ -1,7 +1,5 @@
 import {Directive, Output, Input, EventEmitter, ElementRef} from "angular2/core";
 import {VgEvents} from '../events/vg-events';
-import {ICuePoint} from "./icue-point";
-import {CuePointEvent} from "./cue-point-event";
 import {Observable} from 'rxjs/Rx';
 
 @Directive({
