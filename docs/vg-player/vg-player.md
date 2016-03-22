@@ -1,6 +1,6 @@
 ---
-currentMenu: home
----
+currentMenu: vg-player/vg-player
+--------------------------------
 
 # VgPlayer @Component
 

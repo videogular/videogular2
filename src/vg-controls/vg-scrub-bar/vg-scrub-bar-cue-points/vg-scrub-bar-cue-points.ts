@@ -2,7 +2,6 @@ import {Component, OnInit, OnChanges, Input, ElementRef, SimpleChange} from 'ang
 import {NgFor} from "angular2/common";
 
 import {VgAPI} from '../../../services/vg-api';
-import {ICuePoint} from "../../../vg-cue-points/icue-point";
 
 
 @Component({

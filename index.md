@@ -1,12 +1,17 @@
 ---
 currentMenu: home
----
+-----------------
 
 <h1 align="center">Videogular</h1>
 
-<h4 align="center">Videogular is a video application framework for desktop and mobile powered by Angular. It relies heavily on components wrapping the video tag to create a very powerful, but simple to use solution, for everybody.</h4>
+<h4 align="center">Videogular is a video application framework for desktop and mobile powered by Angular.</h4>
 
 <br>
+
+<p>Videogular relies heavily on components wrapping the video tag to create a very powerful, but simple to use solution, for everybody.</p>
+
+<!-- TODO: replace iframe content with v2 version -->
+<iframe width="300" height="174" class="videogular-container" src="http://videogular.com/html/home-demo.html" scrolling="no" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <h3>Install</h3>
 

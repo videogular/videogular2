@@ -45,8 +45,17 @@ menu:
             text: "<i class=\"fa fa-home\"></i> Home"
             relativeUrl: index.html
         getting-started:
-            text: "<i class=\"fa fa-github\"></i> Getting Started"
+            text: "<i></i> Getting Started"
             relativeUrl: docs/getting-started.html
+        vg-player/vg-player:
+            text: "<i></i> VgPlayer"
+            relativeUrl: docs/vg-player/vg-player.html
+        vg-cue-points/vg-cue-points:
+            text: "<i></i> VgCuePoints"
+            relativeUrl: docs/vg-cue-points/vg-cue-points.html
+        services/vg-api:
+            text: "<i></i> VgAPI"
+            relativeUrl: docs/services/vg-api.html
         external:
             text: "Videogular"
             absoluteUrl: http://videogular.com

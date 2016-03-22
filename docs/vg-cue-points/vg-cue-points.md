@@ -1,38 +1,32 @@
 ---
-currentMenu: home
----
+currentMenu: vg-cue-points/vg-cue-points
+----------------------------------------
 
 # VgCuePoints @Directive
 
-Directive to set cue points on media object. VgCuePoints are defined as an attribute in a `video` or `audio` element.
+Directive to get events on a track object. VgCuePoints are defined as an attribute in a `track` element.
 
-## Inputs
-
-| Input | Description |
-|--- |--- |
-| vgCuePoints | Array of objects that implement ICuePoint interface |
-
+VgCuePoints will add `cues` property to the track element with all the `VTTCue` objects loaded by the `track` element. For example, you can use the `cues` property to list all the cues with a `ngFor` or to populate the `vg-scrub-bar-cue-points` component.
 
 ## Outputs
 
 | Output | Description |
 |--- |--- |
 | onEnterCuePoint | Triggered when player time is bigger than `start` cue point property. |
-| onUpdateCuePoint | Triggered when player time is between `start` and `end` cue point properties. |
 | onLeaveCuePoint | Triggered when player time moves to a position lower than cue point `start` property. |
-| onCompleteCuePoint | Triggered when player time is bigger than cue point `end` property. If `end` property is not defined `start` time would be used to check if cue point is completed. |
 
 ## HTML Definition
 
 ```html
 <vg-player>
-    <video id="vid" preload="auto" 
-               [vgCuePoints]="cuePoints"
+    <video id="vid" preload="auto">
+        <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
+        
+        <track src="../data/cue-points.vtt" kind="metadata" label="Cue Points" default
+               #metadataTrack
+               vgCuePoints
                (onEnterCuePoint)="onEnterCuePoint($event)"
-               (onUpdateCuePoint)="onUpdateCuePoint($event)"
-               (onLeaveCuePoint)="onLeaveCuePoint($event)"
-               (onCompleteCuePoint)="onCompleteCuePoint($event)">
-            <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
-        </video>
+               (onExitCuePoint)="onExitCuePoint($event)">
+    </video>
 </vg-player>
 ```
