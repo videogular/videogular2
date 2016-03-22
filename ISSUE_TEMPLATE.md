@@ -1,8 +1,3 @@
-### Issue Type
-- [x] Bug
-- [ ] Feature Request
-- [ ] Build Problem
-
 ### Description
 *Describe the issue or new feature.*
 

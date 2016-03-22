@@ -14,7 +14,7 @@
         <vg-scrub-bar>
             <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
             <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-            <vg-scrub-bar-cue-points [cuePoints]="cuePoints"></vg-scrub-bar-cue-points>
+            <vg-scrub-bar-cue-points [cuePoints]="metadataTrack.cues"></vg-scrub-bar-cue-points>
         </vg-scrub-bar>
 
         <vg-time-display>{{ media?.time?.left | date:'mm:ss' }}</vg-time-display>
@@ -25,11 +25,19 @@
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video #media id="singleVideo" preload="auto" [vgCuePoints]="cuePoints"
-           (onEnterCuePoint)="onEnterCuePoint($event)"
-           (onUpdateCuePoint)="onUpdateCuePoint($event)"
-           (onLeaveCuePoint)="onLeaveCuePoint($event)"
-           (onCompleteCuePoint)="onCompleteCuePoint($event)">
+    <video #media id="singleVideo" preload="auto">
         <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
+
+        <track src="../data/cue-points.vtt" kind="metadata" label="Cue Points" default
+               #metadataTrack
+               vgCuePoints
+               (onEnterCuePoint)="onEnterCuePoint($event)"
+               (onExitCuePoint)="onExitCuePoint($event)">
     </video>
 </vg-player>
+
+<div *ngIf="cuePointData.title">
+    <h3><a [href]="cuePointData.href">{{ cuePointData.title }}</a></h3>
+    <p>{{ cuePointData.description }}</p>
+    <img [src]="cuePointData.src" width="100%" height="100%">
+</div>
