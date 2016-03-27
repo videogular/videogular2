@@ -1,0 +1,28 @@
+<h2>One media object</h2>
+
+<p>Video player with one video object, overlay play plugin and custom controls. Seek bar is outside of the control bar.</p>
+
+<vg-player>
+    <vg-controls [autohide]="true" [autohideTime]="1.5">
+        <vg-play-pause></vg-play-pause>
+        <vg-playback-button></vg-playback-button>
+
+        <vg-time-display>{{ media?.time?.current | date:'mm:ss' }}</vg-time-display>
+
+        <vg-scrub-bar>
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+
+        <vg-time-display>{{ media?.time?.left | date:'mm:ss' }}</vg-time-display>
+        <vg-time-display>{{ media?.time?.total | date:'mm:ss' }}</vg-time-display>
+
+        <vg-mute></vg-mute>
+
+        <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+
+    <vg-360 [vr]="true">
+        <video #media id="360Video" preload="auto" src="video/pano.webm" loop></video>
+    </vg-360>
+</vg-player>

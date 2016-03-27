@@ -1,5 +1,6 @@
 exports.VgPlayer = require('./dist/vg-player/vg-player').VgPlayer;
 exports.VgCuePoints = require('./dist/vg-cue-points/vg-cue-points').VgCuePoints;
+exports.Vg360 = require('./dist/vg-360/vg-360').Vg360;
 
 exports.VgEvents = require('./dist/events/vg-events').VgEvents;
 
