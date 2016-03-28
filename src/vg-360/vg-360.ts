@@ -2,10 +2,11 @@
 ///<reference path='../../typings/browser/ambient/three/index.d.ts'/>
 ///<reference path='three.addons.d.ts'/>
 
-import {Component, ElementRef, OnInit, HostListener, Input} from 'angular2/core';
-import {VgAPI} from '../services/vg-api';
-import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
+import {Component, ElementRef, OnInit, Input} from "angular2/core";
+import {VgAPI} from "../services/vg-api";
 import {VgUtils} from "../services/vg-utils";
+import Object3D = THREE.Object3D;
+import {IHotSpot} from "./i-hot-spot";
 
 @Component({
     selector: 'vg-360',
@@ -32,7 +33,9 @@ export class Vg360 implements OnInit {
 
     camera:THREE.PerspectiveCamera;
     scene:THREE.Scene;
+    hotSpotsScene:THREE.Scene;
     renderer:THREE.WebGLRenderer;
+    hotSpotRenderer:THREE.CSS3DRenderer;
     controls:any;
     effect:any;
 
@@ -52,6 +55,7 @@ export class Vg360 implements OnInit {
     isUserInteracting:boolean = false;
 
     @Input('vr') vr:boolean = false;
+    @Input('hotSpots') hotSpots:Array<IHotSpot>;
 
     constructor(ref:ElementRef, api:VgAPI) {
         this.api = api;
@@ -59,7 +63,7 @@ export class Vg360 implements OnInit {
     }
 
     ngOnInit() {
-        var mesh:THREE.Mesh;
+
         var container = this.elem.querySelector('#container');
         this.video = this.elem.querySelector('video');
         this.video.onloadedmetadata = this.onLoadMetadata.bind(this);
@@ -73,6 +77,7 @@ export class Vg360 implements OnInit {
         geometry.scale(-1, 1, 1);
 
         var material:THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({map: texture});
+        var objMaterial:THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({color: 0x000000, wireframe: true, wireframeLinewidth: 1, side: THREE.DoubleSide});
 
         this.camera = new THREE.PerspectiveCamera(75, 640 / 360, 1, 1100);
 
@@ -80,8 +85,38 @@ export class Vg360 implements OnInit {
         (<any>this.camera).target = new THREE.Vector3(0, 0, 0);
 
         this.scene = new THREE.Scene();
+        this.hotSpotsScene = new THREE.Scene();
 
-        mesh = new THREE.Mesh(geometry, material);
+        var mesh:THREE.Mesh = new THREE.Mesh(geometry, material);
+
+        if (this.hotSpots) {
+            for (var i=0, l=this.hotSpots.length; i<l; i++) {
+                var obj:THREE.CSS3DObject = new THREE.CSS3DObject(this.hotSpots[i]);
+                obj.position.set(
+                    this.hotSpots[i].position.x,
+                    this.hotSpots[i].position.y,
+                    this.hotSpots[i].position.z
+                );
+                obj.rotation.x = this.hotSpots[i].rotation.x;
+                obj.rotation.y = this.hotSpots[i].rotation.y;
+                obj.rotation.z = this.hotSpots[i].rotation.z;
+
+                this.hotSpotsScene.add(<Object3D>obj);
+
+                var objGeo = new THREE.PlaneGeometry(100, 100);
+                var objMesh:THREE.Mesh = new THREE.Mesh(objGeo, objMaterial);
+                objMesh.position.copy(obj.position);
+                objMesh.rotation.copy(obj.rotation);
+                objMesh.scale.copy(obj.scale);
+                this.scene.add(objMesh);
+            }
+
+            this.hotSpotRenderer = new THREE.CSS3DRenderer();
+            this.hotSpotRenderer.setSize(this.renderWidth, this.renderHeight);
+            this.hotSpotRenderer.domElement.style.position = 'absolute';
+            this.hotSpotRenderer.domElement.style.top = 0;
+            container.appendChild(this.hotSpotRenderer.domElement);
+        }
 
         this.scene.add(mesh);
 
@@ -136,6 +171,7 @@ export class Vg360 implements OnInit {
         this.controls.update();
 
         this.renderer.render(this.scene, this.camera);
+        if (this.hotSpots) this.hotSpotRenderer.render(this.hotSpotsScene, this.camera);
 
         if (this.vr) this.effect.render(this.scene, this.camera);
     }

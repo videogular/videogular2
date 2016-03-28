@@ -14,6 +14,27 @@ var overlay_play_1 = require("videogular2/overlay-play");
 var Video360Player = (function () {
     function Video360Player() {
     }
+    Video360Player.prototype.ngOnInit = function () {
+        this.hotSpots = [];
+        for (var i = 0; i < 10; i++) {
+            var element = document.createElement('div');
+            element.style.width = '100px';
+            element.style.height = '100px';
+            element.style.backgroundColor = '#FF0000';
+            var hs = {};
+            hs.element = element;
+            hs.position = {
+                x: Math.random() * 200 - 100,
+                y: Math.random() * 200 - 100,
+                z: Math.random() * 200 - 100
+            };
+            hs.rotation = {
+                x: Math.random(),
+                y: Math.random(),
+                z: Math.random()
+            };
+        }
+    };
     Video360Player = __decorate([
         core_1.Component({
             selector: 'video-360-player',
