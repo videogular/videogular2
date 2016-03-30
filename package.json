@@ -20,7 +20,7 @@
     "commitizen": "2.7.3",
     "cz-conventional-changelog": "1.1.5",
     "es6-module-loader": "0.17.11",
-    "ghooks": "1.0.3",
+    "ghooks": "1.1.0",
     "http-server": "0.9.0",
     "jasmine-core": "2.4.1",
     "karma": "0.13.22",
