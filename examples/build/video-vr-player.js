@@ -13,7 +13,36 @@ var controls_1 = require("videogular2/controls");
 var overlay_play_1 = require("videogular2/overlay-play");
 var VideoVrPlayer = (function () {
     function VideoVrPlayer() {
+        this.showPointer = true;
     }
+    VideoVrPlayer.prototype.ngOnInit = function () {
+        this.hotSpots = [];
+        for (var i = 0; i < 1; i++) {
+            var element = document.createElement('div');
+            element.style.width = '100px';
+            element.style.height = '100px';
+            element.style.backgroundColor = '#FF0000';
+            var hs = {};
+            hs.element = element;
+            hs.position = {
+                x: -300,
+                y: 0,
+                z: 0
+            };
+            hs.rotation = {
+                x: 0,
+                y: 90,
+                z: 0
+            };
+            this.hotSpots.push(hs);
+        }
+    };
+    VideoVrPlayer.prototype.onEnterHotSpot = function (object) {
+        console.log('enter', object);
+    };
+    VideoVrPlayer.prototype.onLeaveHotSpot = function (object) {
+        console.log('leave', object);
+    };
     VideoVrPlayer = __decorate([
         core_1.Component({
             selector: 'video-vr-player',

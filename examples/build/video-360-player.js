@@ -13,10 +13,11 @@ var controls_1 = require("videogular2/controls");
 var overlay_play_1 = require("videogular2/overlay-play");
 var Video360Player = (function () {
     function Video360Player() {
+        this.showPointer = true;
     }
     Video360Player.prototype.ngOnInit = function () {
         this.hotSpots = [];
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 1; i++) {
             var element = document.createElement('div');
             element.style.width = '100px';
             element.style.height = '100px';
@@ -24,16 +25,23 @@ var Video360Player = (function () {
             var hs = {};
             hs.element = element;
             hs.position = {
-                x: Math.random() * 200 - 100,
-                y: Math.random() * 200 - 100,
-                z: Math.random() * 200 - 100
+                x: -300,
+                y: 0,
+                z: 0
             };
             hs.rotation = {
-                x: Math.random(),
-                y: Math.random(),
-                z: Math.random()
+                x: 0,
+                y: 90,
+                z: 0
             };
+            this.hotSpots.push(hs);
         }
+    };
+    Video360Player.prototype.onEnterHotSpot = function (object) {
+        console.log('enter', object);
+    };
+    Video360Player.prototype.onLeaveHotSpot = function (object) {
+        console.log('leave', object);
     };
     Video360Player = __decorate([
         core_1.Component({

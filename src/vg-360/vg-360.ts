@@ -2,7 +2,7 @@
 ///<reference path='../../typings/browser/ambient/three/index.d.ts'/>
 ///<reference path='three.addons.d.ts'/>
 
-import {Component, ElementRef, OnInit, Input} from "angular2/core";
+import {Component, ElementRef, OnInit, Input, Output, EventEmitter} from "angular2/core";
 import {VgAPI} from "../services/vg-api";
 import {VgUtils} from "../services/vg-utils";
 import Object3D = THREE.Object3D;
@@ -11,7 +11,10 @@ import {IHotSpot} from "./i-hot-spot";
 @Component({
     selector: 'vg-360',
     template: `
-        <div id='container'></div>
+        <div id='container'>
+            <span class="left-pointer" [style.display]="(pointer) ? 'inherit' : 'none'" [class.vr]="vr"></span>
+            <span class="right-pointer" [style.display]="(pointer && vr) ? 'inherit' : 'none'"></span>
+        </div>
         <ng-content></ng-content>
     `,
     styles: [`
@@ -20,9 +23,45 @@ import {IHotSpot} from "./i-hot-spot";
             align-items: center;
         }
 
-        :host #container {
+        #container {
             width: 100%;
             height: auto;
+        }
+        
+        .left-pointer {
+            width: 6px;
+            height: 6px;
+            position: absolute;
+            display: block;
+            top: calc(50% - 3px);
+            left: calc(50% - 3px);
+            background-color: #FFFFFF;
+            opacity: 0.5;
+            z-index: 1;
+            
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+        }
+        
+        .left-pointer.vr {
+            left: calc(25% - 3px);
+        }
+        
+        .right-pointer {
+            width: 6px;
+            height: 6px;
+            position: absolute;
+            display: block;
+            top: calc(50% - 3px);
+            left: calc(75% - 3px);
+            background-color: #FFFFFF;
+            opacity: 0.5;
+            z-index: 1;
+            
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
         }
     `]
 })
@@ -31,13 +70,19 @@ export class Vg360 implements OnInit {
     video:any;
     api:VgAPI;
 
+    raycaster:THREE.Raycaster;
     camera:THREE.PerspectiveCamera;
     scene:THREE.Scene;
-    hotSpotsScene:THREE.Scene;
+    leftScene:THREE.Scene;
+    rightScene:THREE.Scene;
     renderer:THREE.WebGLRenderer;
-    hotSpotRenderer:THREE.CSS3DRenderer;
+    leftRenderer:THREE.CSS3DRenderer;
+    rightRenderer:THREE.CSS3DRenderer;
+    container:any;
     controls:any;
     effect:any;
+    intersected:any;
+    objects:Array<any> = [];
 
     onPointerDownPointerX:number = 0;
     onPointerDownPointerY:number = 0;
@@ -55,7 +100,11 @@ export class Vg360 implements OnInit {
     isUserInteracting:boolean = false;
 
     @Input('vr') vr:boolean = false;
+    @Input('pointer') pointer:boolean = false;
     @Input('hotSpots') hotSpots:Array<IHotSpot>;
+
+    @Output() onEnterHotSpot:EventEmitter<IHotSpot> = new EventEmitter();
+    @Output() onLeaveHotSpot:EventEmitter<IHotSpot> = new EventEmitter();
 
     constructor(ref:ElementRef, api:VgAPI) {
         this.api = api;
@@ -63,12 +112,25 @@ export class Vg360 implements OnInit {
     }
 
     ngOnInit() {
+        this.createContainer();
+        this.createScene();
+        this.createHotSpots();
+        this.createControls();
+        this.createVR();
 
-        var container = this.elem.querySelector('#container');
+        this.animate();
+
+        window.addEventListener('resize', this.onResize.bind(this));
+    }
+
+    createContainer() {
+        this.container = this.elem.querySelector('#container');
         this.video = this.elem.querySelector('video');
         this.video.onloadedmetadata = this.onLoadMetadata.bind(this);
         this.elem.removeChild(this.video);
-
+    }
+    
+    createScene() {
         var texture:THREE.VideoTexture = new THREE.VideoTexture(this.video);
         texture.minFilter = THREE.LinearFilter;
         texture.format = THREE.RGBFormat;
@@ -77,55 +139,95 @@ export class Vg360 implements OnInit {
         geometry.scale(-1, 1, 1);
 
         var material:THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({map: texture});
-        var objMaterial:THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({color: 0x000000, wireframe: true, wireframeLinewidth: 1, side: THREE.DoubleSide});
 
-        this.camera = new THREE.PerspectiveCamera(75, 640 / 360, 1, 1100);
-
-        // Seems that .target property is not available on three.d.ts
-        (<any>this.camera).target = new THREE.Vector3(0, 0, 0);
+        this.camera = new THREE.PerspectiveCamera(75, 16 / 9, 1, 1100);
 
         this.scene = new THREE.Scene();
-        this.hotSpotsScene = new THREE.Scene();
 
         var mesh:THREE.Mesh = new THREE.Mesh(geometry, material);
 
-        if (this.hotSpots) {
-            for (var i=0, l=this.hotSpots.length; i<l; i++) {
-                var obj:THREE.CSS3DObject = new THREE.CSS3DObject(this.hotSpots[i]);
-                obj.position.set(
-                    this.hotSpots[i].position.x,
-                    this.hotSpots[i].position.y,
-                    this.hotSpots[i].position.z
-                );
-                obj.rotation.x = this.hotSpots[i].rotation.x;
-                obj.rotation.y = this.hotSpots[i].rotation.y;
-                obj.rotation.z = this.hotSpots[i].rotation.z;
-
-                this.hotSpotsScene.add(<Object3D>obj);
-
-                var objGeo = new THREE.PlaneGeometry(100, 100);
-                var objMesh:THREE.Mesh = new THREE.Mesh(objGeo, objMaterial);
-                objMesh.position.copy(obj.position);
-                objMesh.rotation.copy(obj.rotation);
-                objMesh.scale.copy(obj.scale);
-                this.scene.add(objMesh);
-            }
-
-            this.hotSpotRenderer = new THREE.CSS3DRenderer();
-            this.hotSpotRenderer.setSize(this.renderWidth, this.renderHeight);
-            this.hotSpotRenderer.domElement.style.position = 'absolute';
-            this.hotSpotRenderer.domElement.style.top = 0;
-            container.appendChild(this.hotSpotRenderer.domElement);
-        }
-
         this.scene.add(mesh);
 
-        this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer({alpha:true});
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.renderWidth, this.renderHeight);
 
-        container.appendChild(this.renderer.domElement);
+        this.container.appendChild(this.renderer.domElement);
+    }
+    
+    createHotSpots() {
+        if (this.hotSpots) {
+            var objMaterial:THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({color: 0x000000, wireframe: true, wireframeLinewidth: 1, side: THREE.DoubleSide});
 
+            this.raycaster = new THREE.Raycaster();
+
+            this.leftScene = new THREE.Scene();
+            this.rightScene = new THREE.Scene();
+
+            for (var i=0, l=this.hotSpots.length; i<l; i++) {
+                var item = this.createCSS3DObject(this.hotSpots[i], true);
+
+                if (this.vr) {
+                    this.rightScene.add(this.createCSS3DObject(this.hotSpots[i], true));
+                }
+
+                this.leftScene.add(this.createCSS3DObject(this.hotSpots[i]));
+
+                var objGeo = new THREE.PlaneGeometry(100, 100);
+                var objMesh:THREE.Mesh = new THREE.Mesh(objGeo, objMaterial);
+                objMesh.position.copy(item.position);
+                objMesh.rotation.copy(item.rotation);
+                objMesh.scale.copy(item.scale);
+                (<any>objMesh).hotSpot = this.hotSpots[i];
+                this.scene.add(objMesh);
+
+                this.objects.push(objMesh);
+            }
+
+            this.leftRenderer = new THREE.CSS3DRenderer();
+            this.leftRenderer.setSize(this.renderWidth, this.renderHeight);
+            this.leftRenderer.domElement.style.position = 'absolute';
+            this.leftRenderer.domElement.style.top = 0;
+            this.leftRenderer.domElement.style.pointerEvents = 'none';
+
+            this.container.appendChild(this.leftRenderer.domElement);
+
+            if (this.vr) {
+                this.rightRenderer = new THREE.CSS3DRenderer();
+                this.rightRenderer.setSize(this.renderWidth, this.renderHeight);
+                this.rightRenderer.domElement.style.position = 'absolute';
+                this.rightRenderer.domElement.style.top = 0;
+                this.rightRenderer.domElement.style.left = this.renderWidth / 2 + 'px';
+                this.rightRenderer.domElement.style.pointerEvents = 'none';
+
+                this.container.appendChild(this.rightRenderer.domElement);
+            }
+        }
+    }
+
+    createCSS3DObject(hs:IHotSpot, clone:boolean = false):Object3D {
+        var obj:THREE.CSS3DObject;
+
+        if (clone) {
+            obj = new THREE.CSS3DObject(hs.element.cloneNode(true));
+        }
+        else {
+            obj = new THREE.CSS3DObject(hs.element);
+        }
+
+        obj.position.set(
+            hs.position.x,
+            hs.position.y,
+            hs.position.z
+        );
+        obj.rotation.x = hs.rotation.x;
+        obj.rotation.y = hs.rotation.y;
+        obj.rotation.z = hs.rotation.z;
+
+        return <Object3D>obj;
+    }
+    
+    createControls() {
         if (VgUtils.isMobileDevice()) {
             this.controls = new THREE.DeviceOrientationControls(this.camera, true);
             this.controls.update();
@@ -133,21 +235,22 @@ export class Vg360 implements OnInit {
         else {
             this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
             this.controls.target.set(
-                this.camera.position.x + 15,
+                this.camera.position.x + 1,
                 this.camera.position.y,
                 this.camera.position.z
             );
+
+            this.camera.lookAt(new THREE.Vector3(0,180,0));
+
             this.controls.enableZoom = false;
         }
-
+    }
+    
+    createVR() {
         if (this.vr) {
             this.effect = new THREE.CardboardEffect(this.renderer);
             this.effect.setSize(this.renderWidth, this.renderHeight);
         }
-
-        this.animate();
-
-        window.addEventListener('resize', this.onResize.bind(this));
     }
 
     onLoadMetadata() {
@@ -162,6 +265,19 @@ export class Vg360 implements OnInit {
 
         this.renderer.setSize(this.renderWidth, this.renderHeight);
 
+        if (this.hotSpots) {
+            let w:number = this.renderWidth;
+
+            if (this.vr) {
+                w = this.renderWidth / 2;
+
+                this.rightRenderer.setSize(w, this.renderHeight);
+                this.rightRenderer.domElement.style.left = this.renderWidth / 2 + 'px';
+            }
+
+            this.leftRenderer.setSize(w, this.renderHeight);
+        }
+
         if (this.vr) this.effect.setSize(this.renderWidth, this.renderHeight);
     }
 
@@ -171,7 +287,32 @@ export class Vg360 implements OnInit {
         this.controls.update();
 
         this.renderer.render(this.scene, this.camera);
-        if (this.hotSpots) this.hotSpotRenderer.render(this.hotSpotsScene, this.camera);
+
+        if (this.hotSpots) {
+            this.leftRenderer.render(this.leftScene, this.camera);
+            if (this.vr) this.rightRenderer.render(this.rightScene, this.camera);
+
+            this.raycaster.setFromCamera(
+                {
+                    x: 0,
+                    y: 0
+                },
+                this.camera
+            );
+
+            let intersections = this.raycaster.intersectObjects(this.objects);
+            
+            if (intersections.length) {
+                if (this.intersected != intersections[0].object) {
+                    this.intersected = intersections[0].object;
+                    this.onEnterHotSpot.next(<IHotSpot>((<any>intersections[0].object).hotSpot));
+                }
+            }
+            else {
+                if (this.intersected) this.onLeaveHotSpot.next(<IHotSpot>(this.intersected.hotSpot));
+                this.intersected = null;
+            }
+        }
 
         if (this.vr) this.effect.render(this.scene, this.camera);
     }

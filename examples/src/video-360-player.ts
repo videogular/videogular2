@@ -31,11 +31,12 @@ import {VgOverlayPlay} from "videogular2/overlay-play";
 })
 export class Video360Player implements OnInit {
     hotSpots:Array<IHotSpot>;
+    showPointer:boolean = true;
 
     ngOnInit() {
         this.hotSpots = [];
 
-        for ( var i = 0; i < 10; i ++ ) {
+        for ( var i = 0; i < 1; i ++ ) {
             var element = document.createElement( 'div' );
             element.style.width = '100px';
             element.style.height = '100px';
@@ -44,16 +45,26 @@ export class Video360Player implements OnInit {
             var hs:IHotSpot = <IHotSpot>{};
             hs.element = element;
             hs.position = {
-                x: Math.random() * 200 - 100,
-                y: Math.random() * 200 - 100,
-                z: Math.random() * 200 - 100
+                x: -300,
+                y: 0,
+                z: 0
             };
 
             hs.rotation = {
-                x: Math.random(),
-                y: Math.random(),
-                z: Math.random()
+                x: 0,
+                y: 90,
+                z: 0
             };
+
+            this.hotSpots.push(hs);
         }
+    }
+
+    onEnterHotSpot(object:IHotSpot) {
+        console.log('enter', object);
+    }
+
+    onLeaveHotSpot(object:IHotSpot) {
+        console.log('leave', object);
     }
 }
