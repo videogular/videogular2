@@ -23,7 +23,6 @@ describe('Videogular Player', () => {
 
         spyOn(document.body, 'webkitRequestFullscreen').and.callThrough();
 
-        console.log(VgFullscreenAPI.polyfill);
         VgFullscreenAPI.request(elem);
 
         expect(VgFullscreenAPI.isFullscreen).toBeTruthy();
