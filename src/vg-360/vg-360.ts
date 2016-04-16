@@ -1,7 +1,3 @@
-///<reference path='../../node_modules/angular2/typings/browser.d.ts'/>
-///<reference path='../../typings/browser/ambient/three/index.d.ts'/>
-///<reference path='three.addons.d.ts'/>
-
 import {Component, ElementRef, OnInit, Input, Output, EventEmitter} from "angular2/core";
 import {VgAPI} from "../services/vg-api";
 import {VgUtils} from "../services/vg-utils";
