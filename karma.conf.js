@@ -15,7 +15,7 @@ module.exports = function(config) {
 
         files: [
             // paths loaded by Karma
-            'node_modules/zone.js/dist/zone-microtask.js',
+            'node_modules/zone.js/dist/zone.js',
             'node_modules/zone.js/dist/long-stack-trace-zone.js',
             'node_modules/zone.js/dist/jasmine-patch.js',
 

@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <title>Videogular 2 demo app</title>
 
+    <script src="http://threejs.org/build/three.min.js"></script>
+    <script src="http://threejs.org/examples/js/effects/CardboardEffect.js"></script>
+    <script src="http://threejs.org/examples/js/controls/OrbitControls.js"></script>
+    <script src="http://threejs.org/examples/js/controls/DeviceOrientationControls.js"></script>
+    <script src="http://threejs.org/examples/js/renderers/CSS3DRenderer.js"></script>
+
     <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="node_modules/es6-shim/es6-shim.min.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
@@ -38,6 +44,44 @@
             height: 100%;
             margin: 0;
             padding: 0;
+        }
+
+        .info-dialog {
+            width: 128px;
+            height: 128px;
+            background-image: url(imgs/info-logo.png);
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .info-dialog .info-back {
+            width: 128px;
+            height: 128px;
+            background-color: black;
+            opacity: 0.5;
+            border-radius: 64px;
+            transition: all 0.5s ease-in-out;
+            position: absolute;
+        }
+        .info-dialog.active .info-back {
+            width: 400px;
+        }
+
+        .info-dialog .info-message {
+            font-family: 'Helvetica';
+            font-size: 20px;
+            color: white;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: absolute;
+            width: 200px;
+            left: 130px;
+            top: 16px;
+            transition: all 0.5s ease-in-out;
+            opacity: 0;
+        }
+        .info-dialog.active .info-message {
+            opacity: 1;
         }
     </style>
 </head>

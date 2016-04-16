@@ -1,0 +1,37 @@
+<h2>One media object</h2>
+
+<p>360 VR video player with one hot spot area. Useful to show live action videos, interactive movies, guided tours, panoramas and more on mobile and cardboard compatible devices.</p>
+<p>Look to a hot spot area to activate it.</p>
+
+<vg-player>
+    <vg-controls [autohide]="true" [autohideTime]="1.5">
+        <vg-play-pause></vg-play-pause>
+
+        <vg-time-display>{{ media?.time?.current | date:'mm:ss' }}</vg-time-display>
+
+        <vg-scrub-bar>
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+
+        <vg-time-display>{{ media?.time?.left | date:'mm:ss' }}</vg-time-display>
+
+        <vg-mute></vg-mute>
+
+        <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+
+    <vg-360 [vr]="true" [hotSpots]="hotSpots" [pointer]="showPointer" (onEnterHotSpot)="onEnterHotSpot($event)" (onLeaveHotSpot)="onLeaveHotSpot($event)">
+        <video #media id="360Video" preload="auto" src="video/pano.webm" loop></video>
+    </vg-360>
+</vg-player>
+
+<div class="info-dialog" [class.active]="isActive">
+    <div class="info-back"></div>
+    <span class="info-message">You can create interactivity on your hot spot areas! Check the console log!</span>
+</div>
+
+<div class="clone info-dialog" [class.active]="isActive">
+    <div class="info-back"></div>
+    <span class="info-message">You can create interactivity on your hot spot areas! Check the console log!</span>
+</div>

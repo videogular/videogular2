@@ -9,11 +9,12 @@
     "url": "https://github.com/videogular/videogular2"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.7",
-    "es6-shim": "0.33.8",
+    "angular2": "2.0.0-beta.15",
+    "es6-shim": "0.35.0",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
-    "zone.js": "0.5.15"
+    "three": "0.75.0",
+    "zone.js": "0.6.10"
   },
   "devDependencies": {
     "codecov.io": "0.1.6",
@@ -34,11 +35,12 @@
     "systemjs": "0.19.26",
     "traceur": "0.0.107",
     "typescript": "1.8.10",
-    "typings": "0.6.8",
+    "typings": "0.7.12",
     "watch": "0.17.1"
   },
   "scripts": {
     "typings": "typings install",
+    "compile": "tsc -p src",
     "prebuild": "npm run clean && mkdir dist",
     "build": "tsc -p src",
     "postbuild": "npm run test",
@@ -47,7 +49,7 @@
     "postbuild:travis": "npm run test",
     "clean": "rm -rf dist",
     "commit": "git-cz",
-    "coverage": "http-server -c-1 -o -p 9875 ./coverage",
+    "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
     "start": "parallelshell 'npm run watch:ts' 'npm run start:coverage-server'",
     "start:coverage-server": "http-server -c-1 -o -p 9875 ./coverage",
     "test": "karma start karma.conf.js",
