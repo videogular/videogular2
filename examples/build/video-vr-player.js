@@ -12,36 +12,37 @@ var core_2 = require("videogular2/core");
 var controls_1 = require("videogular2/controls");
 var overlay_play_1 = require("videogular2/overlay-play");
 var VideoVrPlayer = (function () {
-    function VideoVrPlayer() {
+    function VideoVrPlayer(ref) {
         this.showPointer = true;
+        this.isActive = false;
+        this.elem = ref.nativeElement;
     }
     VideoVrPlayer.prototype.ngOnInit = function () {
         this.hotSpots = [];
-        for (var i = 0; i < 1; i++) {
-            var element = document.createElement('div');
-            element.style.width = '100px';
-            element.style.height = '100px';
-            element.style.backgroundColor = '#FF0000';
-            var hs = {};
-            hs.element = element;
-            hs.position = {
-                x: -300,
-                y: 0,
-                z: 0
-            };
-            hs.rotation = {
-                x: 0,
-                y: 90,
-                z: 0
-            };
-            this.hotSpots.push(hs);
-        }
+        this.dialog = this.elem.querySelector('.info-dialog');
+        this.dialogClone = this.elem.querySelector('.clone.info-dialog');
+        var hs = {};
+        hs.element = this.dialog;
+        hs.elementClone = this.dialogClone;
+        hs.position = {
+            x: -200,
+            y: 0,
+            z: 150
+        };
+        hs.rotation = {
+            x: 0,
+            y: 47,
+            z: 0
+        };
+        this.hotSpots.push(hs);
     };
     VideoVrPlayer.prototype.onEnterHotSpot = function (object) {
         console.log('enter', object);
+        this.isActive = true;
     };
     VideoVrPlayer.prototype.onLeaveHotSpot = function (object) {
         console.log('leave', object);
+        this.isActive = false;
     };
     VideoVrPlayer = __decorate([
         core_1.Component({
@@ -61,7 +62,7 @@ var VideoVrPlayer = (function () {
                 core_2.Vg360
             ]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [core_1.ElementRef])
     ], VideoVrPlayer);
     return VideoVrPlayer;
 })();

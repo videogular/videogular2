@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "rm -rf build && mkdir build && tsc -p src -w",
     "build": "rm -rf build && mkdir build && tsc -p src",
-    "start": "http-server -c-1 -o -p 8875 ."
+    "start": "http-server -c-1 -o -s -p 8875 ."
   },
   "author": "",
   "license": "ISC",

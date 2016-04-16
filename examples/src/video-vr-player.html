@@ -1,6 +1,7 @@
 <h2>One media object</h2>
 
-<p>Video player with one video object, overlay play plugin and custom controls. Seek bar is outside of the control bar.</p>
+<p>360 VR video player with one hot spot area. Useful to show live action videos, interactive movies, guided tours, panoramas and more on mobile and cardboard compatible devices.</p>
+<p>Look to a hot spot area to activate it.</p>
 
 <vg-player>
     <vg-controls [autohide]="true" [autohideTime]="1.5">
@@ -24,3 +25,13 @@
         <video #media id="360Video" preload="auto" src="video/pano.webm" loop></video>
     </vg-360>
 </vg-player>
+
+<div class="info-dialog" [class.active]="isActive">
+    <div class="info-back"></div>
+    <span class="info-message">You can create interactivity on your hot spot areas! Check the console log!</span>
+</div>
+
+<div class="clone info-dialog" [class.active]="isActive">
+    <div class="info-back"></div>
+    <span class="info-message">You can create interactivity on your hot spot areas! Check the console log!</span>
+</div>

@@ -11,9 +11,10 @@ import {IHotSpot} from "./i-hot-spot";
 @Component({
     selector: 'vg-360',
     template: `
-        <div id='container'>
+        <div id="container">
             <span class="left-pointer" [style.display]="(pointer) ? 'inherit' : 'none'" [class.vr]="vr"></span>
             <span class="right-pointer" [style.display]="(pointer && vr) ? 'inherit' : 'none'"></span>
+            <div id="css-container"></div>
         </div>
         <ng-content></ng-content>
     `,
@@ -26,6 +27,10 @@ import {IHotSpot} from "./i-hot-spot";
         #container {
             width: 100%;
             height: auto;
+        }
+        
+        #css-container {
+            position: absolute;
         }
         
         .left-pointer {
@@ -79,6 +84,7 @@ export class Vg360 implements OnInit {
     leftRenderer:THREE.CSS3DRenderer;
     rightRenderer:THREE.CSS3DRenderer;
     container:any;
+    cssContainer:any;
     controls:any;
     effect:any;
     intersected:any;
@@ -125,6 +131,7 @@ export class Vg360 implements OnInit {
 
     createContainer() {
         this.container = this.elem.querySelector('#container');
+        this.cssContainer = this.elem.querySelector('#css-container');
         this.video = this.elem.querySelector('video');
         this.video.onloadedmetadata = this.onLoadMetadata.bind(this);
         this.elem.removeChild(this.video);
@@ -157,7 +164,7 @@ export class Vg360 implements OnInit {
     
     createHotSpots() {
         if (this.hotSpots) {
-            var objMaterial:THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({color: 0x000000, wireframe: true, wireframeLinewidth: 1, side: THREE.DoubleSide});
+            var objMaterial:THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({transparent: true, opacity: 0});
 
             this.raycaster = new THREE.Raycaster();
 
@@ -190,7 +197,7 @@ export class Vg360 implements OnInit {
             this.leftRenderer.domElement.style.top = 0;
             this.leftRenderer.domElement.style.pointerEvents = 'none';
 
-            this.container.appendChild(this.leftRenderer.domElement);
+            this.cssContainer.appendChild(this.leftRenderer.domElement);
 
             if (this.vr) {
                 this.rightRenderer = new THREE.CSS3DRenderer();
@@ -200,7 +207,7 @@ export class Vg360 implements OnInit {
                 this.rightRenderer.domElement.style.left = this.renderWidth / 2 + 'px';
                 this.rightRenderer.domElement.style.pointerEvents = 'none';
 
-                this.container.appendChild(this.rightRenderer.domElement);
+                this.cssContainer.appendChild(this.rightRenderer.domElement);
             }
         }
     }
@@ -209,7 +216,12 @@ export class Vg360 implements OnInit {
         var obj:THREE.CSS3DObject;
 
         if (clone) {
-            obj = new THREE.CSS3DObject(hs.element.cloneNode(true));
+            if (hs.elementClone) {
+                obj = new THREE.CSS3DObject(hs.elementClone);
+            }
+            else {
+                obj = new THREE.CSS3DObject(hs.element.cloneNode(true));
+            }
         }
         else {
             obj = new THREE.CSS3DObject(hs.element);

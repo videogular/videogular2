@@ -49,7 +49,7 @@
     "postbuild:travis": "npm run test",
     "clean": "rm -rf dist",
     "commit": "git-cz",
-    "coverage": "http-server -c-1 -o -p 9875 ./coverage",
+    "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
     "start": "parallelshell 'npm run watch:ts' 'npm run start:coverage-server'",
     "start:coverage-server": "http-server -c-1 -o -p 9875 ./coverage",
     "test": "karma start karma.conf.js",

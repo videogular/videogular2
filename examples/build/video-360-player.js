@@ -12,36 +12,35 @@ var core_2 = require("videogular2/core");
 var controls_1 = require("videogular2/controls");
 var overlay_play_1 = require("videogular2/overlay-play");
 var Video360Player = (function () {
-    function Video360Player() {
+    function Video360Player(ref) {
         this.showPointer = true;
+        this.isActive = false;
+        this.elem = ref.nativeElement;
     }
     Video360Player.prototype.ngOnInit = function () {
         this.hotSpots = [];
-        for (var i = 0; i < 1; i++) {
-            var element = document.createElement('div');
-            element.style.width = '100px';
-            element.style.height = '100px';
-            element.style.backgroundColor = '#FF0000';
-            var hs = {};
-            hs.element = element;
-            hs.position = {
-                x: -300,
-                y: 0,
-                z: 0
-            };
-            hs.rotation = {
-                x: 0,
-                y: 90,
-                z: 0
-            };
-            this.hotSpots.push(hs);
-        }
+        this.dialog = this.elem.querySelector('.info-dialog');
+        var hs = {};
+        hs.element = this.dialog;
+        hs.position = {
+            x: -500,
+            y: 0,
+            z: 150
+        };
+        hs.rotation = {
+            x: 0,
+            y: 46,
+            z: 0
+        };
+        this.hotSpots.push(hs);
     };
     Video360Player.prototype.onEnterHotSpot = function (object) {
         console.log('enter', object);
+        this.isActive = true;
     };
     Video360Player.prototype.onLeaveHotSpot = function (object) {
         console.log('leave', object);
+        this.isActive = false;
     };
     Video360Player = __decorate([
         core_1.Component({
@@ -61,7 +60,7 @@ var Video360Player = (function () {
                 core_2.Vg360
             ]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [core_1.ElementRef])
     ], Video360Player);
     return Video360Player;
 })();
