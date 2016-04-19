@@ -35,7 +35,7 @@
     "systemjs": "0.19.26",
     "traceur": "0.0.107",
     "typescript": "1.8.10",
-    "typings": "0.7.12",
+    "typings": "0.8.0",
     "watch": "0.17.1"
   },
   "scripts": {
