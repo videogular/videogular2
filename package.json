@@ -19,7 +19,7 @@
   "devDependencies": {
     "codecov.io": "0.1.6",
     "commitizen": "2.8.0",
-    "cz-conventional-changelog": "1.1.5",
+    "cz-conventional-changelog": "1.1.6",
     "es6-module-loader": "0.17.11",
     "ghooks": "1.2.1",
     "http-server": "0.9.0",
