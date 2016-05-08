@@ -26,7 +26,7 @@
     "jasmine-core": "2.4.1",
     "karma": "0.13.22",
     "karma-chrome-launcher": "1.0.1",
-    "karma-coverage": "0.5.5",
+    "karma-coverage": "1.0.0",
     "karma-jasmine": "1.0.2",
     "karma-spec-reporter": "0.0.26",
     "parallelshell": "2.0.0",
