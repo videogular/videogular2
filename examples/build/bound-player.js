@@ -21,10 +21,6 @@ var BoundPlayer = (function () {
         this.fsAPI = core_2.VgFullscreenAPI;
         this.sources = [
             {
-                src: "http://static.videogular.com/assets/videos/videogular.mp4",
-                type: "video/mp4"
-            },
-            {
                 src: "http://static.videogular.com/assets/videos/videogular.ogg",
                 type: "video/ogg"
             },
@@ -36,6 +32,18 @@ var BoundPlayer = (function () {
     }
     BoundPlayer.prototype.onPlayerReady = function (api) {
         this.api = api;
+    };
+    BoundPlayer.prototype.onClickUpdateSource = function () {
+        this.sources = [
+            {
+                src: "http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov",
+                type: "video/mp4"
+            },
+            {
+                src: "http://static.videogular.com/assets/videos/big_buck_bunny_720p_stereo.ogg",
+                type: "video/ogg"
+            }
+        ];
     };
     BoundPlayer = __decorate([
         core_1.Component({

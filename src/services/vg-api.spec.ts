@@ -1,5 +1,6 @@
 import {it, describe, expect, beforeEach} from "angular2/testing";
 import {VgAPI} from "../services/vg-api";
+import {IPlayable} from "./i-playable";
 
 describe('Videogular Player', () => {
     let api:VgAPI;
@@ -251,7 +252,7 @@ describe('Videogular Player', () => {
             currentTime: 0
         };
 
-        api.$$seek(<HTMLVideoElement>media, 10);
+        api.$$seek(<IPlayable>media, 10);
 
         expect(media.currentTime).toBe(10);
     });
@@ -309,7 +310,7 @@ describe('Videogular Player', () => {
 
         spyOn(api, 'connect').and.callFake(() => {});
 
-        api.registerMedia(media);
+        api.registerMedia(<IPlayable>media);
 
         expect((<any>media).time.current).toBe(0);
         expect((<any>media).time.total).toBe(0);
@@ -336,25 +337,24 @@ describe('Videogular Player', () => {
     });
 
     it('Should subscribe to media listeners through Observables', () => {
-        var media = {
-            id: 'main',
-            subscriptions: {}
-        };
+        var media = document.createElement('video');
+        media.id = 'main';
+        (<any>media).subscriptions = {};
 
-        api.connect(media);
+        api.connect(<any>media);
 
-        expect((<any>media.subscriptions).canPlay).toBeDefined();
-        expect((<any>media.subscriptions).canPlayThrough).toBeDefined();
-        expect((<any>media.subscriptions).loadedMetadata).toBeDefined();
-        expect((<any>media.subscriptions).waiting).toBeDefined();
-        expect((<any>media.subscriptions).progress).toBeDefined();
-        expect((<any>media.subscriptions).ended).toBeDefined();
-        expect((<any>media.subscriptions).playing).toBeDefined();
-        expect((<any>media.subscriptions).play).toBeDefined();
-        expect((<any>media.subscriptions).pause).toBeDefined();
-        expect((<any>media.subscriptions).timeUpdate).toBeDefined();
-        expect((<any>media.subscriptions).volumeChange).toBeDefined();
-        expect((<any>media.subscriptions).error).toBeDefined();
+        expect((<any>media).subscriptions.canPlay).toBeDefined();
+        expect((<any>media).subscriptions.canPlayThrough).toBeDefined();
+        expect((<any>media).subscriptions.loadedMetadata).toBeDefined();
+        expect((<any>media).subscriptions.waiting).toBeDefined();
+        expect((<any>media).subscriptions.progress).toBeDefined();
+        expect((<any>media).subscriptions.ended).toBeDefined();
+        expect((<any>media).subscriptions.playing).toBeDefined();
+        expect((<any>media).subscriptions.play).toBeDefined();
+        expect((<any>media).subscriptions.pause).toBeDefined();
+        expect((<any>media).subscriptions.timeUpdate).toBeDefined();
+        expect((<any>media).subscriptions.volumeChange).toBeDefined();
+        expect((<any>media).subscriptions.error).toBeDefined();
     });
 
     it('Should handle onCanPlay event', () => {

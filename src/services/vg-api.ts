@@ -1,6 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {VgEvents} from '../events/vg-events';
 import {Observable} from 'rxjs/Rx';
+import {IPlayable} from "./i-playable";
 
 @Injectable()
 export class VgAPI {
@@ -117,7 +118,7 @@ export class VgAPI {
         }
     }
 
-    $$seek(media:any, value:number, byPercent:boolean = false) {
+    $$seek(media:IPlayable, value:number, byPercent:boolean = false) {
         var second;
 
         if (byPercent) {
@@ -154,7 +155,7 @@ export class VgAPI {
         this.videogularElement = elem;
     }
 
-    registerMedia(media:any) {
+    registerMedia(media:IPlayable) {
         media.time = {
             current: 0,
             total: 0,
@@ -182,42 +183,65 @@ export class VgAPI {
         this.connect(media);
     }
 
-    connect(media:any) {
-        media.subscriptions.canPlay = Observable.fromEvent(media, VgEvents.VG_CAN_PLAY);
+    connect(media:IPlayable) {
+        media.subscriptions.canPlay = Observable.fromEvent(<any>media, VgEvents.VG_CAN_PLAY);
         media.subscriptions.canPlay.subscribe(this.onCanPlay.bind(this));
 
-        media.subscriptions.canPlayThrough = Observable.fromEvent(media, VgEvents.VG_CAN_PLAY_THROUGH);
+        media.subscriptions.canPlayThrough = Observable.fromEvent(<any>media, VgEvents.VG_CAN_PLAY_THROUGH);
         media.subscriptions.canPlayThrough.subscribe(this.onCanPlayThrough.bind(this));
 
-        media.subscriptions.loadedMetadata = Observable.fromEvent(media, VgEvents.VG_LOADED_METADATA);
+        media.subscriptions.loadedMetadata = Observable.fromEvent(<any>media, VgEvents.VG_LOADED_METADATA);
         media.subscriptions.loadedMetadata.subscribe(this.onLoadMetadata.bind(this));
 
-        media.subscriptions.waiting = Observable.fromEvent(media, VgEvents.VG_WAITING);
+        media.subscriptions.waiting = Observable.fromEvent(<any>media, VgEvents.VG_WAITING);
         media.subscriptions.waiting.subscribe(this.onWait.bind(this));
 
-        media.subscriptions.progress = Observable.fromEvent(media, VgEvents.VG_PROGRESS);
+        media.subscriptions.progress = Observable.fromEvent(<any>media, VgEvents.VG_PROGRESS);
         media.subscriptions.progress.subscribe(this.onProgress.bind(this));
 
-        media.subscriptions.ended = Observable.fromEvent(media, VgEvents.VG_ENDED);
+        media.subscriptions.ended = Observable.fromEvent(<any>media, VgEvents.VG_ENDED);
         media.subscriptions.ended.subscribe(this.onComplete.bind(this));
 
-        media.subscriptions.playing = Observable.fromEvent(media, VgEvents.VG_PLAYING);
+        media.subscriptions.playing = Observable.fromEvent(<any>media, VgEvents.VG_PLAYING);
         media.subscriptions.playing.subscribe(this.onStartPlaying.bind(this));
 
-        media.subscriptions.play = Observable.fromEvent(media, VgEvents.VG_PLAY);
+        media.subscriptions.play = Observable.fromEvent(<any>media, VgEvents.VG_PLAY);
         media.subscriptions.play.subscribe(this.onPlay.bind(this));
 
-        media.subscriptions.pause = Observable.fromEvent(media, VgEvents.VG_PAUSE);
+        media.subscriptions.pause = Observable.fromEvent(<any>media, VgEvents.VG_PAUSE);
         media.subscriptions.pause.subscribe(this.onPause.bind(this));
 
-        media.subscriptions.timeUpdate = Observable.fromEvent(media, VgEvents.VG_TIME_UPDATE);
+        media.subscriptions.timeUpdate = Observable.fromEvent(<any>media, VgEvents.VG_TIME_UPDATE);
         media.subscriptions.timeUpdate.subscribe(this.onTimeUpdate.bind(this));
 
-        media.subscriptions.volumeChange = Observable.fromEvent(media, VgEvents.VG_VOLUME_CHANGE);
+        media.subscriptions.volumeChange = Observable.fromEvent(<any>media, VgEvents.VG_VOLUME_CHANGE);
         media.subscriptions.volumeChange.subscribe(this.onVolumeChange.bind(this));
 
-        media.subscriptions.error = Observable.fromEvent(media, VgEvents.VG_ERROR);
+        media.subscriptions.error = Observable.fromEvent(<any>media, VgEvents.VG_ERROR);
         media.subscriptions.error.subscribe(this.onError.bind(this));
+
+        media.subscriptions.mutation = Observable.create(
+            (observer) => {
+                let domObs = new MutationObserver((mutations) => {
+                    observer.next(mutations);
+                });
+
+                domObs.observe(<any>media, { childList: true });
+
+                return () => {
+                    domObs.disconnect();
+                };
+            }
+        );
+        media.subscriptions.mutation.subscribe(this.onMutation.bind(this, media));
+    }
+    
+    onMutation(media:IPlayable, mutations) {
+        this.medias[media.id].pause();
+        this.medias[media.id].currentTime = 0;
+
+        // TODO: This is ugly, we should find something cleaner
+        setTimeout(() => this.medias[media.id].load(), 1);
     }
 
     onCanPlay(event) {
