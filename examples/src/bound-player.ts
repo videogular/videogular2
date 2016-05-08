@@ -37,10 +37,6 @@ export class BoundPlayer {
 
         this.sources = [
             {
-                src: "http://static.videogular.com/assets/videos/videogular.mp4",
-                type: "video/mp4"
-            },
-            {
                 src: "http://static.videogular.com/assets/videos/videogular.ogg",
                 type: "video/ogg"
             },
@@ -53,5 +49,18 @@ export class BoundPlayer {
 
     onPlayerReady(api:VgAPI) {
         this.api = api;
+    }
+
+    onClickUpdateSource() {
+        this.sources = [
+            {
+                src: "http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov",
+                type: "video/mp4"
+            },
+            {
+                src: "http://static.videogular.com/assets/videos/big_buck_bunny_720p_stereo.ogg",
+                type: "video/ogg"
+            }
+        ];
     }
 }
