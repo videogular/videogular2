@@ -30,7 +30,7 @@
     "karma-jasmine": "1.0.2",
     "karma-spec-reporter": "0.0.26",
     "parallelshell": "2.0.0",
-    "remap-istanbul": "0.6.3",
+    "remap-istanbul": "0.6.4",
     "semantic-release": "4.3.5",
     "systemjs": "0.19.27",
     "traceur": "0.0.108",
