@@ -32,7 +32,7 @@
     "parallelshell": "2.0.0",
     "remap-istanbul": "0.6.4",
     "semantic-release": "4.3.5",
-    "systemjs": "0.19.27",
+    "systemjs": "0.19.28",
     "traceur": "0.0.108",
     "typescript": "1.8.10",
     "typings": "0.8.1",
