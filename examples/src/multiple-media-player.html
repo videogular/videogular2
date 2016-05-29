@@ -8,18 +8,18 @@
 
         <vg-scrub-bar vg-for="*"></vg-scrub-bar>
 
-        <vg-time-display>{{ main?.time?.left | date:'mm:ss' }}</vg-time-display>
+        <vg-time-display property="left" format="mm:ss"></vg-time-display>
 
         <vg-mute vg-for="*"></vg-mute>
 
         <vg-fullscreen vg-for="*"></vg-fullscreen>
     </vg-controls>
 
-    <video #main id="mainVideo" preload="auto" style="width: 50%;">
+    <video vg-media #main id="mainVideo" preload="auto" style="width: 50%;">
         <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
     </video>
 
-    <video #pip id="pipVideo" preload="auto" style="width: 50%;">
+    <video vg-media #pip id="pipVideo" preload="auto" style="width: 50%;">
         <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
     </video>
 </vg-player>

@@ -7,23 +7,23 @@
     <vg-controls [autohide]="true" [autohideTime]="1.5">
         <vg-play-pause></vg-play-pause>
 
-        <vg-time-display>{{ media?.time?.current | date:'mm:ss' }}</vg-time-display>
+        <vg-time-display property="current" format="mm:ss"></vg-time-display>
 
         <vg-scrub-bar>
             <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
             <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
         </vg-scrub-bar>
 
-        <vg-time-display>{{ media?.time?.left | date:'mm:ss' }}</vg-time-display>
+        <vg-time-display property="left" format="mm:ss"></vg-time-display>
 
         <vg-mute></vg-mute>
 
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <vg-360 [vr]="true" [hotSpots]="hotSpots" [pointer]="showPointer" (onEnterHotSpot)="onEnterHotSpot($event)" (onLeaveHotSpot)="onLeaveHotSpot($event)">
-        <video #media id="360Video" preload="auto" src="video/pano.webm" loop></video>
-    </vg-360>
+    <video src="video/pano.webm" #media vg-media id="360Video" preload="auto" loop></video>
+
+    <vg-360 [media]="media" [vr]="true" [hotSpots]="hotSpots" [pointer]="showPointer" (onEnterHotSpot)="onEnterHotSpot($event)" (onLeaveHotSpot)="onLeaveHotSpot($event)"></vg-360>
 </vg-player>
 
 <div class="info-dialog" [class.active]="isActive">

@@ -68,7 +68,6 @@ import {IHotSpot} from "./i-hot-spot";
 })
 export class Vg360 implements OnInit {
     elem:HTMLElement;
-    video:any;
     api:VgAPI;
 
     raycaster:THREE.Raycaster;
@@ -102,6 +101,7 @@ export class Vg360 implements OnInit {
     isUserInteracting:boolean = false;
 
     @Input('vr') vr:boolean = false;
+    @Input('media') media:any = false;
     @Input('pointer') pointer:boolean = false;
     @Input('hotSpots') hotSpots:Array<IHotSpot>;
 
@@ -128,13 +128,12 @@ export class Vg360 implements OnInit {
     createContainer() {
         this.container = this.elem.querySelector('#container');
         this.cssContainer = this.elem.querySelector('#css-container');
-        this.video = this.elem.querySelector('video');
-        this.video.onloadedmetadata = this.onLoadMetadata.bind(this);
-        this.elem.removeChild(this.video);
+        this.media.onloadedmetadata = this.onLoadMetadata.bind(this);
+        this.media.parentElement.removeChild(this.media);
     }
-    
+
     createScene() {
-        var texture:THREE.VideoTexture = new THREE.VideoTexture(this.video);
+        var texture:THREE.VideoTexture = new THREE.VideoTexture(this.media);
         texture.minFilter = THREE.LinearFilter;
         texture.format = THREE.RGBFormat;
 
@@ -157,7 +156,7 @@ export class Vg360 implements OnInit {
 
         this.container.appendChild(this.renderer.domElement);
     }
-    
+
     createHotSpots() {
         if (this.hotSpots) {
             var objMaterial:THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({transparent: true, opacity: 0});
@@ -234,7 +233,7 @@ export class Vg360 implements OnInit {
 
         return <Object3D>obj;
     }
-    
+
     createControls() {
         if (VgUtils.isMobileDevice()) {
             this.controls = new THREE.DeviceOrientationControls(this.camera, true);
@@ -253,7 +252,7 @@ export class Vg360 implements OnInit {
             this.controls.enableZoom = false;
         }
     }
-    
+
     createVR() {
         if (this.vr) {
             this.effect = new THREE.CardboardEffect(this.renderer);
@@ -266,10 +265,10 @@ export class Vg360 implements OnInit {
     }
 
     scaleRender() {
-        var scaleRatio:number = this.api.videogularElement.clientWidth / this.video.videoWidth;
+        var scaleRatio:number = this.api.videogularElement.clientWidth / this.media.videoWidth;
 
         this.renderWidth = this.api.videogularElement.clientWidth;
-        this.renderHeight = this.video.videoHeight * scaleRatio;
+        this.renderHeight = this.media.videoHeight * scaleRatio;
 
         this.renderer.setSize(this.renderWidth, this.renderHeight);
 

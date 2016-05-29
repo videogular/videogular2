@@ -48,8 +48,10 @@ var Video360Player = (function () {
             templateUrl: 'src/video-360-player.html',
             directives: [
                 core_2.VgPlayer,
+                core_2.VgMedia,
                 overlay_play_1.VgOverlayPlay,
                 controls_1.VgControls,
+                controls_1.VgTimeDisplay,
                 controls_1.VgPlayPause,
                 controls_1.VgPlaybackButton,
                 controls_1.VgScrubBar,

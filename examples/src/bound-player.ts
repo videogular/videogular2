@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {NgFor, NgIf, NgModel} from 'angular2/common';
-import {VgPlayer, VgAPI, VgFullscreenAPI} from 'videogular2/core';
-import {VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
+import {VgPlayer, VgMedia, VgAPI, VgFullscreenAPI} from 'videogular2/core';
+import {VgControls, VgTimeDisplay, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
 import {VgOverlayPlay} from 'videogular2/overlay-play';
 
 @Component({
@@ -9,8 +9,10 @@ import {VgOverlayPlay} from 'videogular2/overlay-play';
     templateUrl: 'src/bound-player.html',
     directives: [
         VgPlayer,
+        VgMedia,
         VgOverlayPlay,
         VgControls,
+        VgTimeDisplay,
         VgPlayPause,
         VgPlaybackButton,
         VgScrubBar,

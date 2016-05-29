@@ -21,6 +21,10 @@ var BoundPlayer = (function () {
         this.fsAPI = core_2.VgFullscreenAPI;
         this.sources = [
             {
+                src: "http://static.videogular.com/assets/videos/videogular.mp4",
+                type: "video/mp4"
+            },
+            {
                 src: "http://static.videogular.com/assets/videos/videogular.ogg",
                 type: "video/ogg"
             },
@@ -51,8 +55,10 @@ var BoundPlayer = (function () {
             templateUrl: 'src/bound-player.html',
             directives: [
                 core_2.VgPlayer,
+                core_2.VgMedia,
                 overlay_play_1.VgOverlayPlay,
                 controls_1.VgControls,
+                controls_1.VgTimeDisplay,
                 controls_1.VgPlayPause,
                 controls_1.VgPlaybackButton,
                 controls_1.VgScrubBar,

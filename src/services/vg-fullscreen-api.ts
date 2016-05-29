@@ -1,6 +1,6 @@
-import {Injectable, EventEmitter} from 'angular2/core';
+import {Injectable, EventEmitter, QueryList} from 'angular2/core';
 import {VgUtils} from "./vg-utils";
-import {VgAPI} from "./vg-api";
+import {VgMedia} from "../vg-media/vg-media";
 
 @Injectable()
 export class VgFullscreenAPI {
@@ -11,11 +11,11 @@ export class VgFullscreenAPI {
     static isFullscreen:boolean = false;
     static isAvailable:boolean;
     static videogularElement:HTMLElement;
-    static medias:Array<any>;
+    static medias:QueryList<VgMedia>;
 
     static onChangeFullscreen:EventEmitter<boolean> = new EventEmitter();
 
-    static init(elem:HTMLElement, medias:Array<any>) {
+    static init(elem:HTMLElement, medias:QueryList<VgMedia>) {
         this.videogularElement = elem;
         this.medias = medias;
 

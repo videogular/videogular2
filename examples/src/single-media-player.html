@@ -14,19 +14,19 @@
         <vg-play-pause></vg-play-pause>
         <vg-playback-button></vg-playback-button>
 
-        <vg-time-display>{{ media?.time?.current | date:'mm:ss' }}</vg-time-display>
+        <vg-time-display property="current" format="mm:ss"></vg-time-display>
 
         <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
 
-        <vg-time-display>{{ media?.time?.left | date:'mm:ss' }}</vg-time-display>
-        <vg-time-display>{{ media?.time?.total | date:'mm:ss' }}</vg-time-display>
+        <vg-time-display property="left" format="mm:ss"></vg-time-display>
+        <vg-time-display property="total" format="mm:ss"></vg-time-display>
 
         <vg-mute></vg-mute>
 
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video #media id="singleVideo" preload="auto">
+    <video vg-media #media id="singleVideo" preload="auto">
         <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
     </video>
 </vg-player>
