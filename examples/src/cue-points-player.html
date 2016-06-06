@@ -26,7 +26,7 @@
     </vg-controls>
 
     <video vg-media id="singleVideo" preload="auto">
-        <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
+        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
 
         <track src="../data/cue-points.vtt" kind="metadata" label="Cue Points" default
                #metadataTrack

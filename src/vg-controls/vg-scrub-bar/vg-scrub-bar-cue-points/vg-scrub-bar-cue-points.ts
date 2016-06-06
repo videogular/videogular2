@@ -9,7 +9,7 @@ import {VgAPI} from '../../../services/vg-api';
     directives: [NgFor],
     template: `
         <div class="cue-point-container">
-            <span *ngFor="#cp of cuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
+            <span *ngFor="let cp of cuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
         </div>
         `,
     styles: [`

@@ -16,10 +16,10 @@
     </vg-controls>
 
     <video vg-media #main id="mainVideo" preload="auto" style="width: 50%;">
-        <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
+        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
     </video>
 
     <video vg-media #pip id="pipVideo" preload="auto" style="width: 50%;">
-        <source *ngFor="#video of sources" [src]="video.src" [type]="video.type">
+        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
     </video>
 </vg-player>

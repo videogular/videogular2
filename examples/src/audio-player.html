@@ -23,6 +23,6 @@
     </vg-controls>
 
     <audio vg-media id="myAudio" preload="auto">
-        <source *ngFor="#audio of sources" [src]="audio.src" [type]="audio.type">
+        <source *ngFor="let audio of sources" [src]="audio.src" [type]="audio.type">
     </audio>
 </vg-player>
