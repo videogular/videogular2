@@ -1,14 +1,19 @@
 ///<reference path="../../node_modules/angular2/typings/browser.d.ts"/>
 
-import {Output, Component, EventEmitter, ElementRef, OnInit, ContentChild, HostBinding} from 'angular2/core';
+import {
+    Output, Component, EventEmitter, ElementRef, OnInit, ContentChild, HostBinding,
+    ViewChildren, QueryList, AfterViewInit, ContentChildren
+} from 'angular2/core';
 
 import {VgAPI} from '../services/vg-api';
 import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
 import {VgUtils} from "../services/vg-utils";
+import {VgMedia} from "../vg-media/vg-media";
 
 @Component({
     selector: 'vg-player',
     bindings: [VgAPI],
+    directives: [VgMedia],
     template: `<ng-content></ng-content>`,
     styles: [`
         @font-face {
@@ -44,7 +49,7 @@ import {VgUtils} from "../services/vg-utils";
         }
     `]
 })
-export class VgPlayer implements OnInit {
+export class VgPlayer implements AfterViewInit {
     elem:HTMLElement;
     api:VgAPI;
 
@@ -57,6 +62,9 @@ export class VgPlayer implements OnInit {
     @Output()
     onMediaReady:EventEmitter<any> = new EventEmitter();
 
+    @ContentChildren(VgMedia)
+    medias:QueryList<VgMedia>;
+
     constructor(ref:ElementRef, api:VgAPI) {
         this.api = api;
         this.elem = ref.nativeElement;
@@ -64,19 +72,15 @@ export class VgPlayer implements OnInit {
         this.api.registerElement(this.elem);
     }
 
-    ngOnInit() {
-        var slice:Function = Array.prototype.slice;
-        var videos:Array<any> = slice.call(this.elem.querySelectorAll("video"));
-        var audios:Array<any> = slice.call(this.elem.querySelectorAll("audio"));
-        var medias:Array<any> = videos.concat(audios);
-
-        for (var i=0, l=medias.length; i<l; i++) {
-            this.api.registerMedia(medias[i]);
-        }
+    ngAfterViewInit() {
+        console.log(this.medias.toArray());
+        this.medias.toArray().forEach((media) => {
+            this.api.registerMedia(media);
+        });
 
         this.onPlayerReady.next(this.api);
 
-        VgFullscreenAPI.init(this.elem, medias);
+        VgFullscreenAPI.init(this.elem, this.medias);
         VgFullscreenAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
     }
 

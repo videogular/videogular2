@@ -1,5 +1,6 @@
 export * from './dist/vg-overlay-play/vg-overlay-play';
 export * from './dist/vg-controls/vg-controls';
+export * from './dist/vg-controls/vg-time-display/vg-time-display';
 export * from './dist/vg-controls/vg-fullscreen/vg-fullscreen';
 export * from './dist/vg-controls/vg-mute/vg-mute';
 export * from './dist/vg-controls/vg-play-pause/vg-play-pause';

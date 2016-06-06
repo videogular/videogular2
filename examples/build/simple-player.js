@@ -17,7 +17,8 @@ var SimplePlayer = (function () {
             selector: 'simple-player',
             templateUrl: 'src/simple-player.html',
             directives: [
-                core_2.VgPlayer
+                core_2.VgPlayer,
+                core_2.VgMedia
             ]
         }), 
         __metadata('design:paramtypes', [])

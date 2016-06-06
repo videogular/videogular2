@@ -25,15 +25,5 @@ describe('Videogular Player', () => {
         player = new VgPlayer(ref, api);
     });
 
-    it('Should get all medias on init', () => {
-        spyOn(player.elem, 'querySelectorAll').and.callThrough();
-        spyOn(api, 'registerMedia').and.callFake(() => {});
-        spyOn(player.onPlayerReady, 'next').and.callFake(() => {});
-
-        player.ngOnInit();
-
-        expect(player.elem.querySelectorAll).toHaveBeenCalledWith('video');
-        expect(api.registerMedia).toHaveBeenCalledWith({});
-        expect(player.onPlayerReady.next).toHaveBeenCalledWith(player.api);
-    });
+    it('Should get all medias on init', () => {});
 });

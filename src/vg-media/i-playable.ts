@@ -8,10 +8,8 @@ export interface IPlayable {
     isWaiting:boolean;
     isCompleted:boolean;
     state:string;
-    seekTime:Function;
     subscriptions:any;
     duration:number;
     currentTime:number;
-    addListener:Function;
-    removeListener:Function;
+    seekTime:Function;
 }

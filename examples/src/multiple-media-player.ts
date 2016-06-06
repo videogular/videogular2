@@ -2,8 +2,8 @@ import {Component} from 'angular2/core';
 import {RouteConfig} from 'angular2/router';
 import {NgFor} from 'angular2/common';
 import {bootstrap} from 'angular2/platform/browser';
-import {VgPlayer} from 'videogular2/core';
-import {VgControls, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
+import {VgPlayer, VgMedia} from 'videogular2/core';
+import {VgControls, VgTimeDisplay, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
 import {VgOverlayPlay} from 'videogular2/overlay-play';
 
 @Component({
@@ -11,8 +11,10 @@ import {VgOverlayPlay} from 'videogular2/overlay-play';
     templateUrl: 'src/multiple-media-player.html',
     directives: [
         VgPlayer,
+        VgMedia,
         VgOverlayPlay,
         VgControls,
+        VgTimeDisplay,
         VgPlayPause,
         VgPlaybackButton,
         VgScrubBar,

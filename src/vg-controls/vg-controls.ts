@@ -24,23 +24,6 @@ import {VgAPI} from "../services/vg-api";
         :host.hide {
           bottom: -50px;
         }
-
-        :host vg-time-display {
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            display: flex;
-            justify-content: center;
-            height: 50px;
-            width: 60px;
-            cursor: pointer;
-            color: white;
-            line-height: 50px;
-            pointer-events: none;
-        }
     `]
 })
 export class VgControls {

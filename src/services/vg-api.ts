@@ -1,7 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {VgEvents} from '../events/vg-events';
-import {Observable} from 'rxjs/Rx';
-import {IPlayable} from "./i-playable";
+import {IPlayable} from "../vg-media/i-playable";
 
 @Injectable()
 export class VgAPI {
@@ -139,8 +137,30 @@ export class VgAPI {
             result[id] = this.medias[id][property];
         }
 
-        // If there's only one media element then return the plain value
-        if (Object.keys(result).length === 1) result = result[Object.keys(result)[0]];
+        switch (Object.keys(result).length) {
+            case 0:
+                // Return default values until vgMedia is initialized
+                switch (property) {
+                    case 'state':
+                        result = 'pause';
+                        break;
+
+                    case 'playbackRate':
+                    case 'volume':
+                        result = 1;
+                        break;
+
+                    case 'time':
+                        result = {current: 0, total: 0, left: 0};
+                        break;
+                }
+                break;
+
+            case 1:
+                // If there's only one media element then return the plain value
+                result = result[Object.keys(result)[0]];
+                break;
+        }
 
         return result;
     }
@@ -156,153 +176,6 @@ export class VgAPI {
     }
 
     registerMedia(media:IPlayable) {
-        media.time = {
-            current: 0,
-            total: 0,
-            left: 0
-        };
-
-        media.buffer = {
-            end: 0
-        };
-
-        media.canPlay = false;
-        media.canPlayThrough = false;
-        media.isMetadataLoaded = false;
-        media.isWaiting = false;
-        media.isCompleted = false;
-        media.state = 'pause';
-        media.seekTime = (value:number, byPercent:boolean = false) => {
-            this.$$seek(media, value, byPercent);
-        };
-
-        media.subscriptions = {};
-
         this.medias[media.id] = media;
-
-        this.connect(media);
-    }
-
-    connect(media:IPlayable) {
-        media.subscriptions.canPlay = Observable.fromEvent(<any>media, VgEvents.VG_CAN_PLAY);
-        media.subscriptions.canPlay.subscribe(this.onCanPlay.bind(this));
-
-        media.subscriptions.canPlayThrough = Observable.fromEvent(<any>media, VgEvents.VG_CAN_PLAY_THROUGH);
-        media.subscriptions.canPlayThrough.subscribe(this.onCanPlayThrough.bind(this));
-
-        media.subscriptions.loadedMetadata = Observable.fromEvent(<any>media, VgEvents.VG_LOADED_METADATA);
-        media.subscriptions.loadedMetadata.subscribe(this.onLoadMetadata.bind(this));
-
-        media.subscriptions.waiting = Observable.fromEvent(<any>media, VgEvents.VG_WAITING);
-        media.subscriptions.waiting.subscribe(this.onWait.bind(this));
-
-        media.subscriptions.progress = Observable.fromEvent(<any>media, VgEvents.VG_PROGRESS);
-        media.subscriptions.progress.subscribe(this.onProgress.bind(this));
-
-        media.subscriptions.ended = Observable.fromEvent(<any>media, VgEvents.VG_ENDED);
-        media.subscriptions.ended.subscribe(this.onComplete.bind(this));
-
-        media.subscriptions.playing = Observable.fromEvent(<any>media, VgEvents.VG_PLAYING);
-        media.subscriptions.playing.subscribe(this.onStartPlaying.bind(this));
-
-        media.subscriptions.play = Observable.fromEvent(<any>media, VgEvents.VG_PLAY);
-        media.subscriptions.play.subscribe(this.onPlay.bind(this));
-
-        media.subscriptions.pause = Observable.fromEvent(<any>media, VgEvents.VG_PAUSE);
-        media.subscriptions.pause.subscribe(this.onPause.bind(this));
-
-        media.subscriptions.timeUpdate = Observable.fromEvent(<any>media, VgEvents.VG_TIME_UPDATE);
-        media.subscriptions.timeUpdate.subscribe(this.onTimeUpdate.bind(this));
-
-        media.subscriptions.volumeChange = Observable.fromEvent(<any>media, VgEvents.VG_VOLUME_CHANGE);
-        media.subscriptions.volumeChange.subscribe(this.onVolumeChange.bind(this));
-
-        media.subscriptions.error = Observable.fromEvent(<any>media, VgEvents.VG_ERROR);
-        media.subscriptions.error.subscribe(this.onError.bind(this));
-
-        media.subscriptions.mutation = Observable.create(
-            (observer) => {
-                let domObs = new MutationObserver((mutations) => {
-                    observer.next(mutations);
-                });
-
-                domObs.observe(<any>media, { childList: true });
-
-                return () => {
-                    domObs.disconnect();
-                };
-            }
-        );
-        media.subscriptions.mutation.subscribe(this.onMutation.bind(this, media));
-    }
-    
-    onMutation(media:IPlayable, mutations) {
-        this.medias[media.id].pause();
-        this.medias[media.id].currentTime = 0;
-
-        // TODO: This is ugly, we should find something cleaner
-        setTimeout(() => this.medias[media.id].load(), 1);
-    }
-
-    onCanPlay(event) {
-        this.medias[event.target.id].canPlay = true;
-    }
-
-    onCanPlayThrough(event) {
-        this.medias[event.target.id].canPlayThrough = true;
-    }
-
-    onLoadMetadata(event) {
-        this.medias[event.target.id].isMetadataLoaded = true;
-
-        this.medias[event.target.id].time.total = this.medias[event.target.id].duration * 1000;
-    }
-
-    onWait(event) {
-        this.medias[event.target.id].isWaiting = true;
-    }
-
-    onComplete(event) {
-        this.medias[event.target.id].isCompleted = true;
-        this.medias[event.target.id].state = 'pause';
-    }
-
-    onStartPlaying(event) {
-        this.medias[event.target.id].state = 'play';
-    }
-
-    onPlay(event) {
-        this.medias[event.target.id].state = 'play';
-    }
-
-    onPause(event) {
-        this.medias[event.target.id].state = 'pause';
-    }
-
-    onTimeUpdate(event) {
-        var end = this.medias[event.target.id].buffered.length - 1;
-
-        this.medias[event.target.id].time.current = this.medias[event.target.id].currentTime * 1000;
-        this.medias[event.target.id].time.left = (this.medias[event.target.id].duration - this.medias[event.target.id].currentTime) * 1000;
-
-        if (end >= 0) {
-            this.medias[event.target.id].buffer.end = this.medias[event.target.id].buffered.end(end) * 1000;
-        }
-    }
-
-    onProgress(event) {
-        var end = this.medias[event.target.id].buffered.length - 1;
-
-        if (end >= 0) {
-            this.medias[event.target.id].buffer.end = this.medias[event.target.id].buffered.end(end) * 1000;
-        }
-    }
-
-    onVolumeChange(event) {
-        // TODO: Save to localstorage the current volume
-    }
-
-    onError(event) {
-        // TODO: Handle error messages
     }
 }

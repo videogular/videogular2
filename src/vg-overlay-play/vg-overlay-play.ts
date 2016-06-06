@@ -83,10 +83,9 @@ export class VgOverlayPlay implements OnInit {
     }
 
     getState() {
-        var state;
+        var state = 'pause';
 
         if (this.target && this.target.state instanceof Array) {
-            state = 'pause';
             for (var i = 0, l = this.target.state.length; i < l; i++) {
                 if (this.target.state[i] === 'play') {
                     state = 'play';

@@ -1,7 +1,8 @@
 import {Component, OnInit, ElementRef} from "angular2/core";
-import {VgPlayer, Vg360, IHotSpot} from "videogular2/core";
+import {VgPlayer, VgMedia, Vg360, IHotSpot} from "videogular2/core";
 import {
     VgControls,
+    VgTimeDisplay,
     VgPlayPause,
     VgPlaybackButton,
     VgScrubBar,
@@ -17,8 +18,10 @@ import {VgOverlayPlay} from "videogular2/overlay-play";
     templateUrl: 'src/video-360-player.html',
     directives: [
         VgPlayer,
+        VgMedia,
         VgOverlayPlay,
         VgControls,
+        VgTimeDisplay,
         VgPlayPause,
         VgPlaybackButton,
         VgScrubBar,

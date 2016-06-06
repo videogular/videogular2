@@ -1,4 +1,5 @@
 exports.VgControls = require('./dist/vg-controls/vg-controls').VgControls;
+exports.VgTimeDisplay = require('./dist/vg-controls/vg-time-display/vg-time-display').VgTimeDisplay;
 exports.VgFullscreen = require('./dist/vg-controls/vg-fullscreen/vg-fullscreen').VgFullscreen;
 exports.VgMute = require('./dist/vg-controls/vg-mute/vg-mute').VgMute;
 exports.VgPlayPause = require('./dist/vg-controls/vg-play-pause/vg-play-pause').VgPlayPause;
