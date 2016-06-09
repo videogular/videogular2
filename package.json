@@ -33,7 +33,7 @@
     "remap-istanbul": "0.6.4",
     "semantic-release": "4.3.5",
     "systemjs": "0.19.29",
-    "traceur": "0.0.110",
+    "traceur": "0.0.111",
     "typescript": "1.8.10",
     "typings": "0.8.1",
     "watch": "0.18.0"
