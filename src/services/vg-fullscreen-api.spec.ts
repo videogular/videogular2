@@ -1,4 +1,4 @@
-import {it, xdescribe, expect, beforeEach, inject} from 'angular2/testing';
+import {it, xdescribe, expect} from "@angular/core/testing";
 import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
 
 

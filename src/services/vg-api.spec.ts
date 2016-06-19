@@ -1,4 +1,4 @@
-import {it, describe, expect, beforeEach} from "angular2/testing";
+import {it, xdescribe, expect, beforeEach} from "@angular/core/testing";
 import {VgAPI} from "../services/vg-api";
 import {IPlayable} from "../vg-media/i-playable";
 

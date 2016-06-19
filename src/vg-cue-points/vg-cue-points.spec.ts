@@ -1,5 +1,5 @@
-import {it, describe, expect, beforeEach} from 'angular2/testing';
-import {ElementRef} from "angular2/core";
+import {it, describe, expect, beforeEach} from '@angular/core/testing';
+import {ElementRef} from "@angular/core";
 import {VgCuePoints} from "./vg-cue-points";
 
 describe('Cue points', () => {

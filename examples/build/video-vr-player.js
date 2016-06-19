@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("angular2/core");
+var core_1 = require("@angular/core");
 var core_2 = require("videogular2/core");
 var controls_1 = require("videogular2/controls");
 var overlay_play_1 = require("videogular2/overlay-play");
@@ -48,6 +49,7 @@ var VideoVrPlayer = (function () {
         core_1.Component({
             selector: 'video-vr-player',
             templateUrl: 'src/video-vr-player.html',
+            providers: [core_2.VgAPI],
             directives: [
                 core_2.VgPlayer,
                 core_2.VgMedia,
@@ -67,6 +69,6 @@ var VideoVrPlayer = (function () {
         __metadata('design:paramtypes', [core_1.ElementRef])
     ], VideoVrPlayer);
     return VideoVrPlayer;
-})();
+}());
 exports.VideoVrPlayer = VideoVrPlayer;
 //# sourceMappingURL=video-vr-player.js.map

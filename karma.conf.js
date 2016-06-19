@@ -14,33 +14,43 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
 
         files: [
-            // paths loaded by Karma
-            'node_modules/zone.js/dist/zone.js',
-            'node_modules/zone.js/dist/long-stack-trace-zone.js',
-            'node_modules/zone.js/dist/jasmine-patch.js',
+            // Polyfills.
+            'node_modules/es6-shim/es6-shim.js',
 
-            'node_modules/es6-module-loader/dist/es6-module-loader.js',
-
-            'node_modules/traceur/bin/traceur-runtime.js', // Required by PhantomJS2, otherwise it shouts ReferenceError: Can't find variable: require
-            'node_modules/traceur/bin/traceur.js',
-
-            'node_modules/systemjs/dist/system.src.js',
             'node_modules/reflect-metadata/Reflect.js',
 
-            {pattern: 'node_modules/angular2/**/*.js', included: false, watched: false},
-            {pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false},
+            // System.js for module loading
+            'node_modules/systemjs/dist/system-polyfills.js',
+            'node_modules/systemjs/dist/system.src.js',
 
-            {pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: false, watched: false }, // PhantomJS2 (and possibly others) might require it
+            // Zone.js dependencies
+            'node_modules/zone.js/dist/zone.js',
+            'node_modules/zone.js/dist/jasmine-patch.js',
+            'node_modules/zone.js/dist/async-test.js',
 
+            // RxJs.
+            { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
+            { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
+
+
+            {pattern: 'karma-test-shim.js', included: true, watched: true},
 
             // paths loaded via module imports
+            // Angular itself
+            {pattern: 'node_modules/@angular/**/*.js', included: false, watched: true},
+            {pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: true},
+
+            // Our built application code
             {pattern: 'dist/**/*.js', included: false, watched: true},
+
+            // paths loaded via Angular's component compiler
+            // (these paths need to be rewritten, see proxies section)
+            // {pattern: 'dist/**/*.html', included: false, watched: true},
+            // {pattern: 'dist/**/*.css', included: false, watched: true},
 
             // paths to support debugging with source maps in dev tools
             {pattern: 'src/**/*.ts', included: false, watched: false},
-            {pattern: 'dist/**/*.js.map', included: false, watched: false},
-
-            'karma-test-shim.js'
+            {pattern: 'dist/**/*.js.map', included: false, watched: false}
         ],
 
         // proxied base paths

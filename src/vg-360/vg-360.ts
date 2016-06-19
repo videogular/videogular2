@@ -1,8 +1,10 @@
-import {Component, ElementRef, OnInit, Input, Output, EventEmitter} from "angular2/core";
+///<reference path="three.addons.d.ts"/>
+
+import {Component, ElementRef, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {VgAPI} from "../services/vg-api";
 import {VgUtils} from "../services/vg-utils";
-import Object3D = THREE.Object3D;
 import {IHotSpot} from "./i-hot-spot";
+import Object3D = THREE.Object3D;
 
 @Component({
     selector: 'vg-360',
@@ -105,8 +107,8 @@ export class Vg360 implements OnInit {
     @Input('pointer') pointer:boolean = false;
     @Input('hotSpots') hotSpots:Array<IHotSpot>;
 
-    @Output() onEnterHotSpot:EventEmitter<IHotSpot> = new EventEmitter();
-    @Output() onLeaveHotSpot:EventEmitter<IHotSpot> = new EventEmitter();
+    @Output() onEnterHotSpot:EventEmitter<any> = new EventEmitter();
+    @Output() onLeaveHotSpot:EventEmitter<any> = new EventEmitter();
 
     constructor(ref:ElementRef, api:VgAPI) {
         this.api = api;

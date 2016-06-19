@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ElementRef, Renderer} from 'angular2/core';
+import {Component, Input, OnInit, ElementRef, Renderer} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {VgAPI} from "../services/vg-api";
 

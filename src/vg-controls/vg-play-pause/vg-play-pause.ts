@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef} from 'angular2/core';
+import {Component, OnInit, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../services/vg-api';
 

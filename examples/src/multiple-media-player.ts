@@ -1,14 +1,23 @@
-import {Component} from 'angular2/core';
-import {RouteConfig} from 'angular2/router';
-import {NgFor} from 'angular2/common';
-import {bootstrap} from 'angular2/platform/browser';
-import {VgPlayer, VgMedia} from 'videogular2/core';
-import {VgControls, VgTimeDisplay, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
-import {VgOverlayPlay} from 'videogular2/overlay-play';
+import {Component} from "@angular/core";
+import {NgFor} from "@angular/common";
+import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
+import {
+    VgControls,
+    VgTimeDisplay,
+    VgPlayPause,
+    VgPlaybackButton,
+    VgScrubBar,
+    VgScrubBarCurrentTime,
+    VgScrubBarBufferingTime,
+    VgMute,
+    VgFullscreen
+} from "videogular2/controls";
+import {VgOverlayPlay} from "videogular2/overlay-play";
 
 @Component({
     selector: 'vg-demo',
     templateUrl: 'src/multiple-media-player.html',
+    providers: [VgAPI],
     directives: [
         VgPlayer,
         VgMedia,

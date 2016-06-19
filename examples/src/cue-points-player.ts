@@ -1,14 +1,24 @@
-import {Component} from 'angular2/core';
-import {RouteConfig} from 'angular2/router';
-import {NgFor, NgIf} from 'angular2/common';
-import {bootstrap} from 'angular2/platform/browser';
-import {VgPlayer, VgMedia, VgCuePoints} from 'videogular2/core';
-import {VgControls, VgTimeDisplay, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgScrubBarCuePoints, VgMute, VgFullscreen} from 'videogular2/controls';
-import {VgOverlayPlay} from 'videogular2/overlay-play';
+import {Component} from "@angular/core";
+import {NgFor, NgIf} from "@angular/common";
+import {VgPlayer, VgMedia, VgCuePoints, VgAPI} from "videogular2/core";
+import {
+    VgControls,
+    VgTimeDisplay,
+    VgPlayPause,
+    VgPlaybackButton,
+    VgScrubBar,
+    VgScrubBarCurrentTime,
+    VgScrubBarBufferingTime,
+    VgScrubBarCuePoints,
+    VgMute,
+    VgFullscreen
+} from "videogular2/controls";
+import {VgOverlayPlay} from "videogular2/overlay-play";
 
 @Component({
     selector: 'cue-points-player',
     templateUrl: 'src/cue-points-player.html',
+    providers: [VgAPI],
     directives: [
         VgPlayer,
         VgMedia,

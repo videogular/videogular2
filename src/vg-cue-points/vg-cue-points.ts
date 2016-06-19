@@ -1,4 +1,4 @@
-import {Directive, Output, Input, EventEmitter, ElementRef} from "angular2/core";
+import {Directive, Output, Input, EventEmitter, ElementRef} from "@angular/core";
 import {VgEvents} from '../events/vg-events';
 import {Observable} from 'rxjs/Rx';
 

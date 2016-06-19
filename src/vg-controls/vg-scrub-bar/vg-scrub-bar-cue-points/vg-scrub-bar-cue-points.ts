@@ -1,12 +1,8 @@
-import {Component, OnInit, OnChanges, Input, ElementRef, SimpleChange} from 'angular2/core';
-import {NgFor} from "angular2/common";
-
-import {VgAPI} from '../../../services/vg-api';
-
+import {Component, OnChanges, Input, ElementRef, SimpleChange} from "@angular/core";
+import {VgAPI} from "../../../services/vg-api";
 
 @Component({
     selector: 'vg-scrub-bar-cue-points',
-    directives: [NgFor],
     template: `
         <div class="cue-point-container">
             <span *ngFor="let cp of cuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
@@ -33,7 +29,7 @@ import {VgAPI} from '../../../services/vg-api';
         }
     `]
 })
-export class VgScrubBarCuePoints implements OnChanges, OnInit {
+export class VgScrubBarCuePoints implements OnChanges {
     elem:HTMLElement;
     vgFor: string;
     target: any;
@@ -44,7 +40,7 @@ export class VgScrubBarCuePoints implements OnChanges, OnInit {
         this.elem = ref.nativeElement;
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
 

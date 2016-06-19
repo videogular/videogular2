@@ -1,7 +1,7 @@
-import {it, describe, expect, beforeEach, inject} from 'angular2/testing';
+import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgScrubBarBufferingTime} from "./vg-scrub-bar-buffering-time";
 import {VgAPI} from "../../../services/vg-api";
-import {ElementRef} from "angular2/core";
+import {ElementRef} from "@angular/core";
 
 describe('Scrub bar buffering time', () => {
     let scrubBarBufferingTime: VgScrubBarBufferingTime;
