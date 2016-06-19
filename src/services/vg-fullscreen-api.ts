@@ -1,4 +1,4 @@
-import {Injectable, EventEmitter, QueryList} from 'angular2/core';
+import {Injectable, EventEmitter, QueryList} from '@angular/core';
 import {VgUtils} from "./vg-utils";
 import {VgMedia} from "../vg-media/vg-media";
 
@@ -13,7 +13,7 @@ export class VgFullscreenAPI {
     static videogularElement:HTMLElement;
     static medias:QueryList<VgMedia>;
 
-    static onChangeFullscreen:EventEmitter<boolean> = new EventEmitter();
+    static onChangeFullscreen:EventEmitter<any> = new EventEmitter();
 
     static init(elem:HTMLElement, medias:QueryList<VgMedia>) {
         this.videogularElement = elem;

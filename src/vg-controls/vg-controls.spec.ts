@@ -1,7 +1,6 @@
-import {it, describe, expect, beforeEach, afterEach} from 'angular2/testing';
-import {TestComponentBuilder, fakeAsync} from 'angular2/testing_internal';
+import {it, describe, expect, beforeEach, afterEach} from "@angular/core/testing";
 import {VgControls} from "./vg-controls";
-import {ElementRef, Renderer, ViewMetadata} from "angular2/core";
+import {ElementRef, Renderer} from "@angular/core";
 import {VgAPI} from "../services/vg-api";
 import {Observable} from "rxjs/Observable";
 

@@ -9,11 +9,15 @@
     "url": "https://github.com/videogular/videogular2"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.15",
+    "@angular/common": "2.0.0-rc.2",
+    "@angular/compiler": "2.0.0-rc.2",
+    "@angular/core": "2.0.0-rc.2",
+    "@angular/platform-browser": "2.0.0-rc.2",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.2",
     "es6-shim": "0.35.1",
     "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.2",
-    "three": "0.77.1",
+    "rxjs": "5.0.0-beta.6",
+    "three": "0.78.0",
     "zone.js": "0.6.12"
   },
   "devDependencies": {
@@ -21,7 +25,7 @@
     "commitizen": "2.8.2",
     "cz-conventional-changelog": "1.1.6",
     "es6-module-loader": "0.17.11",
-    "ghooks": "1.2.1",
+    "ghooks": "1.2.4",
     "http-server": "0.9.0",
     "jasmine-core": "2.4.1",
     "karma": "0.13.22",
@@ -32,8 +36,8 @@
     "parallelshell": "2.0.0",
     "remap-istanbul": "0.6.4",
     "semantic-release": "4.3.5",
-    "systemjs": "0.19.29",
-    "traceur": "0.0.110",
+    "systemjs": "0.19.31",
+    "traceur": "0.0.111",
     "typescript": "1.8.10",
     "typings": "0.8.1",
     "watch": "0.18.0"

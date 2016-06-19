@@ -1,7 +1,7 @@
-import {it, describe, expect, beforeEach, inject} from 'angular2/testing';
+import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgFullscreen} from "./vg-fullscreen";
 import {VgAPI} from "../../services/vg-api";
-import {ElementRef} from "angular2/core";
+import {ElementRef} from "@angular/core";
 import {VgFullscreenAPI} from "../../services/vg-fullscreen-api";
 
 describe('Videogular Player', () => {

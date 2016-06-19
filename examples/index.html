@@ -11,26 +11,14 @@
     <script src="http://threejs.org/examples/js/controls/DeviceOrientationControls.js"></script>
     <script src="http://threejs.org/examples/js/renderers/CSS3DRenderer.js"></script>
 
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/angular2/bundles/http.min.js"></script>
-
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.js"></script>
+    <script src="system-config.js"></script>
     <script>
-        System.config({
-            defaultJSExtensions: true,
-            map: {
-                'videogular2': 'node_modules/videogular2'
-            }
+        System.import('app').catch(function(err){
+            console.error(err);
         });
-    </script>
-
-    <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.js"></script>
-    <script src="node_modules/angular2/bundles/router.js"></script>
-
-    <script>
-        System.import('build/app').catch(console.log.bind(console));
     </script>
 
     <style>

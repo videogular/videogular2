@@ -1,7 +1,7 @@
-import {it, describe, expect, beforeEach, inject} from 'angular2/testing';
+import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgMute} from "./vg-mute";
 import {VgAPI} from "../../services/vg-api";
-import {ElementRef} from "angular2/core";
+import {ElementRef} from "@angular/core";
 
 describe('Mute Button', () => {
     let mute:VgMute;

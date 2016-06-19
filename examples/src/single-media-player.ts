@@ -1,12 +1,23 @@
-import {Component} from 'angular2/core';
-import {NgFor} from 'angular2/common';
-import {VgPlayer, VgMedia} from 'videogular2/core';
-import {VgControls, VgTimeDisplay, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
-import {VgOverlayPlay} from 'videogular2/overlay-play';
+import {Component} from "@angular/core";
+import {NgFor} from "@angular/common";
+import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
+import {
+    VgControls,
+    VgTimeDisplay,
+    VgPlayPause,
+    VgPlaybackButton,
+    VgScrubBar,
+    VgScrubBarCurrentTime,
+    VgScrubBarBufferingTime,
+    VgMute,
+    VgFullscreen
+} from "videogular2/controls";
+import {VgOverlayPlay} from "videogular2/overlay-play";
 
 @Component({
     selector: 'single-media-player',
     templateUrl: 'src/single-media-player.html',
+    providers: [VgAPI],
     directives: [
         VgPlayer,
         VgMedia,

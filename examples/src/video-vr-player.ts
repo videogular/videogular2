@@ -1,5 +1,5 @@
-import {Component, OnInit, ElementRef} from "angular2/core";
-import {VgPlayer, VgMedia, Vg360, IHotSpot} from "videogular2/core";
+import {Component, OnInit, ElementRef} from "@angular/core";
+import {VgPlayer, VgMedia, Vg360, IHotSpot, VgAPI} from "videogular2/core";
 import {
     VgControls,
     VgTimeDisplay,
@@ -16,6 +16,7 @@ import {VgOverlayPlay} from "videogular2/overlay-play";
 @Component({
     selector: 'video-vr-player',
     templateUrl: 'src/video-vr-player.html',
+    providers: [VgAPI],
     directives: [
         VgPlayer,
         VgMedia,

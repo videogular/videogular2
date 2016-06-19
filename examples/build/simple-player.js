@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('angular2/core');
-var core_2 = require('videogular2/core');
+var core_1 = require("@angular/core");
+var core_2 = require("videogular2/core");
 var SimplePlayer = (function () {
     function SimplePlayer() {
     }
@@ -16,6 +17,7 @@ var SimplePlayer = (function () {
         core_1.Component({
             selector: 'simple-player',
             templateUrl: 'src/simple-player.html',
+            providers: [core_2.VgAPI],
             directives: [
                 core_2.VgPlayer,
                 core_2.VgMedia
@@ -24,6 +26,6 @@ var SimplePlayer = (function () {
         __metadata('design:paramtypes', [])
     ], SimplePlayer);
     return SimplePlayer;
-})();
+}());
 exports.SimplePlayer = SimplePlayer;
 //# sourceMappingURL=simple-player.js.map

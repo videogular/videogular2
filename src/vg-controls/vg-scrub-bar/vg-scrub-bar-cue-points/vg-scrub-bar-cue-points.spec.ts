@@ -1,7 +1,7 @@
-import {it, xit, describe, expect, beforeEach, inject} from 'angular2/testing';
+import {it, xit, describe, expect, beforeEach} from '@angular/core/testing';
 import {VgScrubBarCuePoints} from "./vg-scrub-bar-cue-points";
 import {VgAPI} from "../../../services/vg-api";
-import {ElementRef, SimpleChange} from "angular2/core";
+import {ElementRef, SimpleChange} from "@angular/core";
 
 describe('Scrub bar current time', () => {
     let scrubBarCuePoints: VgScrubBarCuePoints;

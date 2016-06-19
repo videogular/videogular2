@@ -1,4 +1,4 @@
-import {ElementRef, OnInit, Directive} from 'angular2/core';
+import {ElementRef, OnInit, Directive} from '@angular/core';
 
 import {IPlayable} from "./i-playable";
 import {Observable} from "rxjs/Observable";

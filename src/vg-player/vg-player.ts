@@ -1,18 +1,22 @@
-///<reference path="../../node_modules/angular2/typings/browser.d.ts"/>
+///<reference path="../../typings/browser.d.ts"/>
 
 import {
-    Output, Component, EventEmitter, ElementRef, OnInit, ContentChild, HostBinding,
-    ViewChildren, QueryList, AfterViewInit, ContentChildren
-} from 'angular2/core';
-
-import {VgAPI} from '../services/vg-api';
+    Output,
+    Component,
+    EventEmitter,
+    ElementRef,
+    HostBinding,
+    QueryList,
+    AfterContentInit,
+    ContentChildren
+} from "@angular/core";
+import {VgAPI} from "../services/vg-api";
 import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
 import {VgUtils} from "../services/vg-utils";
 import {VgMedia} from "../vg-media/vg-media";
 
 @Component({
     selector: 'vg-player',
-    bindings: [VgAPI],
     directives: [VgMedia],
     template: `<ng-content></ng-content>`,
     styles: [`
@@ -49,7 +53,7 @@ import {VgMedia} from "../vg-media/vg-media";
         }
     `]
 })
-export class VgPlayer implements AfterViewInit {
+export class VgPlayer implements AfterContentInit {
     elem:HTMLElement;
     api:VgAPI;
 
@@ -57,7 +61,7 @@ export class VgPlayer implements AfterViewInit {
     @HostBinding('style.z-index') zIndex:string;
 
     @Output()
-    onPlayerReady:EventEmitter<VgAPI> = new EventEmitter();
+    onPlayerReady:EventEmitter<any> = new EventEmitter();
 
     @Output()
     onMediaReady:EventEmitter<any> = new EventEmitter();
@@ -72,8 +76,7 @@ export class VgPlayer implements AfterViewInit {
         this.api.registerElement(this.elem);
     }
 
-    ngAfterViewInit() {
-        console.log(this.medias.toArray());
+    ngAfterContentInit() {
         this.medias.toArray().forEach((media) => {
             this.api.registerMedia(media);
         });

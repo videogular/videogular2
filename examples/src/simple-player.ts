@@ -1,9 +1,10 @@
-import {Component} from 'angular2/core';
-import {VgPlayer, VgMedia} from 'videogular2/core';
+import {Component} from "@angular/core";
+import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
 
 @Component({
     selector: 'simple-player',
     templateUrl: 'src/simple-player.html',
+    providers: [VgAPI],
     directives: [
         VgPlayer,
         VgMedia

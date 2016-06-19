@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('angular2/core');
-var common_1 = require('angular2/common');
-var core_2 = require('videogular2/core');
-var controls_1 = require('videogular2/controls');
+var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
+var core_2 = require("videogular2/core");
+var controls_1 = require("videogular2/controls");
 var AudioPlayer = (function () {
     function AudioPlayer() {
         this.sources = [
@@ -24,6 +25,7 @@ var AudioPlayer = (function () {
         core_1.Component({
             selector: 'vg-demo',
             templateUrl: 'src/audio-player.html',
+            providers: [core_2.VgAPI],
             directives: [
                 core_2.VgPlayer,
                 core_2.VgMedia,
@@ -42,6 +44,6 @@ var AudioPlayer = (function () {
         __metadata('design:paramtypes', [])
     ], AudioPlayer);
     return AudioPlayer;
-})();
+}());
 exports.AudioPlayer = AudioPlayer;
 //# sourceMappingURL=audio-player.js.map
