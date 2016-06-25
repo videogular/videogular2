@@ -40,7 +40,7 @@
     "traceur": "0.0.111",
     "typescript": "1.8.10",
     "typings": "0.8.1",
-    "watch": "0.18.0"
+    "watch": "0.19.1"
   },
   "scripts": {
     "typings": "typings install",
