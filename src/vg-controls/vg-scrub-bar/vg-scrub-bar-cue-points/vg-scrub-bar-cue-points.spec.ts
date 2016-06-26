@@ -13,6 +13,11 @@ describe('Scrub bar current time', () => {
             nativeElement: {
                 getAttribute: (name) => {
                     return name;
+                },
+                subscriptions: {
+                    loadedMetadata: {
+                        subscribe: () => {}
+                    }
                 }
             }
         };
@@ -22,8 +27,10 @@ describe('Scrub bar current time', () => {
         scrubBarCuePoints = new VgScrubBarCuePoints(ref, api);
     });
 
-    xit('Should create cue points when metadata is loaded', () => {
-        var cps:Object = {};
+    it('Should create cue points when metadata is loaded', () => {
+        var cps:Object = {
+            length: 3
+        };
         var cp1:TextTrackCue = (<TextTrackCue>{startTime: 1});
         var cp2:TextTrackCue = (<TextTrackCue>{startTime: 5, endTime: 10});
         var cp3:TextTrackCue = (<TextTrackCue>{startTime: 15, endTime: 20, text: "{value: 'custom params'}"});
@@ -47,8 +54,10 @@ describe('Scrub bar current time', () => {
         expect((<any>scrubBarCuePoints.cuePoints[2]).$$style).toEqual({width: '5%', left: '15%'});
     });
 
-    xit('Should not calculate style position if there is not duration on media', () => {
-        var cps:Object = {};
+    it('Should not calculate style position if there is not duration on media', () => {
+        var cps:Object = {
+            length: 3
+        };
         var cp1:TextTrackCue = (<TextTrackCue>{startTime: 1});
         var cp2:TextTrackCue = (<TextTrackCue>{startTime: 5, endTime: 10});
         var cp3:TextTrackCue = (<TextTrackCue>{startTime: 15, endTime: 20, text: "{value: 'custom params'}"});
@@ -73,6 +82,22 @@ describe('Scrub bar current time', () => {
     });
 
     it('Should do nothing if there are no cue points', () => {
+        scrubBarCuePoints.cuePoints = null;
+        scrubBarCuePoints.onLoadedMetadata();
         scrubBarCuePoints.ngOnChanges({'cuePoints': (<SimpleChange>{currentValue: null})});
+    });
+
+    it('Should handle after view init event', () => {
+        spyOn(scrubBarCuePoints.API, 'getMediaById').and.callFake(
+            () => {
+                return ref.nativeElement;
+            }
+        );
+
+        spyOn(ref.nativeElement.subscriptions.loadedMetadata, 'subscribe').and.callThrough();
+
+        scrubBarCuePoints.ngAfterViewInit();
+
+        expect(ref.nativeElement.subscriptions.loadedMetadata.subscribe).toHaveBeenCalled();
     });
 });

@@ -20,8 +20,8 @@ module.exports = function(config) {
             'node_modules/reflect-metadata/Reflect.js',
 
             // System.js for module loading
-            'node_modules/systemjs/dist/system-polyfills.js',
             'node_modules/systemjs/dist/system.src.js',
+            'node_modules/systemjs/dist/system-polyfills.js',
 
             // Zone.js dependencies
             'node_modules/zone.js/dist/zone.js',

@@ -2,7 +2,7 @@ import {it, xdescribe, expect, beforeEach} from "@angular/core/testing";
 import {VgAPI} from "../services/vg-api";
 import {IPlayable} from "../vg-media/i-playable";
 
-xdescribe('Videogular Player', () => {
+describe('Videogular Player', () => {
     let api:VgAPI;
 
     beforeEach(() => {
@@ -308,29 +308,8 @@ xdescribe('Videogular Player', () => {
     it('Should register a new media object', () => {
         var media = {id: 'main'};
 
-        spyOn(api, 'connect').and.callFake(() => {});
-
         api.registerMedia(<IPlayable>media);
 
-        expect((<any>media).time.current).toBe(0);
-        expect((<any>media).time.total).toBe(0);
-        expect((<any>media).time.left).toBe(0);
-        expect((<any>media).buffer.end).toBe(0);
-        expect((<any>media).canPlay).toBeFalsy();
-        expect((<any>media).canPlayThrough).toBeFalsy();
-        expect((<any>media).isMetadataLoaded).toBeFalsy();
-        expect((<any>media).isWaiting).toBeFalsy();
-        expect((<any>media).isCompleted).toBeFalsy();
-        expect((<any>media).state).toBe('pause');
-
-        expect((<any>api.medias).main).toBe(media);
-
-        spyOn(api, '$$seek').and.callFake(() => {});
-
-        (<any>media).seekTime(10);
-        (<any>media).seekTime(20, true);
-
-        expect(api.$$seek).toHaveBeenCalledWith(media, 10, false);
-        expect(api.$$seek).toHaveBeenCalledWith(media, 20, true);
+        expect(api.medias['main']).toBe(media);
     });
 });

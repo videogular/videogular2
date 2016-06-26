@@ -7,7 +7,7 @@ import {VgEvents} from "../events/vg-events";
 @Directive({
     selector: '[vg-media]'
 })
-export class VgMedia implements IPlayable {
+export class VgMedia implements OnInit, IPlayable {
     elem:HTMLMediaElement;
 
     state:string = 'pause';
@@ -24,7 +24,9 @@ export class VgMedia implements IPlayable {
     
     constructor(ref:ElementRef) {
         this.elem = ref.nativeElement;
+    }
 
+    ngOnInit() {
         this.subscriptions.canPlay = Observable.fromEvent(<any>this.elem, VgEvents.VG_CAN_PLAY);
         this.subscriptions.canPlayThrough = Observable.fromEvent(<any>this.elem, VgEvents.VG_CAN_PLAY_THROUGH);
         this.subscriptions.loadedMetadata = Observable.fromEvent(<any>this.elem, VgEvents.VG_LOADED_METADATA);
@@ -77,10 +79,6 @@ export class VgMedia implements IPlayable {
         setTimeout(() => this.elem.load(), 1);
     }
 
-    seekTime(value:number, byPercent:boolean = false) {
-        
-    }
-    
     play() {
         this.elem.play();
     }
