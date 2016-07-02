@@ -26,7 +26,7 @@
     "commitizen": "2.8.2",
     "cz-conventional-changelog": "1.1.6",
     "es6-module-loader": "0.17.11",
-    "ghooks": "1.2.4",
+    "ghooks": "1.3.0",
     "http-server": "0.9.0",
     "jasmine-core": "2.4.1",
     "karma": "1.1.0",
