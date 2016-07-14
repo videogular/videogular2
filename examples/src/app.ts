@@ -11,6 +11,7 @@ import {BoundPlayer} from "./bound-player";
 import {CuePointsPlayer} from "./cue-points-player";
 import {Video360Player} from "./video-360-player";
 import {VideoVrPlayer} from "./video-vr-player";
+import {ImagePlayer} from "./image-player";
 
 @Component({
     selector: 'vg-demo',
@@ -97,6 +98,7 @@ import {VideoVrPlayer} from "./video-vr-player";
     {path: '/cue-points-player', name: 'CuePointsPlayer', component: CuePointsPlayer},
     {path: '/video-360', name: 'Video360Player', component: Video360Player},
     {path: '/video-vr', name: 'VideoVrPlayer', component: VideoVrPlayer},
+    {path: '/image-player', name: 'ImagePlayer', component: ImagePlayer},
     {path: '/**', redirectTo: ['SingleMediaPlayer']}
 ])
 export class VgDemo {

@@ -161,7 +161,7 @@ export class VgAPI {
                 result = result[Object.keys(result)[0]];
                 break;
         }
-
+        
         return result;
     }
 
