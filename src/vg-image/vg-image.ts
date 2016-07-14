@@ -4,7 +4,7 @@ import {SlideModel} from "./slide-model";
 import {VgEvents} from "../events/vg-events";
 
 @Component({
-    selector: '[vg-media]',
+    selector: 'vg-image',
     template: `
         <img [src]="currentSlide.src">
     `,
