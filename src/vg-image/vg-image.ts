@@ -2,6 +2,7 @@ import {ElementRef, Input, Component, OnInit, NgZone} from '@angular/core';
 import {IPlayable} from "../vg-media/i-playable";
 import {SlideModel} from "./slide-model";
 import {VgEvents} from "../events/vg-events";
+import {Observable} from "rxjs/Observable";
 
 @Component({
     selector: 'vg-image',
@@ -69,6 +70,20 @@ export class VgImage implements OnInit, IPlayable {
 
         this.elem.dispatchEvent(new CustomEvent(VgEvents.VG_LOADED_METADATA));
         this.elem.dispatchEvent(new CustomEvent(VgEvents.VG_TIME_UPDATE));
+        Observable.fromEvent(<any>this.elem, VgEvents.VG_SEEK)
+            .subscribe(this.onSeek.bind(this));
+    }
+
+    onSeek() {
+        var newTime = this.elem.currentTime;
+
+        if (this.progress) {
+            cancelAnimationFrame(this.progress.data.handleId);
+            this.lastTime = 0;
+            this.progress = requestAnimationFrame(currentTime => this.onProgress(currentTime));
+        }
+
+        this.currentTime = newTime;
     }
 
     expose() {

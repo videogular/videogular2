@@ -277,10 +277,7 @@ describe('Videogular Player', () => {
 
         var states = api.$$getAllProperties('state');
 
-        expect(states).toEqual({
-            main: 'play',
-            secondary: 'pause'
-        });
+        expect(states).toEqual('play');
     });
 
     it('Should get a property from all media objects and return a plain value if there is only one media object', () => {

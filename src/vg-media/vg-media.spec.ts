@@ -23,7 +23,8 @@ describe('Videogular Media', () => {
         id: 'testVideo',
         observe: () => {
             return <any>{};
-        }
+        },
+        dispatchEvent: () => {}
     };
 
     beforeEach(() => {
@@ -53,7 +54,7 @@ describe('Videogular Media', () => {
     });
 
     it('Should have a play method', () => {
-        spyOn(elem, 'play').and.callThrough();
+        spyOn(elem, 'play');
 
         media.play();
 
@@ -61,7 +62,7 @@ describe('Videogular Media', () => {
     });
 
     it('Should have a pause method', () => {
-        spyOn(elem, 'pause').and.callThrough();
+        spyOn(elem, 'pause');
 
         media.pause();
 

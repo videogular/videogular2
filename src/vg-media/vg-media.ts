@@ -97,6 +97,7 @@ export class VgMedia implements OnInit, IPlayable {
 
     set currentTime(seconds) {
         this.elem.currentTime =  seconds;
+        this.elem.dispatchEvent(new CustomEvent(VgEvents.VG_SEEK));
     }
 
     get currentTime() {
