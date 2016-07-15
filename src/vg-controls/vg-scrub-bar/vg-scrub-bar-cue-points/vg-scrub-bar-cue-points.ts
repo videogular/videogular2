@@ -1,5 +1,6 @@
 import {Component, OnChanges, Input, ElementRef, SimpleChange} from "@angular/core";
 import {VgAPI} from "../../../services/vg-api";
+import {VgAbstractControl} from '../../vg-abstractControl';
 
 @Component({
     selector: 'vg-scrub-bar-cue-points',
@@ -29,23 +30,29 @@ import {VgAPI} from "../../../services/vg-api";
         }
     `]
 })
-export class VgScrubBarCuePoints implements OnChanges {
+export class VgScrubBarCuePoints extends VgAbstractControl implements OnChanges {
     elem:HTMLElement;
     vgFor: string;
     target: any;
+    onLoadedMetadataCalled: boolean = false;
 
     @Input('cuePoints') cuePoints:TextTrackCueList;
 
     constructor(ref:ElementRef, public API:VgAPI) {
+        super(API);
         this.elem = ref.nativeElement;
     }
 
-    ngAfterViewInit() {
+    onPlayerReady() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
 
         var onTimeUpdate = this.target.subscriptions.loadedMetadata;
         onTimeUpdate.subscribe(this.onLoadedMetadata.bind(this));
+        
+        if(this.onLoadedMetadataCalled) {
+            this.onLoadedMetadata();
+        }
     }
 
     onLoadedMetadata() {
@@ -71,6 +78,10 @@ export class VgScrubBarCuePoints implements OnChanges {
 
     ngOnChanges(changes: {[propName: string]: SimpleChange}) {
         if (changes['cuePoints'].currentValue) {
+            if(!this.target) {
+                this.onLoadedMetadataCalled = true;
+                return;
+            }
             this.onLoadedMetadata();
         }
     }

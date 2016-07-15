@@ -26,7 +26,7 @@ describe('Videogular Player', () => {
         spyOn(fullscreen.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById').and.callFake(() => { });
 
-        fullscreen.ngOnInit();
+        fullscreen.onPlayerReady();
 
         expect(fullscreen.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');

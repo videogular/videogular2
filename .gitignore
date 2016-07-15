@@ -4,3 +4,5 @@ dist
 coverage
 typings
 .couscous
+npm-debug.log
+.vscode

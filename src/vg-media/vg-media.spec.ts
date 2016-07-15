@@ -53,6 +53,10 @@ describe('Videogular Media', () => {
         jasmine.clock().uninstall();
     });
 
+    it('Should not be master by default', () => {
+        expect(media.isMaster).toBe(false);
+    });
+
     it('Should have a play method', () => {
         spyOn(elem, 'play');
 

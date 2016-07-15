@@ -39,7 +39,7 @@ describe('Playback Button', () => {
         spyOn(playbackButton.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById');
 
-        playbackButton.ngOnInit();
+        playbackButton.onPlayerReady();
 
         expect(playbackButton.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');

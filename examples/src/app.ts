@@ -12,6 +12,7 @@ import {CuePointsPlayer} from "./cue-points-player";
 import {Video360Player} from "./video-360-player";
 import {VideoVrPlayer} from "./video-vr-player";
 import {ImagePlayer} from "./image-player";
+import {MasterMedia} from "./master-media";
 
 @Component({
     selector: 'vg-demo',
@@ -99,6 +100,7 @@ import {ImagePlayer} from "./image-player";
     {path: '/video-360', name: 'Video360Player', component: Video360Player},
     {path: '/video-vr', name: 'VideoVrPlayer', component: VideoVrPlayer},
     {path: '/image-player', name: 'ImagePlayer', component: ImagePlayer},
+    {path: '/master-media', name: 'MasterMedia', component: MasterMedia},
     {path: '/**', redirectTo: ['SingleMediaPlayer']}
 ])
 export class VgDemo {

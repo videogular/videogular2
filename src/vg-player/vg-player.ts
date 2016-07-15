@@ -80,7 +80,8 @@ export class VgPlayer implements AfterContentInit {
         this.medias.toArray().forEach((media) => {
             this.api.registerMedia(media);
         });
-
+        
+        this.api.onPlayerReady();
         this.onPlayerReady.next(this.api);
 
         VgFullscreenAPI.init(this.elem, this.medias);

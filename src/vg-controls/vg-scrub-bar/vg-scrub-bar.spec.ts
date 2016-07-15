@@ -27,7 +27,7 @@ describe('Scrub bar', () => {
         spyOn(scrubBar.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById');
 
-        scrubBar.ngOnInit();
+        scrubBar.onPlayerReady();
 
         expect(scrubBar.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');

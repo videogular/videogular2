@@ -96,7 +96,7 @@ describe('Scrub bar current time', () => {
 
         spyOn(ref.nativeElement.subscriptions.loadedMetadata, 'subscribe').and.callThrough();
 
-        scrubBarCuePoints.ngAfterViewInit();
+        scrubBarCuePoints.onPlayerReady();
 
         expect(ref.nativeElement.subscriptions.loadedMetadata.subscribe).toHaveBeenCalled();
     });

@@ -26,7 +26,7 @@ describe('Scrub bar buffering time', () => {
         spyOn(scrubBarBufferingTime.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById');
 
-        scrubBarBufferingTime.ngOnInit();
+        scrubBarBufferingTime.onPlayerReady();
 
         expect(scrubBarBufferingTime.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');

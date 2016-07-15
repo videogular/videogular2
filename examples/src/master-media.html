@@ -1,0 +1,30 @@
+<h2>Multiple media player with one master</h2>
+
+<p>Video player with three video objects. The one with is-master controls all of them.</p>
+
+<vg-player>
+    <vg-controls>
+        <vg-play-pause vg-for="*"></vg-play-pause>
+
+        <vg-scrub-bar vg-for="masterVideo"></vg-scrub-bar>
+
+        <vg-time-display vg-for="masterVideo" property="left" format="mm:ss"></vg-time-display>
+
+        <vg-mute vg-for="masterVideo"></vg-mute>
+
+        <vg-fullscreen vg-for="masterVideo"></vg-fullscreen>
+    </vg-controls>
+
+
+    <video vg-media #pipVideo id="pipVideo" preload="auto" style="width: 30%;">
+        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
+    </video>
+
+    <video vg-media is-master="true" #masterVideo id="masterVideo" preload="auto" style="width: 40%;">
+        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
+    </video>
+    
+    <video vg-media #pipVideo2 id="pipVideo2" preload="auto" style="width: 30%;">
+        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
+    </video>
+</vg-player>

@@ -1,6 +1,7 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../services/vg-api';
+import {VgAbstractControl} from '../vg-abstractControl';
 
 @Component({
     selector: 'vg-play-pause',
@@ -42,16 +43,17 @@ import {VgAPI} from '../../services/vg-api';
         }
     `]
 })
-export class VgPlayPause implements OnInit {
+export class VgPlayPause extends VgAbstractControl {
     elem:HTMLElement;
     vgFor:string;
     target:any;
 
     constructor(ref:ElementRef, public API:VgAPI) {
+        super(API);
         this.elem = ref.nativeElement;
     }
 
-    ngOnInit() {
+    onPlayerReady() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
@@ -71,22 +73,6 @@ export class VgPlayPause implements OnInit {
     }
 
     getState() {
-        var state;
-
-        if (this.target.state instanceof Object) {
-            state = 'pause';
-
-            for (var media in this.target.state) {
-                if (this.target.state[media] === 'play'){
-                    state = 'play';
-                    break;
-                }
-            }
-        }
-        else {
-            state = this.target.state;
-        }
-
-        return state;
+        return this.target ? this.target.state : 'pause';
     }
 }

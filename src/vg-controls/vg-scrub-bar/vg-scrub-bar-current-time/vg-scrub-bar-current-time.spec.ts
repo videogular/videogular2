@@ -26,7 +26,7 @@ describe('Scrub bar current time', () => {
         spyOn(scrubBarCurrentTime.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById');
 
-        scrubBarCurrentTime.ngOnInit();
+        scrubBarCurrentTime.onPlayerReady();
 
         expect(scrubBarCurrentTime.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');

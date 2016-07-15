@@ -1,7 +1,8 @@
-import {Component, OnInit, Input, ElementRef} from '@angular/core';
+import {Component, Input, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../services/vg-api';
 import {VgFullscreenAPI} from "../../services/vg-fullscreen-api";
+import {VgAbstractControl} from '../vg-abstractControl';
 
 @Component({
     selector: 'vg-fullscreen',
@@ -43,18 +44,19 @@ import {VgFullscreenAPI} from "../../services/vg-fullscreen-api";
         }
     `]
 })
-export class VgFullscreen implements OnInit {
+export class VgFullscreen extends VgAbstractControl {
     elem:HTMLElement;
     vgFor:string;
     target:Object;
     fsAPI:VgFullscreenAPI;
 
     constructor(ref:ElementRef, public API:VgAPI) {
+        super(API);
         this.elem = ref.nativeElement;
         this.fsAPI = VgFullscreenAPI;
     }
 
-    ngOnInit() {
+    onPlayerReady() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }

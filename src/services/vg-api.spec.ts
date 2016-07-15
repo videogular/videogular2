@@ -18,6 +18,25 @@ describe('Videogular Player', () => {
         expect(api.getDefaultMedia()).toEqual({id: 'main'});
     });
 
+    describe('getMasterMedia', () => {
+        it('Should get the master media', () => {
+            api.medias = {
+                main: {id: 'main'},
+                secondary: {id: 'secondary', isMaster: true}
+            };
+
+            expect(api.getMasterMedia()).toEqual({id: 'secondary', isMaster: true});
+        });
+        it('Should get the default media when no master is defined', () => {
+            api.medias = {
+                main: {id: 'main'},
+                secondary: {id: 'secondary'}
+            };
+
+            expect(api.getMasterMedia()).toEqual(api.getDefaultMedia());
+        });
+    });
+
     it('Should get the api if we do not pass an id', () => {
         api.medias = {
             main: {id: 'main'},

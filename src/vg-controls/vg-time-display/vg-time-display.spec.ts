@@ -35,7 +35,7 @@ describe('Time Display', () => {
         spyOn(timeDisplay.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById').and.callFake(() => { return ref.nativeElement; });
 
-        timeDisplay.ngOnInit();
+        timeDisplay.onPlayerReady();
 
         expect(timeDisplay.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');

@@ -1,4 +1,4 @@
-import {ElementRef, OnInit, Directive} from '@angular/core';
+import {ElementRef, OnInit, Directive, Input} from '@angular/core';
 
 import {IPlayable} from "./i-playable";
 import {Observable} from "rxjs/Observable";
@@ -9,6 +9,14 @@ import {VgEvents} from "../events/vg-events";
 })
 export class VgMedia implements OnInit, IPlayable {
     elem:HTMLMediaElement;
+
+    private _isMaster:boolean = false;
+    @Input('is-master') set isMaster(value:boolean) {
+        this._isMaster = value;
+    }
+    get isMaster():boolean {
+        return this._isMaster;
+    }
 
     state:string = 'pause';
     

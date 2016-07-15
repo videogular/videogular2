@@ -20,9 +20,11 @@ describe('Mute Button', () => {
         api = new VgAPI();
         api.medias = {
             main: {
+                id: 'main',
                 volume: 1
             },
             secondary: {
+                id: 'secondary',
                 volume: 0.5
             }
         };
@@ -39,19 +41,11 @@ describe('Mute Button', () => {
             };
         });
 
-        mute.ngOnInit();
+        mute.onPlayerReady();
 
         expect(mute.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
         expect(mute.currentVolume).toBe(1);
-    });
-
-    it('Should get average volume between all media files', () => {
-        mute.target = api;
-
-        var volume = mute.getVolume();
-
-        expect(volume).toBe(1);
     });
 
     it('Should get volume for one media file', () => {
@@ -114,9 +108,11 @@ describe('Mute Button', () => {
         it('should unmute volume if current volume is 0', () => {
             api.medias = {
                 main: {
+                    id: 'main',
                     volume: 0
                 },
                 secondary: {
+                    id: 'secondary',
                     volume: 0
                 }
             };

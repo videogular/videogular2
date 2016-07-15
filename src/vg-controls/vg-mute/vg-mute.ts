@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, ElementRef} from '@angular/core';
+import {Component, Input, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../services/vg-api';
+import {VgAbstractControl} from '../vg-abstractControl';
 
 @Component({
     selector: 'vg-mute',
@@ -57,7 +58,7 @@ import {VgAPI} from '../../services/vg-api';
         }
     `]
 })
-export class VgMute implements OnInit {
+export class VgMute extends VgAbstractControl {
     elem:HTMLElement;
     vgFor: string;
     target: any;
@@ -66,10 +67,11 @@ export class VgMute implements OnInit {
 
 
     constructor(ref:ElementRef, public API:VgAPI) {
+        super(API);
         this.elem = ref.nativeElement;
     }
 
-    ngOnInit() {
+    onPlayerReady() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
         this.currentVolume = this.target.volume;
@@ -88,22 +90,6 @@ export class VgMute implements OnInit {
     }
 
     getVolume() {
-        var volume;
-        var result;
-
-        if (this.target.volume instanceof Object) {
-            volume = 0;
-
-            for (var media in this.target.volume) {
-                volume += this.target.volume[media];
-            }
-
-            result = (volume / Object.keys(this.target.volume).length);
-        }
-        else {
-            result = this.target.volume;
-        }
-
-        return result;
+        return this.target ? this.target.volume : 0;
     }
 }

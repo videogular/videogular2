@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, ElementRef} from '@angular/core';
+import {Component, Input, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../../services/vg-api';
+import {VgAbstractControl} from '../../vg-abstractControl';
 
 @Component({
     selector: 'vg-scrub-bar-current-time',
@@ -34,21 +35,22 @@ import {VgAPI} from '../../../services/vg-api';
         }
     `]
 })
-export class VgScrubBarCurrentTime implements OnInit {
+export class VgScrubBarCurrentTime extends VgAbstractControl {
     elem:HTMLElement;
     vgFor: string;
     target: any;
 
     constructor(ref:ElementRef, public API:VgAPI) {
+        super(API);
         this.elem = ref.nativeElement;
     }
 
-    ngOnInit() {
+    onPlayerReady() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
 
     getPercentage() {
-        return ((this.target.time.current * 100 / this.target.time.total)) + '%';
+        return this.target ? ((this.target.time.current * 100) / this.target.time.total) + '%' : '0%';
     }
 }
