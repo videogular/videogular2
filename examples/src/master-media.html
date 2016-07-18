@@ -4,15 +4,21 @@
 
 <vg-player>
     <vg-controls>
-        <vg-play-pause vg-for="*"></vg-play-pause>
+        <vg-play-pause></vg-play-pause>
 
-        <vg-scrub-bar vg-for="masterVideo"></vg-scrub-bar>
+        <vg-time-display property="current" format="mm:ss"></vg-time-display>
 
-        <vg-time-display vg-for="masterVideo" property="left" format="mm:ss"></vg-time-display>
+        <vg-scrub-bar>
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
 
-        <vg-mute vg-for="masterVideo"></vg-mute>
+        <vg-time-display property="left" format="mm:ss"></vg-time-display>
+        <vg-time-display property="total" format="mm:ss"></vg-time-display>
 
-        <vg-fullscreen vg-for="masterVideo"></vg-fullscreen>
+        <vg-mute></vg-mute>
+
+        <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
 

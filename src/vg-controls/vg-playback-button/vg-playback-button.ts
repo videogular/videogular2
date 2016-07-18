@@ -8,7 +8,7 @@ import {VgAbstractControl} from '../vg-abstractControl';
     host: {
         '(click)': 'onClick()'
     },
-    template: `{{target.playbackRate}}x`,
+    template: `{{getPlaybackRate()}}x`,
     styles: [`
         :host {
             -webkit-touch-callout: none;
@@ -59,5 +59,9 @@ export class VgPlaybackButton extends VgAbstractControl {
         else {
             this.target.playbackRate[this.vgFor] = (this.playbackValues[this.playbackIndex]);
         }
+    }
+
+    getPlaybackRate() {
+        return this.target ? this.target.playbackRate : 1.0;
     }
 }
