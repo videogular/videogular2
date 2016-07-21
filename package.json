@@ -39,7 +39,7 @@
     "semantic-release": "4.3.5",
     "traceur": "0.0.111",
     "typescript": "1.8.10",
-    "typings": "0.8.1",
+    "typings": "1.3.2",
     "watch": "0.19.1"
   },
   "scripts": {
