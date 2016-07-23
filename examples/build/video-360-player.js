@@ -60,8 +60,7 @@ var Video360Player = (function () {
                 controls_1.VgScrubBarCurrentTime,
                 controls_1.VgScrubBarBufferingTime,
                 controls_1.VgMute,
-                controls_1.VgFullscreen,
-                core_2.Vg360
+                controls_1.VgFullscreen
             ]
         }), 
         __metadata('design:paramtypes', [core_1.ElementRef])

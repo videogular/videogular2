@@ -21,9 +21,17 @@
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video src="video/pano.webm" #media vg-media id="360Video" preload="auto" loop></video>
+    <!--<video src="video/pano.webm" #media vg-media id="360Video" preload="auto" loop></video>
 
-    <vg-360 [media]="media" [hotSpots]="hotSpots" [pointer]="showPointer" (onEnterHotSpot)="onEnterHotSpot($event)" (onLeaveHotSpot)="onLeaveHotSpot($event)"></vg-360>
+    <vg-360 [media]="media" [hotSpots]="hotSpots" [pointer]="showPointer" (onEnterHotSpot)="onEnterHotSpot($event)" (onLeaveHotSpot)="onLeaveHotSpot($event)"></vg-360>-->
+    <a-scene>
+      <a-assets>
+        <video src="video/pano.webm"
+               autoplay vg-media id="video" preload="auto" loop></video>
+      </a-assets>
+
+      <a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
+    </a-scene>
 </vg-player>
 
 <div class="info-dialog" [class.active]="isActive">

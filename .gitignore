@@ -4,3 +4,4 @@ dist
 coverage
 typings
 .couscous
+.vscode

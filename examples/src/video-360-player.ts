@@ -1,5 +1,5 @@
 import {Component, OnInit, ElementRef} from "@angular/core";
-import {VgPlayer, VgMedia, Vg360, IHotSpot, VgAPI} from "videogular2/core";
+import {VgPlayer, VgMedia, IHotSpot, VgAPI} from "videogular2/core";
 import {
     VgControls,
     VgTimeDisplay,
@@ -29,8 +29,7 @@ import {VgOverlayPlay} from "videogular2/overlay-play";
         VgScrubBarCurrentTime,
         VgScrubBarBufferingTime,
         VgMute,
-        VgFullscreen,
-        Vg360
+        VgFullscreen
     ]
 })
 export class Video360Player implements OnInit {
