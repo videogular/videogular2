@@ -2,6 +2,7 @@ import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgPlaybackButton} from "./vg-playback-button";
 import {VgAPI} from "../../services/vg-api";
 import {ElementRef} from "@angular/core";
+import {VgStates} from "../../states/vg-states";
 
 describe('Playback Button', () => {
     let playbackButton:VgPlaybackButton;
@@ -20,10 +21,10 @@ describe('Playback Button', () => {
         api = new VgAPI();
         api.medias = {
             main: {
-                state: 'play'
+                state: VgStates.VG_PLAYING
             },
             secondary: {
-                state: 'pause'
+                state: VgStates.VG_PAUSED
             }
         };
 
@@ -49,7 +50,7 @@ describe('Playback Button', () => {
         it('should increase playbackIndex', () => {
             api.medias = {
                 main: {
-                    state: 'play'
+                    state: VgStates.VG_PLAYING
                 }
             };
 
@@ -63,7 +64,7 @@ describe('Playback Button', () => {
         it('should set playbackRate to target media', () => {
             api.medias = {
                 main: {
-                    state: 'play'
+                    state: VgStates.VG_PLAYING
                 }
             };
 

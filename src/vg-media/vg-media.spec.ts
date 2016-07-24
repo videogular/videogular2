@@ -2,6 +2,7 @@ import {it, xit, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgMedia} from "../vg-media/vg-media";
 import {VgAPI} from "../services/vg-api";
 import {ElementRef} from "@angular/core";
+import {VgStates} from "../states/vg-states";
 
 
 describe('Videogular Media', () => {
@@ -125,35 +126,35 @@ describe('Videogular Media', () => {
     it('Should handle onComplete native event', () => {
         expect(media.isCompleted).toBeFalsy();
 
-        media.state = 'play';
+        media.state = VgStates.VG_PLAYING;
         media.onComplete({});
 
         expect(media.isCompleted).toBeTruthy();
-        expect(media.state).toBe('pause');
+        expect(media.state).toBe(VgStates.VG_ENDED);
     });
 
     it('Should handle onStartPlaying native event', () => {
-        expect(media.state).toBe('pause');
+        expect(media.state).toBe(VgStates.VG_PAUSED);
 
         media.onStartPlaying({});
 
-        expect(media.state).toBe('play');
+        expect(media.state).toBe(VgStates.VG_PLAYING);
     });
 
     it('Should handle onPlay native event', () => {
-        expect(media.state).toBe('pause');
+        expect(media.state).toBe(VgStates.VG_PAUSED);
 
         media.onPlay({});
 
-        expect(media.state).toBe('play');
+        expect(media.state).toBe(VgStates.VG_PLAYING);
     });
 
     it('Should handle onPause native event', () => {
-        media.state = 'play';
+        media.state = VgStates.VG_PLAYING;
 
         media.onPause({});
 
-        expect(media.state).toBe('pause');
+        expect(media.state).toBe(VgStates.VG_PAUSED);
     });
 
     it('Should handle onTimeUpdate native event (with buffer)', () => {

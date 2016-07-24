@@ -2,6 +2,7 @@ import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgPlayPause} from "./vg-play-pause";
 import {VgAPI} from "../../services/vg-api";
 import {ElementRef} from "@angular/core";
+import {VgStates} from "../../states/vg-states";
 
 describe('Play/Pause Button', () => {
     let playPause:VgPlayPause;
@@ -20,10 +21,10 @@ describe('Play/Pause Button', () => {
         api = new VgAPI();
         api.medias = {
             main: {
-                state: 'play'
+                state: VgStates.VG_PLAYING
             },
             secondary: {
-                state: 'pause'
+                state: VgStates.VG_PAUSED
             }
         };
 
@@ -45,45 +46,18 @@ describe('Play/Pause Button', () => {
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
     });
 
-    /*it('Should get average state between all media files (play)', () => {
-        playPause.target = api;
-
-        var state = playPause.getState();
-
-        // If one media is on 'play' state we return 'play' as average state
-        expect(state).toBe('play');
-    });
-
-    it('Should get average state between all media files (pause)', () => {
-        api.medias = {
-            main: {
-                state: 'pause'
-            },
-            secondary: {
-                state: 'pause'
-            }
-        };
-
-        playPause.target = api;
-
-        var state = playPause.getState();
-
-        // If all medias are on 'pause' state we return 'pause' as average state
-        expect(state).toBe('pause');
-    });*/
-
     it('Should get state for one media file', () => {
         api.medias = {
             main: {
-                state: 'play'
+                state: VgStates.VG_PLAYING
             }
         };
 
         playPause.target = api;
 
-        var volume = playPause.getState();
+        var state = playPause.getState();
 
-        expect(volume).toBe('play');
+        expect(state).toBe(VgStates.VG_PLAYING);
     });
 
     describe('onClick (single and multiple media)', () => {
@@ -92,7 +66,7 @@ describe('Play/Pause Button', () => {
 
             api.medias = {
                 main: {
-                    state: 'play'
+                    state: VgStates.VG_PLAYING
                 }
             };
 
@@ -108,7 +82,23 @@ describe('Play/Pause Button', () => {
 
             api.medias = {
                 main: {
-                    state: 'pause'
+                    state: VgStates.VG_PAUSED
+                }
+            };
+
+            playPause.target = api;
+
+            playPause.onClick();
+
+            expect(api.play).toHaveBeenCalled();
+        });
+
+        it('should play if current state is ended', () => {
+            spyOn(api, 'play').and.callFake(() => {});
+
+            api.medias = {
+                main: {
+                    state: VgStates.VG_ENDED
                 }
             };
 

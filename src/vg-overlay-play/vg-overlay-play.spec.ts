@@ -2,6 +2,7 @@ import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgOverlayPlay} from "./vg-overlay-play";
 import {VgAPI} from "../services/vg-api";
 import {ElementRef} from "@angular/core";
+import {VgStates} from "../states/vg-states";
 
 describe('Videogular Player', () => {
     let overlayPlay: VgOverlayPlay;
@@ -40,7 +41,7 @@ describe('Videogular Player', () => {
         });
 
         it('current state play should set target to pause', () => {
-            spyOn(overlayPlay, 'getState').and.callFake(() => { return 'play' });
+            spyOn(overlayPlay, 'getState').and.callFake(() => { return VgStates.VG_PLAYING });
             spyOn(overlayPlay.target, 'pause');
 
             overlayPlay.onClick();
@@ -50,7 +51,7 @@ describe('Videogular Player', () => {
         });
 
         it('current state pause should set target to play', () => {
-            spyOn(overlayPlay, 'getState').and.callFake(() => { return 'pause' });
+            spyOn(overlayPlay, 'getState').and.callFake(() => { return VgStates.VG_PAUSED });
             spyOn(overlayPlay.target, 'play');
 
             overlayPlay.onClick();
@@ -68,21 +69,31 @@ describe('Videogular Player', () => {
         });
 
         it('if only one state returns that state', () => {
-            overlayPlay.target.state = 'pause';
+            overlayPlay.target.state = VgStates.VG_PAUSED;
 
-            expect(overlayPlay.getState()).toEqual('pause');
+            expect(overlayPlay.getState()).toEqual(VgStates.VG_PAUSED);
         });
 
         it('if more than one target should return pause if all of them are pause', () => {
-            overlayPlay.target.state = ['pause','pause','pause','pause'];
+            overlayPlay.target.state = [
+                VgStates.VG_PAUSED,
+                VgStates.VG_PAUSED,
+                VgStates.VG_PAUSED,
+                VgStates.VG_PAUSED
+            ];
 
-            expect(overlayPlay.getState()).toEqual('pause');
+            expect(overlayPlay.getState()).toEqual(VgStates.VG_PAUSED);
         });
 
         it('if more than one target should return play if any of them is play', () => {
-            overlayPlay.target.state = ['pause','play','pause','pause'];
+            overlayPlay.target.state = [
+                VgStates.VG_PAUSED,
+                VgStates.VG_PLAYING,
+                VgStates.VG_PAUSED,
+                VgStates.VG_PAUSED
+            ];
 
-            expect(overlayPlay.getState()).toEqual('play');
+            expect(overlayPlay.getState()).toEqual(VgStates.VG_PLAYING);
         });
     });
 });

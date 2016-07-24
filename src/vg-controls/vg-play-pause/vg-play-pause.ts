@@ -2,6 +2,7 @@ import {Component, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../services/vg-api';
 import {VgAbstractControl} from '../vg-abstractControl';
+import {VgStates} from "../../states/vg-states";
 
 @Component({
     selector: 'vg-play-pause',
@@ -10,8 +11,8 @@ import {VgAbstractControl} from '../vg-abstractControl';
     },
     template:
         `<div class="icon"
-             [class.pause]="getState() === 'play'"
-             [class.play]="getState() === 'pause'">
+             [class.pause]="getState() === 'playing'"
+             [class.play]="getState() === 'paused' || getState() === 'ended'">
         </div>`,
     styles: [`
         :host {
@@ -62,17 +63,18 @@ export class VgPlayPause extends VgAbstractControl {
         var state = this.getState();
 
         switch (state) {
-            case 'play':
+            case VgStates.VG_PLAYING:
                 this.target.pause();
                 break;
 
-            case 'pause':
+            case VgStates.VG_PAUSED:
+            case VgStates.VG_ENDED:
                 this.target.play();
                 break;
         }
     }
 
     getState() {
-        return this.target ? this.target.state : 'pause';
+        return this.target ? this.target.state : VgStates.VG_PAUSED;
     }
 }

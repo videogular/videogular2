@@ -3,6 +3,7 @@ import {IPlayable} from "../vg-media/i-playable";
 import {SlideModel} from "./slide-model";
 import {VgEvents} from "../events/vg-events";
 import {Observable} from "rxjs/Observable";
+import {VgStates} from "../states/vg-states";
 
 @Component({
     selector: 'vg-image',
@@ -25,7 +26,7 @@ export class VgImage implements OnInit, IPlayable {
 
     elem:IPlayable;
 
-    state:string = 'pause';
+    state:string = 'paused';
 
     time:any = {current: 0, total: 0, left: 0};
     buffer:any = {end: 0};
@@ -75,15 +76,15 @@ export class VgImage implements OnInit, IPlayable {
     }
 
     onSeek() {
-        var newTime = this.elem.currentTime;
+        this.currentTime = this.elem.currentTime;
+
+        this.onProgress(this.lastTime);
 
         if (this.progress) {
             cancelAnimationFrame(this.progress.data.handleId);
             this.lastTime = 0;
-            this.progress = requestAnimationFrame(currentTime => this.onProgress(currentTime));
+            this.progress = undefined;
         }
-
-        this.currentTime = newTime;
     }
 
     expose() {
@@ -98,15 +99,20 @@ export class VgImage implements OnInit, IPlayable {
     }
 
     play() {
+        this.state = VgStates.VG_PLAYING;
         this.progress = requestAnimationFrame(currentTime => this.onProgress(currentTime));
 
         this.elem.dispatchEvent(new CustomEvent(VgEvents.VG_PLAY));
     }
 
     pause() {
-        cancelAnimationFrame(this.progress.data.handleId);
-        this.lastTime = 0;
-        this.progress = undefined;
+        if (this.progress) {
+            cancelAnimationFrame(this.progress.data.handleId);
+            this.lastTime = 0;
+            this.progress = undefined;
+        }
+
+        this.state = VgStates.VG_PAUSED;
 
         this.elem.dispatchEvent(new CustomEvent(VgEvents.VG_PAUSE));
     }
@@ -124,10 +130,18 @@ export class VgImage implements OnInit, IPlayable {
 
         this.elem.dispatchEvent(new CustomEvent(VgEvents.VG_TIME_UPDATE));
 
-        this.progress = requestAnimationFrame(currentTime => this.onProgress(currentTime));
+        if (this.state === VgStates.VG_PLAYING) {
+            this.progress = requestAnimationFrame(currentTime => this.onProgress(currentTime));
+        }
 
         for (let i:number=0, l:number=this.slides.length; i<l; i++) {
             let slide = this.slides[i];
+
+            // If video duration is longer than slides we change to last slide
+            if (i === l-1 && this.currentTime >= slide.end && this.currentSlide != slide) {
+                this.changeToSlide(slide);
+                break;
+            }
 
             if (this.currentTime >= slide.start && this.currentTime <= slide.end && this.currentSlide != slide) {
                 this.changeToSlide(slide);
@@ -139,7 +153,11 @@ export class VgImage implements OnInit, IPlayable {
     }
 
     onComplete() {
-        cancelAnimationFrame(this.progress.data.handleId);
+        if (this.progress) {
+            cancelAnimationFrame(this.progress.data.handleId);
+        }
+
+        this.state = VgStates.VG_ENDED;
         this.lastTime = 0;
         this.time.left = 0;
         this.progress = undefined;

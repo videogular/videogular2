@@ -1,6 +1,7 @@
 import {it, xdescribe, expect, beforeEach} from "@angular/core/testing";
 import {VgAPI} from "../services/vg-api";
 import {IPlayable} from "../vg-media/i-playable";
+import {VgStates} from "../states/vg-states";
 
 describe('Videogular Player', () => {
     let api:VgAPI;
@@ -290,23 +291,23 @@ describe('Videogular Player', () => {
 
     it('Should get a property from all media objects and return an object', () => {
         api.medias = {
-            main: {id: 'main', state: 'play'},
-            secondary: {id: 'secondary', state: 'pause'}
+            main: {id: 'main', state: VgStates.VG_PLAYING},
+            secondary: {id: 'secondary', state: VgStates.VG_PAUSED}
         };
 
         var states = api.$$getAllProperties('state');
 
-        expect(states).toEqual('play');
+        expect(states).toEqual(VgStates.VG_PLAYING);
     });
 
     it('Should get a property from all media objects and return a plain value if there is only one media object', () => {
         api.medias = {
-            main: {id: 'main', state: 'play'}
+            main: {id: 'main', state: VgStates.VG_PLAYING}
         };
 
         var states = api.$$getAllProperties('state');
 
-        expect(states).toEqual('play');
+        expect(states).toEqual(VgStates.VG_PLAYING);
     });
 
     it('Should set a property to all media objects', () => {
@@ -315,10 +316,10 @@ describe('Videogular Player', () => {
             secondary: {id: 'secondary', state: 'stop'}
         };
 
-        api.$$setAllProperties('state', 'play');
+        api.$$setAllProperties('state', VgStates.VG_PLAYING);
 
-        expect((<any>api.medias).main.state).toBe('play');
-        expect((<any>api.medias).secondary.state).toBe('play');
+        expect((<any>api.medias).main.state).toBe(VgStates.VG_PLAYING);
+        expect((<any>api.medias).secondary.state).toBe(VgStates.VG_PLAYING);
     });
 
     it('Should register a new media object', () => {

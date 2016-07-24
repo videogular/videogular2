@@ -1,5 +1,6 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {IPlayable} from "../vg-media/i-playable";
+import {VgStates} from "../states/vg-states";
 
 @Injectable()
 export class VgAPI {
@@ -24,11 +25,23 @@ export class VgAPI {
     getMasterMedia() {
         var master;
         for (var id in this.medias) {
-            if(this.medias[id].isMaster === true) {
+            if (this.medias[id].isMaster === 'true' || this.medias[id].isMaster === true) {
                 master = this.medias[id];
+                break;
             }
         }
         return master || this.getDefaultMedia();
+    }
+
+    isMasterDefined() {
+        var result = false;
+        for (var id in this.medias) {
+            if (this.medias[id].isMaster === 'true' || this.medias[id].isMaster === true) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     getMediaById(id:string = null) {
@@ -132,11 +145,15 @@ export class VgAPI {
     }
 
     $$seek(media:IPlayable, value:number, byPercent:boolean = false) {
-        var second;
+        var second:number;
+        var duration:number = media.duration;
 
         if (byPercent) {
-            second = value * media.duration / 100;
-            // TODO: Not working unit on-media-ready is available
+            if (this.isMasterDefined()) {
+                duration = this.getMasterMedia().duration;
+            }
+
+            second = value * duration / 100;
         }
         else {
             second = value;
@@ -160,7 +177,7 @@ export class VgAPI {
                 // Return default values until vgMedia is initialized
                 switch (property) {
                     case 'state':
-                        result = 'pause';
+                        result = VgStates.VG_PAUSED;
                         break;
 
                     case 'playbackRate':
