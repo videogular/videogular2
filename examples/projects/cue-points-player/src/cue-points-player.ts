@@ -1,3 +1,4 @@
+import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component} from "@angular/core";
 import {NgFor, NgIf} from "@angular/common";
 import {VgPlayer, VgMedia, VgCuePoints, VgAPI} from "videogular2/core";
@@ -67,3 +68,5 @@ export class CuePointsPlayer {
         this.cuePointData = {};
     }
 }
+
+bootstrap(CuePointsPlayer, []);
