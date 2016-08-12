@@ -1,3 +1,4 @@
+import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component} from "@angular/core";
 import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
 
@@ -11,3 +12,5 @@ import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
     ]
 })
 export class SimplePlayer {}
+
+bootstrap(SimplePlayer, []);
