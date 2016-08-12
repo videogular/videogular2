@@ -1,79 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-    <title>Videogular 2 demo app</title>
-
-    <script src="https://aframe.io/releases/0.2.0/aframe.js"></script>
-
-    
-
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/reflect-metadata/Reflect.js"></script>
-    <script src="node_modules/systemjs/dist/system.js"></script>
-    <script src="system-config.js"></script>
-    <script>
-        System.import('app').catch(function(err){
-            console.error(err);
-        });
-    </script>
-
-    <style>
-        html {
-            width: 100%;
-            height: 100%;
-        }
-
-        body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        .info-dialog {
-            width: 128px;
-            height: 128px;
-            background-image: url(imgs/info-logo.png);
-            background-repeat: no-repeat;
-            position: relative;
-        }
-
-        .info-dialog .info-back {
-            width: 128px;
-            height: 128px;
-            background-color: black;
-            opacity: 0.5;
-            border-radius: 64px;
-            transition: all 0.5s ease-in-out;
-            position: absolute;
-        }
-        .info-dialog.active .info-back {
-            width: 400px;
-        }
-
-        .info-dialog .info-message {
-            font-family: 'Helvetica';
-            font-size: 20px;
-            color: white;
-            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            position: absolute;
-            width: 200px;
-            left: 130px;
-            top: 16px;
-            transition: all 0.5s ease-in-out;
-            opacity: 0;
-        }
-        .info-dialog.active .info-message {
-            opacity: 1;
-        }
-    </style>
+  <meta charset="utf-8">
+  <title>Videogular examples</title>
+  <link rel="stylesheet" href="styles.css?v=1.0">
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
 </head>
 <body>
-
-<vg-demo></vg-demo>
-
+    <div class="content">
+        <nav>
+            <h1>Videogular 2 examples</h1>
+            <ul id="links">
+                <li class="active"><a href="projects/simple-player/index.html" target="examples">Simple player</a></li>
+                <li><a href="projects/audio-player/index.html" target="examples">Audio player</a></li>
+                <li><a href="projects/bound-player/index.html" target="examples">Bound player</a></li>
+                <li><a href="projects/cue-points-player/index.html" target="examples">Cue points player</a></li>
+                <li><a href="projects/single-media-player/index.html" target="examples">Single player</a></li>
+                <li><a href="projects/multiple-media-player/index.html" target="examples">Multiple players</a></li>
+            </ul>
+        </nav>
+        <section>
+            <h1>Loading...</h1>
+            <iframe src="projects/simple-player/index.html" name="examples" frameborder="0"></iframe>
+        </section>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
