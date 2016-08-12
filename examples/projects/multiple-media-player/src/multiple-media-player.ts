@@ -1,3 +1,4 @@
+import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component} from "@angular/core";
 import {NgFor} from "@angular/common";
 import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
@@ -15,7 +16,7 @@ import {
 import {VgOverlayPlay} from "videogular2/overlay-play";
 
 @Component({
-    selector: 'vg-demo',
+    selector: 'multiple-media-player',
     templateUrl: 'src/multiple-media-player.html',
     providers: [VgAPI],
     directives: [
@@ -54,3 +55,5 @@ export class MultipleMediaPlayer {
         ];
     }
 }
+
+bootstrap(MultipleMediaPlayer, []);
