@@ -22,7 +22,7 @@
     "systemjs": "0.19.36"
   },
   "devDependencies": {
-    "codecov.io": "0.1.6",
+    "codecov.io": "0.1.7",
     "commitizen": "2.8.2",
     "cz-conventional-changelog": "1.1.6",
     "es6-module-loader": "0.17.11",
