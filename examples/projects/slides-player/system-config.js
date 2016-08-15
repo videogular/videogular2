@@ -3,11 +3,11 @@ System.config({
         'rxjs': 'node_modules/rxjs',
         '@angular': 'node_modules/@angular',
         'videogular2': 'node_modules/videogular2',
-        'single-media-player': 'build'
+        'slides-player': 'build'
     },
     packages: {
-        'image-player': {
-            main: 'image-player.js',
+        'slides-player': {
+            main: 'slides-player.js',
             defaultExtension: 'js'
         },
         '@angular/core': {

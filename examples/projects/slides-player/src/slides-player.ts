@@ -15,8 +15,8 @@ import {
 } from "videogular2/controls";
 
 @Component({
-    selector: 'image-player',
-    templateUrl: 'src/image-player.html',
+    selector: 'slides-player',
+    templateUrl: 'src/slides-player.html',
     providers: [VgAPI],
     directives: [
         VgPlayer,
@@ -33,7 +33,7 @@ import {
         VgImage
     ]
 })
-export class ImagePlayer {
+export class SlidesPlayer {
     sources:Array<Object>;
     slides:Array<SlideModel> = [
         {
@@ -71,4 +71,4 @@ export class ImagePlayer {
     }
 }
 
-bootstrap(ImagePlayer, []);
+bootstrap(SlidesPlayer, []);

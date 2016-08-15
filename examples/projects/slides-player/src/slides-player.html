@@ -1,7 +1,3 @@
-<h2>One media object</h2>
-
-<p>Image player with one image object, overlay play plugin and custom controls.</p>
-
 <vg-player>
     <vg-controls>
         <vg-play-pause></vg-play-pause>
@@ -25,5 +21,5 @@
         <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
     </video>
 
-    <vg-image vg-media id="singleImage" [slides]="slides"></vg-image>
+    <vg-slides vg-media id="slides" [slides]="slides"></vg-slides>
 </vg-player>

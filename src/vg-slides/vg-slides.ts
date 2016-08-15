@@ -6,7 +6,7 @@ import {Observable} from "rxjs/Observable";
 import {VgStates} from "../states/vg-states";
 
 @Component({
-    selector: 'vg-image',
+    selector: 'vg-slides',
     template: `
         <img [src]="currentSlide.src">
     `,
@@ -21,7 +21,7 @@ import {VgStates} from "../states/vg-states";
     `
     ]
 })
-export class VgImage implements OnInit, IPlayable {
+export class VgSlides implements OnInit, IPlayable {
     @Input('slides') slides:Array<SlideModel>;
 
     elem:IPlayable;
