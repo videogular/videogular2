@@ -4,3 +4,7 @@ dist
 coverage
 typings
 .couscous
+.vscode
+build
+npm-debug.log
+.DS_Store
