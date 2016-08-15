@@ -51,7 +51,7 @@ describe('Mute Button', () => {
 
         var volume = mute.getVolume();
 
-        expect(volume).toBe(0.75);
+        expect(volume).toBe(1);
     });
 
     it('Should get volume for one media file', () => {
@@ -107,8 +107,8 @@ describe('Mute Button', () => {
 
             mute.onClick();
 
-            expect(mute.currentVolume).toBe(0.75);
-            expect(api.volume).toEqual({main: 0, secondary: 0});
+            expect(mute.currentVolume).toBe(1);
+            expect(api.volume).toEqual(0);
         });
 
         it('should unmute volume if current volume is 0', () => {
@@ -127,7 +127,7 @@ describe('Mute Button', () => {
 
             mute.onClick();
 
-            expect(api.volume).toEqual({main: 0.75, secondary: 0.75});
+            expect(api.volume).toEqual(0.75);
         });
     });
 });

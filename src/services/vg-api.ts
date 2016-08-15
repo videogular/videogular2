@@ -160,8 +160,12 @@ export class VgAPI {
                 // If there's only one media element then return the plain value
                 result = result[Object.keys(result)[0]];
                 break;
+                
+            default:
+                // TODO: return 'master' value
+                result = result[Object.keys(result)[0]];
         }
-
+        
         return result;
     }
 

@@ -20,6 +20,7 @@ var bound_player_1 = require("./bound-player");
 var cue_points_player_1 = require("./cue-points-player");
 var video_360_player_1 = require("./video-360-player");
 var video_vr_player_1 = require("./video-vr-player");
+var image_player_1 = require("./image-player");
 var VgDemo = (function () {
     function VgDemo(router, location) {
         this.router = router;
@@ -50,6 +51,7 @@ var VgDemo = (function () {
             { path: '/cue-points-player', name: 'CuePointsPlayer', component: cue_points_player_1.CuePointsPlayer },
             { path: '/video-360', name: 'Video360Player', component: video_360_player_1.Video360Player },
             { path: '/video-vr', name: 'VideoVrPlayer', component: video_vr_player_1.VideoVrPlayer },
+            { path: '/image-player', name: 'ImagePlayer', component: image_player_1.ImagePlayer },
             { path: '/**', redirectTo: ['SingleMediaPlayer'] }
         ]), 
         __metadata('design:paramtypes', [router_deprecated_1.Router, common_1.Location])

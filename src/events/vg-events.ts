@@ -17,6 +17,7 @@ export class VgEvents {
     static VG_PLAYING: string = 'playing';
     static VG_PROGRESS: string = 'progress';
     static VG_RATE_CHANGE: string = 'ratechange';
+    static VG_SEEK: string = 'seek';
     static VG_SEEKED: string = 'seeked';
     static VG_SEEKING: string = 'seeking';
     static VG_STALLED: string = 'stalled';
