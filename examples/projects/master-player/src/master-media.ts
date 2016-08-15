@@ -1,6 +1,7 @@
+import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component} from "@angular/core";
+import {NgFor} from "@angular/common";
 import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
-import {VgImage, SlideModel} from "videogular2/image";
 import {
     VgControls,
     VgTimeDisplay,
@@ -12,14 +13,16 @@ import {
     VgMute,
     VgFullscreen
 } from "videogular2/controls";
+import {VgOverlayPlay} from "videogular2/overlay-play";
 
 @Component({
-    selector: 'image-player',
-    templateUrl: 'src/image-player.html',
+    selector: 'master-media',
+    templateUrl: 'src/master-media.html',
     providers: [VgAPI],
     directives: [
         VgPlayer,
         VgMedia,
+        VgOverlayPlay,
         VgControls,
         VgTimeDisplay,
         VgPlayPause,
@@ -29,28 +32,11 @@ import {
         VgScrubBarBufferingTime,
         VgMute,
         VgFullscreen,
-        VgImage
+        NgFor
     ]
 })
-export class ImagePlayer {
+export class MasterMedia {
     sources:Array<Object>;
-    slides:Array<SlideModel> = [
-        {
-            src: 'http://static.videogular.com/assets/images/videogular.png',
-            start: 0,
-            end: 5
-        },
-        {
-            src: 'http://static.videogular.com/assets/images/bbb-splash.png',
-            start: 5,
-            end: 15
-        },
-        {
-            src: 'http://static.videogular.com/assets/images/earth.png',
-            start: 15,
-            end: 30
-        }
-    ];
 
     constructor() {
         this.sources = [
@@ -69,3 +55,5 @@ export class ImagePlayer {
         ];
     }
 }
+
+bootstrap(MasterMedia, []);
