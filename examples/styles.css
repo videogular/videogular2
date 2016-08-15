@@ -1,0 +1,60 @@
+body, html {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #364149;
+    font-size: 14px;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    flex: 1;
+    height: 100%;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-right: 1px solid #364149;
+}
+nav h1 {
+    font-size: 18px;
+    padding: 10px 15px;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    list-style: none;
+    padding: 5px;
+}
+nav ul li.active,
+nav ul li:hover {
+    background-color: #DDD;
+}
+nav ul li a {
+    text-decoration: none;
+    padding: 10px 15px;
+}
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+section {
+    position: relative;
+    display: flex;
+    flex: 3;
+}
+section h1 {
+    position: absolute;
+    left: 10px;
+}
+section iframe {
+    flex: 1;
+    z-index: 2;
+}
