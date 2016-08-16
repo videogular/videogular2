@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgMute} from "./vg-mute";
 import {VgAPI} from "../../services/vg-api";
 import {ElementRef} from "@angular/core";

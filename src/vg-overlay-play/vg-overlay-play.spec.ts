@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgOverlayPlay} from "./vg-overlay-play";
 import {VgAPI} from "../services/vg-api";
 import {ElementRef} from "@angular/core";

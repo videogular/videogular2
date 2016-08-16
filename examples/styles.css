@@ -49,6 +49,7 @@ section {
     position: relative;
     display: flex;
     flex: 3;
+    height: 100%;
 }
 section h1 {
     position: absolute;

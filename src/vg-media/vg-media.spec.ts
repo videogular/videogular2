@@ -1,4 +1,3 @@
-import {it, xit, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgMedia} from "../vg-media/vg-media";
 import {VgAPI} from "../services/vg-api";
 import {ElementRef} from "@angular/core";

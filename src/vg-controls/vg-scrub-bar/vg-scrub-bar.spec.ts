@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgScrubBar} from "./vg-scrub-bar";
 import {VgAPI} from "../../services/vg-api";
 import {ElementRef} from "@angular/core";

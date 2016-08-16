@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgTimeDisplay} from "./vg-time-display";
 import {ElementRef} from "@angular/core";
 import {VgAPI} from "../../services/vg-api";

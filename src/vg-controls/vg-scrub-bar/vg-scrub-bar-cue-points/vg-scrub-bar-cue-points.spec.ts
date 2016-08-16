@@ -1,4 +1,3 @@
-import {it, xit, describe, expect, beforeEach} from '@angular/core/testing';
 import {VgScrubBarCuePoints} from "./vg-scrub-bar-cue-points";
 import {VgAPI} from "../../../services/vg-api";
 import {ElementRef, SimpleChange} from "@angular/core";

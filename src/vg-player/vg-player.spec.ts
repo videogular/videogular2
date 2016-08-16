@@ -1,7 +1,6 @@
 /// <reference path="../../typings/browser/ambient/jasmine/index.d.ts"/>
 
-import {it, xit, describe, expect, async, inject, beforeEachProviders, beforeEach} from "@angular/core/testing";
-import {TestComponentBuilder} from "@angular/compiler/testing";
+import {async, inject, TestBed} from "@angular/core/testing";
 import {Component, provide} from "@angular/core";
 import {VgPlayer} from "./vg-player";
 import {VgMedia} from "../vg-media/vg-media";
@@ -58,22 +57,24 @@ describe('Videogular Player', () => {
 describe('Videogular Player', () => {
     var builder;
 
-    beforeEach(
-        inject([TestComponentBuilder], (tcb) => {
-            builder = tcb;
-        })
-    );
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [VgPlayerTest]
+        });
+    });
+
+    beforeEach(async(() => {
+        TestBed.compileComponents();
+    }));
 
     it('Should create a VgPlayer component',
         async(() => {
-            builder.createAsync(VgPlayerTest).then((fixture) => {
-                fixture.detectChanges();
+            let fixture = TestBed.createComponent(VgPlayerTest);
+            fixture.detectChanges();
+            let compiled = fixture.debugElement.nativeElement;
+            let video = compiled.querySelector('video');
 
-                let compiled = fixture.debugElement.nativeElement;
-                let video = compiled.querySelector('video');
-
-                expect(video.controls).toBe(true);
-            });
+            expect(video.controls).toBe(true);
         })
     );
 });

@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach, afterEach} from "@angular/core/testing";
 import {VgControls} from "./vg-controls";
 import {ElementRef, Renderer} from "@angular/core";
 import {VgAPI} from "../services/vg-api";

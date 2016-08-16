@@ -1,4 +1,3 @@
-import {it, xit, describe, expect} from "@angular/core/testing";
 import {QueryList} from "@angular/core";
 import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
 import {VgMedia} from "../vg-media/vg-media";

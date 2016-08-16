@@ -1,6 +1,6 @@
 import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component, OnInit, ElementRef} from "@angular/core";
-import {VgPlayer, VgMedia, IHotSpot, VgAPI, VgFullscreenAPI} from "videogular2/core";
+import {VgPlayer, VgMedia, VgAPI, VgFullscreenAPI} from "videogular2/core";
 import {
     VgControls,
     VgTimeDisplay,
@@ -17,9 +17,6 @@ import {VgOverlayPlay} from "videogular2/overlay-play";
 @Component({
     selector: 'vr-player',
     templateUrl: 'src/vr-player.html',
-    styles: [`
-        vg-player { height: 350px; }
-    `],
     providers: [VgAPI],
     directives: [
         VgPlayer,

@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgScrubBarCurrentTime} from "./vg-scrub-bar-current-time";
 import {VgAPI} from "../../../services/vg-api";
 import {ElementRef} from "@angular/core";
