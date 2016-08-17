@@ -1,2 +1,2 @@
-exports.VgImage = require('./dist/vg-image/vg-image').VgImage;
-exports.SlideModel = require('./dist/vg-image/slide-model').SlideModel;
+exports.VgSlides = require('./dist/vg-slides/vg-slides').VgSlides;
+exports.SlideModel = require('./dist/vg-slides/slide-model').SlideModel;

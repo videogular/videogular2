@@ -1,7 +1,7 @@
 import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component} from "@angular/core";
 import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
-import {VgImage, SlideModel} from "videogular2/image";
+import {VgSlides, SlideModel} from "videogular2/image";
 import {
     VgControls,
     VgTimeDisplay,
@@ -30,7 +30,7 @@ import {
         VgScrubBarBufferingTime,
         VgMute,
         VgFullscreen,
-        VgImage
+        VgSlides
     ]
 })
 export class SlidesPlayer {

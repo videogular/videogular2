@@ -3,7 +3,7 @@ System.config({
         'rxjs': 'node_modules/rxjs',
         '@angular': 'node_modules/@angular',
         'videogular2': 'node_modules/videogular2',
-        'single-media-player': 'build'
+        'master-media': 'build'
     },
     packages: {
         'master-media': {

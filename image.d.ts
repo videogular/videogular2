@@ -1,2 +1,2 @@
-export * from './dist/vg-image/vg-image';
-export * from './dist/vg-image/slide-model';
+export * from './dist/vg-slides/vg-slides';
+export * from './dist/vg-slides/slide-model';
