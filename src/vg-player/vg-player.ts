@@ -20,17 +20,6 @@ import {VgMedia} from "../vg-media/vg-media";
     directives: [VgMedia],
     template: `<ng-content></ng-content>`,
     styles: [`
-        @font-face {
-            font-family: 'videogular';
-            src: url('node_modules/videogular2/fonts/videogular.eot');
-            src: url('node_modules/videogular2/fonts/videogular.eot?#iefix') format('embedded-opentype'),
-                 url('node_modules/videogular2/fonts/videogular.woff') format('woff'),
-                 url('node_modules/videogular2/fonts/videogular.ttf') format('truetype'),
-                 url('node_modules/videogular2/fonts/videogular.svg#videogular') format('svg');
-            font-weight: normal;
-            font-style: normal;
-        }
-
         :host {
             font-family: 'videogular';
             position: relative;
@@ -54,22 +43,22 @@ import {VgMedia} from "../vg-media/vg-media";
     `]
 })
 export class VgPlayer implements AfterContentInit {
-    elem:HTMLElement;
-    api:VgAPI;
+    elem: HTMLElement;
+    api: VgAPI;
 
-    @HostBinding('class.fullscreen') isFullscreen:boolean = false;
-    @HostBinding('style.z-index') zIndex:string;
-
-    @Output()
-    onPlayerReady:EventEmitter<any> = new EventEmitter();
+    @HostBinding('class.fullscreen') isFullscreen: boolean = false;
+    @HostBinding('style.z-index') zIndex: string;
 
     @Output()
-    onMediaReady:EventEmitter<any> = new EventEmitter();
+    onPlayerReady: EventEmitter<any> = new EventEmitter();
+
+    @Output()
+    onMediaReady: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(VgMedia)
-    medias:QueryList<VgMedia>;
+    medias: QueryList<VgMedia>;
 
-    constructor(ref:ElementRef, api:VgAPI) {
+    constructor(ref: ElementRef, api: VgAPI) {
         this.api = api;
         this.elem = ref.nativeElement;
 
@@ -80,7 +69,7 @@ export class VgPlayer implements AfterContentInit {
         this.medias.toArray().forEach((media) => {
             this.api.registerMedia(media);
         });
-        
+
         this.api.onPlayerReady();
         this.onPlayerReady.next(this.api);
 

@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'videogular';
+    src: url('videogular.eot');
+    src: url('videogular.eot?#iefix') format('embedded-opentype'),
+    url('videogular.woff') format('woff'),
+    url('videogular.ttf') format('truetype'),
+    url('videogular.svg#videogular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
