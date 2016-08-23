@@ -4,10 +4,6 @@ currentMenu: getting-started
 
 ### Getting Started
 
-Getting started
-
-<h3>Install</h3>
-
 Use npm to install Videogular as a dependency:
 
 ```bash
@@ -54,19 +50,28 @@ Create your video player with HTML in your template:
 <vg-player>
     <vg-overlay-play></vg-overlay-play>
 
+    <vg-scrub-bar>
+        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+    </vg-scrub-bar>
+
     <vg-controls>
         <vg-play-pause></vg-play-pause>
-        <vg-time-display>{{ media?.time?.current | date:'mm:ss' }}</vg-time-display>
-        <vg-scrub-bar>
-            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-        </vg-scrub-bar>
-        <vg-time-display>{{ media?.time?.left | date:'mm:ss' }}</vg-time-display>
+        <vg-playback-button></vg-playback-button>
+
+        <vg-time-display property="current" format="mm:ss"></vg-time-display>
+
+        <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+        <vg-time-display property="left" format="mm:ss"></vg-time-display>
+        <vg-time-display property="total" format="mm:ss"></vg-time-display>
+
         <vg-mute></vg-mute>
+
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video #media id="singleVideo" preload="auto">
+    <video vg-media id="singleVideo" preload="auto">
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
         <source src="http://static.videogular.com/assets/videos/videogular.ogg" type="video/ogg">
         <source src="http://static.videogular.com/assets/videos/videogular.webm" type="video/webm">
