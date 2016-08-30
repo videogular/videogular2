@@ -1,7 +1,7 @@
 import {Component, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../services/vg-api';
-import {VgAbstractControl} from '../vg-abstractControl';
+import {VgAbstractControl} from '../vg-abstract-control';
 import {VgStates} from "../../states/vg-states";
 
 @Component({

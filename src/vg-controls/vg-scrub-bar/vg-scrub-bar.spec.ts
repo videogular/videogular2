@@ -42,16 +42,5 @@ describe('Scrub bar', () => {
 
             expect(api.seekTime).toHaveBeenCalledWith(10, true);
         });
-
-        it('should call API seekTime 20 when offsetX is 60 and scrollWidth is 300', () => {
-            spyOn(api, 'seekTime');
-            scrubBar.elem.scrollWidth = 300;
-
-            scrubBar.target = api;
-
-            scrubBar.onMouseDownScrubBar({ offsetX: 60 });
-
-            expect(api.seekTime).toHaveBeenCalledWith(20, true);
-        });
     });
 });

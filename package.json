@@ -2,8 +2,8 @@
   "name": "videogular2",
   "version": "0.0.0-semantically-released",
   "description": "Videogular is a video application framework for desktop and mobile powered by Angular 2.0",
-  "main": "videogular2.js",
-  "typings": "videogular2.d.ts",
+  "main": "videogular.js",
+  "typings": "videogular.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/videogular/videogular2"
@@ -21,7 +21,6 @@
     "systemjs": "0.19.36"
   },
   "devDependencies": {
-    "codecov.io": "0.1.6",
     "commitizen": "2.8.6",
     "cz-conventional-changelog": "1.2.0",
     "es6-module-loader": "0.17.11",
@@ -36,19 +35,19 @@
     "parallelshell": "2.0.0",
     "remap-istanbul": "0.6.4",
     "semantic-release": "4.3.5",
-    "traceur": "0.0.111",
-    "typescript": "1.8.10",
+    "systemjs-builder": "^0.15.13",
+    "typescript": "2.0.0",
     "typings": "0.8.1",
     "watch": "0.19.2"
   },
   "scripts": {
     "typings": "typings install",
-    "compile": "tsc -p src",
     "prebuild": "npm run clean && mkdir dist",
-    "build": "tsc -p src",
+    "tsc": "tsc",
+    "build": "tsc",
     "postbuild": "npm run test",
     "prebuild:travis": "npm run typings",
-    "build:travis": "tsc -p src",
+    "build:travis": "tsc",
     "postbuild:travis": "npm run test",
     "clean": "rm -rf dist",
     "commit": "git-cz",

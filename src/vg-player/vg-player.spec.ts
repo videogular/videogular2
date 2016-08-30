@@ -1,5 +1,3 @@
-/// <reference path="../../typings/browser/ambient/jasmine/index.d.ts"/>
-
 import {async, inject, TestBed} from "@angular/core/testing";
 import {Component, provide} from "@angular/core";
 import {VgPlayer} from "./vg-player";
@@ -7,7 +5,6 @@ import {VgMedia} from "../vg-media/vg-media";
 import {VgAPI} from "../services/vg-api";
 import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
 import {ElementRef} from "@angular/core";
-
 
 describe('Videogular Player', () => {
     let player:VgPlayer;

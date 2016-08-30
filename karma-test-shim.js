@@ -16,7 +16,7 @@ function isSpecFile(path) {
 }
 
 function isBuiltFile(path) {
-    var builtPath = '/base/dist/';
+    var builtPath = '/base/src/';
     return isJsFile(path) && (path.substr(0, builtPath.length) == builtPath);
 }
 
@@ -31,7 +31,7 @@ System.config(
         map: {
             'rxjs': 'node_modules/rxjs',
             '@angular': 'node_modules/@angular',
-            'app': 'dist'
+            'app': 'src'
         },
         packages: {
             'app': {

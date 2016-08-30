@@ -1,7 +1,7 @@
 import {Component, Input, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../../services/vg-api';
-import {VgAbstractControl} from '../../vg-abstractControl';
+import {VgAbstractControl} from '../../vg-abstract-control';
 
 @Component({
     selector: 'vg-scrub-bar-current-time',
