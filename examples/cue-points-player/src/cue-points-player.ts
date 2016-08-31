@@ -1,43 +1,8 @@
-import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component} from "@angular/core";
-import {NgFor, NgIf} from "@angular/common";
-import {VgPlayer, VgMedia, VgCuePoints, VgAPI} from "videogular2/core";
-import {
-    VgControls,
-    VgTimeDisplay,
-    VgPlayPause,
-    VgPlaybackButton,
-    VgScrubBar,
-    VgScrubBarCurrentTime,
-    VgScrubBarBufferingTime,
-    VgScrubBarCuePoints,
-    VgMute,
-    VgFullscreen
-} from "videogular2/controls";
-import {VgOverlayPlay} from "videogular2/overlay-play";
 
 @Component({
     selector: 'cue-points-player',
-    templateUrl: 'src/cue-points-player.html',
-    providers: [VgAPI],
-    directives: [
-        VgPlayer,
-        VgMedia,
-        VgOverlayPlay,
-        VgControls,
-        VgTimeDisplay,
-        VgPlayPause,
-        VgPlaybackButton,
-        VgScrubBar,
-        VgScrubBarCurrentTime,
-        VgScrubBarBufferingTime,
-        VgScrubBarCuePoints,
-        VgMute,
-        VgFullscreen,
-        VgCuePoints,
-        NgFor,
-        NgIf
-    ]
+    templateUrl: 'src/cue-points-player.html'
 })
 export class CuePointsPlayer {
     sources:Array<Object>;
@@ -68,5 +33,3 @@ export class CuePointsPlayer {
         this.cuePointData = {};
     }
 }
-
-bootstrap(CuePointsPlayer, []);

@@ -1,7 +1,7 @@
 <vg-player (onPlayerReady)="onPlayerReady($event)" style="height: calc(100% - 100px);">
     <vg-overlay-play></vg-overlay-play>
 
-    <vg-controls *ngIf="!controls" [autohide]="true" [autohideTime]="1.5">
+    <vg-controls *ngIf="!controls" [autohide]="true" [autohide-time]="1.5">
         <vg-play-pause></vg-play-pause>
         <vg-playback-button></vg-playback-button>
 

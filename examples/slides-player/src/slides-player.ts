@@ -1,37 +1,9 @@
-import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component} from "@angular/core";
-import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
-import {VgSlides, SlideModel} from "videogular2/image";
-import {
-    VgControls,
-    VgTimeDisplay,
-    VgPlayPause,
-    VgPlaybackButton,
-    VgScrubBar,
-    VgScrubBarCurrentTime,
-    VgScrubBarBufferingTime,
-    VgMute,
-    VgFullscreen
-} from "videogular2/controls";
+import {SlideModel} from "videogular2/slides";
 
 @Component({
     selector: 'slides-player',
-    templateUrl: 'src/slides-player.html',
-    providers: [VgAPI],
-    directives: [
-        VgPlayer,
-        VgMedia,
-        VgControls,
-        VgTimeDisplay,
-        VgPlayPause,
-        VgPlaybackButton,
-        VgScrubBar,
-        VgScrubBarCurrentTime,
-        VgScrubBarBufferingTime,
-        VgMute,
-        VgFullscreen,
-        VgSlides
-    ]
+    templateUrl: 'src/slides-player.html'
 })
 export class SlidesPlayer {
     sources:Array<Object>;
@@ -70,5 +42,3 @@ export class SlidesPlayer {
         ];
     }
 }
-
-bootstrap(SlidesPlayer, []);

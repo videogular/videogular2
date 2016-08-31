@@ -1,48 +1,53 @@
-System.config({
-    map: {
-        'rxjs': 'node_modules/rxjs',
-        '@angular': 'node_modules/@angular',
+/**
+ * System configuration for Angular 2 samples
+ * Adjust as necessary for your application needs.
+ */
+(function (global) {
+
+    // map tells the System loader where to look for things
+    var map = {
+        'app': 'src',
         'videogular2': 'node_modules/videogular2',
-        'cue-points-player': 'build'
-    },
-    packages: {
-        'cue-points-player': {
-            main: 'cue-points-player.js',
-            defaultExtension: 'js'
-        },
-        '@angular/core': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        '@angular/compiler': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        '@angular/common': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        '@angular/http': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        '@angular/platform-browser': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        '@angular/platform-browser-dynamic': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        '@angular/router-deprecated': {
-            main: 'index.js',
-            defaultExtension: 'js'
-        },
-        'rxjs': {
-            defaultExtension: 'js'
-        },
-        'videogular2': {
-            defaultExtension: 'js'
-        }
+        '@angular': 'node_modules/@angular',
+        'rxjs': 'node_modules/rxjs'
+    };
+
+    // packages tells the System loader how to load when no filename and/or no extension
+    var packages = {
+        'app': {main: 'bootstrap.js', defaultExtension: 'js'},
+        'rxjs': {defaultExtension: 'js'},
+        'videogular2': {main: 'core.js', defaultExtension: 'js'}
+    };
+
+    var ngPackageNames = [
+        'common',
+        'compiler',
+        'core',
+        'platform-browser',
+        'platform-browser-dynamic'
+    ];
+
+    // Individual files (~300 requests):
+    function packIndex(pkgName) {
+        packages['@angular/' + pkgName] = {main: 'index.js', defaultExtension: 'js'};
     }
-});
+
+    // Bundled (~40 requests):
+    function packUmd(pkgName) {
+        packages['@angular/' + pkgName] = {main: '/bundles/' + pkgName + '.umd.js', defaultExtension: 'js'};
+    }
+
+    // Most environments should use UMD; some (Karma) need the individual index files
+    var setPackageConfig = System.packageWithIndex ? packIndex : packUmd;
+
+    // Add package entries for angular packages
+    ngPackageNames.forEach(setPackageConfig);
+
+    var config = {
+        map: map,
+        packages: packages
+    };
+
+    System.config(config);
+
+})(this);

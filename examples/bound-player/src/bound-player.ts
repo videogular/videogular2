@@ -1,31 +1,9 @@
-import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component} from '@angular/core';
-import {NgFor, NgIf, NgModel} from '@angular/common';
-import {VgPlayer, VgMedia, VgAPI, VgFullscreenAPI} from 'videogular2/core';
-import {VgControls, VgTimeDisplay, VgPlayPause, VgPlaybackButton, VgScrubBar, VgScrubBarCurrentTime, VgScrubBarBufferingTime, VgMute, VgFullscreen} from 'videogular2/controls';
-import {VgOverlayPlay} from 'videogular2/overlay-play';
+import {VgAPI, VgFullscreenAPI} from 'videogular2/core';
 
 @Component({
     selector: 'bound-player',
-    templateUrl: 'src/bound-player.html',
-    providers: [VgAPI],
-    directives: [
-        VgPlayer,
-        VgMedia,
-        VgOverlayPlay,
-        VgControls,
-        VgTimeDisplay,
-        VgPlayPause,
-        VgPlaybackButton,
-        VgScrubBar,
-        VgScrubBarCurrentTime,
-        VgScrubBarBufferingTime,
-        VgMute,
-        VgFullscreen,
-        NgFor,
-        NgIf,
-        NgModel
-    ]
+    templateUrl: 'src/bound-player.html'
 })
 export class BoundPlayer {
     sources:Array<Object>;
@@ -72,6 +50,3 @@ export class BoundPlayer {
         ];
     }
 }
-
-
-bootstrap(BoundPlayer, []);
