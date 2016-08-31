@@ -41,4 +41,28 @@ describe('Time Display', () => {
         expect(timeDisplay.vgFor).toBe('vg-for');
         expect(timeDisplay.target).toBe(ref.nativeElement);
     });
+
+    describe('getTime', () => {
+        it('should return 0 when no target defined', () => {
+            expect(timeDisplay.getTime()).toBe(0);
+        });
+        it('should return 0 when target and its property cannot be evaluated to number', () => {
+            timeDisplay.property = "something";
+            timeDisplay.target = {
+                time: {
+                    "something": "abcd"
+                }
+            };
+            expect(timeDisplay.getTime()).toBe(0);
+        });
+        it('should return a rounded number when target and its property can be evaluated to number', () => {
+            timeDisplay.property = "something";
+            timeDisplay.target = {
+                time: {
+                    "something": 5.3
+                }
+            };
+            expect(timeDisplay.getTime()).toBe(5);
+        });
+    });
 });

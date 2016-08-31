@@ -48,6 +48,11 @@ export class VgTimeDisplay extends VgAbstractControl {
     }
 
     getTime() {
-        return this.target ? Math.round(this.target.time[this.property]) : 0;
+        let t = 0;
+        if(this.target) {
+            t = Math.round(this.target.time[this.property])
+            t = isNaN(t) ? 0 : t;
+        } 
+        return t;
     }
 }
