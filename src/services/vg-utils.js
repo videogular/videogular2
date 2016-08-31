@@ -2,6 +2,11 @@
 var VgUtils = (function () {
     function VgUtils() {
     }
+    /**
+     * Inspired by Paul Irish
+     * https://gist.github.com/paulirish/211209
+     * @returns {number}
+     */
     VgUtils.getZIndex = function () {
         var zIndex = 1;
         var elementZIndex;
@@ -14,6 +19,7 @@ var VgUtils = (function () {
         }
         return zIndex;
     };
+    // Very simple mobile detection, not 100% reliable
     VgUtils.isMobileDevice = function () {
         return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf("IEMobile") !== -1);
     };

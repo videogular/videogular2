@@ -88,8 +88,12 @@ var VgFullscreenAPI = (function () {
             elem = this.videogularElement;
         this.isFullscreen = true;
         this.onChangeFullscreen.next(true);
+        // Perform native full screen support
         if (this.isAvailable && this.nativeFullscreen) {
+            // Fullscreen for mobile devices
             if (vg_utils_1.VgUtils.isMobileDevice()) {
+                // We should make fullscreen the video object if it doesn't have native fullscreen support
+                // Fallback! We can't set vg-player on fullscreen, only video/audio objects
                 if (!this.polyfill.enabled && elem === this.videogularElement) {
                     elem = this.medias[0];
                 }
@@ -106,6 +110,7 @@ var VgFullscreenAPI = (function () {
     VgFullscreenAPI.exit = function () {
         this.isFullscreen = false;
         this.onChangeFullscreen.next(false);
+        // Exit from native fullscreen
         if (this.isAvailable && this.nativeFullscreen) {
             document[this.polyfill.exit]();
         }

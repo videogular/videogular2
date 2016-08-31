@@ -196,11 +196,13 @@ var VgAPI = (function () {
         var medias = {};
         var result;
         for (var id in this.medias) {
+            //result[id] = this.medias[id][property];
             medias[id] = this.medias[id];
         }
         var nMedias = Object.keys(medias).length;
         switch (nMedias) {
             case 0:
+                // Return default values until vgMedia is initialized
                 switch (property) {
                     case 'state':
                         result = vg_states_1.VgStates.VG_PAUSED;
@@ -215,10 +217,12 @@ var VgAPI = (function () {
                 }
                 break;
             case 1:
+                // If there's only one media element then return the plain value
                 var firstMediaId = Object.keys(medias)[0];
                 result = medias[firstMediaId][property];
                 break;
             default:
+                // TODO: return 'master' value
                 var master = this.getMasterMedia();
                 result = medias[master.id][property];
         }

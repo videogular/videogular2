@@ -1,37 +1,9 @@
-import {bootstrap} from "@angular/platform-browser-dynamic";
 import {Component, OnInit, ElementRef} from "@angular/core";
-import {VgPlayer, VgMedia, VgAPI, VgFullscreenAPI} from "videogular2/core";
-import {
-    VgControls,
-    VgTimeDisplay,
-    VgPlayPause,
-    VgPlaybackButton,
-    VgScrubBar,
-    VgScrubBarCurrentTime,
-    VgScrubBarBufferingTime,
-    VgMute,
-    VgFullscreen
-} from "videogular2/controls";
-import {VgOverlayPlay} from "videogular2/overlay-play";
+import {VgFullscreenAPI} from "videogular2/core";
 
 @Component({
     selector: 'vr-player',
-    templateUrl: 'src/vr-player.html',
-    providers: [VgAPI],
-    directives: [
-        VgPlayer,
-        VgMedia,
-        VgOverlayPlay,
-        VgControls,
-        VgTimeDisplay,
-        VgPlayPause,
-        VgPlaybackButton,
-        VgScrubBar,
-        VgScrubBarCurrentTime,
-        VgScrubBarBufferingTime,
-        VgMute,
-        VgFullscreen
-    ]
+    templateUrl: 'src/vr-player.html'
 })
 export class VRPlayer implements OnInit {
     elem:any;
@@ -41,6 +13,7 @@ export class VRPlayer implements OnInit {
     color:number = 34034;
     lastTime:number = 0;
     hexColor:string = '#0084f2';
+    videoUrl:string = 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/';
 
     constructor(ref:ElementRef) {
         this.elem = ref.nativeElement;
@@ -84,6 +57,3 @@ export class VRPlayer implements OnInit {
         }
     }
 }
-
-
-bootstrap(VRPlayer, []);

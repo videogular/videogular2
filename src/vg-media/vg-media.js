@@ -50,6 +50,7 @@ var VgMedia = (function () {
         this.subscriptions.timeUpdate = Observable_1.Observable.fromEvent(this.elem, vg_events_1.VgEvents.VG_TIME_UPDATE);
         this.subscriptions.volumeChange = Observable_1.Observable.fromEvent(this.elem, vg_events_1.VgEvents.VG_VOLUME_CHANGE);
         this.subscriptions.error = Observable_1.Observable.fromEvent(this.elem, vg_events_1.VgEvents.VG_ERROR);
+        // See changes on <source> child elements to reload the video file
         this.subscriptions.mutation = Observable_1.Observable.create(function (observer) {
             var domObs = new MutationObserver(function (mutations) {
                 observer.next(mutations);
@@ -77,6 +78,7 @@ var VgMedia = (function () {
         var _this = this;
         this.elem.pause();
         this.elem.currentTime = 0;
+        // TODO: This is ugly, we should find something cleaner
         setTimeout(function () { return _this.elem.load(); }, 1);
     };
     VgMedia.prototype.play = function () {
@@ -178,8 +180,10 @@ var VgMedia = (function () {
         }
     };
     VgMedia.prototype.onVolumeChange = function (event) {
+        // TODO: Save to localstorage the current volume
     };
     VgMedia.prototype.onError = function (event) {
+        // TODO: Handle error messages
     };
     __decorate([
         core_1.Input('vg-master'), 

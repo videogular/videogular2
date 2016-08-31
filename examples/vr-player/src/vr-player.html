@@ -18,7 +18,7 @@
 
     <a-scene vr-mode-ui="enabled: false">
         <a-assets>
-            <video src="https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/" vg-media id="video" preload="auto" loop></video>
+            <video [src]="videoUrl" vg-media id="video" preload="auto" loop></video>
         </a-assets>
 
         <a-box [color]="hexColor" width="1" height="1" depth="2"
