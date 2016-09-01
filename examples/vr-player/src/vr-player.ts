@@ -6,6 +6,7 @@ interface HotSpot {
     id: string;
     point: string
     goto: string;
+    rotation: string;
 }
 interface Video {
     id: string;
@@ -25,22 +26,20 @@ export class VRPlayer implements OnInit {
     videos:Array<Video> = [
         {
             id: 'v1',
-            url: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/', 
+            url: 'http://static.videogular.com/assets/videos/vr-inside.mp4',
             hotspots:[
-                {id: "h1", point: '-1 2 -5', goto: 'v2'},
-                {id: "h2", point: '-2 3 -5', goto: 'v2'}
+                {id: "h1", point: '15 2 -5', rotation: '0 -45 0', goto: 'v2'}
             ]
         },
         {
             id: 'v2',
-            url: 'http://static.videogular.com/assets/videos/vr-demo.mp4', 
+            url: 'http://static.videogular.com/assets/videos/vr-outside.mp4',
             hotspots:[
-                {id: "h1", point: '-1 2 -5', goto: 'v1'},
-                {id: "h2", point: '-2 3 -5', goto: 'v1'}
+                {id: "h1", point: '4 2 -5.6', rotation: '0 -90 0', goto: 'v1'},
+                {id: "h2", point: '4 2 0', rotation: '0 -90 0', goto: 'v1'}
             ]
         }
     ];
-    myPos:string = '-1 2 -5';
 
     constructor(ref:ElementRef) {
         this.elem = ref.nativeElement;
@@ -64,10 +63,11 @@ export class VRPlayer implements OnInit {
         if(!this.spinning) {
             this.spinning = true;
             document.querySelector('#'+hotSpot.id)['emit']('startSpinning'+hotSpot.id);
+
             setTimeout( () => {
                 this.currentVideo = this.videos.filter( v => v.id === hotSpot.goto )[0];
                 this.spinning = false;
-            }, 1250 );
+            }, 2000 );
         }
     }
 }

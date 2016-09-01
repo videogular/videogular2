@@ -15,22 +15,20 @@ var VRPlayer = (function () {
         this.videos = [
             {
                 id: 'v1',
-                url: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/',
+                url: 'http://static.videogular.com/assets/videos/vr-inside.mp4',
                 hotspots: [
-                    { id: "h1", point: '-1 2 -5', goto: 'v2' },
-                    { id: "h2", point: '-2 3 -5', goto: 'v2' }
+                    { id: "h1", point: '15 2 -5', rotation: '0 -45 0', goto: 'v2' }
                 ]
             },
             {
                 id: 'v2',
-                url: 'http://static.videogular.com/assets/videos/vr-demo.mp4',
+                url: 'http://static.videogular.com/assets/videos/vr-outside.mp4',
                 hotspots: [
-                    { id: "h1", point: '-1 2 -5', goto: 'v1' },
-                    { id: "h2", point: '-2 3 -5', goto: 'v1' }
+                    { id: "h1", point: '4 2 -5.6', rotation: '0 -90 0', goto: 'v1' },
+                    { id: "h2", point: '4 2 0', rotation: '0 -90 0', goto: 'v1' }
                 ]
             }
         ];
-        this.myPos = '-1 2 -5';
         this.elem = ref.nativeElement;
         this.currentVideo = this.videos[0];
         this.spinning = false;
@@ -53,7 +51,7 @@ var VRPlayer = (function () {
             setTimeout(function () {
                 _this.currentVideo = _this.videos.filter(function (v) { return v.id === hotSpot.goto; })[0];
                 _this.spinning = false;
-            }, 1250);
+            }, 2000);
         }
     };
     VRPlayer = __decorate([
