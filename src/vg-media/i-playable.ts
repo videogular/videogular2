@@ -11,4 +11,5 @@ export interface IPlayable {
     subscriptions:any;
     duration:number;
     currentTime:number;
+    dispatchEvent?:Function;
 }

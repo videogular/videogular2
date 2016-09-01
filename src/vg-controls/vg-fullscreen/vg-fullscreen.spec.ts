@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgFullscreen} from "./vg-fullscreen";
 import {VgAPI} from "../../services/vg-api";
 import {ElementRef} from "@angular/core";
@@ -26,7 +25,7 @@ describe('Videogular Player', () => {
         spyOn(fullscreen.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById').and.callFake(() => { });
 
-        fullscreen.ngOnInit();
+        fullscreen.onPlayerReady();
 
         expect(fullscreen.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');

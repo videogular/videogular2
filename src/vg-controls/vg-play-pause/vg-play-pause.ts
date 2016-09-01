@@ -1,6 +1,8 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../services/vg-api';
+import {VgAbstractControl} from '../vg-abstract-control';
+import {VgStates} from "../../states/vg-states";
 
 @Component({
     selector: 'vg-play-pause',
@@ -9,8 +11,8 @@ import {VgAPI} from '../../services/vg-api';
     },
     template:
         `<div class="icon"
-             [class.pause]="getState() === 'play'"
-             [class.play]="getState() === 'pause'">
+             [class.pause]="getState() === 'playing'"
+             [class.play]="getState() === 'paused' || getState() === 'ended'">
         </div>`,
     styles: [`
         :host {
@@ -42,16 +44,17 @@ import {VgAPI} from '../../services/vg-api';
         }
     `]
 })
-export class VgPlayPause implements OnInit {
+export class VgPlayPause extends VgAbstractControl {
     elem:HTMLElement;
     vgFor:string;
     target:any;
 
     constructor(ref:ElementRef, public API:VgAPI) {
+        super(API);
         this.elem = ref.nativeElement;
     }
 
-    ngOnInit() {
+    onPlayerReady() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
@@ -60,33 +63,18 @@ export class VgPlayPause implements OnInit {
         var state = this.getState();
 
         switch (state) {
-            case 'play':
+            case VgStates.VG_PLAYING:
                 this.target.pause();
                 break;
 
-            case 'pause':
+            case VgStates.VG_PAUSED:
+            case VgStates.VG_ENDED:
                 this.target.play();
                 break;
         }
     }
 
     getState() {
-        var state;
-
-        if (this.target.state instanceof Object) {
-            state = 'pause';
-
-            for (var media in this.target.state) {
-                if (this.target.state[media] === 'play'){
-                    state = 'play';
-                    break;
-                }
-            }
-        }
-        else {
-            state = this.target.state;
-        }
-
-        return state;
+        return this.target ? this.target.state : VgStates.VG_PAUSED;
     }
 }

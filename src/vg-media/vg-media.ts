@@ -1,8 +1,9 @@
-import {ElementRef, OnInit, Directive} from '@angular/core';
+import {ElementRef, OnInit, Directive, Input} from '@angular/core';
 
 import {IPlayable} from "./i-playable";
 import {Observable} from "rxjs/Observable";
 import {VgEvents} from "../events/vg-events";
+import {VgStates} from "../states/vg-states";
 
 @Directive({
     selector: '[vg-media]'
@@ -10,7 +11,15 @@ import {VgEvents} from "../events/vg-events";
 export class VgMedia implements OnInit, IPlayable {
     elem:HTMLMediaElement;
 
-    state:string = 'pause';
+    private _vgMaster:boolean = false;
+    @Input('vg-master') set isMaster(value:boolean) {
+        this._vgMaster = value;
+    }
+    get isMaster():boolean {
+        return this._vgMaster;
+    }
+
+    state:string = VgStates.VG_PAUSED;
     
     time:any = {current: 0, total: 0, left: 0};
     buffer:any = {end: 0};
@@ -97,6 +106,7 @@ export class VgMedia implements OnInit, IPlayable {
 
     set currentTime(seconds) {
         this.elem.currentTime =  seconds;
+        this.elem.dispatchEvent(new CustomEvent(VgEvents.VG_SEEK));
     }
 
     get currentTime() {
@@ -143,19 +153,19 @@ export class VgMedia implements OnInit, IPlayable {
 
     onComplete(event) {
         this.isCompleted = true;
-        this.state = 'pause';
+        this.state = VgStates.VG_ENDED;
     }
 
     onStartPlaying(event) {
-        this.state = 'play';
+        this.state = VgStates.VG_PLAYING;
     }
 
     onPlay(event) {
-        this.state = 'play';
+        this.state = VgStates.VG_PLAYING;
     }
 
     onPause(event) {
-        this.state = 'pause';
+        this.state = VgStates.VG_PAUSED;
     }
 
     onTimeUpdate(event) {

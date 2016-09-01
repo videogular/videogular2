@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../services/vg-api';
+import {VgStates} from "../states/vg-states";
 
 @Component({
     selector: 'vg-overlay-play',
@@ -11,7 +12,7 @@ import {VgAPI} from '../services/vg-api';
     template:
         `<div class="vg-overlay-play">
             <div class="overlay-play-container"
-                 [class.play]="getState() === 'pause'">
+                 [class.play]="getState() !== 'playing'">
             </div>
         </div>`,
     styles: [`
@@ -72,23 +73,23 @@ export class VgOverlayPlay implements OnInit {
         var state = this.getState();
 
         switch (state) {
-            case 'play':
+            case VgStates.VG_PLAYING:
                 this.target.pause();
                 break;
 
-            case 'pause':
+            case VgStates.VG_PAUSED:
                 this.target.play();
                 break;
         }
     }
 
     getState() {
-        var state = 'pause';
+        var state = VgStates.VG_PAUSED;
 
         if (this.target && this.target.state instanceof Array) {
             for (var i = 0, l = this.target.state.length; i < l; i++) {
-                if (this.target.state[i] === 'play') {
-                    state = 'play';
+                if (this.target.state[i] === VgStates.VG_PLAYING) {
+                    state = VgStates.VG_PLAYING;
                     break;
                 }
             }

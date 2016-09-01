@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgScrubBarBufferingTime} from "./vg-scrub-bar-buffering-time";
 import {VgAPI} from "../../../services/vg-api";
 import {ElementRef} from "@angular/core";
@@ -26,7 +25,7 @@ describe('Scrub bar buffering time', () => {
         spyOn(scrubBarBufferingTime.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById');
 
-        scrubBarBufferingTime.ngOnInit();
+        scrubBarBufferingTime.onPlayerReady();
 
         expect(scrubBarBufferingTime.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');

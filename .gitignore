@@ -4,3 +4,13 @@ dist
 coverage
 typings
 .couscous
+.vscode
+build
+npm-debug.log
+.DS_Store
+src/**/*.js
+src/**/*.js.map
+core.js
+controls.js
+overlay-play.js
+slides.js

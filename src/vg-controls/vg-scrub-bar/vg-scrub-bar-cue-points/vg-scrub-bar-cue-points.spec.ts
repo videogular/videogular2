@@ -1,4 +1,3 @@
-import {it, xit, describe, expect, beforeEach} from '@angular/core/testing';
 import {VgScrubBarCuePoints} from "./vg-scrub-bar-cue-points";
 import {VgAPI} from "../../../services/vg-api";
 import {ElementRef, SimpleChange} from "@angular/core";
@@ -96,7 +95,7 @@ describe('Scrub bar current time', () => {
 
         spyOn(ref.nativeElement.subscriptions.loadedMetadata, 'subscribe').and.callThrough();
 
-        scrubBarCuePoints.ngAfterViewInit();
+        scrubBarCuePoints.onPlayerReady();
 
         expect(ref.nativeElement.subscriptions.loadedMetadata.subscribe).toHaveBeenCalled();
     });

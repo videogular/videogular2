@@ -1,19 +1,47 @@
-import {Injectable} from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import {IPlayable} from "../vg-media/i-playable";
+import {VgStates} from "../states/vg-states";
 
 @Injectable()
 export class VgAPI {
     medias:Object = {};
     videogularElement: any;
+    playerReadyEvent: EventEmitter<any> = new EventEmitter(true);
 
     constructor() {
 
+    }
+
+    onPlayerReady() {
+        this.playerReadyEvent.emit(this);
     }
 
     getDefaultMedia() {
         for (var item in this.medias) {
             return this.medias[item];
         }
+    }
+
+    getMasterMedia() {
+        var master;
+        for (var id in this.medias) {
+            if (this.medias[id].isMaster === 'true' || this.medias[id].isMaster === true) {
+                master = this.medias[id];
+                break;
+            }
+        }
+        return master || this.getDefaultMedia();
+    }
+
+    isMasterDefined() {
+        var result = false;
+        for (var id in this.medias) {
+            if (this.medias[id].isMaster === 'true' || this.medias[id].isMaster === true) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     getMediaById(id:string = null) {
@@ -117,11 +145,15 @@ export class VgAPI {
     }
 
     $$seek(media:IPlayable, value:number, byPercent:boolean = false) {
-        var second;
+        var second:number;
+        var duration:number = media.duration;
 
         if (byPercent) {
-            second = value * media.duration / 100;
-            // TODO: Not working unit on-media-ready is available
+            if (this.isMasterDefined()) {
+                duration = this.getMasterMedia().duration;
+            }
+
+            second = value * duration / 100;
         }
         else {
             second = value;
@@ -131,18 +163,21 @@ export class VgAPI {
     }
 
     $$getAllProperties(property:string){
-        var result = {};
+        const medias = {};
+        let result;
 
         for (var id in this.medias) {
-            result[id] = this.medias[id][property];
+            //result[id] = this.medias[id][property];
+            medias[id] = this.medias[id];
         }
 
-        switch (Object.keys(result).length) {
+        const nMedias = Object.keys(medias).length;
+        switch (nMedias) {
             case 0:
                 // Return default values until vgMedia is initialized
                 switch (property) {
                     case 'state':
-                        result = 'pause';
+                        result = VgStates.VG_PAUSED;
                         break;
 
                     case 'playbackRate':
@@ -158,10 +193,16 @@ export class VgAPI {
 
             case 1:
                 // If there's only one media element then return the plain value
-                result = result[Object.keys(result)[0]];
+                const firstMediaId = Object.keys(medias)[0];
+                result = medias[firstMediaId][property];
                 break;
+                
+            default:
+                // TODO: return 'master' value
+                var master = this.getMasterMedia();
+                result = medias[master.id][property];
         }
-
+        
         return result;
     }
 

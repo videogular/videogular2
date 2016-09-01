@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgTimeDisplay} from "./vg-time-display";
 import {ElementRef} from "@angular/core";
 import {VgAPI} from "../../services/vg-api";
@@ -35,11 +34,35 @@ describe('Time Display', () => {
         spyOn(timeDisplay.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById').and.callFake(() => { return ref.nativeElement; });
 
-        timeDisplay.ngOnInit();
+        timeDisplay.onPlayerReady();
 
         expect(timeDisplay.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
         expect(timeDisplay.vgFor).toBe('vg-for');
         expect(timeDisplay.target).toBe(ref.nativeElement);
+    });
+
+    describe('getTime', () => {
+        it('should return 0 when no target defined', () => {
+            expect(timeDisplay.getTime()).toBe(0);
+        });
+        it('should return 0 when target and its property cannot be evaluated to number', () => {
+            timeDisplay.property = "something";
+            timeDisplay.target = {
+                time: {
+                    "something": "abcd"
+                }
+            };
+            expect(timeDisplay.getTime()).toBe(0);
+        });
+        it('should return a rounded number when target and its property can be evaluated to number', () => {
+            timeDisplay.property = "something";
+            timeDisplay.target = {
+                time: {
+                    "something": 5.3
+                }
+            };
+            expect(timeDisplay.getTime()).toBe(5);
+        });
     });
 });

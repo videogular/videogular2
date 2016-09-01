@@ -4,11 +4,9 @@ currentMenu: vg-player/vg-player
 
 # VgPlayer @Component
 
-Main component that surrounds `video` and `audio` elements. All videogular components must be placed inside this component.
+Main component responsible of the creation of the API. This should be your root component and all videogular components must be placed inside this component.
 
-This component is responsible of create VgAPI and load Videogular Font.
-
-To create VgAPI, videogular needs that each media element haves an `id` to build an internal map with all media objects.
+To create VgAPI, videogular needs that each `vg-media` directive haves an `id` to build an internal map with all media objects.
 
 ## Outputs
 
@@ -19,7 +17,7 @@ To create VgAPI, videogular needs that each media element haves an `id` to build
 ## HTML Definition
 
 ```html
-<vg-player id="vid" (onPlayerReady)="onPlayerReady($event)">
-    <video src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
+<vg-player (onPlayerReady)="onPlayerReady($event)">
+    <video vg-media id="my-video" src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
 </vg-player>
 ```

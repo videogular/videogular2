@@ -1,0 +1,25 @@
+<vg-player>
+    <vg-controls>
+        <vg-play-pause></vg-play-pause>
+
+        <vg-time-display property="current" format="mm:ss"></vg-time-display>
+
+        <vg-scrub-bar>
+            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+
+        <vg-time-display property="left" format="mm:ss"></vg-time-display>
+        <vg-time-display property="total" format="mm:ss"></vg-time-display>
+
+        <vg-mute></vg-mute>
+
+        <vg-fullscreen></vg-fullscreen>
+    </vg-controls>
+
+    <video vg-media vg-master="true" id="singleVideo" preload="auto" style="width: 50%;">
+        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
+    </video>
+
+    <vg-slides vg-media id="slides" [slides]="slides"></vg-slides>
+</vg-player>

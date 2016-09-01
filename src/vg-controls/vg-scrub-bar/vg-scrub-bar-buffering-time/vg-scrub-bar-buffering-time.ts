@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, ElementRef} from '@angular/core';
+import {Component, Input, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../../services/vg-api';
+import {VgAbstractControl} from '../../vg-abstract-control';
 
 @Component({
     selector: 'vg-scrub-bar-buffering-time',
@@ -30,16 +31,17 @@ import {VgAPI} from '../../../services/vg-api';
         }
     `]
 })
-export class VgScrubBarBufferingTime implements OnInit {
+export class VgScrubBarBufferingTime extends VgAbstractControl {
     elem:HTMLElement;
     vgFor: string;
     target: any;
 
     constructor(ref:ElementRef, public API:VgAPI) {
+        super(API);
         this.elem = ref.nativeElement;
     }
 
-    ngOnInit() {
+    onPlayerReady() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
@@ -47,7 +49,7 @@ export class VgScrubBarBufferingTime implements OnInit {
     getBufferTime() {
         var bufferTime = "0%";
 
-        if (this.target.buffer && this.target.buffered.length) {
+        if (this.target && this.target.buffer && this.target.buffered.length) {
             bufferTime = ((this.target.buffer.end / this.target.time.total) * 100) + '%';
         }
 

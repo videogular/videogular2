@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from '@angular/core/testing';
 import {ElementRef} from "@angular/core";
 import {Observable} from 'rxjs/Rx';
 import {VgCuePoints} from "./vg-cue-points";

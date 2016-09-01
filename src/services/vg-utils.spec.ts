@@ -1,4 +1,3 @@
-import {it, fit, describe, expect} from "@angular/core/testing";
 import {VgUtils} from "./vg-utils";
 
 describe('Videogular Utils', () => {

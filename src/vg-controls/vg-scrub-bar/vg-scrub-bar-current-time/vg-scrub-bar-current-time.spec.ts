@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgScrubBarCurrentTime} from "./vg-scrub-bar-current-time";
 import {VgAPI} from "../../../services/vg-api";
 import {ElementRef} from "@angular/core";
@@ -26,7 +25,7 @@ describe('Scrub bar current time', () => {
         spyOn(scrubBarCurrentTime.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById');
 
-        scrubBarCurrentTime.ngOnInit();
+        scrubBarCurrentTime.onPlayerReady();
 
         expect(scrubBarCurrentTime.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');

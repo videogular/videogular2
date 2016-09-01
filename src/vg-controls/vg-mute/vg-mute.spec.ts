@@ -1,4 +1,3 @@
-import {it, describe, expect, beforeEach} from "@angular/core/testing";
 import {VgMute} from "./vg-mute";
 import {VgAPI} from "../../services/vg-api";
 import {ElementRef} from "@angular/core";
@@ -20,9 +19,11 @@ describe('Mute Button', () => {
         api = new VgAPI();
         api.medias = {
             main: {
+                id: 'main',
                 volume: 1
             },
             secondary: {
+                id: 'secondary',
                 volume: 0.5
             }
         };
@@ -39,19 +40,11 @@ describe('Mute Button', () => {
             };
         });
 
-        mute.ngOnInit();
+        mute.onPlayerReady();
 
         expect(mute.elem.getAttribute).toHaveBeenCalledWith('vg-for');
         expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
         expect(mute.currentVolume).toBe(1);
-    });
-
-    it('Should get average volume between all media files', () => {
-        mute.target = api;
-
-        var volume = mute.getVolume();
-
-        expect(volume).toBe(0.75);
     });
 
     it('Should get volume for one media file', () => {
@@ -107,16 +100,18 @@ describe('Mute Button', () => {
 
             mute.onClick();
 
-            expect(mute.currentVolume).toBe(0.75);
-            expect(api.volume).toEqual({main: 0, secondary: 0});
+            expect(mute.currentVolume).toBe(1);
+            expect(api.volume).toEqual(0);
         });
 
         it('should unmute volume if current volume is 0', () => {
             api.medias = {
                 main: {
+                    id: 'main',
                     volume: 0
                 },
                 secondary: {
+                    id: 'secondary',
                     volume: 0
                 }
             };
@@ -127,7 +122,7 @@ describe('Mute Button', () => {
 
             mute.onClick();
 
-            expect(api.volume).toEqual({main: 0.75, secondary: 0.75});
+            expect(api.volume).toEqual(0.75);
         });
     });
 });

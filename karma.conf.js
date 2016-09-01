@@ -41,7 +41,7 @@ module.exports = function(config) {
             {pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: true},
 
             // Our built application code
-            {pattern: 'dist/**/*.js', included: false, watched: true},
+            {pattern: 'src/**/*.js', included: false, watched: true},
 
             // paths loaded via Angular's component compiler
             // (these paths need to be rewritten, see proxies section)
@@ -50,7 +50,7 @@ module.exports = function(config) {
 
             // paths to support debugging with source maps in dev tools
             {pattern: 'src/**/*.ts', included: false, watched: false},
-            {pattern: 'dist/**/*.js.map', included: false, watched: false}
+            {pattern: 'src/**/*.js.map', included: false, watched: false}
         ],
 
         // proxied base paths
@@ -83,7 +83,7 @@ module.exports = function(config) {
         // Source files that you wanna generate coverage for.
         // Do not include tests or libraries (these files will be instrumented by Istanbul)
         preprocessors: {
-            'dist/**/!(*spec).js': ['coverage']
+            'src/**/!(*spec).js': ['coverage']
         },
 
         coverageReporter: {

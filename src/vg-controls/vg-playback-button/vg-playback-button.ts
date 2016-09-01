@@ -1,13 +1,14 @@
-import {Component, OnInit, Input, ElementRef} from '@angular/core';
+import {Component, Input, ElementRef} from '@angular/core';
 
 import {VgAPI} from '../../services/vg-api';
+import {VgAbstractControl} from '../vg-abstract-control';
 
 @Component({
     selector: 'vg-playback-button',
     host: {
         '(click)': 'onClick()'
     },
-    template: `{{target.playbackRate}}x`,
+    template: `{{getPlaybackRate()}}x`,
     styles: [`
         :host {
             -webkit-touch-callout: none;
@@ -29,7 +30,7 @@ import {VgAPI} from '../../services/vg-api';
         }
     `]
 })
-export class VgPlaybackButton implements OnInit {
+export class VgPlaybackButton extends VgAbstractControl {
     elem:HTMLElement;
     vgFor: string;
     target: any;
@@ -38,12 +39,13 @@ export class VgPlaybackButton implements OnInit {
     playbackIndex: number;
 
     constructor(ref:ElementRef, public API:VgAPI) {
+        super(API);
         this.elem = ref.nativeElement;
         this.playbackValues = ['0.5', '1.0', '1.5', '2.0'];
         this.playbackIndex = 1;
     }
 
-    ngOnInit() {
+    onPlayerReady() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
@@ -57,5 +59,9 @@ export class VgPlaybackButton implements OnInit {
         else {
             this.target.playbackRate[this.vgFor] = (this.playbackValues[this.playbackIndex]);
         }
+    }
+
+    getPlaybackRate() {
+        return this.target ? this.target.playbackRate : 1.0;
     }
 }
