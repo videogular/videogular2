@@ -41,12 +41,12 @@
     "watch": "0.19.2"
   },
   "scripts": {
-    "typings": "typings install",
+    "postinstall": "npm install typings --global",
     "prebuild": "npm run clean && mkdir dist",
     "tsc": "tsc",
     "build": "tsc",
     "postbuild": "npm run test",
-    "prebuild:travis": "npm run typings",
+    "prebuild:travis": "typings install",
     "build:travis": "tsc",
     "postbuild:travis": "npm run test",
     "clean": "rm -rf dist",
