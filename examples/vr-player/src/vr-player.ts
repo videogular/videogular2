@@ -1,6 +1,18 @@
 import {Component, OnInit, ElementRef} from "@angular/core";
 import {VgFullscreenAPI} from "videogular2/core";
 
+
+interface HotSpot {
+    id: string;
+    point: string
+    goto: string;
+}
+interface Video {
+    id: string;
+    url: string,
+    hotspots: Array<HotSpot>
+}
+
 @Component({
     selector: 'vr-player',
     templateUrl: 'src/vr-player.html'
@@ -8,16 +20,31 @@ import {VgFullscreenAPI} from "videogular2/core";
 export class VRPlayer implements OnInit {
     elem:any;
     aframe:any;
-    videoUrls:Array<string> = [
-        'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/',
-        'http://static.videogular.com/assets/videos/vr-demo.mp4'
-    ];
-    videoUrl:string;
+    currentVideo:Video;
     spinning:boolean;
+    videos:Array<Video> = [
+        {
+            id: 'v1',
+            url: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/', 
+            hotspots:[
+                {id: "h1", point: '-1 2 -5', goto: 'v2'},
+                {id: "h2", point: '-2 3 -5', goto: 'v2'}
+            ]
+        },
+        {
+            id: 'v2',
+            url: 'http://static.videogular.com/assets/videos/vr-demo.mp4', 
+            hotspots:[
+                {id: "h1", point: '-1 2 -5', goto: 'v1'},
+                {id: "h2", point: '-2 3 -5', goto: 'v1'}
+            ]
+        }
+    ];
+    myPos:string = '-1 2 -5';
 
     constructor(ref:ElementRef) {
         this.elem = ref.nativeElement;
-        this.videoUrl = this.videoUrls[0];
+        this.currentVideo = this.videos[0];
         this.spinning = false;
     }
 
@@ -33,12 +60,12 @@ export class VRPlayer implements OnInit {
         }
     }
 
-    onMouseEnter($event) {
+    onMouseEnter(hotSpot:HotSpot) {
         if(!this.spinning) {
             this.spinning = true;
-            document.querySelector('#infoImage')['emit']('startSpinning');
+            document.querySelector('#'+hotSpot.id)['emit']('startSpinning'+hotSpot.id);
             setTimeout( () => {
-                this.videoUrl = this.videoUrls.reverse()[0]
+                this.currentVideo = this.videos.filter( v => v.id === hotSpot.goto )[0];
                 this.spinning = false;
             }, 1250 );
         }
