@@ -12,12 +12,27 @@ var core_1 = require("@angular/core");
 var core_2 = require("videogular2/core");
 var VRPlayer = (function () {
     function VRPlayer(ref) {
-        this.videoUrls = [
-            'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/',
-            'http://static.videogular.com/assets/videos/vr-demo.mp4'
+        this.videos = [
+            {
+                id: 'v1',
+                url: 'https://ucarecdn.com/bcece0a8-86ce-460e-856b-40dac4875f15/',
+                hotspots: [
+                    { id: "h1", point: '-1 2 -5', goto: 'v2' },
+                    { id: "h2", point: '-2 3 -5', goto: 'v2' }
+                ]
+            },
+            {
+                id: 'v2',
+                url: 'http://static.videogular.com/assets/videos/vr-demo.mp4',
+                hotspots: [
+                    { id: "h1", point: '-1 2 -5', goto: 'v1' },
+                    { id: "h2", point: '-2 3 -5', goto: 'v1' }
+                ]
+            }
         ];
+        this.myPos = '-1 2 -5';
         this.elem = ref.nativeElement;
-        this.videoUrl = this.videoUrls[0];
+        this.currentVideo = this.videos[0];
         this.spinning = false;
     }
     VRPlayer.prototype.ngOnInit = function () {
@@ -30,13 +45,13 @@ var VRPlayer = (function () {
             this.aframe.addState('vr-mode');
         }
     };
-    VRPlayer.prototype.onMouseEnter = function ($event) {
+    VRPlayer.prototype.onMouseEnter = function (hotSpot) {
         var _this = this;
         if (!this.spinning) {
             this.spinning = true;
-            document.querySelector('#infoImage')['emit']('startSpinning');
+            document.querySelector('#' + hotSpot.id)['emit']('startSpinning' + hotSpot.id);
             setTimeout(function () {
-                _this.videoUrl = _this.videoUrls.reverse()[0];
+                _this.currentVideo = _this.videos.filter(function (v) { return v.id === hotSpot.goto; })[0];
                 _this.spinning = false;
             }, 1250);
         }

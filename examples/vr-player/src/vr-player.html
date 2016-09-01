@@ -18,23 +18,24 @@
 
     <a-scene vr-mode-ui="enabled: false">
         <a-assets>
-            <video [src]="videoUrl" vg-media id="video" preload="auto" loop></video>
+            <video [src]="currentVideo.url" vg-media id="video" preload="auto" loop></video>
             <img id="infoImg" src="info.png" width="600" height="600">
         </a-assets>
 
         <a-image 
-            id="infoImage"
-            depth="2"
-            position="-1 2 -5"
+            *ngFor="let hotspot of currentVideo.hotspots; let i=index"
+            [id]="hotspot.id"
+            [attr.depth]="2 + i"
+            [attr.position]="hotspot.point"
             src="#infoImg"  
-            (mouseenter)="onMouseEnter($event)">
+            (mouseenter)="onMouseEnter(hotspot)">
              <a-animation 
                attribute="rotation"
                dur="1000"
                fill="forwards"
                easing="ease-out"
                to="0 720 0"
-               begin="startSpinning"
+               [attr.begin]="'startSpinning' + hotspot.id"
                repeat="0"></a-animation>
         </a-image>
 
