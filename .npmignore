@@ -5,3 +5,9 @@ coverage
 typings
 typings.json
 .couscous
+docs
+*.md
+*.yml
+karma-test-shim.js
+karma.conf.js
+make.js
