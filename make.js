@@ -9,9 +9,9 @@ var config = {
     module: 'cjs'
   },
   map: {
-    typescript: './node_modules/typescript/lib/typescript.js',
+    'typescript': './node_modules/typescript/lib/typescript.js',
     '@angular': './node_modules/@angular',
-    rxjs: './node_modules/rxjs'
+    'rxjs': './node_modules/rxjs'
   },
   paths: {
     '*': '*.js'
