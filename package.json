@@ -50,6 +50,7 @@
     "build:travis": "tsc",
     "postbuild:travis": "node make.js && npm run test",
     "clean": "rm -rf dist",
+    "precommit": "npm test",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
     "start": "parallelshell 'npm run watch:ts' 'npm run start:coverage-server'",
