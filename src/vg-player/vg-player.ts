@@ -28,11 +28,6 @@ import {VgMedia} from "../vg-media/vg-media";
             background-color: black;
         }
 
-        :host video {
-            width: 100%;
-            height: 100%;
-        }
-
         :host.fullscreen {
             position: fixed;
             left: 0;
