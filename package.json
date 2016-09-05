@@ -9,15 +9,15 @@
     "url": "https://github.com/videogular/videogular2"
   },
   "dependencies": {
-    "@angular/common": "2.0.0-rc.5",
-    "@angular/compiler": "2.0.0-rc.5",
-    "@angular/core": "2.0.0-rc.5",
-    "@angular/platform-browser": "2.0.0-rc.5",
-    "@angular/platform-browser-dynamic": "2.0.0-rc.5",
+    "@angular/common": "2.0.0-rc.6",
+    "@angular/compiler": "2.0.0-rc.6",
+    "@angular/core": "2.0.0-rc.6",
+    "@angular/platform-browser": "2.0.0-rc.6",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.6",
     "es6-shim": "0.35.1",
     "reflect-metadata": "0.1.8",
-    "rxjs": "5.0.0-beta.6",
-    "zone.js": "0.6.13",
+    "rxjs": "5.0.0-beta.11",
+    "zone.js": "0.6.17",
     "systemjs": "0.19.37"
   },
   "devDependencies": {
@@ -49,7 +49,7 @@
     "prebuild:travis": "npm run typings install",
     "build:travis": "tsc",
     "postbuild:travis": "node make.js && npm run test",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist && rm -rf ./src/**/*.js && rm -rf ./src/**/*.d.ts",
     "precommit": "npm test",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",

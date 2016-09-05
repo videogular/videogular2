@@ -15,7 +15,6 @@ import {VgMedia} from "../vg-media/vg-media";
 
 @Component({
     selector: 'vg-player',
-    directives: [VgMedia],
     template: `<ng-content></ng-content>`,
     styles: [`
         :host {

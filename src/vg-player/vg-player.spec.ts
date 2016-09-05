@@ -1,5 +1,5 @@
 import {async, inject, TestBed} from "@angular/core/testing";
-import {Component, provide} from "@angular/core";
+import {Component} from "@angular/core";
 import {VgPlayer} from "./vg-player";
 import {VgMedia} from "../vg-media/vg-media";
 import {VgAPI} from "../services/vg-api";
@@ -56,7 +56,7 @@ describe('Videogular Player', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [VgPlayerTest]
+            declarations: [VgPlayerTest, VgPlayer]
         });
     });
 
@@ -86,7 +86,6 @@ describe('Videogular Player', () => {
             </video>
         </vg-player>
     `,
-    providers: [VgAPI],
-    directives: [VgPlayer, VgMedia]
+    providers: [VgAPI]
 })
 class VgPlayerTest {}
