@@ -6,10 +6,10 @@ export declare class VgAPI {
     playerReadyEvent: EventEmitter<any>;
     constructor();
     onPlayerReady(): void;
-    getDefaultMedia(): any;
-    getMasterMedia(): any;
+    getDefaultMedia(): IPlayable;
+    getMasterMedia(): IPlayable;
     isMasterDefined(): boolean;
-    getMediaById(id?: string): any;
+    getMediaById(id?: string): IPlayable;
     play(): void;
     pause(): void;
     readonly duration: any;
