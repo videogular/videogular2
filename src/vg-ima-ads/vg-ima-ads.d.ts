@@ -4,7 +4,8 @@ import { IPlayable } from '../vg-media/i-playable';
 import { VgAPI } from '../services/vg-api';
 export declare class VgImaAds {
     API: VgAPI;
-    element: HTMLMediaElement;
+    element: HTMLElement;
+    mediaElement: HTMLMediaElement;
     vgFor: string;
     target: IPlayable;
     ima: Ima;

@@ -17,16 +17,23 @@ import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
     template:
         `<div class="vg-ima-ads"></div>`,
     styles: [`
-        .vg-ima-ads {
+        :host {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: 199;
+            background: black;
+        }
+        .vg-ima-ads {
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
     `]
 })
 export class VgImaAds {
-    element:HTMLMediaElement;
+    element:HTMLElement;
+    mediaElement:HTMLMediaElement;
     vgFor: string;
     target: IPlayable;
     ima: Ima;
@@ -52,12 +59,14 @@ export class VgImaAds {
         this.vgFor = this.element.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
         
+        this.mediaElement = (this.API.getMasterMedia() as any).elem;// hack to overcome IPlayable
+        
         this.initializations();
 
-        Observable.fromEvent(<any>this.target, VgEvents.VG_ENDED)
+        Observable.fromEvent(this.mediaElement, VgEvents.VG_ENDED)
             .subscribe(this.onContentEnded.bind(this));
 
-        Observable.fromEvent(<any>this.target, VgEvents.VG_PLAY)
+        Observable.fromEvent(this.mediaElement, VgEvents.VG_PLAY)
             .subscribe(this.onUpdateState.bind(this));
         
         VgFullscreenAPI.onChangeFullscreen
@@ -78,6 +87,7 @@ export class VgImaAds {
     }
 
     initializations() {
+        console.log('initializations');
         this.ima = new Ima(this.element);
 
         this.skipButton = document.querySelector(this.vgSkipButton) as HTMLElement;
@@ -158,23 +168,24 @@ export class VgImaAds {
     onAdsManagerLoaded(evt:google.ima.AdsManagerLoadedEvent) {
         console.log('onAdsManagerLoaded', evt);
         this.show();
-        this.ima.adsManager = evt.getAdsManager(this.element);
+        this.ima.adsManager = evt.getAdsManager(this.mediaElement);
         this.processAdsManager(this.ima.adsManager);
     }
     
     processAdsManager(adsManager:google.ima.AdsManager){
         console.log('processAdsManager');
-        const w = this.API.videogularElement[0].offsetWidth;
-        const h = this.API.videogularElement[0].offsetHeight;
+        const w = this.API.videogularElement.offsetWidth;
+        const h = this.API.videogularElement.offsetHeight;
 
         // Attach the pause/resume events.
-        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, this.onContentPauseRequested, false);
-        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, this.onContentResumeRequested, false);
-        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED, this.onSkippableStateChanged, false);
-        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.ALL_ADS_COMPLETED, this.onAllAdsComplete, false);
-        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, this.onAdComplete, false);
-        this.ima.adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError, false);
+        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, this.onContentPauseRequested.bind(this), false);
+        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, this.onContentResumeRequested.bind(this), false);
+        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED, this.onSkippableStateChanged.bind(this), false);
+        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.ALL_ADS_COMPLETED, this.onAllAdsComplete.bind(this), false);
+        this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, this.onAdComplete.bind(this), false);
+        this.ima.adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError.bind(this), false);
 
+        console.log('w,h', w, h);
         this.ima.adsManager.init(w, h, google.ima.ViewMode.NORMAL);
         this.ima.adsManager.start();
     }
