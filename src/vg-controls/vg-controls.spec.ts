@@ -1,5 +1,5 @@
 import {VgControls} from "./vg-controls";
-import {ElementRef, Renderer} from "@angular/core";
+import {ElementRef} from "@angular/core";
 import {VgAPI} from "../services/vg-api";
 import {Observable} from "rxjs/Observable";
 
@@ -7,7 +7,6 @@ describe('Controls Bar', () => {
     let controls:VgControls;
     let ref:ElementRef;
     let api:VgAPI;
-    let renderer;
 
     beforeEach(() => {
         jasmine.clock().uninstall();
@@ -23,11 +22,7 @@ describe('Controls Bar', () => {
             }
         };
 
-        renderer = {
-            setElementClass: () => {}
-        };
-
-        controls = new VgControls(api, ref, (<Renderer>renderer));
+        controls = new VgControls(api, ref);
     });
 
     afterEach(() => {
@@ -73,33 +68,29 @@ describe('Controls Bar', () => {
 
     it('Should show controls', () => {
         spyOn(window, 'clearTimeout').and.callFake(() => {});
-        spyOn(renderer, 'setElementClass').and.callThrough();
 
         controls.show();
 
         expect(window.clearTimeout).toHaveBeenCalled();
-        expect(renderer.setElementClass).toHaveBeenCalledWith(ref.nativeElement, 'hide', false);
+        expect(controls.hideControls).toBe(false);
     });
 
     it('Should hide controls', () => {
-        spyOn(renderer, 'setElementClass').and.callThrough();
-
         controls.autohide = true;
 
         controls.hide();
 
         jasmine.clock().tick(3100);
-        expect(renderer.setElementClass).toHaveBeenCalledWith(ref.nativeElement, 'hide', true);
+        expect(controls.hideControls).toBe(true);
     });
 
     it('Should not hide controls', () => {
-        spyOn(renderer, 'setElementClass').and.callThrough();
-
+        controls.hideControls = false;
         controls.autohide = false;
 
         controls.hide();
 
         jasmine.clock().tick(3100);
-        expect(renderer.setElementClass).not.toHaveBeenCalled();
+        expect(controls.hideControls).toBe(false);
     });
 });

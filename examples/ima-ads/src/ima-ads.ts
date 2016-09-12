@@ -5,17 +5,15 @@ import {Component} from "@angular/core";
     templateUrl: 'src/ima-ads.html',
     styles: [`
         #demo-player {
-            position: absolute;
             width: 100%;
             height: calc(100% - 90px);
         }
-        .companionAd {
-            position: absolute;
-            bottom: 0;
+        #companion-ad {
+            text-align: center;
             width: 100%;
             height: 90px;
         }
-        .skipButton {
+        .skip-button {
             display: none;
         }
     `]

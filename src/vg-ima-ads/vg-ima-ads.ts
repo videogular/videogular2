@@ -1,18 +1,15 @@
-///<reference path="./google.ima.ts"/>
+///<reference path='./google.ima.ts'/>
 
-import {Component, OnInit, ElementRef, Input} from '@angular/core';
-import {Observable} from "rxjs/Observable";
+import {Component, OnInit, ElementRef, Input, HostBinding} from '@angular/core';
 
 import {IPlayable} from '../vg-media/i-playable';
 import {VgAPI} from '../services/vg-api';
-import {VgStates} from "../states/vg-states";
-import {VgEvents} from "../events/vg-events";
-import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
+import {VgEvents} from '../events/vg-events';
+import {VgFullscreenAPI} from '../services/vg-fullscreen-api';
 
 @Component({
     selector: 'vg-ima-ads',
-    template:
-        `<div class="vg-ima-ads"></div>`,
+    template: `<div class="vg-ima-ads"></div>`,
     styles: [`
         :host {
             position: absolute;
@@ -24,18 +21,20 @@ import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
             position: absolute;
             width: 100%;
             height: 100%;
+            pointer-events: none;
         }
     `]
 })
 export class VgImaAds {
-    element:HTMLElement;
-    mediaElement:HTMLMediaElement;
+    elem:HTMLElement;
     vgFor: string;
     target: IPlayable;
     ima: Ima;
     subscriptions:any = {};
     isFullscreen:boolean = false;
     skipButton:HTMLElement;
+
+    @HostBinding('style.display') displayState: string = 'none';
 
     @Input('vg-network') vgNetwork : string;
     @Input('vg-unit-path') vgUnitPath : string;
@@ -45,25 +44,19 @@ export class VgImaAds {
     @Input('vg-skip-button') vgSkipButton : string;
 
     constructor(ref:ElementRef, public API: VgAPI) {
-        this.element = ref.nativeElement;
+        this.elem = ref.nativeElement;
         this.onContentEnded = this.onContentEnded.bind(this);
         this.API.playerReadyEvent.subscribe((api) => this.onPlayerReady());
     }
 
     onPlayerReady() {
-        console.log('onPlayerReady');
-        this.vgFor = this.element.getAttribute('vg-for');
+        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
-        
-        this.mediaElement = (this.API.getMasterMedia() as any).elem;// hack to overcome IPlayable
         
         this.initializations();
 
-        Observable.fromEvent(this.mediaElement, VgEvents.VG_ENDED)
-            .subscribe(this.onContentEnded.bind(this));
-
-        Observable.fromEvent(this.mediaElement, VgEvents.VG_PLAY)
-            .subscribe(this.onUpdateState.bind(this));
+        this.target.subscriptions.ended.subscribe(this.onContentEnded.bind(this));
+        this.target.subscriptions.play.subscribe(this.onUpdateState.bind(this));
         
         VgFullscreenAPI.onChangeFullscreen
             .subscribe(this.onChangeFullscreen.bind(this));
@@ -83,15 +76,14 @@ export class VgImaAds {
     }
 
     initializations() {
-        console.log('initializations');
-        this.ima = new Ima(this.element);
+        this.ima = new Ima(this.elem);
 
         this.skipButton = document.querySelector(this.vgSkipButton) as HTMLElement;
-        this.skipButton.style.display = "none";
-        this.skipButton.addEventListener("click", this.onClickSkip.bind(this));
-        this.element.insertBefore(this.skipButton, this.element.firstChild);
+        this.skipButton.style.display = 'none';
+        this.skipButton.addEventListener('click', this.onClickSkip.bind(this));
+        this.elem.insertBefore(this.skipButton, this.elem.firstChild);
 
-        window.addEventListener("resize", () => {
+        window.addEventListener('resize', () => {
             const w = this.API.videogularElement.offsetWidth;
             const h = this.API.videogularElement.offsetHeight;
 
@@ -107,11 +99,10 @@ export class VgImaAds {
     }
 
     loadAds() {
-        console.log('loadAds', this.vgCompanion);
         if (this.vgCompanion) {
             googletag.cmd.push(
                 () => {
-                    const adUnitPath:string = "/" + this.vgNetwork + "/" + this.vgUnitPath;
+                    const adUnitPath:string = '/' + this.vgNetwork + '/' + this.vgUnitPath;
                     const slot:googletag.Slot = googletag.defineSlot(adUnitPath, this.vgCompanionSize, this.vgCompanion);
                     slot.addService(googletag.companionAds());
                     slot.addService(googletag.pubads());
@@ -131,7 +122,6 @@ export class VgImaAds {
     }
     
     onUpdateState(event:any) {
-        console.log("onUpdateState", event);
         switch (event.type) {
             case VgEvents.VG_PLAY:
                 if(!this.ima.adsLoaded) {
@@ -145,12 +135,11 @@ export class VgImaAds {
     }
 
     requestAds(adTagUrl:string) {
-        console.log('requestAds', adTagUrl);
         // Show only to get computed style in pixels
         this.show();
 
         const adsRequest = new google.ima.AdsRequest();
-        const computedStyle = window.getComputedStyle(this.element);
+        const computedStyle = window.getComputedStyle(this.elem);
         adsRequest.adTagUrl = adTagUrl;
 
         adsRequest.linearAdSlotWidth = parseInt(computedStyle.width, 10);
@@ -162,14 +151,12 @@ export class VgImaAds {
     }
 
     onAdsManagerLoaded(evt:google.ima.AdsManagerLoadedEvent) {
-        console.log('onAdsManagerLoaded', evt);
         this.show();
-        this.ima.adsManager = evt.getAdsManager(this.mediaElement);
+        this.ima.adsManager = evt.getAdsManager(this.target);
         this.processAdsManager(this.ima.adsManager);
     }
     
     processAdsManager(adsManager:google.ima.AdsManager){
-        console.log('processAdsManager');
         const w = this.API.videogularElement.offsetWidth;
         const h = this.API.videogularElement.offsetHeight;
 
@@ -181,19 +168,17 @@ export class VgImaAds {
         this.ima.adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, this.onAdComplete.bind(this), false);
         this.ima.adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, this.onAdError.bind(this), false);
 
-        console.log('w,h', w, h);
         this.ima.adsManager.init(w, h, google.ima.ViewMode.NORMAL);
         this.ima.adsManager.start();
     }
 
     onSkippableStateChanged() {
         const isSkippable = this.ima.adsManager.getAdSkippableState();
-        console.log('onSkippableStateChanged', isSkippable);
 
         if (isSkippable) {
-            this.skipButton.style.display = "block";
+            this.skipButton.style.display = 'block';
         } else {
-            this.skipButton.style.display = "none";
+            this.skipButton.style.display = 'none';
         }
     }
 
@@ -202,19 +187,16 @@ export class VgImaAds {
     }
 
     onContentPauseRequested() {
-        console.log('onContentPauseRequested');
         this.show();
         this.API.pause();
     }
 
     onContentResumeRequested() {
-        console.log('onContentResumeRequested');
         this.API.play();
         this.hide();
     }
 
     onAdError(evt) {
-        console.log('onAdError', evt);
         if (this.ima.adsManager) {
             this.ima.adsManager.destroy();
         }
@@ -223,30 +205,29 @@ export class VgImaAds {
     }
 
     onAllAdsComplete() {
-        console.log('onAllAdsComplete');
         this.hide();
         // The last ad was a post-roll
-        if (this.ima.adsManager.getCuePoints().join().indexOf("-1") >= 0) {
+        if (this.ima.adsManager.getCuePoints().join().indexOf('-1') >= 0) {
             this.API.pause(); // it was stop() in Videogular v1
         }
     }
 
     onAdComplete(){
-        console.log('onAdComplete');
         // TODO: Update view with current ad count
         this.ima.currentAd++;
     }
 
     show() {
-        this.element.style.display = "block";
+        window.dispatchEvent(new CustomEvent(VgEvents.VG_START_ADS));
+        this.displayState = 'block';
     }
 
     hide() {
-        this.element.style.display = "none";
+        window.dispatchEvent(new CustomEvent(VgEvents.VG_END_ADS));
+        this.displayState = 'none';
     }
     
     onContentEnded() {
-        console.log('onContentEnded');
         this.ima.adsLoader.contentComplete();
     }
 

@@ -30,7 +30,7 @@ var ImaAds = (function () {
         core_1.Component({
             selector: 'ima-ads',
             templateUrl: 'src/ima-ads.html',
-            styles: ["\n        #demo-player {\n            position: absolute;\n            width: 100%;\n            height: calc(100% - 90px);\n        }\n        .companionAd {\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 90px;\n        }\n        .skipButton {\n            display: none;\n        }\n    "]
+            styles: ["\n        #demo-player {\n            width: 100%;\n            height: calc(100% - 90px);\n        }\n        #companion-ad {\n            text-align: center;\n            width: 100%;\n            height: 90px;\n        }\n        .skip-button {\n            display: none;\n        }\n    "]
         }), 
         __metadata('design:paramtypes', [])
     ], ImaAds);

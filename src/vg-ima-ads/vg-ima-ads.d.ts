@@ -4,14 +4,14 @@ import { IPlayable } from '../vg-media/i-playable';
 import { VgAPI } from '../services/vg-api';
 export declare class VgImaAds {
     API: VgAPI;
-    element: HTMLElement;
-    mediaElement: HTMLMediaElement;
+    elem: HTMLElement;
     vgFor: string;
     target: IPlayable;
     ima: Ima;
     subscriptions: any;
     isFullscreen: boolean;
     skipButton: HTMLElement;
+    displayState: string;
     vgNetwork: string;
     vgUnitPath: string;
     vgCompanion: string;

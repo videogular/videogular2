@@ -25,4 +25,6 @@ export declare class VgEvents {
     static VG_LOAD: string;
     static VG_ENTER: string;
     static VG_EXIT: string;
+    static VG_START_ADS: string;
+    static VG_END_ADS: string;
 }

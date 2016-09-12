@@ -33,7 +33,7 @@ export class VgAPI {
         return master || this.getDefaultMedia();
     }
 
-    isMasterDefined() {
+    isMasterDefined():boolean {
         var result = false;
         for (var id in this.medias) {
             if (this.medias[id].isMaster === 'true' || this.medias[id].isMaster === true) {
