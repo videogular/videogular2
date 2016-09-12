@@ -1,7 +1,5 @@
-import {Component, Input, ElementRef} from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 
-import {Observable} from 'rxjs/Rx';
-import {VgEvents} from '../../events/vg-events';
 import {VgAPI} from '../../services/vg-api';
 import {VgAbstractControl} from '../vg-abstract-control';
 
@@ -15,10 +13,15 @@ export interface Option {
     selector: 'vg-track-selector',
     template:`
         <div class="container">
+            <div class="track-selected"
+                [class.vg-icon-closed_caption]="!trackSelected">
+                {{ trackSelected || '' }}
+            </div>
+            
             <select class="trackSelector" (change)="selectTrack($event.target.value)">
                 <option 
                     *ngFor="let track of tracks" 
-                    [value]="track.id" 
+                    [value]="track.id"
                     [selected]="track.selected === true">
                     {{ track.label }}
                 </option>
@@ -35,54 +38,46 @@ export interface Option {
             user-select: none;
             display: flex;
             justify-content: center;
-            width: 120px; height: 50px;
+            width: 50px;
+            height: 50px;
             cursor: pointer;
             color: white;
             line-height: 50px;
         }
-        :host .container {
+        .container {
             position: relative;
             display: flex;
             flex-grow: 1;
             align-items: center;
             
-            padding: 0; margin: 5px;
-            margin-top: 14px; margin-bottom: 14px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            overflow: hidden;
-            background-color: #fff;
-            background: #fff;
+            padding: 0;
+            margin: 5px;
         }
-        :host .container:after {
-            top: 50%; left: 85%;
-            border: solid transparent;
-            content: " ";
-            height: 0; width: 0;
-            position: absolute;
-            pointer-events: none;
-            border-color: rgba(0, 0, 0, 0);
-            border-top-color: #000000;
-            border-width: 5px;
-            margin-top: -2px;
-            z-index: 100;
-        }
-        :host select.trackSelector {
-            display: flex;
-            flex-grow: 1;
-
-            width: 130%;
+        select.trackSelector {
+            width: 50px;
             padding: 5px 8px;
             border: none;
-            box-shadow: none;
-            background-color: transparent;
-            background-image: none;
+            background: none;
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
+            color: transparent;
+            font-size: 16px;
         }
-        :host select.trackSelector:focus {
+        select.trackSelector:focus {
             outline: none;
+        }
+        .track-selected {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            padding-top: 2px;
+            pointer-events: none;
+        }
+        .vg-icon-closed_caption:before {
+            width: 100%;
         }
     `]
 })
@@ -91,6 +86,7 @@ export class VgTrackSelector extends VgAbstractControl {
     vgFor: string;
     target: any;
     tracks:Array<Option>;
+    trackSelected:string;
 
     constructor(ref:ElementRef, public API:VgAPI) {
         super(API);
@@ -112,12 +108,15 @@ export class VgTrackSelector extends VgAbstractControl {
                 selected: subs.every((item:Option) => item.selected===false)
             }
         ];
+
+        this.trackSelected = this.tracks.filter((item:Option) => item.selected === true)[0].id;
     }
 
     selectTrack(trackId:string) {
+        this.trackSelected = (trackId === 'null') ? null : trackId;
+
         Array.from((this.API.getMasterMedia().elem as HTMLMediaElement).textTracks)
             .forEach((item:TextTrack) => {
-                console.log(item, trackId);
                 if(item.language === trackId) {
                     item.mode = 'showing';
                 } else {

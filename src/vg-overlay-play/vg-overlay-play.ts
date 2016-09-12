@@ -12,7 +12,7 @@ import {VgStates} from "../states/vg-states";
     template:
         `<div class="vg-overlay-play">
             <div class="overlay-play-container"
-                 [class.play]="getState() !== 'playing'">
+                 [class.vg-icon-play_arrow]="getState() !== 'playing'">
             </div>
         </div>`,
     styles: [`
@@ -30,7 +30,7 @@ import {VgStates} from "../states/vg-states";
             opacity: 0.6;
         }
 
-        .vg-overlay-play .overlay-play-container.play {
+        .vg-overlay-play .overlay-play-container.vg-icon-play_arrow {
             pointer-events: none;
             width: 100%;
             height: 100%;
@@ -38,11 +38,7 @@ import {VgStates} from "../states/vg-states";
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .vg-overlay-play .overlay-play-container.play:before {
-            transition: all 0.5s;
-            content: "\\e000";
+            font-size: 80px;
         }
 
         .vg-overlay-play:hover {
@@ -50,7 +46,7 @@ import {VgStates} from "../states/vg-states";
             opacity: 1;
         }
 
-        .vg-overlay-play:hover .overlay-play-container.play:before {
+        .vg-overlay-play:hover .overlay-play-container.vg-icon-play_arrow:before {
             transform: scale(1.2);
         }
     `]

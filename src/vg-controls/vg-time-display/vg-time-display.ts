@@ -25,7 +25,7 @@ import {VgAbstractControl} from '../vg-abstract-control';
             color: white;
             line-height: 50px;
             pointer-events: none;
-            font-family: Helvetica Neue, Helvetica, Arial;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
         }
     `]
 })

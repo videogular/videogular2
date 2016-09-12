@@ -11,8 +11,8 @@ import {VgStates} from "../../states/vg-states";
     },
     template:
         `<div class="icon"
-             [class.pause]="getState() === 'playing'"
-             [class.play]="getState() === 'paused' || getState() === 'ended'">
+             [class.vg-icon-pause]="getState() === 'playing'"
+             [class.vg-icon-play_arrow]="getState() === 'paused' || getState() === 'ended'">
         </div>`,
     styles: [`
         :host {
@@ -33,14 +33,6 @@ import {VgStates} from "../../states/vg-states";
 
         :host .icon {
             pointer-events: none;
-        }
-
-        :host .icon.play:before {
-            content: "\\e000";
-        }
-
-        :host .icon.pause:before {
-            content: "\\e001";
         }
     `]
 })

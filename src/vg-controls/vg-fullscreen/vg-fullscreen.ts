@@ -11,8 +11,8 @@ import {VgAbstractControl} from '../vg-abstract-control';
     },
     template:
         `<div class="icon"
-             [class.normal]="!fsAPI.isFullscreen"
-             [class.fullscreen]="fsAPI.isFullscreen">
+             [class.vg-icon-fullscreen]="!fsAPI.isFullscreen"
+             [class.vg-icon-fullscreen_exit]="fsAPI.isFullscreen">
         </div>`,
     styles: [`
         :host {
@@ -33,14 +33,6 @@ import {VgAbstractControl} from '../vg-abstract-control';
 
         :host .icon {
             pointer-events: none;
-        }
-
-        :host .icon.normal:before {
-            content: "\\e007";
-        }
-
-        :host .icon.fullscreen:before {
-            content: "\\e008";
         }
     `]
 })
