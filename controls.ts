@@ -12,6 +12,7 @@ import {VgScrubBarBufferingTime} from './src/vg-controls/vg-scrub-bar/vg-scrub-b
 import {VgScrubBarCuePoints} from './src/vg-controls/vg-scrub-bar/vg-scrub-bar-cue-points/vg-scrub-bar-cue-points';
 import {VgScrubBarCurrentTime} from './src/vg-controls/vg-scrub-bar/vg-scrub-bar-current-time/vg-scrub-bar-current-time';
 import {VgTimeDisplay} from './src/vg-controls/vg-time-display/vg-time-display';
+import {VgTrackSelector} from './src/vg-controls/vg-track-selector/vg-track-selector';
 
 @NgModule({
     imports: [ CommonModule ],
@@ -26,7 +27,8 @@ import {VgTimeDisplay} from './src/vg-controls/vg-time-display/vg-time-display';
         VgScrubBarBufferingTime,
         VgScrubBarCuePoints,
         VgScrubBarCurrentTime,
-        VgTimeDisplay
+        VgTimeDisplay,
+        VgTrackSelector
     ],
     exports: [
         VgControls,
@@ -39,7 +41,8 @@ import {VgTimeDisplay} from './src/vg-controls/vg-time-display/vg-time-display';
         VgScrubBarBufferingTime,
         VgScrubBarCuePoints,
         VgScrubBarCurrentTime,
-        VgTimeDisplay
+        VgTimeDisplay,
+        VgTrackSelector
     ]
 })
 export class VgControlsModule {}
