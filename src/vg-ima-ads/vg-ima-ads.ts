@@ -11,9 +11,6 @@ import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
 
 @Component({
     selector: 'vg-ima-ads',
-    host: {
-        'class': 'vg-ima-ads'
-    },
     template:
         `<div class="vg-ima-ads"></div>`,
     styles: [`
@@ -21,8 +18,7 @@ import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
             position: absolute;
             width: 100%;
             height: 100%;
-            z-index: 199;
-            background: black;
+            z-index: 201;
         }
         .vg-ima-ads {
             position: absolute;
