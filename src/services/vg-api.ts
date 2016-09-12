@@ -16,13 +16,13 @@ export class VgAPI {
         this.playerReadyEvent.emit(this);
     }
 
-    getDefaultMedia() {
+    getDefaultMedia():IPlayable {
         for (var item in this.medias) {
             return this.medias[item];
         }
     }
 
-    getMasterMedia() {
+    getMasterMedia():IPlayable {
         var master;
         for (var id in this.medias) {
             if (this.medias[id].isMaster === 'true' || this.medias[id].isMaster === true) {
@@ -33,7 +33,7 @@ export class VgAPI {
         return master || this.getDefaultMedia();
     }
 
-    isMasterDefined() {
+    isMasterDefined():boolean {
         var result = false;
         for (var id in this.medias) {
             if (this.medias[id].isMaster === 'true' || this.medias[id].isMaster === true) {
@@ -44,7 +44,7 @@ export class VgAPI {
         return result;
     }
 
-    getMediaById(id:string = null) {
+    getMediaById(id:string = null):IPlayable {
         var media = this.medias[id];
 
         if (!id || id === '*') {

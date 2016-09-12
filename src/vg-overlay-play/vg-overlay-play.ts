@@ -16,6 +16,9 @@ import {VgStates} from "../states/vg-states";
             </div>
         </div>`,
     styles: [`
+        :host {
+            z-index: 200;
+        }
         .vg-overlay-play {
             transition: all 0.5s;
             cursor: pointer;
@@ -24,7 +27,6 @@ import {VgStates} from "../states/vg-states";
             color: white;
             width: 100%;
             height: 100%;
-            z-index: 200;
             font-size: 80px;
             filter: alpha(opacity=60);
             opacity: 0.6;

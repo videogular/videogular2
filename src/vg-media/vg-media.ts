@@ -9,7 +9,7 @@ import {VgStates} from "../states/vg-states";
     selector: '[vg-media]'
 })
 export class VgMedia implements OnInit, IPlayable {
-    elem:HTMLMediaElement;
+    elem:any;
 
     private _vgMaster:boolean = false;
     @Input('vg-master') set isMaster(value:boolean) {
@@ -48,6 +48,8 @@ export class VgMedia implements OnInit, IPlayable {
         this.subscriptions.timeUpdate = Observable.fromEvent(<any>this.elem, VgEvents.VG_TIME_UPDATE);
         this.subscriptions.volumeChange = Observable.fromEvent(<any>this.elem, VgEvents.VG_VOLUME_CHANGE);
         this.subscriptions.error = Observable.fromEvent(<any>this.elem, VgEvents.VG_ERROR);
+        this.subscriptions.startAds = Observable.fromEvent(<any>window, VgEvents.VG_START_ADS);
+        this.subscriptions.endAds = Observable.fromEvent(<any>window, VgEvents.VG_END_ADS);
 
         // See changes on <source> child elements to reload the video file
         this.subscriptions.mutation = Observable.create(

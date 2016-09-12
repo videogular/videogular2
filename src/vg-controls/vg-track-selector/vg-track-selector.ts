@@ -102,7 +102,7 @@ export class VgTrackSelector extends VgAbstractControl {
                                         .map((item:HTMLTrackElement) => ({label:item.label, selected:item.default===true, id:item.srclang}));
         this.tracks = [
             ...subs, 
-            { 
+            {
                 id: null, 
                 label: 'Off', 
                 selected: subs.every((item:Option) => item.selected===false)

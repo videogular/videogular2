@@ -1,7 +1,7 @@
 import { ElementRef, OnInit } from '@angular/core';
 import { IPlayable } from "./i-playable";
 export declare class VgMedia implements OnInit, IPlayable {
-    elem: HTMLMediaElement;
+    elem: any;
     private _vgMaster;
     isMaster: boolean;
     state: string;
@@ -18,12 +18,12 @@ export declare class VgMedia implements OnInit, IPlayable {
     onMutation(mutations: any): void;
     play(): void;
     pause(): void;
-    readonly id: string;
-    readonly duration: number;
-    currentTime: number;
-    volume: number;
-    playbackRate: number;
-    readonly buffered: TimeRanges;
+    readonly id: any;
+    readonly duration: any;
+    currentTime: any;
+    volume: any;
+    playbackRate: any;
+    readonly buffered: any;
     onCanPlay(event: any): void;
     onCanPlayThrough(event: any): void;
     onLoadMetadata(event: any): void;

@@ -29,4 +29,7 @@ export class VgEvents {
     static VG_LOAD: string = 'load';
     static VG_ENTER: string = 'enter';
     static VG_EXIT: string = 'exit';
+
+    static VG_START_ADS: string = 'startads';
+    static VG_END_ADS: string = 'endads';
 }
