@@ -1,6 +1,6 @@
 import {ElementRef, OnInit, Directive, Input} from '@angular/core';
 
-import {IPlayable} from "./i-playable";
+import {IPlayable, IMediaSubscriptions} from "./i-playable";
 import {Observable} from "rxjs/Observable";
 import {VgEvents} from "../events/vg-events";
 import {VgStates} from "../states/vg-states";
@@ -23,7 +23,7 @@ export class VgMedia implements OnInit, IPlayable {
     
     time:any = {current: 0, total: 0, left: 0};
     buffer:any = {end: 0};
-    subscriptions:any = {};
+    subscriptions:IMediaSubscriptions | any;
     
     canPlay:boolean = false;
     canPlayThrough:boolean = false;
@@ -36,38 +36,39 @@ export class VgMedia implements OnInit, IPlayable {
     }
 
     ngOnInit() {
-        this.subscriptions.canPlay = Observable.fromEvent(<any>this.elem, VgEvents.VG_CAN_PLAY);
-        this.subscriptions.canPlayThrough = Observable.fromEvent(<any>this.elem, VgEvents.VG_CAN_PLAY_THROUGH);
-        this.subscriptions.loadedMetadata = Observable.fromEvent(<any>this.elem, VgEvents.VG_LOADED_METADATA);
-        this.subscriptions.waiting = Observable.fromEvent(<any>this.elem, VgEvents.VG_WAITING);
-        this.subscriptions.progress = Observable.fromEvent(<any>this.elem, VgEvents.VG_PROGRESS);
-        this.subscriptions.ended = Observable.fromEvent(<any>this.elem, VgEvents.VG_ENDED);
-        this.subscriptions.playing = Observable.fromEvent(<any>this.elem, VgEvents.VG_PLAYING);
-        this.subscriptions.play = Observable.fromEvent(<any>this.elem, VgEvents.VG_PLAY);
-        this.subscriptions.pause = Observable.fromEvent(<any>this.elem, VgEvents.VG_PAUSE);
-        this.subscriptions.timeUpdate = Observable.fromEvent(<any>this.elem, VgEvents.VG_TIME_UPDATE);
-        this.subscriptions.volumeChange = Observable.fromEvent(<any>this.elem, VgEvents.VG_VOLUME_CHANGE);
-        this.subscriptions.error = Observable.fromEvent(<any>this.elem, VgEvents.VG_ERROR);
-        this.subscriptions.startAds = Observable.fromEvent(<any>window, VgEvents.VG_START_ADS);
-        this.subscriptions.endAds = Observable.fromEvent(<any>window, VgEvents.VG_END_ADS);
+        this.subscriptions = {
+            canPlay: Observable.fromEvent(<any>this.elem, VgEvents.VG_CAN_PLAY),
+            canPlayThrough: Observable.fromEvent(<any>this.elem, VgEvents.VG_CAN_PLAY_THROUGH),
+            loadedMetadata: Observable.fromEvent(<any>this.elem, VgEvents.VG_LOADED_METADATA),
+            waiting: Observable.fromEvent(<any>this.elem, VgEvents.VG_WAITING),
+            progress: Observable.fromEvent(<any>this.elem, VgEvents.VG_PROGRESS),
+            ended: Observable.fromEvent(<any>this.elem, VgEvents.VG_ENDED),
+            playing: Observable.fromEvent(<any>this.elem, VgEvents.VG_PLAYING),
+            play: Observable.fromEvent(<any>this.elem, VgEvents.VG_PLAY),
+            pause: Observable.fromEvent(<any>this.elem, VgEvents.VG_PAUSE),
+            timeUpdate: Observable.fromEvent(<any>this.elem, VgEvents.VG_TIME_UPDATE),
+            volumeChange: Observable.fromEvent(<any>this.elem, VgEvents.VG_VOLUME_CHANGE),
+            error: Observable.fromEvent(<any>this.elem, VgEvents.VG_ERROR),
+            startAds: Observable.fromEvent(<any>window, VgEvents.VG_START_ADS),
+            endAds: Observable.fromEvent(<any>window, VgEvents.VG_END_ADS),
+            // See changes on <source> child elements to reload the video file
+            mutation: Observable.create(
+                (observer) => {
+                    let domObs = new MutationObserver((mutations) => {
+                        observer.next(mutations);
+                    });
 
-        // See changes on <source> child elements to reload the video file
-        this.subscriptions.mutation = Observable.create(
-            (observer) => {
-                let domObs = new MutationObserver((mutations) => {
-                    observer.next(mutations);
-                });
+                    domObs.observe(<any>this.elem, { childList: true });
 
-                domObs.observe(<any>this.elem, { childList: true });
+                    return () => {
+                        domObs.disconnect();
+                    };
+                }
+            )
+        };
 
-                return () => {
-                    domObs.disconnect();
-                };
-            }
-        );
 
         this.subscriptions.mutation.subscribe(this.onMutation.bind(this));
-
         this.subscriptions.canPlay.subscribe(this.onCanPlay.bind(this));
         this.subscriptions.canPlayThrough.subscribe(this.onCanPlayThrough.bind(this));
         this.subscriptions.loadedMetadata.subscribe(this.onLoadMetadata.bind(this));

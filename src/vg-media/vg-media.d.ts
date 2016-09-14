@@ -1,5 +1,5 @@
 import { ElementRef, OnInit } from '@angular/core';
-import { IPlayable } from "./i-playable";
+import { IPlayable, IMediaSubscriptions } from "./i-playable";
 export declare class VgMedia implements OnInit, IPlayable {
     elem: any;
     private _vgMaster;
@@ -7,7 +7,7 @@ export declare class VgMedia implements OnInit, IPlayable {
     state: string;
     time: any;
     buffer: any;
-    subscriptions: any;
+    subscriptions: IMediaSubscriptions | any;
     canPlay: boolean;
     canPlayThrough: boolean;
     isMetadataLoaded: boolean;

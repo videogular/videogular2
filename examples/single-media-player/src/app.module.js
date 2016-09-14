@@ -13,6 +13,7 @@ var platform_browser_1 = require('@angular/platform-browser');
 var core_2 = require('videogular2/core');
 var controls_1 = require('videogular2/controls');
 var overlay_play_1 = require('videogular2/overlay-play');
+var buffering_1 = require('videogular2/buffering');
 var single_media_player_1 = require('./single-media-player');
 var AppModule = (function () {
     function AppModule() {
@@ -23,7 +24,8 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 core_2.VgCore,
                 controls_1.VgControlsModule,
-                overlay_play_1.VgOverlayPlayModule
+                overlay_play_1.VgOverlayPlayModule,
+                buffering_1.VgBufferingModule
             ],
             declarations: [single_media_player_1.SingleMediaPlayer],
             bootstrap: [single_media_player_1.SingleMediaPlayer]

@@ -15,7 +15,7 @@ import {VgFullscreenAPI} from '../services/vg-fullscreen-api';
             position: absolute;
             width: 100%;
             height: 100%;
-            z-index: 201;
+            z-index: 300;
         }
         .vg-ima-ads {
             position: absolute;

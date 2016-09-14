@@ -4,7 +4,7 @@ import {VgStates} from "../states/vg-states";
 
 @Injectable()
 export class VgAPI {
-    medias:Object = {};
+    medias:Object = {};// TODO: refactor to Set<IPlayable> 
     videogularElement: any;
     playerReadyEvent: EventEmitter<any> = new EventEmitter(true);
 
