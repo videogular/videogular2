@@ -11,8 +11,8 @@ import {VgAbstractControl} from '../vg-abstract-control';
     },
     template:
         `<div class="icon"
-             [class.vg-icon-fullscreen]="!fsAPI.isFullscreen"
-             [class.vg-icon-fullscreen_exit]="fsAPI.isFullscreen">
+             [class.vg-icon-fullscreen]="!isFullscreen"
+             [class.vg-icon-fullscreen_exit]="isFullscreen">
         </div>`,
     styles: [`
         :host {
@@ -40,12 +40,16 @@ export class VgFullscreen extends VgAbstractControl {
     elem:HTMLElement;
     vgFor:string;
     target:Object;
-    fsAPI:VgFullscreenAPI;
+    isFullscreen:boolean = false;
 
     constructor(ref:ElementRef, public API:VgAPI) {
         super(API);
         this.elem = ref.nativeElement;
-        this.fsAPI = VgFullscreenAPI;
+        VgFullscreenAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
+    }
+
+    onChangeFullscreen(fsState:boolean) {
+        this.isFullscreen = fsState;
     }
 
     onPlayerReady() {
