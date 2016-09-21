@@ -20,7 +20,7 @@ export class VgCuePoints {
         onLoad.subscribe(this.onLoad.bind(this));
     }
 
-    onLoad(event) {
+    onLoad(event:any) {
         var cues = event.target.track.cues;
 
         this.ref.nativeElement.cues = cues;
@@ -34,11 +34,11 @@ export class VgCuePoints {
         }
     }
 
-    onEnter(event) {
+    onEnter(event:any) {
         this.onEnterCuePoint.next(event.target);
     }
 
-    onExit(event) {
+    onExit(event:any) {
         this.onExitCuePoint.next(event.target);
     }
 }

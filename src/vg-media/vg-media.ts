@@ -53,7 +53,7 @@ export class VgMedia implements OnInit, IPlayable {
             endAds: Observable.fromEvent(<any>window, VgEvents.VG_END_ADS),
             // See changes on <source> child elements to reload the video file
             mutation: Observable.create(
-                (observer) => {
+                (observer:any) => {
                     let domObs = new MutationObserver((mutations) => {
                         observer.next(mutations);
                     });
@@ -83,7 +83,7 @@ export class VgMedia implements OnInit, IPlayable {
         this.subscriptions.error.subscribe(this.onError.bind(this));
     }
 
-    onMutation(mutations) {
+    onMutation(mutations:any) {
         this.elem.pause();
         this.elem.currentTime = 0;
 
@@ -136,42 +136,42 @@ export class VgMedia implements OnInit, IPlayable {
         return this.elem.buffered;
     }
 
-    onCanPlay(event) {
+    onCanPlay(event:any) {
         this.canPlay = true;
     }
 
-    onCanPlayThrough(event) {
+    onCanPlayThrough(event:any) {
         this.canPlayThrough = true;
     }
 
-    onLoadMetadata(event) {
+    onLoadMetadata(event:any) {
         this.isMetadataLoaded = true;
 
         this.time.total = this.duration * 1000;
     }
 
-    onWait(event) {
+    onWait(event:any) {
         this.isWaiting = true;
     }
 
-    onComplete(event) {
+    onComplete(event:any) {
         this.isCompleted = true;
         this.state = VgStates.VG_ENDED;
     }
 
-    onStartPlaying(event) {
+    onStartPlaying(event:any) {
         this.state = VgStates.VG_PLAYING;
     }
 
-    onPlay(event) {
+    onPlay(event:any) {
         this.state = VgStates.VG_PLAYING;
     }
 
-    onPause(event) {
+    onPause(event:any) {
         this.state = VgStates.VG_PAUSED;
     }
 
-    onTimeUpdate(event) {
+    onTimeUpdate(event:any) {
         var end = this.buffered.length - 1;
 
         this.time.current = this.currentTime * 1000;
@@ -182,7 +182,7 @@ export class VgMedia implements OnInit, IPlayable {
         }
     }
 
-    onProgress(event) {
+    onProgress(event:any) {
         var end = this.buffered.length - 1;
 
         if (end >= 0) {
@@ -190,11 +190,11 @@ export class VgMedia implements OnInit, IPlayable {
         }
     }
 
-    onVolumeChange(event) {
+    onVolumeChange(event:any) {
         // TODO: Save to localstorage the current volume
     }
 
-    onError(event) {
+    onError(event:any) {
         // TODO: Handle error messages
     }
 }

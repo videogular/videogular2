@@ -89,7 +89,7 @@ export class VgFullscreenAPI {
         }
     }
 
-    static request(elem) {
+    static request(elem:any) {
         if (!elem) elem = this.videogularElement;
 
         this.isFullscreen = true;
@@ -113,7 +113,7 @@ export class VgFullscreenAPI {
         }
     }
 
-    static enterElementInFullScreen(elem) {
+    static enterElementInFullScreen(elem:any) {
         elem[this.polyfill.request]();
     }
 

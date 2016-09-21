@@ -48,7 +48,7 @@ export class VgScrubBar extends VgAbstractControl {
         this.target = this.API.getMediaById(this.vgFor);
     }
 
-    onMouseDownScrubBar($event) {
+    onMouseDownScrubBar($event:any) {
         var percentage = $event.offsetX * 100 / this.elem.scrollWidth;
 
         this.target.seekTime(percentage, true);
