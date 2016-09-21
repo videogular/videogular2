@@ -2,7 +2,7 @@ import {VgAPI} from "../services/vg-api";
 
 export class VgAbstractControl {
     constructor(api:VgAPI) {
-        api.playerReadyEvent.subscribe((api) => this.onPlayerReady());
+        api.playerReadyEvent.subscribe((api:VgAPI) => this.onPlayerReady());
     }
 
     onPlayerReady() {

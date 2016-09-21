@@ -108,7 +108,7 @@ export class VgBuffering {
 
     constructor(ref:ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
-        API.playerReadyEvent.subscribe((api) => this.onPlayerReady());
+        API.playerReadyEvent.subscribe((api:VgAPI) => this.onPlayerReady());
         this.bufferCheck = this.bufferCheck.bind(this);
     }
 

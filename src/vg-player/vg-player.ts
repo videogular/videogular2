@@ -69,7 +69,7 @@ export class VgPlayer implements AfterContentInit {
         VgFullscreenAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
     }
 
-    onChangeFullscreen(fsState) {
+    onChangeFullscreen(fsState:boolean) {
         if (!VgFullscreenAPI.nativeFullscreen) {
             this.isFullscreen = fsState;
             this.zIndex = fsState ? VgUtils.getZIndex().toString() : 'auto';

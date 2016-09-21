@@ -38,7 +38,7 @@ export class VgControls extends VgAbstractControl {
     @Input('autohide') autohide:boolean = false;
     @Input('autohide-time') autohideTime:number = 3;
 
-    private timer:number;
+    private timer:any;
 
     constructor(private API:VgAPI, private ref:ElementRef) {
         super(API);

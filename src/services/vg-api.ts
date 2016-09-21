@@ -23,7 +23,7 @@ export class VgAPI {
     }
 
     getMasterMedia():IPlayable {
-        var master;
+        var master:any;
         for (var id in this.medias) {
             if (this.medias[id].isMaster === 'true' || this.medias[id].isMaster === true) {
                 master = this.medias[id];
@@ -164,7 +164,7 @@ export class VgAPI {
 
     $$getAllProperties(property:string){
         const medias = {};
-        let result;
+        let result:any;
 
         for (var id in this.medias) {
             //result[id] = this.medias[id][property];
@@ -206,7 +206,7 @@ export class VgAPI {
         return result;
     }
 
-    $$setAllProperties(property:string, value){
+    $$setAllProperties(property:string, value:any){
         for (var id in this.medias) {
             this.medias[id][property] = value;
         }
