@@ -36,7 +36,7 @@
     "remap-istanbul": "0.5.1",
     "semantic-release": "4.3.5",
     "systemjs-builder": "^0.15.13",
-    "typescript": "2.0.0",
+    "typescript": "2.0.3",
     "typings": "1.4.0",
     "watch": "0.19.2"
   },
