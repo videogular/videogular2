@@ -7,16 +7,14 @@ export declare class VgBuffering {
     vgFor: string;
     target: IPlayable;
     checkBufferInterval: number;
-    displayState: string;
-    constructor(ref: ElementRef, API: VgAPI);
-    onPlayerReady(): void;
     checkInterval: number;
     currentPlayPos: number;
     lastPlayPos: number;
     bufferingDetected: boolean;
-    bufferCheck(): void;
-    startBufferCheck(): void;
-    stopBufferCheck(): void;
+    displayState: string;
+    constructor(ref: ElementRef, API: VgAPI);
+    onPlayerReady(): void;
+    onUpdateBuffer(isBuffering: any): void;
     show(): void;
     hide(): void;
 }

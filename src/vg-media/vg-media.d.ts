@@ -1,6 +1,9 @@
-import { ElementRef, OnInit } from '@angular/core';
+import { ElementRef, OnInit } from "@angular/core";
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
+import { VgAPI } from "../services/vg-api";
+import { Observer } from "rxjs";
 export declare class VgMedia implements OnInit, IPlayable {
+    private api;
     elem: any;
     private _vgMaster;
     isMaster: boolean;
@@ -10,11 +13,23 @@ export declare class VgMedia implements OnInit, IPlayable {
     subscriptions: IMediaSubscriptions | any;
     canPlay: boolean;
     canPlayThrough: boolean;
+    isBufferDetected: boolean;
     isMetadataLoaded: boolean;
+    isReadyToPlay: boolean;
     isWaiting: boolean;
     isCompleted: boolean;
-    constructor(ref: ElementRef);
+    checkInterval: number;
+    currentPlayPos: number;
+    lastPlayPos: number;
+    bufferObserver: Observer<any>;
+    checkBufferSubscription: any;
+    syncSubscription: any;
+    canPlayAllSubscription: any;
+    playAtferSync: boolean;
+    constructor(ref: ElementRef, api: VgAPI);
     ngOnInit(): void;
+    prepareSync(): void;
+    startSync(): void;
     onMutation(mutations: any): void;
     play(): void;
     pause(): void;
@@ -36,4 +51,8 @@ export declare class VgMedia implements OnInit, IPlayable {
     onProgress(event: any): void;
     onVolumeChange(event: any): void;
     onError(event: any): void;
+    bufferCheck(): void;
+    startBufferCheck(): void;
+    stopBufferCheck(): void;
+    onBufferDetected(): void;
 }

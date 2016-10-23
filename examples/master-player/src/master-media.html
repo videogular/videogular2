@@ -1,4 +1,6 @@
 <vg-player>
+    <vg-buffering></vg-buffering>
+
     <vg-controls>
         <vg-play-pause></vg-play-pause>
 
@@ -18,15 +20,11 @@
     </vg-controls>
 
 
-    <video vg-media id="pipVideo" preload="auto" style="width: 30%;">
-        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
+    <video vg-media vg-master="true" id="masterVideo" preload="auto" style="width: 50%;">
+        <source *ngFor="let video of master" [src]="video.src" [type]="video.type">
     </video>
 
-    <video vg-media vg-master="true" id="masterVideo" preload="auto" style="width: 40%;">
-        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
-    </video>
-    
-    <video vg-media id="pipVideo2" preload="auto" style="width: 30%;">
-        <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
+    <video vg-media id="pipVideo" preload="auto" style="width: 50%;">
+        <source *ngFor="let video of slave" [src]="video.src" [type]="video.type">
     </video>
 </vg-player>

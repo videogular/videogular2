@@ -1,14 +1,14 @@
 import { ElementRef } from '@angular/core';
 import { VgAPI } from '../../services/vg-api';
-import { VgFullscreenAPI } from "../../services/vg-fullscreen-api";
 import { VgAbstractControl } from '../vg-abstract-control';
 export declare class VgFullscreen extends VgAbstractControl {
     API: VgAPI;
     elem: HTMLElement;
     vgFor: string;
     target: Object;
-    fsAPI: VgFullscreenAPI;
+    isFullscreen: boolean;
     constructor(ref: ElementRef, API: VgAPI);
+    onChangeFullscreen(fsState: boolean): void;
     onPlayerReady(): void;
     onClick(): void;
 }

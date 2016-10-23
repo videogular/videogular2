@@ -103,51 +103,34 @@ export class VgBuffering {
     vgFor: string;
     target: IPlayable;
     checkBufferInterval: number;
+    checkInterval: number = 50;
+    currentPlayPos: number = 0;
+    lastPlayPos: number = 0;
+    bufferingDetected: boolean;
 
     @HostBinding('style.display') displayState: string = 'none';
 
     constructor(ref:ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
         API.playerReadyEvent.subscribe((api:VgAPI) => this.onPlayerReady());
-        this.bufferCheck = this.bufferCheck.bind(this);
     }
 
     onPlayerReady() {
         this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
 
-        this.target.subscriptions.play.subscribe(this.startBufferCheck.bind(this));
-        this.target.subscriptions.pause.subscribe(this.stopBufferCheck.bind(this));
+        this.target.subscriptions.bufferDetected.subscribe(
+            isBuffering => this.onUpdateBuffer(isBuffering)
+        );
     }
 
-    checkInterval: number = 50;
-    currentPlayPos: number = 0;
-    lastPlayPos: number = 0;
-    bufferingDetected: boolean;
-
-    // http://stackoverflow.com/a/23828241/779529
-    bufferCheck() {
-        this.currentPlayPos = this.target.currentTime
-        const offset = 1 / this.checkInterval
-        if (!this.bufferingDetected  && this.currentPlayPos < (this.lastPlayPos + offset)) {
-            this.bufferingDetected = true;
+    onUpdateBuffer(isBuffering) {
+        if (isBuffering) {
             this.show();
         }
-        if (this.bufferingDetected && this.currentPlayPos > (this.lastPlayPos + offset)) {
-            this.bufferingDetected = false;
+        else {
             this.hide();
         }
-        this.lastPlayPos = this.currentPlayPos
-    }
-
-    startBufferCheck() {
-        this.checkBufferInterval = window.setInterval( this.bufferCheck, this.checkInterval); 
-    }
-    
-    stopBufferCheck() {
-        window.clearInterval(this.checkBufferInterval); 
-        this.bufferingDetected = false;
-        this.hide();
     }
 
     show() {

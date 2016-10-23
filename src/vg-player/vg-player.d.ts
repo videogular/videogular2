@@ -11,5 +11,5 @@ export declare class VgPlayer implements AfterContentInit {
     medias: QueryList<VgMedia>;
     constructor(ref: ElementRef, api: VgAPI);
     ngAfterContentInit(): void;
-    onChangeFullscreen(fsState: any): void;
+    onChangeFullscreen(fsState: boolean): void;
 }
