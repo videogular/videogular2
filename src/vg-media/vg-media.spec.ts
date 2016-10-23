@@ -33,7 +33,7 @@ describe('Videogular Media', () => {
         };
 
         api = new VgAPI();
-        media = new VgMedia(ref);
+        media = new VgMedia(ref, api);
     });
 
     it('Should load a new media if a change on dom have been happened', () => {

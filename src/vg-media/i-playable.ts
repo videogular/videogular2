@@ -18,6 +18,7 @@ export interface IPlayable {
 }
 
 export interface IMediaSubscriptions {
+    bufferDetected: Observable<any>;
     canPlay: Observable<any>;
     canPlayThrough: Observable<any>;
     loadedMetadata: Observable<any>;

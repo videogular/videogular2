@@ -11,7 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var MasterMedia = (function () {
     function MasterMedia() {
-        this.sources = [
+        this.master = [
+            {
+                src: "http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov",
+                type: "video/mp4"
+            },
+            {
+                src: "http://static.videogular.com/assets/videos/big_buck_bunny_720p_stereo.ogg",
+                type: "video/ogg"
+            }
+        ];
+        this.slave = [
             {
                 src: "http://static.videogular.com/assets/videos/videogular.mp4",
                 type: "video/mp4"

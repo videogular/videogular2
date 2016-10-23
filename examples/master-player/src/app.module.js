@@ -8,11 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var core_2 = require('videogular2/core');
-var controls_1 = require('videogular2/controls');
-var master_media_1 = require('./master-media');
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var core_2 = require("videogular2/core");
+var controls_1 = require("videogular2/controls");
+var master_media_1 = require("./master-media");
+var buffering_1 = require("videogular2/buffering");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -21,7 +22,8 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 core_2.VgCore,
-                controls_1.VgControlsModule
+                controls_1.VgControlsModule,
+                buffering_1.VgBufferingModule
             ],
             declarations: [master_media_1.MasterMedia],
             bootstrap: [master_media_1.MasterMedia]
