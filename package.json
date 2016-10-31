@@ -37,7 +37,7 @@
     "semantic-release": "4.3.5",
     "systemjs-builder": "^0.15.13",
     "typescript": "2.0.3",
-    "typings": "1.4.0",
+    "typings": "1.5.0",
     "watch": "1.0.1"
   },
   "scripts": {
