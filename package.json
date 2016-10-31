@@ -18,7 +18,7 @@
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.0-beta.12",
     "zone.js": "0.6.26",
-    "systemjs": "0.19.39"
+    "systemjs": "0.19.40"
   },
   "devDependencies": {
     "commitizen": "2.8.6",
