@@ -3,7 +3,7 @@ import {VgAPI} from "../services/vg-api";
 import {IPlayable} from "../vg-media/i-playable";
 import {ElementRef} from "@angular/core";
 
-describe('Volume control', () => {
+describe('Buffering', () => {
     let vgBuffering:VgBuffering;
     let ref:ElementRef;
     let api:VgAPI;
