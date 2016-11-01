@@ -62,7 +62,7 @@
     "watch:ts": "watch 'npm run build' src"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">= 4"
   },
   "keywords": [
     "video",
