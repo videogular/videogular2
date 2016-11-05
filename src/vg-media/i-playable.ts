@@ -21,6 +21,7 @@ export interface IPlayable {
 
 export interface IMediaSubscriptions {
     abort: Observable<any>;
+    bufferDetected: Observable<any>;
     canPlay: Observable<any>;
     canPlayThrough: Observable<any>;
     durationChange: Observable<any>;
