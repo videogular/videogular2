@@ -7,6 +7,7 @@ export class VgEvents {
     static VG_CAN_PLAY_THROUGH: string = 'canplaythrough';
     static VG_DURATION_CHANGE: string = 'durationchange';
     static VG_EMPTIED: string = 'emptied';
+    static VG_ENCRYPTED: string = 'encrypted';
     static VG_ENDED: string = 'ended';
     static VG_ERROR: string = 'error';
     static VG_LOADED_DATA: string = 'loadeddata';

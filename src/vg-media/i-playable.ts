@@ -14,23 +14,34 @@ export interface IPlayable {
     subscriptions:IMediaSubscriptions;
     duration:number;
     currentTime:number;
+    play:Function;
+    pause:Function;
     dispatchEvent?:Function;
 }
 
 export interface IMediaSubscriptions {
+    abort: Observable<any>;
     bufferDetected: Observable<any>;
     canPlay: Observable<any>;
     canPlayThrough: Observable<any>;
-    loadedMetadata: Observable<any>;
-    waiting: Observable<any>;
-    progress: Observable<any>;
+    durationChange: Observable<any>;
+    emptied: Observable<any>;
+    encrypted: Observable<any>;
     ended: Observable<any>;
-    playing: Observable<any>;
-    play: Observable<any>;
+    error: Observable<any>;
+    loadedData: Observable<any>;
+    loadedMetadata: Observable<any>;
+    loadStart: Observable<any>;
     pause: Observable<any>;
+    play: Observable<any>;
+    playing: Observable<any>;
+    progress: Observable<any>;
+    rateChange: Observable<any>;
+    seeked: Observable<any>;
+    seeking: Observable<any>;
+    stalled: Observable<any>;
+    suspend: Observable<any>;
     timeUpdate: Observable<any>;
     volumeChange: Observable<any>;
-    error: Observable<any>;
-    startAds: Observable<any>;
-    endAds: Observable<any>;
+    waiting: Observable<any>;
 }
