@@ -59,7 +59,8 @@
     "posttest": "remap-istanbul -i coverage/coverage-final.json -o coverage -t html",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "watch:ts": "watch 'npm run build' src"
+    "watch:ts": "watch 'npm run build' src",
+    "parallelshell": "parallelshell"
   },
   "engines": {
     "node": ">=0.8.0"
