@@ -1,6 +1,6 @@
 ---
 currentMenu: getting-started
-----------------------------
+---
 
 ### Getting Started
 

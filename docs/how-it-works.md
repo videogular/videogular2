@@ -1,6 +1,6 @@
 ---
 currentMenu: how-it-works
-----------------------------
+---
 
 ## How Videogular works
 
@@ -103,4 +103,4 @@ export class SingleMediaPlayer {}
 
 Now that we know how to create a simple player let's see in the next page how to create a more complex player.
 
-<a href="master-media.html">Go to Master Media</a>
+<a href="using-the-api.html">Go to Using the API</a>

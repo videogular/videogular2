@@ -1,6 +1,6 @@
 ---
 currentMenu: vg-cue-points/vg-cue-points
-----------------------------------------
+---
 
 # VgCuePoints @Directive
 
