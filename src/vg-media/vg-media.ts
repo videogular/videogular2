@@ -54,22 +54,35 @@ export class VgMedia implements OnInit, IPlayable {
 
     ngOnInit() {
         this.subscriptions = {
+            // Native events
+            abort: Observable.fromEvent(<any>this.elem, VgEvents.VG_ABORT),
             canPlay: Observable.fromEvent(<any>this.elem, VgEvents.VG_CAN_PLAY),
             canPlayThrough: Observable.fromEvent(<any>this.elem, VgEvents.VG_CAN_PLAY_THROUGH),
-            loadedMetadata: Observable.fromEvent(<any>this.elem, VgEvents.VG_LOADED_METADATA),
-            waiting: Observable.fromEvent(<any>this.elem, VgEvents.VG_WAITING),
-            progress: Observable.fromEvent(<any>this.elem, VgEvents.VG_PROGRESS),
-            seeking: Observable.fromEvent(<any>this.elem, VgEvents.VG_SEEKING),
-            seeked: Observable.fromEvent(<any>this.elem, VgEvents.VG_SEEKED),
+            durationChange: Observable.fromEvent(<any>this.elem, VgEvents.VG_DURATION_CHANGE),
+            emptied: Observable.fromEvent(<any>this.elem, VgEvents.VG_EMPTIED),
+            encrypted: Observable.fromEvent(<any>this.elem, VgEvents.VG_ENCRYPTED),
             ended: Observable.fromEvent(<any>this.elem, VgEvents.VG_ENDED),
-            playing: Observable.fromEvent(<any>this.elem, VgEvents.VG_PLAYING),
-            play: Observable.fromEvent(<any>this.elem, VgEvents.VG_PLAY),
+            error: Observable.fromEvent(<any>this.elem, VgEvents.VG_ERROR),
+            loadedData: Observable.fromEvent(<any>this.elem, VgEvents.VG_LOADED_DATA),
+            loadedMetadata: Observable.fromEvent(<any>this.elem, VgEvents.VG_LOADED_METADATA),
+            loadStart: Observable.fromEvent(<any>this.elem, VgEvents.VG_LOAD_START),
             pause: Observable.fromEvent(<any>this.elem, VgEvents.VG_PAUSE),
+            play: Observable.fromEvent(<any>this.elem, VgEvents.VG_PLAY),
+            playing: Observable.fromEvent(<any>this.elem, VgEvents.VG_PLAYING),
+            progress: Observable.fromEvent(<any>this.elem, VgEvents.VG_PROGRESS),
+            rateChange: Observable.fromEvent(<any>this.elem, VgEvents.VG_RATE_CHANGE),
+            seeked: Observable.fromEvent(<any>this.elem, VgEvents.VG_SEEKED),
+            seeking: Observable.fromEvent(<any>this.elem, VgEvents.VG_SEEKING),
+            stalled: Observable.fromEvent(<any>this.elem, VgEvents.VG_STALLED),
+            suspend: Observable.fromEvent(<any>this.elem, VgEvents.VG_SUSPEND),
             timeUpdate: Observable.fromEvent(<any>this.elem, VgEvents.VG_TIME_UPDATE),
             volumeChange: Observable.fromEvent(<any>this.elem, VgEvents.VG_VOLUME_CHANGE),
-            error: Observable.fromEvent(<any>this.elem, VgEvents.VG_ERROR),
+            waiting: Observable.fromEvent(<any>this.elem, VgEvents.VG_WAITING),
+
+            // Advertisement only events
             startAds: Observable.fromEvent(<any>window, VgEvents.VG_START_ADS),
             endAds: Observable.fromEvent(<any>window, VgEvents.VG_END_ADS),
+
             // See changes on <source> child elements to reload the video file
             mutation: Observable.create(
                 (observer: any) => {
@@ -84,6 +97,8 @@ export class VgMedia implements OnInit, IPlayable {
                     };
                 }
             ),
+
+            // Custom buffering detection
             bufferDetected: Observable.create(
                 (observer:any) => {
                     this.bufferObserver = observer;
