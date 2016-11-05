@@ -1,6 +1,6 @@
 ---
 currentMenu: master-media
-----------------------------
+---
 
 ## Master media
 

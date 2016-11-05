@@ -33,7 +33,11 @@ var BoundPlayer = (function () {
         ];
     }
     BoundPlayer.prototype.onPlayerReady = function (api) {
+        var _this = this;
         this.api = api;
+        this.api.getDefaultMedia().subscriptions.ended.subscribe(function () {
+            _this.api.getDefaultMedia().currentTime = 0;
+        });
     };
     BoundPlayer.prototype.onClickUpdateSource = function () {
         this.sources = [

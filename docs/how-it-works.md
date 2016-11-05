@@ -1,6 +1,6 @@
 ---
 currentMenu: how-it-works
-----------------------------
+---
 
 ## How Videogular works
 
@@ -67,47 +67,40 @@ One of the most important things that you need to understand is that all compone
 
 Now you can create your TypeScript file and compile/bundle with your favourite setup.
 
-```javascript
-import {bootstrap} from "@angular/platform-browser-dynamic";
+```typescript
+// Module
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {VgCore} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
+import {SingleMediaPlayer} from './single-media-player';
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        VgCore,
+        VgControlsModule,
+        VgOverlayPlayModule,
+        VgBufferingModule
+    ],
+    declarations: [SingleMediaPlayer],
+    bootstrap: [SingleMediaPlayer]
+})
+export class AppModule {
+}
+
+// Media Player Component
 import {Component} from "@angular/core";
-import {NgFor} from "@angular/common";
-import {VgPlayer, VgMedia, VgAPI} from "videogular2/core";
-import {
-    VgControls,
-    VgTimeDisplay,
-    VgPlayPause,
-    VgScrubBar,
-    VgScrubBarCurrentTime,
-    VgScrubBarBufferingTime,
-    VgMute,
-    VgFullscreen
-} from "videogular2/controls";
-import {VgOverlayPlay} from "videogular2/overlay-play";
 
 @Component({
     selector: 'single-media-player',
-    templateUrl: 'src/single-media-player.html',
-    providers: [VgAPI],
-    directives: [
-        VgPlayer,
-        VgMedia,
-        VgOverlayPlay,
-        VgControls,
-        VgTimeDisplay,
-        VgPlayPause,
-        VgScrubBar,
-        VgScrubBarCurrentTime,
-        VgScrubBarBufferingTime,
-        VgMute,
-        VgFullscreen,
-        NgFor
-    ]
+    templateUrl: 'src/single-media-player.html'
 })
 export class SingleMediaPlayer {}
-
-bootstrap(SingleMediaPlayer, []);
 ```
 
 Now that we know how to create a simple player let's see in the next page how to create a more complex player.
 
-<a href="master-media.html">Go to Master Media</a>
+<a href="using-the-api.html">Go to Using the API</a>

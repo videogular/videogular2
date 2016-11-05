@@ -1,6 +1,6 @@
 ---
 currentMenu: services/vg-api
-----------------------------
+---
 
 # VgAPI @Injectable Service
 
