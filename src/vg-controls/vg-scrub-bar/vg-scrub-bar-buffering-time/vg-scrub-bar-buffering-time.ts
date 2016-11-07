@@ -50,7 +50,12 @@ export class VgScrubBarBufferingTime extends VgAbstractControl {
         var bufferTime = "0%";
 
         if (this.target && this.target.buffer && this.target.buffered.length) {
-            bufferTime = ((this.target.buffer.end / this.target.time.total) * 100) + '%';
+            if (this.target.time.total === 0) {
+                bufferTime = '0%';
+            }
+            else {
+                bufferTime = ((this.target.buffer.end / this.target.time.total) * 100) + '%';
+            }
         }
 
         return bufferTime;
