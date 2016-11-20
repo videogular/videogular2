@@ -49,7 +49,7 @@ describe('Buffering', () => {
         });
         it('should hide if buffer is detected and video is not playing', () => {
             spyOn(vgBuffering, 'hide');
-            vgBuffering.target.state = VgStates.VG_PLAYING;
+            vgBuffering.target.state = VgStates.VG_PAUSED;
             vgBuffering.onUpdateBuffer(true);
             expect(vgBuffering.hide).toHaveBeenCalled();
         });
