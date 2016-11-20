@@ -2,6 +2,7 @@ import {VgBuffering} from "./vg-buffering";
 import {VgAPI} from "../services/vg-api";
 import {IPlayable} from "../vg-media/i-playable";
 import {ElementRef} from "@angular/core";
+import { VgStates } from "../states/vg-states";
 
 describe('Buffering', () => {
     let vgBuffering:VgBuffering;
@@ -34,14 +35,22 @@ describe('Buffering', () => {
     });
 
     describe('isBuffering', ()=>{
-        it('should show if buffer is detected', () => {
+        it('should show if buffer is detected and video is playing', () => {
             spyOn(vgBuffering, 'show');
+            vgBuffering.target.state = VgStates.VG_PLAYING;
             vgBuffering.onUpdateBuffer(true);
             expect(vgBuffering.show).toHaveBeenCalled();
         });
-        it('should hide if buffer is not detected', () => {
+        it('should hide if buffer is not detected and video is playing', () => {
             spyOn(vgBuffering, 'hide');
+            vgBuffering.target.state = VgStates.VG_PLAYING;
             vgBuffering.onUpdateBuffer(false);
+            expect(vgBuffering.hide).toHaveBeenCalled();
+        });
+        it('should hide if buffer is detected and video is not playing', () => {
+            spyOn(vgBuffering, 'hide');
+            vgBuffering.target.state = VgStates.VG_PLAYING;
+            vgBuffering.onUpdateBuffer(true);
             expect(vgBuffering.hide).toHaveBeenCalled();
         });
     });
