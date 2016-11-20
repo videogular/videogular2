@@ -122,6 +122,10 @@ export class VgAPI {
         return this.$$getAllProperties('isCompleted');
     }
 
+    get isLive() {
+        return this.$$getAllProperties('isLive');
+    }
+
     get time() {
         return this.$$getAllProperties('time');
     }

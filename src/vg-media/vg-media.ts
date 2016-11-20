@@ -5,7 +5,7 @@ import { VgEvents } from "../events/vg-events";
 import { VgStates } from "../states/vg-states";
 import { VgAPI } from "../services/vg-api";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
-import { Subscription, Observer } from "rxjs";
+import { Observer } from "rxjs";
 
 @Directive({
     selector: '[vg-media]'
@@ -31,22 +31,23 @@ export class VgMedia implements OnInit, IPlayable {
 
     canPlay: boolean = false;
     canPlayThrough: boolean = false;
-    isBufferDetected:boolean = false;
+    isBufferDetected: boolean = false;
     isMetadataLoaded: boolean = false;
     isReadyToPlay: boolean = false;
     isWaiting: boolean = false;
     isCompleted: boolean = false;
+    isLive: boolean = false;
 
 
     checkInterval: number = 200;
     currentPlayPos: number = 0;
     lastPlayPos: number = 0;
 
-    bufferObserver:Observer<any>;
-    checkBufferSubscription:any;
-    syncSubscription:any;
-    canPlayAllSubscription:any;
-    playAtferSync:boolean = false;
+    bufferObserver: Observer<any>;
+    checkBufferSubscription: any;
+    syncSubscription: any;
+    canPlayAllSubscription: any;
+    playAtferSync: boolean = false;
 
     constructor(ref: ElementRef, private api: VgAPI) {
         this.elem = ref.nativeElement;
@@ -100,7 +101,7 @@ export class VgMedia implements OnInit, IPlayable {
 
             // Custom buffering detection
             bufferDetected: Observable.create(
-                (observer:any) => {
+                (observer: any) => {
                     this.bufferObserver = observer;
 
                     return () => {
@@ -243,7 +244,15 @@ export class VgMedia implements OnInit, IPlayable {
     onLoadMetadata(event: any) {
         this.isMetadataLoaded = true;
 
+        this.time.current = 0;
+        this.time.left = 0;
         this.time.total = this.duration * 1000;
+
+        this.state = VgStates.VG_PAUSED;
+
+        // Live streaming check
+        let t:number = Math.round(this.time.total);
+        this.isLive = (t === Infinity);
     }
 
     onWait(event: any) {

@@ -10,6 +10,7 @@ export interface IPlayable {
     isMetadataLoaded:boolean;
     isWaiting:boolean;
     isCompleted:boolean;
+    isLive:boolean;
     state:string;
     subscriptions:IMediaSubscriptions;
     duration:number;
