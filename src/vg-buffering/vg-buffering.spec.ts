@@ -36,20 +36,29 @@ describe('Buffering', () => {
 
     describe('isBuffering', ()=>{
         it('should show if buffer is detected and video is playing', () => {
+            vgBuffering.target = <IPlayable>{
+                state: VgStates.VG_PLAYING
+            };
+
             spyOn(vgBuffering, 'show');
-            vgBuffering.target.state = VgStates.VG_PLAYING;
             vgBuffering.onUpdateBuffer(true);
             expect(vgBuffering.show).toHaveBeenCalled();
         });
         it('should hide if buffer is not detected and video is playing', () => {
+            vgBuffering.target = <IPlayable>{
+                state: VgStates.VG_PLAYING
+            };
+
             spyOn(vgBuffering, 'hide');
-            vgBuffering.target.state = VgStates.VG_PLAYING;
             vgBuffering.onUpdateBuffer(false);
             expect(vgBuffering.hide).toHaveBeenCalled();
         });
         it('should hide if buffer is detected and video is not playing', () => {
+            vgBuffering.target = <IPlayable>{
+                state: VgStates.VG_PAUSED
+            };
+
             spyOn(vgBuffering, 'hide');
-            vgBuffering.target.state = VgStates.VG_PAUSED;
             vgBuffering.onUpdateBuffer(true);
             expect(vgBuffering.hide).toHaveBeenCalled();
         });
