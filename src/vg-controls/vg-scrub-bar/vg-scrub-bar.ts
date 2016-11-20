@@ -49,8 +49,10 @@ export class VgScrubBar extends VgAbstractControl {
     }
 
     onMouseDownScrubBar($event:any) {
-        var percentage = $event.offsetX * 100 / this.elem.scrollWidth;
+        if (!this.target.isLive) {
+            var percentage = $event.offsetX * 100 / this.elem.scrollWidth;
 
-        this.target.seekTime(percentage, true);
+            this.target.seekTime(percentage, true);
+        }
     }
 }

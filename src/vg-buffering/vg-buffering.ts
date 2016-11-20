@@ -12,7 +12,7 @@ import {VgStates} from "../states/vg-states";
     template:
         `<div class="vg-buffering">
             <div class="bufferingContainer">
-                <div ng-class="spinnerClass" class="loadingSpinner"></div>
+                <div class="loadingSpinner"></div>
             </div>
         </div>`,
     styles: [`
@@ -106,7 +106,6 @@ export class VgBuffering {
     checkInterval: number = 50;
     currentPlayPos: number = 0;
     lastPlayPos: number = 0;
-    bufferingDetected: boolean;
 
     @HostBinding('style.display') displayState: string = 'none';
 
@@ -125,7 +124,7 @@ export class VgBuffering {
     }
 
     onUpdateBuffer(isBuffering) {
-        if (isBuffering) {
+        if (isBuffering && this.target.state === VgStates.VG_PLAYING) {
             this.show();
         }
         else {
