@@ -37,6 +37,7 @@ export class VgSlides implements OnInit, IPlayable {
     isMetadataLoaded:boolean = false;
     isWaiting:boolean = false;
     isCompleted:boolean = false;
+    isLive:boolean = false;
 
     id:string;
     duration:number = 0;
