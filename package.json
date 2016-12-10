@@ -9,11 +9,10 @@
     "url": "https://github.com/videogular/videogular2"
   },
   "dependencies": {
-    "@angular/common": "2.0.0",
-    "@angular/compiler": "2.0.0",
-    "@angular/core": "2.0.0",
-    "@angular/platform-browser": "2.0.0",
-    "@angular/platform-browser-dynamic": "2.0.0",
+    "@angular/common": "2.2.3",
+    "@angular/core": "2.2.3",
+    "@angular/platform-browser": "2.2.3",
+    "@angular/platform-browser-dynamic": "2.2.3",
     "es6-shim": "0.35.1",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.0-beta.12",
@@ -21,6 +20,9 @@
     "systemjs": "0.19.40"
   },
   "devDependencies": {
+    "@angular/compiler": "2.2.3",
+    "@angular/compiler-cli": "2.2.3",
+    "@angular/platform-server": "2.2.3",
     "commitizen": "2.8.6",
     "cz-conventional-changelog": "1.2.0",
     "es6-module-loader": "0.17.11",
@@ -42,14 +44,14 @@
   },
   "scripts": {
     "typings": "typings",
-    "prebuild": "npm run clean && mkdir dist",
-    "tsc": "tsc",
-    "build": "tsc",
-    "postbuild": "node make.js && npm run test",
+    "prebuild": "npm run clean",
+    "ngc": "ngc",
+    "build": "ngc",
+    "postbuild": "npm test",
     "prebuild:travis": "npm run typings install",
-    "build:travis": "tsc",
-    "postbuild:travis": "node make.js && npm run test",
-    "clean": "rm -rf dist && rm -rf ./src/**/*.js && rm -rf ./src/**/*.d.ts",
+    "build:travis": "ngc",
+    "postbuild:travis": "npm run test",
+    "clean": "rm -rf ./src/**/*.js && rm -rf ./src/**/*.d.ts",
     "precommit": "npm test",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
@@ -72,7 +74,7 @@
     "angular2",
     "javascript"
   ],
-  "author": "Raúl Jiménez <elecash@gmail.com> (http://twofuckingdevelopers.com/)",
+  "author": "Raúl Jiménez <elecash@gmail.com>",
   "contributors": [
     {
       "name": "Alberto García",
@@ -97,4 +99,3 @@
   },
   "homepage": "http://videogular.com"
 }
-

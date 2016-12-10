@@ -1,16 +1,31 @@
+#################
+## Misc
+#################
+**/.DS_Store
 node_modules
-.idea
-dist
-coverage
-typings
-.couscous
-.vscode
-build
 npm-debug.log
-.DS_Store
-src/**/*.js
-src/**/*.js.map
-core.js
-controls.js
-overlay-play.js
-slides.js
+**/*.js
+**/*.js.map
+**/*.d.ts
+**/*.metadata.json
+coverage
+compiled
+!karma.conf.js
+!karma-test-shim.js
+
+#################
+## JetBrains
+#################
+.idea
+.project
+.settings
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
