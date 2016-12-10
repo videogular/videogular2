@@ -1,12 +1,31 @@
-examples
+#################
+## Misc
+#################
+**/.DS_Store
 node_modules
+npm-debug.log
 coverage
-typings
-typings.json
-.couscous
-docs
-*.md
-*.yml
-karma-test-shim.js
-karma.conf.js
-make.js
+**/*.ts
+
+!**/*.js
+!**/*.d.ts
+!**/*.metadata.json
+!compiled/**/*.js
+!compiled/**/*.d.ts
+
+#################
+## JetBrains
+#################
+.idea
+.project
+.settings
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
