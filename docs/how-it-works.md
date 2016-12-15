@@ -16,7 +16,7 @@ For example, this is the most basic video player that you can create with Videog
 
 ```html
 <vg-player>
-    <video vg-media id="singleVideo" preload="auto" controls>
+    <video vgMedia id="singleVideo" preload="auto" controls>
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
     </video>
 </vg-player>
@@ -52,7 +52,7 @@ Let's go to add an overlay play and a custom control bar.
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video vg-media id="singleVideo" preload="auto">
+    <video vgMedia id="singleVideo" preload="auto">
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
     </video>
 </vg-player>
@@ -63,7 +63,7 @@ This is great! We can add some Videogular components to have a nice UI for our v
 
 The VgScrubBar inside controls has a `pointer-events: none;` to avoid clicks on it but it's necessary to create some space between components. Of course, if you like, you can remove it and create your own `div` with a `class` and it will do the job too. That's the good thing about using custom elements!
 
-One of the most important things that you need to understand is that all components are not going to work if you don't add a `vg-media` directive to the `video` tag. So remember to add at least one `vg-media` on each player.
+One of the most important things that you need to understand is that all components are not going to work if you don't add a `vgMedia` directive to the `video` tag. So remember to add at least one `vgMedia` on each player.
 
 Now you can create your TypeScript file and compile/bundle with your favourite setup.
 

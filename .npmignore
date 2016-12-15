@@ -5,13 +5,13 @@
 node_modules
 npm-debug.log
 coverage
+compiled
+docs
 **/*.ts
 
 !**/*.js
 !**/*.d.ts
 !**/*.metadata.json
-!compiled/**/*.js
-!compiled/**/*.d.ts
 
 #################
 ## JetBrains

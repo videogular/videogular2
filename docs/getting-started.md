@@ -107,7 +107,7 @@ Create your video player with HTML in your template:
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video vg-media #media id="singleVideo" preload="auto" crossorigin>
+    <video vgMedia #media id="singleVideo" preload="auto" crossorigin>
         <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
         <track kind="subtitles" label="English" src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt" srclang="en" default>
         <track kind="subtitles" label="Español" src="http://static.videogular.com/assets/subs/pale-blue-dot-es.vtt" srclang="es">

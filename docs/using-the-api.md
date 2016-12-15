@@ -34,7 +34,7 @@ To start using the API first you need to grab it from the player. To do that lis
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video vg-media #media id="singleVideo" preload="auto" crossorigin>
+    <video vgMedia #media id="singleVideo" preload="auto" crossorigin>
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
     </video>
 </vg-player>

@@ -12,12 +12,12 @@ function isJsFile(path) {
 }
 
 function isSpecFile(path) {
-    return path.slice(-8) == '.spec.js' && path.indexOf('node_modules') < 0;
+    return path.slice(-8) == '.spec.js';
 }
 
 function isBuiltFile(path) {
-    var includedPaths = '/base/';
-    return isJsFile(path) && (path.substr(0, includedPaths.length) === includedPaths);
+    var builtPath = '/base/src/';
+    return isJsFile(path) && (path.substr(0, builtPath.length) == builtPath);
 }
 
 var allSpecFiles = Object.keys(window.__karma__.files)
@@ -54,34 +54,10 @@ System.config(
             '@angular/router/testing': 'npm:@angular/router/bundles/router-testing.umd.js',
             '@angular/forms/testing': 'npm:@angular/forms/bundles/forms-testing.umd.js',
 
-            'buffering': 'base/buffering/',
-            'controls': 'base/controls/',
-            'core': 'base/core/',
-            'ima-ads': 'base/ima-ads/',
-            'overlay-play': 'base/overlay-play/',
-            'slides': 'base/slides/',
-            'streaming': 'base/streaming/'
+            'app': 'base/src'
         },
         packages: {
-            'buffering': {
-                defaultExtension: 'js'
-            },
-            'controls': {
-                defaultExtension: 'js'
-            },
-            'core': {
-                defaultExtension: 'js'
-            },
-            'ima-ads': {
-                defaultExtension: 'js'
-            },
-            'overlay-play': {
-                defaultExtension: 'js'
-            },
-            'slides': {
-                defaultExtension: 'js'
-            },
-            'streaming': {
+            'app': {
                 defaultExtension: 'js'
             },
             'rxjs': {

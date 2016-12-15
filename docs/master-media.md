@@ -4,7 +4,7 @@ currentMenu: master-media
 
 ## Master media
 
-Master media is a new feature introduced in Videogular 2 that allows you to have several `vg-media` and decide which one is the main media.
+Master media is a new feature introduced in Videogular 2 that allows you to have several `vgMedia` and decide which one is the main media.
 
 This is very useful on some cases. Let's imagine an scenario where we have two videos playing simultaneously, quickly some questions will come.
 * What should the control bar duration display if videos have different length?
@@ -13,7 +13,7 @@ This is very useful on some cases. Let's imagine an scenario where we have two v
 
 To solve all this questions we can use a Master media.
 
-In this example we have two videos and `masterVideo` is the master video because we added `vg-master="true"`. When a `vg-media` is defined as master all other events and properties are ignored by `VgAPI` so all components will only be notified when a change on the master media have been happened.
+In this example we have two videos and `masterVideo` is the master video because we added `[vgMaster]="true"`. When a `vgMedia` is defined as master all other events and properties are ignored by `VgAPI` so all components will only be notified when a change on the master media have been happened.
 
 ```html
 <vg-player>
@@ -32,11 +32,11 @@ In this example we have two videos and `masterVideo` is the master video because
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video vg-media vg-master="true" id="masterVideo" preload="auto">
+    <video vgMedia [vgMaster]="true" id="masterVideo" preload="auto">
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
     </video>
 
-    <video vg-media id="slaveVideo" preload="auto">
+    <video vgMedia id="slaveVideo" preload="auto">
         <source src="http://static.videogular.com/assets/videos/vr-demo.mp4" type="video/mp4">
     </video>
 </vg-player>
@@ -53,7 +53,7 @@ Targets is another awesome and shiny feature introduced in Videogular2. With tar
 
 For example, you can have a split screen with two videos and each one with its own control bar.
 
-Now you can add `vg-for="video-id"` to decide which `vg-media` target when a user interacts with that component.
+Now you can add `vg-for="video-id"` to decide which `vgMedia` target when a user interacts with that component.
 
 ```html
 <vg-player>
@@ -73,7 +73,7 @@ Now you can add `vg-for="video-id"` to decide which `vg-media` target when a use
             <vg-fullscreen vg-for="leftVideo"></vg-fullscreen>
         </vg-controls>
     
-        <video vg-media id="leftVideo" preload="auto">
+        <video vgMedia id="leftVideo" preload="auto">
             <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
         </video>
     </div>
@@ -94,7 +94,7 @@ Now you can add `vg-for="video-id"` to decide which `vg-media` target when a use
             <vg-fullscreen vg-for="rightVideo"></vg-fullscreen>
         </vg-controls>
         
-        <video vg-media id="rightVideo" preload="auto">
+        <video vgMedia id="rightVideo" preload="auto">
             <source src="http://static.videogular.com/assets/videos/vr-demo.mp4" type="video/mp4">
         </video>
     </div>
@@ -102,7 +102,7 @@ Now you can add `vg-for="video-id"` to decide which `vg-media` target when a use
 
 ```
 
-Of course, you can combine both `vg-master` and `vg-for` to display data from master but interact with one component, or even you can have a play button for each media but a whole control bar that can control all medias!
+Of course, you can combine both `vgMaster` and `vg-for` to display data from master but interact with one component, or even you can have a play button for each media but a whole control bar that can control all medias!
 
 The possibilities are endless!
 
