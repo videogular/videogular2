@@ -2,7 +2,7 @@ import { ElementRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
 import { Observable } from "rxjs/Observable";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
-import { Observer } from "rxjs";
+import { Observer, Subscription } from "rxjs";
 import { VgStates } from '../states/vg-states';
 import { VgAPI } from '../services/vg-api';
 import { VgEvents } from '../events/vg-events';
@@ -40,6 +40,20 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     syncSubscription: any;
     canPlayAllSubscription: any;
     playAtferSync: boolean = false;
+
+    mutationObs: Subscription;
+    canPlayObs: Subscription;
+    canPlayThroughObs: Subscription;
+    loadedMetadataObs: Subscription;
+    waitingObs: Subscription;
+    progressObs: Subscription;
+    endedObs: Subscription;
+    playingObs: Subscription;
+    playObs: Subscription;
+    pauseObs: Subscription;
+    timeUpdateObs: Subscription;
+    volumeChangeObs: Subscription;
+    errorObs: Subscription;
 
     constructor(ref: ElementRef, private api: VgAPI) {
         this.elem = ref.nativeElement;
@@ -103,19 +117,19 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             )
         };
 
-        this.subscriptions.mutation.subscribe(this.onMutation.bind(this));
-        this.subscriptions.canPlay.subscribe(this.onCanPlay.bind(this));
-        this.subscriptions.canPlayThrough.subscribe(this.onCanPlayThrough.bind(this));
-        this.subscriptions.loadedMetadata.subscribe(this.onLoadMetadata.bind(this));
-        this.subscriptions.waiting.subscribe(this.onWait.bind(this));
-        this.subscriptions.progress.subscribe(this.onProgress.bind(this));
-        this.subscriptions.ended.subscribe(this.onComplete.bind(this));
-        this.subscriptions.playing.subscribe(this.onStartPlaying.bind(this));
-        this.subscriptions.play.subscribe(this.onPlay.bind(this));
-        this.subscriptions.pause.subscribe(this.onPause.bind(this));
-        this.subscriptions.timeUpdate.subscribe(this.onTimeUpdate.bind(this));
-        this.subscriptions.volumeChange.subscribe(this.onVolumeChange.bind(this));
-        this.subscriptions.error.subscribe(this.onError.bind(this));
+        this.mutationObs = this.subscriptions.mutation.subscribe(this.onMutation.bind(this));
+        this.canPlayObs = this.subscriptions.canPlay.subscribe(this.onCanPlay.bind(this));
+        this.canPlayThroughObs = this.subscriptions.canPlayThrough.subscribe(this.onCanPlayThrough.bind(this));
+        this.loadedMetadataObs = this.subscriptions.loadedMetadata.subscribe(this.onLoadMetadata.bind(this));
+        this.waitingObs = this.subscriptions.waiting.subscribe(this.onWait.bind(this));
+        this.progressObs = this.subscriptions.progress.subscribe(this.onProgress.bind(this));
+        this.endedObs = this.subscriptions.ended.subscribe(this.onComplete.bind(this));
+        this.playingObs = this.subscriptions.playing.subscribe(this.onStartPlaying.bind(this));
+        this.playObs = this.subscriptions.play.subscribe(this.onPlay.bind(this));
+        this.pauseObs = this.subscriptions.pause.subscribe(this.onPause.bind(this));
+        this.timeUpdateObs = this.subscriptions.timeUpdate.subscribe(this.onTimeUpdate.bind(this));
+        this.volumeChangeObs = this.subscriptions.volumeChange.subscribe(this.onVolumeChange.bind(this));
+        this.errorObs = this.subscriptions.error.subscribe(this.onError.bind(this));
 
         if (this.vgMedia) {
             this.api.playerReadyEvent.subscribe(
@@ -351,18 +365,18 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     ngOnDestroy() {
         this.elem.src = '';
-        this.subscriptions.mutation.unsubscribe();
-        this.subscriptions.canPlay.unsubscribe();
-        this.subscriptions.canPlayThrough.unsubscribe();
-        this.subscriptions.loadedMetadata.unsubscribe();
-        this.subscriptions.waiting.unsubscribe();
-        this.subscriptions.progress.unsubscribe();
-        this.subscriptions.ended.unsubscribe();
-        this.subscriptions.playing.unsubscribe();
-        this.subscriptions.play.unsubscribe();
-        this.subscriptions.pause.unsubscribe();
-        this.subscriptions.timeUpdate.unsubscribe();
-        this.subscriptions.volumeChange.unsubscribe();
-        this.subscriptions.error.unsubscribe();
+        this.mutationObs.unsubscribe();
+        this.canPlayObs.unsubscribe();
+        this.canPlayThroughObs.unsubscribe();
+        this.loadedMetadataObs.unsubscribe();
+        this.waitingObs.unsubscribe();
+        this.progressObs.unsubscribe();
+        this.endedObs.unsubscribe();
+        this.playingObs.unsubscribe();
+        this.playObs.unsubscribe();
+        this.pauseObs.unsubscribe();
+        this.timeUpdateObs.unsubscribe();
+        this.volumeChangeObs.unsubscribe();
+        this.errorObs.unsubscribe();
     }
 }
