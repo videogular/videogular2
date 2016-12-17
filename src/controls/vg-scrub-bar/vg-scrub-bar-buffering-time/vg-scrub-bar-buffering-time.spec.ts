@@ -22,13 +22,12 @@ describe('Scrub bar buffering time', () => {
     });
 
     it('Should get media by id on init', () => {
-        spyOn(scrubBarBufferingTime.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById');
 
+        scrubBarBufferingTime.vgFor = 'test';
         scrubBarBufferingTime.onPlayerReady();
 
-        expect(scrubBarBufferingTime.elem.getAttribute).toHaveBeenCalledWith('vg-for');
-        expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
+        expect(api.getMediaById).toHaveBeenCalledWith('test');
     });
 
     describe('getPercentage', () => {

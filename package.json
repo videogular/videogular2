@@ -45,12 +45,11 @@
   },
   "scripts": {
     "prebuild": "npm run clean",
-    "ngc": "ngc",
     "build": "ngc",
     "postbuild": "npm test",
     "build:travis": "ngc",
     "postbuild:travis": "npm run test",
-    "clean": "rm -rf ./src/**/*.js && rm -rf ./src/**/*.d.ts",
+    "clean": "rm -rf ./src/**/*.js && rm -rf ./src/**/*.d.ts && rm -rf ./compiled",
     "precommit": "npm test",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",

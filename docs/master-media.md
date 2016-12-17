@@ -25,14 +25,14 @@ In this example we have two videos and `masterVideo` is the master video because
             <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
         </vg-scrub-bar>
 
-        <vg-time-display property="left" format="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
 
         <vg-mute></vg-mute>
 
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video vgMedia [vgMaster]="true" id="masterVideo" preload="auto">
+    <video vgMedia="master" id="masterVideo" preload="auto">
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
     </video>
 
@@ -53,24 +53,24 @@ Targets is another awesome and shiny feature introduced in Videogular2. With tar
 
 For example, you can have a split screen with two videos and each one with its own control bar.
 
-Now you can add `vg-for="video-id"` to decide which `vgMedia` target when a user interacts with that component.
+Now you can add `vgFor="video-id"` to decide which `vgMedia` target when a user interacts with that component.
 
 ```html
 <vg-player>
     <div class="left">
         <vg-controls>
-            <vg-play-pause vg-for="leftVideo"></vg-play-pause>
+            <vg-play-pause vgFor="leftVideo"></vg-play-pause>
     
-            <vg-scrub-bar vg-for="leftVideo">
-                <vg-scrub-bar-current-time vg-for="leftVideo"></vg-scrub-bar-current-time>
-                <vg-scrub-bar-buffering-time vg-for="leftVideo"></vg-scrub-bar-buffering-time>
+            <vg-scrub-bar vgFor="leftVideo">
+                <vg-scrub-bar-current-time vgFor="leftVideo"></vg-scrub-bar-current-time>
+                <vg-scrub-bar-buffering-time vgFor="leftVideo"></vg-scrub-bar-buffering-time>
             </vg-scrub-bar>
     
-            <vg-time-display property="left" format="mm:ss"></vg-time-display>
+            <vg-time-display vgvgProperty="left" vgvgFormat="mm:ss"></vg-time-display>
     
-            <vg-mute vg-for="leftVideo"></vg-mute>
+            <vg-mute vgFor="leftVideo"></vg-mute>
     
-            <vg-fullscreen vg-for="leftVideo"></vg-fullscreen>
+            <vg-fullscreen vgFor="leftVideo"></vg-fullscreen>
         </vg-controls>
     
         <video vgMedia id="leftVideo" preload="auto">
@@ -80,18 +80,18 @@ Now you can add `vg-for="video-id"` to decide which `vgMedia` target when a user
 
     <div class="right">
         <vg-controls>
-            <vg-play-pause vg-for="rightVideo"></vg-play-pause>
+            <vg-play-pause vgFor="rightVideo"></vg-play-pause>
     
-            <vg-scrub-bar vg-for="rightVideo">
-                <vg-scrub-bar-current-time vg-for="rightVideo"></vg-scrub-bar-current-time>
-                <vg-scrub-bar-buffering-time vg-for="rightVideo"></vg-scrub-bar-buffering-time>
+            <vg-scrub-bar vgFor="rightVideo">
+                <vg-scrub-bar-current-time vgFor="rightVideo"></vg-scrub-bar-current-time>
+                <vg-scrub-bar-buffering-time vgFor="rightVideo"></vg-scrub-bar-buffering-time>
             </vg-scrub-bar>
     
-            <vg-time-display vg-for="rightVideo" property="left" format="mm:ss"></vg-time-display>
+            <vg-time-display vgFor="rightVideo" vgvgProperty="left" vgvgFormat="mm:ss"></vg-time-display>
     
-            <vg-mute vg-for="rightVideo"></vg-mute>
+            <vg-mute vgFor="rightVideo"></vg-mute>
     
-            <vg-fullscreen vg-for="rightVideo"></vg-fullscreen>
+            <vg-fullscreen vgFor="rightVideo"></vg-fullscreen>
         </vg-controls>
         
         <video vgMedia id="rightVideo" preload="auto">
@@ -102,7 +102,7 @@ Now you can add `vg-for="video-id"` to decide which `vgMedia` target when a user
 
 ```
 
-Of course, you can combine both `vgMaster` and `vg-for` to display data from master but interact with one component, or even you can have a play button for each media but a whole control bar that can control all medias!
+Of course, you can combine both `vgMaster` and `vgFor` to display data from master but interact with one component, or even you can have a play button for each media but a whole control bar that can control all medias!
 
 The possibilities are endless!
 

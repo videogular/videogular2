@@ -33,17 +33,16 @@ describe('Mute Button', () => {
     });
 
     it('Should get media by id on init', () => {
-        spyOn(mute.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById').and.callFake(() => {
             return {
                 volume: 1
             };
         });
 
+        mute.vgFor = 'test';
         mute.onPlayerReady();
 
-        expect(mute.elem.getAttribute).toHaveBeenCalledWith('vg-for');
-        expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
+        expect(api.getMediaById).toHaveBeenCalledWith('test');
         expect(mute.currentVolume).toBe(1);
     });
 

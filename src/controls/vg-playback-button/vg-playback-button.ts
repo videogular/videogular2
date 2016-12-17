@@ -1,7 +1,7 @@
-import { Component, Input, ElementRef, HostListener } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
-import {VgAbstractControl} from '../vg-abstract-control';
+
 
 @Component({
     selector: 'vg-playback-button',
@@ -27,23 +27,26 @@ import {VgAbstractControl} from '../vg-abstract-control';
         }
     `]
 })
-export class VgPlaybackButton extends VgAbstractControl {
+export class VgPlaybackButton implements OnInit {
+    @Input() vgFor: string;
+
     elem:HTMLElement;
-    vgFor: string;
     target: any;
 
     playbackValues: Array<string>;
     playbackIndex: number;
 
     constructor(ref:ElementRef, public API:VgAPI) {
-        super(API);
         this.elem = ref.nativeElement;
         this.playbackValues = ['0.5', '1.0', '1.5', '2.0'];
         this.playbackIndex = 1;
     }
 
+    ngOnInit() {
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+    }
+
     onPlayerReady() {
-        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
 

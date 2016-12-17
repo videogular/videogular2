@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { VgAPI } from '../core/services/vg-api';
 import { IPlayable } from '../core/vg-media/i-playable';
 import { VgStates } from '../core/states/vg-states';
@@ -93,9 +93,10 @@ import { VgStates } from '../core/states/vg-states';
         }
     ` ]
 })
-export class VgBuffering {
+export class VgBuffering implements OnInit {
+    @Input() vgFor: string;
+
     elem: HTMLElement;
-    vgFor: string;
     target: IPlayable;
     checkBufferInterval: number;
     checkInterval: number = 50;
@@ -109,8 +110,11 @@ export class VgBuffering {
         API.playerReadyEvent.subscribe((api: VgAPI) => this.onPlayerReady());
     }
 
+    ngOnInit() {
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+    }
+
     onPlayerReady() {
-        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
 
         this.target.subscriptions.bufferDetected.subscribe(

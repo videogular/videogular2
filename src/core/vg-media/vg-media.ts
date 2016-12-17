@@ -13,7 +13,7 @@ import { VgEvents } from '../events/vg-events';
 export class VgMedia implements OnInit, OnDestroy, IPlayable {
     elem: any;
 
-    @Input() vgMedia: boolean;
+    @Input() vgMedia: string;
 
     state: string = VgStates.VG_PAUSED;
 
@@ -37,7 +37,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     bufferObserver: Observer<any>;
     checkBufferSubscription: any;
-    syncSubscription: any;
+    syncSubscription: Subscription;
     canPlayAllSubscription: any;
     playAtferSync: boolean = false;
 
@@ -54,6 +54,8 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     timeUpdateObs: Subscription;
     volumeChangeObs: Subscription;
     errorObs: Subscription;
+
+    isMaster: boolean;
 
     constructor(ref: ElementRef, private api: VgAPI) {
         this.elem = ref.nativeElement;
@@ -131,7 +133,9 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.volumeChangeObs = this.subscriptions.volumeChange.subscribe(this.onVolumeChange.bind(this));
         this.errorObs = this.subscriptions.error.subscribe(this.onError.bind(this));
 
-        if (this.vgMedia) {
+        this.isMaster = (this.vgMedia === 'master');
+
+        if (this.isMaster) {
             this.api.playerReadyEvent.subscribe(
                 () => {
                     this.prepareSync();
@@ -279,8 +283,8 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     onPlay(event: any) {
         this.state = VgStates.VG_PLAYING;
 
-        if (this.vgMedia) {
-            if (!this.syncSubscription || this.syncSubscription.isUnsubscribed) {
+        if (this.isMaster) {
+            if (!this.syncSubscription || this.syncSubscription.closed) {
                 this.startSync();
             }
         }
@@ -293,7 +297,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     onPause(event: any) {
         this.state = VgStates.VG_PAUSED;
 
-        if (this.vgMedia) {
+        if (this.isMaster) {
             if (!this.playAtferSync) {
                 this.syncSubscription.unsubscribe();
             }
@@ -361,6 +365,20 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.checkBufferSubscription.unsubscribe();
         this.isBufferDetected = false;
         this.bufferObserver.next(this.isBufferDetected);
+    }
+
+    seekTime(value:number, byPercent:boolean = false) {
+        let second:number;
+        let duration:number = this.duration;
+
+        if (byPercent) {
+            second = value * duration / 100;
+        }
+        else {
+            second = value;
+        }
+
+        this.currentTime = second;
     }
 
     ngOnDestroy() {

@@ -49,7 +49,7 @@ describe('Controls Bar', () => {
     it('Should hide controls after view init', () => {
         spyOn(controls, 'hide').and.callFake(() => {});
 
-        controls.autohide = true;
+        controls.vgAutohide = true;
 
         controls.ngAfterViewInit();
 
@@ -59,7 +59,7 @@ describe('Controls Bar', () => {
     it('Should show controls after view init', () => {
         spyOn(controls, 'show').and.callFake(() => {});
 
-        controls.autohide = false;
+        controls.vgAutohide = false;
 
         controls.ngAfterViewInit();
 
@@ -76,7 +76,7 @@ describe('Controls Bar', () => {
     });
 
     it('Should hide controls', () => {
-        controls.autohide = true;
+        controls.vgAutohide = true;
 
         controls.hide();
 
@@ -86,7 +86,7 @@ describe('Controls Bar', () => {
 
     it('Should not hide controls', () => {
         controls.hideControls = false;
-        controls.autohide = false;
+        controls.vgAutohide = false;
 
         controls.hide();
 

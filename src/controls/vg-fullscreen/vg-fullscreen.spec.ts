@@ -22,13 +22,12 @@ describe('Videogular Player', () => {
     });
 
     it('Should get media by id on init', () => {
-        spyOn(fullscreen.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById').and.callFake(() => { });
 
+        fullscreen.vgFor = 'test';
         fullscreen.onPlayerReady();
 
-        expect(fullscreen.elem.getAttribute).toHaveBeenCalledWith('vg-for');
-        expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
+        expect(api.getMediaById).toHaveBeenCalledWith('test');
     });
 
     describe('onClick', () => {

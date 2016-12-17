@@ -1,8 +1,8 @@
-import { Component, Input, ElementRef, HostListener } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
 import {VgFullscreenAPI} from "../../core/services/vg-fullscreen-api";
-import {VgAbstractControl} from '../vg-abstract-control';
+
 
 @Component({
     selector: 'vg-fullscreen',
@@ -33,25 +33,27 @@ import {VgAbstractControl} from '../vg-abstract-control';
         }
     `]
 })
-export class VgFullscreen extends VgAbstractControl {
+export class VgFullscreen implements OnInit {
     elem:HTMLElement;
     vgFor:string;
     target:Object;
     isFullscreen:boolean = false;
 
     constructor(ref:ElementRef, public API:VgAPI) {
-        super(API);
         this.elem = ref.nativeElement;
         VgFullscreenAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
     }
 
-    onChangeFullscreen(fsState:boolean) {
-        this.isFullscreen = fsState;
+    ngOnInit() {
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
     }
 
     onPlayerReady() {
-        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
+    }
+
+    onChangeFullscreen(fsState:boolean) {
+        this.isFullscreen = fsState;
     }
 
     @HostListener('click')

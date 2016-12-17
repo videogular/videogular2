@@ -7,16 +7,16 @@ import {
     QueryList,
     AfterContentInit,
     ContentChildren
-} from "@angular/core";
-import {VgAPI} from "../services/vg-api";
-import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
-import {VgUtils} from "../services/vg-utils";
-import {VgMedia} from "../vg-media/vg-media";
+} from '@angular/core';
+import { VgAPI } from '../services/vg-api';
+import { VgFullscreenAPI } from '../services/vg-fullscreen-api';
+import { VgUtils } from '../services/vg-utils';
+import { VgMedia } from '../vg-media/vg-media';
 
 @Component({
     selector: 'vg-player',
     template: `<ng-content></ng-content>`,
-    styles: [`
+    styles: [ `
         :host {
             font-family: 'videogular';
             position: relative;
@@ -32,7 +32,8 @@ import {VgMedia} from "../vg-media/vg-media";
             left: 0;
             top: 0;
         }
-    `]
+    ` ],
+    providers: [ VgAPI ]
 })
 export class VgPlayer implements AfterContentInit {
     elem: HTMLElement;
@@ -69,7 +70,7 @@ export class VgPlayer implements AfterContentInit {
         VgFullscreenAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
     }
 
-    onChangeFullscreen(fsState:boolean) {
+    onChangeFullscreen(fsState: boolean) {
         if (!VgFullscreenAPI.nativeFullscreen) {
             this.isFullscreen = fsState;
             this.zIndex = fsState ? VgUtils.getZIndex().toString() : 'auto';

@@ -32,17 +32,16 @@ describe('Play/Pause Button', () => {
     });
 
     it('Should get media by id on init', () => {
-        spyOn(playPause.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById').and.callFake(() => {
             return {
                 volume: 1
             };
         });
 
+        playPause.vgFor = 'test';
         playPause.onPlayerReady();
 
-        expect(playPause.elem.getAttribute).toHaveBeenCalledWith('vg-for');
-        expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
+        expect(api.getMediaById).toHaveBeenCalledWith('test');
     });
 
     it('Should get state for one media file', () => {

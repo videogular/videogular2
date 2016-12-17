@@ -1,6 +1,5 @@
-import {Component, OnChanges, Input, ElementRef, SimpleChange} from "@angular/core";
+import { Component, OnChanges, Input, ElementRef, SimpleChange, OnInit } from "@angular/core";
 import {VgAPI} from "../../../core/services/vg-api";
-import {VgAbstractControl} from '../../vg-abstract-control';
 
 @Component({
     selector: 'vg-scrub-bar-cue-points',
@@ -30,21 +29,24 @@ import {VgAbstractControl} from '../../vg-abstract-control';
         }
     `]
 })
-export class VgScrubBarCuePoints extends VgAbstractControl implements OnChanges {
+export class VgScrubBarCuePoints implements OnInit, OnChanges {
+    @Input() vgCuePoints:TextTrackCueList;
+    @Input() vgFor: string;
+
     elem:HTMLElement;
-    vgFor: string;
     target: any;
     onLoadedMetadataCalled: boolean = false;
 
-    @Input('cuePoints') cuePoints:TextTrackCueList;
 
     constructor(ref:ElementRef, public API:VgAPI) {
-        super(API);
         this.elem = ref.nativeElement;
     }
 
+    ngOnInit() {
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+    }
+
     onPlayerReady() {
-        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
 
         let onTimeUpdate = this.target.subscriptions.loadedMetadata;
@@ -56,19 +58,19 @@ export class VgScrubBarCuePoints extends VgAbstractControl implements OnChanges 
     }
 
     onLoadedMetadata() {
-        if (this.cuePoints) {
-            for (let i = 0, l = this.cuePoints.length; i < l; i++) {
-                let end = (this.cuePoints[i].endTime >= 0) ? this.cuePoints[i].endTime : this.cuePoints[i].startTime + 1;
-                let cuePointDuration = (end - this.cuePoints[i].startTime) * 1000;
+        if (this.vgCuePoints) {
+            for (let i = 0, l = this.vgCuePoints.length; i < l; i++) {
+                let end = (this.vgCuePoints[i].endTime >= 0) ? this.vgCuePoints[i].endTime : this.vgCuePoints[i].startTime + 1;
+                let cuePointDuration = (end - this.vgCuePoints[i].startTime) * 1000;
                 let position = '0';
                 let percentWidth = '0';
 
                 if (typeof cuePointDuration === 'number' && this.target.time.total) {
                     percentWidth = ((cuePointDuration * 100) / this.target.time.total) + "%";
-                    position = (this.cuePoints[i].startTime * 100 / (Math.round(this.target.time.total / 1000))) + "%";
+                    position = (this.vgCuePoints[i].startTime * 100 / (Math.round(this.target.time.total / 1000))) + "%";
                 }
 
-                (<any>this.cuePoints[i]).$$style = {
+                (<any>this.vgCuePoints[i]).$$style = {
                     width: percentWidth,
                     left: position
                 };
@@ -77,7 +79,7 @@ export class VgScrubBarCuePoints extends VgAbstractControl implements OnChanges 
     }
 
     ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-        if (changes['cuePoints'].currentValue) {
+        if (changes['vgCuePoints'].currentValue) {
             if(!this.target) {
                 this.onLoadedMetadataCalled = true;
                 return;

@@ -22,13 +22,12 @@ describe('Scrub bar current time', () => {
     });
 
     it('Should get media by id on init', () => {
-        spyOn(scrubBarCurrentTime.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById');
 
+        scrubBarCurrentTime.vgFor = 'test';
         scrubBarCurrentTime.onPlayerReady();
 
-        expect(scrubBarCurrentTime.elem.getAttribute).toHaveBeenCalledWith('vg-for');
-        expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
+        expect(api.getMediaById).toHaveBeenCalledWith('test');
     });
 
     describe('getPercentage', () => {

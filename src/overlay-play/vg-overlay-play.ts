@@ -51,8 +51,8 @@ import {VgStates} from "../core/states/vg-states";
     `]
 })
 export class VgOverlayPlay implements OnInit {
+    @Input() vgFor: string;
     elem:HTMLElement;
-    vgFor: string;
     target: any;
 
     constructor(ref:ElementRef, public API: VgAPI) {
@@ -60,7 +60,10 @@ export class VgOverlayPlay implements OnInit {
     }
 
     ngOnInit() {
-        this.vgFor = this.elem.getAttribute('vg-for');
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+    }
+
+    onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
     }
 
@@ -82,16 +85,18 @@ export class VgOverlayPlay implements OnInit {
     getState() {
         let state = VgStates.VG_PAUSED;
 
-        if (this.target && this.target.state instanceof Array) {
-            for (let i = 0, l = this.target.state.length; i < l; i++) {
-                if (this.target.state[i] === VgStates.VG_PLAYING) {
-                    state = VgStates.VG_PLAYING;
-                    break;
+        if (this.target) {
+            if (this.target.state instanceof Array) {
+                for (let i = 0, l = this.target.state.length; i < l; i++) {
+                    if (this.target.state[i] === VgStates.VG_PLAYING) {
+                        state = VgStates.VG_PLAYING;
+                        break;
+                    }
                 }
             }
-        }
-        else {
-            state = this.target.state;
+            else {
+                state = this.target.state;
+            }
         }
 
         return state;

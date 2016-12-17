@@ -36,13 +36,12 @@ describe('Playback Button', () => {
     });
 
     it('Should get media by id on init', () => {
-        spyOn(playbackButton.elem, 'getAttribute').and.callThrough();
-        spyOn(api, 'getMediaById');
+        spyOn(api, 'getMediaById').and.callFake(() => { });
 
+        playbackButton.vgFor = 'test';
         playbackButton.onPlayerReady();
 
-        expect(playbackButton.elem.getAttribute).toHaveBeenCalledWith('vg-for');
-        expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
+        expect(api.getMediaById).toHaveBeenCalledWith('test');
     });
 
     describe('onClick (single and multiple media)', () => {

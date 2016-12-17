@@ -38,7 +38,7 @@ describe('Scrub bar current time', () => {
         cps[1] = cp2;
         cps[2] = cp3;
 
-        scrubBarCuePoints.cuePoints = (<TextTrackCueList>cps);
+        scrubBarCuePoints.vgCuePoints = (<TextTrackCueList>cps);
 
         scrubBarCuePoints.target = {
             time: {
@@ -46,11 +46,11 @@ describe('Scrub bar current time', () => {
             }
         };
 
-        scrubBarCuePoints.ngOnChanges({'cuePoints': (<SimpleChange>{currentValue: cps})});
+        scrubBarCuePoints.ngOnChanges({'vgCuePoints': (<SimpleChange>{currentValue: cps})});
 
-        expect((<any>scrubBarCuePoints.cuePoints[0]).$$style).toEqual({width: '1%', left: '1%'});
-        expect((<any>scrubBarCuePoints.cuePoints[1]).$$style).toEqual({width: '5%', left: '5%'});
-        expect((<any>scrubBarCuePoints.cuePoints[2]).$$style).toEqual({width: '5%', left: '15%'});
+        expect((<any>scrubBarCuePoints.vgCuePoints[0]).$$style).toEqual({width: '1%', left: '1%'});
+        expect((<any>scrubBarCuePoints.vgCuePoints[1]).$$style).toEqual({width: '5%', left: '5%'});
+        expect((<any>scrubBarCuePoints.vgCuePoints[2]).$$style).toEqual({width: '5%', left: '15%'});
     });
 
     it('Should not calculate style position if there is not duration on media', () => {
@@ -65,7 +65,7 @@ describe('Scrub bar current time', () => {
         cps[1] = cp2;
         cps[2] = cp3;
 
-        scrubBarCuePoints.cuePoints = (<TextTrackCueList>cps);
+        scrubBarCuePoints.vgCuePoints = (<TextTrackCueList>cps);
 
         scrubBarCuePoints.target = {
             time: {
@@ -73,17 +73,17 @@ describe('Scrub bar current time', () => {
             }
         };
 
-        scrubBarCuePoints.ngOnChanges({'cuePoints': (<SimpleChange>{currentValue: cps})});
+        scrubBarCuePoints.ngOnChanges({'vgCuePoints': (<SimpleChange>{currentValue: cps})});
 
-        expect((<any>scrubBarCuePoints.cuePoints[0]).$$style).toEqual({width: '0', left: '0'});
-        expect((<any>scrubBarCuePoints.cuePoints[1]).$$style).toEqual({width: '0', left: '0'});
-        expect((<any>scrubBarCuePoints.cuePoints[2]).$$style).toEqual({width: '0', left: '0'});
+        expect((<any>scrubBarCuePoints.vgCuePoints[0]).$$style).toEqual({width: '0', left: '0'});
+        expect((<any>scrubBarCuePoints.vgCuePoints[1]).$$style).toEqual({width: '0', left: '0'});
+        expect((<any>scrubBarCuePoints.vgCuePoints[2]).$$style).toEqual({width: '0', left: '0'});
     });
 
     it('Should do nothing if there are no cue points', () => {
-        scrubBarCuePoints.cuePoints = null;
+        scrubBarCuePoints.vgCuePoints = null;
         scrubBarCuePoints.onLoadedMetadata();
-        scrubBarCuePoints.ngOnChanges({'cuePoints': (<SimpleChange>{currentValue: null})});
+        scrubBarCuePoints.ngOnChanges({'vgCuePoints': (<SimpleChange>{currentValue: null})});
     });
 
     it('Should handle after view init event', () => {

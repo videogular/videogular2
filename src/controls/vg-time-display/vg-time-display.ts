@@ -1,13 +1,13 @@
-import {Component, Input, ElementRef} from '@angular/core';
+import { Component, Input, ElementRef, OnInit } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
-import {VgAbstractControl} from '../vg-abstract-control';
+
 
 @Component({
     selector: 'vg-time-display',
     template: `
         <span *ngIf="target?.isLive">LIVE</span>
-        <span *ngIf="!target?.isLive">{{ getTime() | date:format }}</span>
+        <span *ngIf="!target?.isLive">{{ getTime() | date:vgFormat }}</span>
         <ng-content></ng-content>
     `,
     styles: [`
@@ -30,21 +30,24 @@ import {VgAbstractControl} from '../vg-abstract-control';
         }
     `]
 })
-export class VgTimeDisplay extends VgAbstractControl {
+export class VgTimeDisplay implements OnInit {
+    @Input() vgFor: string;
+    @Input() vgProperty:string = 'current';
+    @Input() vgFormat:string = 'mm:ss';
+
     elem:HTMLElement;
-    vgFor: string;
     target: any;
 
-    @Input('property') property:string = 'current';
-    @Input('format') format:string = 'mm:ss';
 
     constructor(ref:ElementRef, public API:VgAPI) {
-        super(API);
         this.elem = ref.nativeElement;
     }
 
+    ngOnInit() {
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+    }
+
     onPlayerReady() {
-        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
 
@@ -52,7 +55,7 @@ export class VgTimeDisplay extends VgAbstractControl {
         let t = 0;
 
         if (this.target) {
-            t = Math.round(this.target.time[this.property]);
+            t = Math.round(this.target.time[this.vgProperty]);
             t = isNaN(t) || this.target.isLive ? 0 : t;
         }
 

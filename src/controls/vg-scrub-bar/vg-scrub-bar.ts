@@ -1,7 +1,6 @@
-import { Component, ElementRef, Input, HostListener } from '@angular/core';
+import { Component, ElementRef, Input, HostListener, OnInit } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
-import {VgAbstractControl} from '../vg-abstract-control';
 
 @Component({
     selector: 'vg-scrub-bar',
@@ -30,18 +29,21 @@ import {VgAbstractControl} from '../vg-abstract-control';
         }
     `]
 })
-export class VgScrubBar extends VgAbstractControl {
+export class VgScrubBar implements OnInit {
+    @Input() vgFor: string;
+
     elem: HTMLElement;
-    vgFor: string;
     target: any;
 
     constructor(ref:ElementRef, public API:VgAPI) {
-        super(API);
         this.elem = ref.nativeElement;
     }
 
+    ngOnInit() {
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+    }
+
     onPlayerReady() {
-        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
     }
 

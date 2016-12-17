@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, ElementRef, Renderer, HostBinding, AfterViewInit } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {VgAPI} from "../core/services/vg-api";
-import {VgAbstractControl} from './vg-abstract-control';
 
 @Component({
     selector: 'vg-controls',
@@ -27,7 +26,7 @@ import {VgAbstractControl} from './vg-abstract-control';
         }
     `]
 })
-export class VgControls extends VgAbstractControl implements OnInit, AfterViewInit {
+export class VgControls implements OnInit, AfterViewInit {
     elem:HTMLElement;
     vgFor:string;
     target:any;
@@ -35,22 +34,13 @@ export class VgControls extends VgAbstractControl implements OnInit, AfterViewIn
     @HostBinding('style.pointer-events') isAdsPlaying:string = 'initial';
     @HostBinding('class.hide') hideControls:boolean = false;
 
-    @Input() autohide:boolean = false;
-    @Input() autohideTime:number = 3;
+    @Input() vgAutohide:boolean = false;
+    @Input() vgAutohideTime:number = 3;
 
     private timer:any;
 
     constructor(private API:VgAPI, private ref:ElementRef) {
-        super(API);
         this.elem = ref.nativeElement;
-    }
-
-    onPlayerReady() {
-        this.vgFor = this.elem.getAttribute('vg-for');
-        this.target = this.API.getMediaById(this.vgFor);
-
-        this.target.subscriptions.startAds.subscribe(this.onStartAds.bind(this));
-        this.target.subscriptions.endAds.subscribe(this.onEndAds.bind(this));
     }
 
     ngOnInit() {
@@ -59,10 +49,19 @@ export class VgControls extends VgAbstractControl implements OnInit, AfterViewIn
 
         let mouseLeave = Observable.fromEvent(this.API.videogularElement, 'mouseleave');
         mouseLeave.subscribe(this.hide.bind(this));
+
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+    }
+
+    onPlayerReady() {
+        this.target = this.API.getMediaById(this.vgFor);
+
+        this.target.subscriptions.startAds.subscribe(this.onStartAds.bind(this));
+        this.target.subscriptions.endAds.subscribe(this.onEndAds.bind(this));
     }
 
     ngAfterViewInit() {
-        if (this.autohide) {
+        if (this.vgAutohide) {
             this.hide();
         }
         else {
@@ -79,7 +78,7 @@ export class VgControls extends VgAbstractControl implements OnInit, AfterViewIn
     }
 
     hide() {
-        if (this.autohide) {
+        if (this.vgAutohide) {
             clearTimeout(this.timer);
             this.hideAsync();
         }
@@ -93,6 +92,6 @@ export class VgControls extends VgAbstractControl implements OnInit, AfterViewIn
     private hideAsync() {
         this.timer = setTimeout(() => {
             this.hideControls = true;
-        }, this.autohideTime * 1000);
+        }, this.vgAutohideTime * 1000);
     }
 }

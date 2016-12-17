@@ -40,12 +40,12 @@ Let's go to add an overlay play and a custom control bar.
     <vg-controls>
         <vg-play-pause></vg-play-pause>
 
-        <vg-time-display property="current" format="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
 
         <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
 
-        <vg-time-display property="left" format="mm:ss"></vg-time-display>
-        <vg-time-display property="total" format="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
 
         <vg-mute></vg-mute>
 

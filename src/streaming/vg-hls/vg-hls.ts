@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy } from "@angular/core";
+import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { VgAPI } from "../../core/services/vg-api";
 
 declare let Hls;
@@ -6,20 +6,20 @@ declare let Hls;
 @Directive({
     selector: '[vgHls]'
 })
-export class VgHLS implements OnChanges, OnDestroy {
+export class VgHLS implements OnInit, OnChanges, OnDestroy {
     @Input() vgHls:string;
 
-    vgFor: string;
     target: any;
     hls:any;
 
-    constructor(private ref:ElementRef, public API:VgAPI) {
+    constructor(private ref:ElementRef, public API:VgAPI) {}
+
+    ngOnInit() {
         this.API.playerReadyEvent.subscribe((api:VgAPI) => this.onPlayerReady());
     }
 
     onPlayerReady() {
-        this.vgFor = this.ref.nativeElement.getAttribute('vg-for');
-        this.target = this.API.getMediaById(this.vgFor);
+        this.target = this.API.getMediaById(this.vgHls);
         this.createPlayer();
     }
 

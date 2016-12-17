@@ -1,6 +1,5 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit, Input } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
-import { VgAbstractControl } from '../vg-abstract-control';
 
 export interface Option {
     id: string;
@@ -80,21 +79,25 @@ export interface Option {
         }
     ` ]
 })
-export class VgTrackSelector extends VgAbstractControl {
+export class VgTrackSelector implements OnInit {
+    @Input() vgFor: string;
+
     elem: HTMLElement;
-    vgFor: string;
     target: any;
     tracks: Array<Option>;
     trackSelected: string;
 
     constructor(ref: ElementRef, public API: VgAPI) {
-        super(API);
         this.elem = ref.nativeElement;
     }
 
+    ngOnInit() {
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+    }
+
     onPlayerReady() {
-        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
+
         const subs: Array<Option> = Array.from((this.API.getMasterMedia().elem as HTMLMediaElement).children)
             .filter((item: HTMLElement) => item.tagName === 'TRACK')
             .filter((item: HTMLTrackElement) => item.kind === 'subtitles')
@@ -103,6 +106,7 @@ export class VgTrackSelector extends VgAbstractControl {
                 selected: item.default === true,
                 id: item.srclang
             }));
+
         this.tracks = [
             ...subs,
             {

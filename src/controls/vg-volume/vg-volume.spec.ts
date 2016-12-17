@@ -26,8 +26,9 @@ describe('Volume control', () => {
     
     describe('onPlayerReady', ()=>{
         it('Should set vgFor', () => {
+            vgVol.vgFor = 'test';
             vgVol.onPlayerReady();
-            expect(vgVol.vgFor).toBe('vg-for');
+            expect(vgVol.vgFor).toBe('test');
         });
         it('Should set target', () => {
             spyOn(api, 'getMediaById');

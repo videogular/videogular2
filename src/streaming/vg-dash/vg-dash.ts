@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy } from "@angular/core";
+import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { VgAPI } from '../../core/services/vg-api';
 
 declare let dashjs;
@@ -6,20 +6,21 @@ declare let dashjs;
 @Directive({
     selector: '[vgDash]'
 })
-export class VgDASH implements OnChanges, OnDestroy {
+export class VgDASH implements OnInit, OnChanges, OnDestroy {
     @Input() vgDash:string;
 
     vgFor: string;
     target: any;
     player:any;
 
-    constructor(private ref:ElementRef, public API:VgAPI) {
+    constructor(private ref:ElementRef, public API:VgAPI) {}
+
+    ngOnInit() {
         this.API.playerReadyEvent.subscribe((api:VgAPI) => this.onPlayerReady());
     }
 
     onPlayerReady() {
-        this.vgFor = this.ref.nativeElement.getAttribute('vg-for');
-        this.target = this.API.getMediaById(this.vgFor);
+        this.target = this.API.getMediaById(this.vgDash);
         this.createPlayer();
     }
 

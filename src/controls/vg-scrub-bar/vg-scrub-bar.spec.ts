@@ -23,13 +23,12 @@ describe('Scrub bar', () => {
     });
 
     it('Should get media by id on init', () => {
-        spyOn(scrubBar.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById');
 
+        scrubBar.vgFor = 'test';
         scrubBar.onPlayerReady();
 
-        expect(scrubBar.elem.getAttribute).toHaveBeenCalledWith('vg-for');
-        expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
+        expect(api.getMediaById).toHaveBeenCalledWith('test');
     });
 
     describe('onMouseDownScrubBar', () => {

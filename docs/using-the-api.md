@@ -17,15 +17,15 @@ To start using the API first you need to grab it from the player. To do that lis
         <vg-play-pause></vg-play-pause>
         <vg-playback-button></vg-playback-button>
 
-        <vg-time-display property="current" format="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
 
         <vg-scrub-bar>
             <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
             <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
         </vg-scrub-bar>
 
-        <vg-time-display property="left" format="mm:ss"></vg-time-display>
-        <vg-time-display property="total" format="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
 
         <vg-track-selector></vg-track-selector>
         <vg-mute></vg-mute>

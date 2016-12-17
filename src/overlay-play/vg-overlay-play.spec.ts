@@ -22,13 +22,12 @@ describe('Videogular Player', () => {
     });
 
     it('Should get media by id on init', () => {
-        spyOn(overlayPlay.elem, 'getAttribute').and.callThrough();
         spyOn(api, 'getMediaById').and.callFake(() => { });
 
-        overlayPlay.ngOnInit();
+        overlayPlay.vgFor = 'test';
+        overlayPlay.onPlayerReady();
 
-        expect(overlayPlay.elem.getAttribute).toHaveBeenCalledWith('vg-for');
-        expect(api.getMediaById).toHaveBeenCalledWith('vg-for');
+        expect(api.getMediaById).toHaveBeenCalledWith('test');
     });
 
     describe('onClick', () => {

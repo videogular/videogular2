@@ -24,8 +24,15 @@ import { VgFullscreenAPI } from '../core/services/vg-fullscreen-api';
     ` ]
 })
 export class VgImaAds {
+    @Input() vgFor: string;
+    @Input() vgNetwork: string;
+    @Input() vgUnitPath: string;
+    @Input() vgCompanion: string;
+    @Input() vgCompanionSize: Array<Number>;
+    @Input() vgAdTagUrl: string;
+    @Input() vgSkipButton: string;
+
     elem: HTMLElement;
-    vgFor: string;
     target: IPlayable;
     ima: Ima;
     subscriptions: any = {};
@@ -34,21 +41,17 @@ export class VgImaAds {
 
     @HostBinding('style.display') displayState: string = 'none';
 
-    @Input() vgNetwork: string;
-    @Input() vgUnitPath: string;
-    @Input() vgCompanion: string;
-    @Input() vgCompanionSize: Array<Number>;
-    @Input() vgAdTagUrl: string;
-    @Input() vgSkipButton: string;
-
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
         this.onContentEnded = this.onContentEnded.bind(this);
         this.API.playerReadyEvent.subscribe((api) => this.onPlayerReady());
     }
 
+    ngOnInit() {
+        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+    }
+
     onPlayerReady() {
-        this.vgFor = this.elem.getAttribute('vg-for');
         this.target = this.API.getMediaById(this.vgFor);
 
         this.initializations();
