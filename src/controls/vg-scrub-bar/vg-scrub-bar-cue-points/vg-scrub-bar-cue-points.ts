@@ -5,7 +5,7 @@ import {VgAPI} from "../../../core/services/vg-api";
     selector: 'vg-scrub-bar-cue-points',
     template: `
         <div class="cue-point-container">
-            <span *ngFor="let cp of cuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
+            <span *ngFor="let cp of vgCuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
         </div>
         `,
     styles: [`
