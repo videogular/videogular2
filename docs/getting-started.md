@@ -93,12 +93,12 @@ Create your video player with HTML in your template:
         <vg-play-pause></vg-play-pause>
         <vg-playback-button></vg-playback-button>
 
-        <vg-time-display property="current" format="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
 
         <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
 
-        <vg-time-display property="left" format="mm:ss"></vg-time-display>
-        <vg-time-display property="total" format="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
 
         <vg-track-selector></vg-track-selector>
         <vg-mute></vg-mute>
@@ -107,7 +107,7 @@ Create your video player with HTML in your template:
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video vg-media #media id="singleVideo" preload="auto" crossorigin>
+    <video vgMedia #media id="singleVideo" preload="auto" crossorigin>
         <source *ngFor="let video of sources" [src]="video.src" [type]="video.type">
         <track kind="subtitles" label="English" src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt" srclang="en" default>
         <track kind="subtitles" label="Español" src="http://static.videogular.com/assets/subs/pale-blue-dot-es.vtt" srclang="es">

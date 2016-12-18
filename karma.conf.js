@@ -45,34 +45,21 @@ module.exports = function(config) {
             {pattern: 'karma-test-shim.js', included: true, watched: true},
 
             // Our built application code
-            {pattern: 'buffering/**/*.js', included: false, watched: true},
-            {pattern: 'controls/**/*.js', included: false, watched: true},
-            {pattern: 'core/**/*.js', included: false, watched: true},
-            {pattern: 'ima-ads/**/*.js', included: false, watched: true},
-            {pattern: 'overlay-play/**/*.js', included: false, watched: true},
-            {pattern: 'slides/**/*.js', included: false, watched: true},
-            {pattern: 'streaming/**/*.js', included: false, watched: true},
+            {pattern: 'src/**/*.js', included: false, watched: true},
+
+            // paths loaded via Angular's component compiler
+            // (these paths need to be rewritten, see proxies section)
+            // {pattern: 'dist/**/*.html', included: false, watched: true},
+            // {pattern: 'dist/**/*.css', included: false, watched: true},
 
             // paths to support debugging with source maps in dev tools
-            {pattern: 'buffering/**/*.ts', included: false, watched: false},
-            {pattern: 'controls/**/*.ts', included: false, watched: false},
-            {pattern: 'core/**/*.ts', included: false, watched: false},
-            {pattern: 'ima-ads/**/*.ts', included: false, watched: false},
-            {pattern: 'overlay-play/**/*.ts', included: false, watched: false},
-            {pattern: 'slides/**/*.ts', included: false, watched: false},
-            {pattern: 'streaming/**/*.ts', included: false, watched: false}
+            {pattern: 'src/**/*.ts', included: false, watched: false}
         ],
 
         // proxied base paths
         proxies: {
             // required for component assests fetched by Angular's compiler
-            '/buffering/': '/base/buffering/',
-            '/controls/': '/base/controls/',
-            '/core/': '/base/core/',
-            '/ima-ads/': '/base/ima-ads/',
-            '/overlay-play/': '/base/overlay-play/',
-            '/slides/': '/base/slides/',
-            '/streaming/': '/base/streaming/'
+            '/src/': '/base/src/'
         },
 
         port: 9876,
@@ -99,13 +86,7 @@ module.exports = function(config) {
         // Source files that you wanna generate coverage for.
         // Do not include tests or libraries (these files will be instrumented by Istanbul)
         preprocessors: {
-            'buffering/**/!(*spec).js': ['coverage'],
-            'controls/**/!(*spec).js': ['coverage'],
-            'core/**/!(*spec).js': ['coverage'],
-            'ima-ads/**/!(*spec).js': ['coverage'],
-            'overlay-play/**/!(*spec).js': ['coverage'],
-            'slides/**/!(*spec).js': ['coverage'],
-            'streaming/**/!(*spec).js': ['coverage']
+            'src/**/!(*spec).js': ['coverage']
         },
 
         coverageReporter: {

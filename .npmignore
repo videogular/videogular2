@@ -5,13 +5,20 @@
 node_modules
 npm-debug.log
 coverage
+compiled
+docs
 **/*.ts
+*.md
+karma.conf.js
+karma-test-shim.js
+tsconfig.json
+tslint.json
+.travis.yml
+.gitignore
 
 !**/*.js
 !**/*.d.ts
 !**/*.metadata.json
-!compiled/**/*.js
-!compiled/**/*.d.ts
 
 #################
 ## JetBrains

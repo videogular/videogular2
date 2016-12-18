@@ -7,22 +7,23 @@
     "url": "https://github.com/videogular/videogular2"
   },
   "dependencies": {
-    "@angular/common": "2.2.3",
-    "@angular/core": "2.2.3",
-    "@angular/platform-browser": "2.2.3",
-    "@angular/platform-browser-dynamic": "2.2.3",
     "es6-shim": "0.35.1",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.0-beta.12",
-    "zone.js": "0.6.26",
-    "systemjs": "0.19.40"
+    "systemjs": "0.19.40",
+    "zone.js": "0.6.26"
   },
   "devDependencies": {
+    "@angular/common": "2.2.3",
     "@angular/compiler": "2.2.3",
     "@angular/compiler-cli": "2.2.3",
+    "@angular/core": "2.2.3",
+    "@angular/platform-browser": "2.2.3",
+    "@angular/platform-browser-dynamic": "2.2.3",
     "@angular/platform-server": "2.2.3",
     "@types/es6-shim": "0.31.32",
     "@types/jasmine": "2.5.38",
+    "codelyzer": "2.0.0-beta.1",
     "commitizen": "2.8.6",
     "cz-conventional-changelog": "1.2.0",
     "es6-module-loader": "0.17.11",
@@ -38,17 +39,17 @@
     "remap-istanbul": "0.7.0",
     "semantic-release": "4.3.5",
     "systemjs-builder": "^0.15.13",
+    "tslint": "4.0.0-dev.3",
     "typescript": "2.0.8",
     "watch": "1.0.1"
   },
   "scripts": {
     "prebuild": "npm run clean",
-    "ngc": "ngc",
     "build": "ngc",
     "postbuild": "npm test",
     "build:travis": "ngc",
     "postbuild:travis": "npm run test",
-    "clean": "rm -rf ./src/**/*.js && rm -rf ./src/**/*.d.ts",
+    "clean": "rm -rf ./src/**/*.js && rm -rf ./src/**/*.d.ts && rm -rf ./compiled",
     "precommit": "npm test",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
@@ -59,7 +60,8 @@
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "watch:ts": "watch 'npm run build' src",
-    "parallelshell": "parallelshell"
+    "parallelshell": "parallelshell",
+    "lint": "tslint '**/*.ts' -e 'node_modules/**/*' -e 'compiled/**/**' -e 'typings/**/*'  --fix --noUnusedParameters --noUnusedLocals"
   },
   "engines": {
     "node": ">= 4"
