@@ -11,7 +11,7 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
 
     vgFor: string;
     target: any;
-    player:any;
+    dash:any;
 
     constructor(private ref:ElementRef, public API:VgAPI) {}
 
@@ -20,7 +20,8 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
     }
 
     onPlayerReady() {
-        this.target = this.API.getMediaById(this.vgDash);
+        this.vgFor = this.ref.nativeElement.getAttribute('vgFor');
+        this.target = this.API.getMediaById(this.vgFor);
         this.createPlayer();
     }
 
@@ -34,15 +35,15 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
     }
 
     createPlayer() {
-        if (this.player) {
+        if (this.dash) {
             this.destroyPlayer();
         }
 
         // It's a DASH source
         if (this.vgDash && this.vgDash.indexOf('.mpd') > -1) {
-            this.player = dashjs.MediaPlayer().create();
-            this.player.getDebug().setLogToBrowserConsole(false);
-            this.player.initialize(this.ref.nativeElement, this.vgDash, false);
+            this.dash = dashjs.MediaPlayer().create();
+            this.dash.getDebug().setLogToBrowserConsole(false);
+            this.dash.initialize(this.ref.nativeElement, this.vgDash, false);
         }
         else {
             if (this.target) {
@@ -54,9 +55,9 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
     }
 
     destroyPlayer() {
-        if (this.player) {
-            this.player.reset();
-            this.player = null;
+        if (this.dash) {
+            this.dash.reset();
+            this.dash = null;
         }
     }
 

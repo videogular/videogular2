@@ -9,6 +9,7 @@ declare let Hls;
 export class VgHLS implements OnInit, OnChanges, OnDestroy {
     @Input() vgHls:string;
 
+    vgFor: string;
     target: any;
     hls:any;
 
@@ -19,7 +20,8 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     }
 
     onPlayerReady() {
-        this.target = this.API.getMediaById(this.vgHls);
+        this.vgFor = this.ref.nativeElement.getAttribute('vgFor');
+        this.target = this.API.getMediaById(this.vgFor);
         this.createPlayer();
     }
 
