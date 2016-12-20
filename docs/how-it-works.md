@@ -71,7 +71,7 @@ Now you can create your TypeScript file and compile/bundle with your favourite s
 // Module
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {VgCore} from 'videogular2/core';
+import {VgCoreModule} from 'videogular2/core';
 import {VgControlsModule} from 'videogular2/controls';
 import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
@@ -80,7 +80,7 @@ import {SingleMediaPlayer} from './single-media-player';
 @NgModule({
     imports: [
         BrowserModule,
-        VgCore,
+        VgCoreModule,
         VgControlsModule,
         VgOverlayPlayModule,
         VgBufferingModule
