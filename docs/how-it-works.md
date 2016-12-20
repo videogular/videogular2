@@ -103,4 +103,4 @@ export class SingleMediaPlayer {}
 
 Now that we know how to create a simple player let's see in the next page how to create a more complex player.
 
-<a href="using-the-api.html">Go to Using the API</a>
+[Go to Using the API](using-the-api.md)
