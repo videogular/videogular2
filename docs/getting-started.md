@@ -34,7 +34,7 @@ import {SingleMediaPlayer} from './single-media-player';
 @NgModule({
     imports: [
         BrowserModule,
-        VgCore,
+        VgCoreModule,
         VgControlsModule,
         VgOverlayPlayModule,
         VgBufferingModule
