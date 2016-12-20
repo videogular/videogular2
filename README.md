@@ -13,6 +13,8 @@ You can see a demo here: http://www.videogular.com/alpha
 
 # How to install
 
+To get up and running quickly, check out the [getting started guide](https://github.com/videogular/videogular2/blob/master/docs/getting-started.md).
+
 ## NPM commands
 
 Run `start` to compile the project, execute tests and check coverage:
