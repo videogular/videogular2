@@ -11,7 +11,8 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
 
     vgFor: string;
     target: any;
-    hls:any;
+    hls: any;
+    preload: boolean;
 
     constructor(private ref:ElementRef, public API:VgAPI) {}
 
@@ -20,9 +21,20 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     }
 
     onPlayerReady() {
+        this.preload = this.ref.nativeElement.getAttribute('preload') !== 'none';
         this.vgFor = this.ref.nativeElement.getAttribute('vgFor');
         this.target = this.API.getMediaById(this.vgFor);
         this.createPlayer();
+
+        if (!this.preload) {
+            this.API.subscriptions.play.subscribe(
+                () => {
+                    if (this.hls) {
+                        this.hls.startLoad(0);
+                    }
+                }
+            );
+        }
     }
 
     ngOnChanges(changes:SimpleChanges) {
@@ -43,7 +55,9 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         if (this.vgHls && this.vgHls.indexOf('.m3u8') > -1 && Hls.isSupported()) {
             let video:HTMLVideoElement = this.ref.nativeElement;
 
-            this.hls = new Hls();
+            this.hls = new Hls({
+                autoStartLoad: this.preload
+            });
             this.hls.loadSource(this.vgHls);
             this.hls.attachMedia(video);
         }
