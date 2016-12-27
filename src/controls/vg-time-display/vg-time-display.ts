@@ -1,13 +1,34 @@
-import { Component, Input, ElementRef, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, PipeTransform, Pipe } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
 
+// Workaround until we can use UTC with Angular Date Pipe
+@Pipe({name: 'vgUtc'})
+export class VgUtcPipe implements PipeTransform {
+    transform(value: number, format: string): string {
+        let date = new Date(value);
+        let result = format;
+        let ss: string|number = date.getUTCSeconds();
+        let mm: string|number = date.getUTCMinutes();
+        let hh: string|number = date.getUTCHours();
+
+        if (ss < 10) { ss = '0' + ss; }
+        if (mm < 10) { mm = '0' + mm; }
+        if (hh < 10) { hh = '0' + hh; }
+
+        result = result.replace(/ss/g, <string>ss);
+        result = result.replace(/mm/g, <string>mm);
+        result = result.replace(/hh/g, <string>hh);
+
+        return result;
+    }
+}
 
 @Component({
     selector: 'vg-time-display',
     template: `
         <span *ngIf="target?.isLive">LIVE</span>
-        <span *ngIf="!target?.isLive">{{ getTime() | date:vgFormat }}</span>
+        <span *ngIf="!target?.isLive">{{ getTime() | vgUtc:vgFormat }}</span>
         <ng-content></ng-content>
     `,
     styles: [`
