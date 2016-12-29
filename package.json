@@ -24,7 +24,7 @@
     "@types/es6-shim": "0.31.32",
     "@types/jasmine": "2.5.38",
     "codelyzer": "2.0.0-beta.1",
-    "commitizen": "2.8.6",
+    "commitizen": "2.9.3",
     "cz-conventional-changelog": "1.2.0",
     "es6-module-loader": "0.17.11",
     "ghooks": "1.3.2",
