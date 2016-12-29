@@ -12,8 +12,7 @@
     },
     "exclude": [
         "node_modules/*",
-        "coverage/*",
-        "compiled/*"
+        "coverage/*"
     ],
     "angularCompilerOptions": {
         "genDir": "compiled"
