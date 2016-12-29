@@ -10,7 +10,6 @@ import {VgAPI} from '../../core/services/vg-api';
         :host {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
-            -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
@@ -21,8 +20,6 @@ import {VgAPI} from '../../core/services/vg-api';
             cursor: pointer;
             color: white;
             line-height: 50px;
-            width: 50px;
-            color: white;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
         }
     `]
