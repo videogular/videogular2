@@ -15,7 +15,7 @@ module.exports = function(config) {
 
         files: [
             // Polyfills.
-            'node_modules/es6-shim/es6-shim.js',
+            'node_modules/core-js/client/shim.min.js',
 
             'node_modules/reflect-metadata/Reflect.js',
 

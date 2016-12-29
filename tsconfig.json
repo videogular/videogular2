@@ -11,9 +11,9 @@
         "moduleResolution": "node"
     },
     "exclude": [
-        "node_modules",
-        "coverage",
-        "examples"
+        "node_modules/*",
+        "coverage/*",
+        "compiled/*"
     ],
     "angularCompilerOptions": {
         "genDir": "compiled"
