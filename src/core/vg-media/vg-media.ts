@@ -2,10 +2,14 @@ import { ElementRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
 import { Observable } from "rxjs/Observable";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
-import { Observer, Subscription } from "rxjs";
+import { Subscription } from "rxjs/Subscription";
+import { Observer } from "rxjs/Observer";
 import { VgStates } from '../states/vg-states';
 import { VgAPI } from '../services/vg-api';
 import { VgEvents } from '../events/vg-events';
+
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/observable/combineLatest';
 
 @Directive({
     selector: '[vgMedia]'

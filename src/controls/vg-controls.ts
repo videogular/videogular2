@@ -2,6 +2,8 @@ import { Component, Input, OnInit, ElementRef, Renderer, HostBinding, AfterViewI
 import {Observable} from "rxjs/Observable";
 import {VgAPI} from "../core/services/vg-api";
 
+import 'rxjs/add/observable/fromEvent';
+
 @Component({
     selector: 'vg-controls',
     template: `<ng-content></ng-content>`,

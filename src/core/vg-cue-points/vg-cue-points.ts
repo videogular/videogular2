@@ -1,6 +1,8 @@
 import { Directive, Output, Input, EventEmitter, ElementRef, OnInit } from "@angular/core";
 import {VgEvents} from '../events/vg-events';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
+
+import 'rxjs/add/observable/fromEvent';
 
 @Directive({
     selector: '[vgCuePoints]'

@@ -3,6 +3,8 @@ import {ElementRef} from "@angular/core";
 import {VgAPI} from "../core/services/vg-api";
 import {Observable} from "rxjs/Observable";
 
+import 'rxjs/add/observable/fromEvent';
+
 describe('Controls Bar', () => {
     let controls:VgControls;
     let ref:ElementRef;
