@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { VgAPI } from "../../core/services/vg-api";
+import { IHLSConfig } from './hls-config';
 
 declare let Hls;
 
@@ -13,6 +14,8 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     target: any;
     hls: any;
     preload: boolean;
+    crossorigin: string;
+    config: IHLSConfig;
 
     constructor(private ref:ElementRef, public API:VgAPI) {}
 
@@ -21,9 +24,22 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     }
 
     onPlayerReady() {
+        this.crossorigin = this.ref.nativeElement.getAttribute('crossorigin');
         this.preload = this.ref.nativeElement.getAttribute('preload') !== 'none';
         this.vgFor = this.ref.nativeElement.getAttribute('vgFor');
         this.target = this.API.getMediaById(this.vgFor);
+
+        this.config = <IHLSConfig>{
+            autoStartLoad: this.preload
+        };
+
+        if (this.crossorigin === 'use-credentials') {
+            this.config.xhrSetup = (xhr, url) => {
+                // Send cookies
+                xhr.withCredentials = true;
+            };
+        }
+
         this.createPlayer();
 
         if (!this.preload) {
@@ -55,9 +71,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         if (this.vgHls && this.vgHls.indexOf('.m3u8') > -1 && Hls.isSupported()) {
             let video:HTMLVideoElement = this.ref.nativeElement;
 
-            this.hls = new Hls({
-                autoStartLoad: this.preload
-            });
+            this.hls = new Hls(this.config);
             this.hls.loadSource(this.vgHls);
             this.hls.attachMedia(video);
         }
