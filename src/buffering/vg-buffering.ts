@@ -1,17 +1,18 @@
-import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { VgAPI } from '../core/services/vg-api';
 import { IPlayable } from '../core/vg-media/i-playable';
 import { VgStates } from '../core/states/vg-states';
 
 @Component({
     selector: 'vg-buffering',
+    encapsulation: ViewEncapsulation.None,
     template: `<div class="vg-buffering">
             <div class="bufferingContainer">
                 <div class="loadingSpinner"></div>
             </div>
         </div>`,
     styles: [ `
-        :host {
+        vg-buffering {
             z-index: 201;
         }
         .vg-buffering {
