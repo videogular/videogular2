@@ -1,12 +1,13 @@
-import { Component, ElementRef, Input, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
 
 @Component({
     selector: 'vg-scrub-bar',
+    encapsulation: ViewEncapsulation.None,
     template: `<ng-content></ng-content>`,
     styles: [`
-        :host {
+        vg-scrub-bar {
             position: absolute;
             width: 100%;
             height: 5px;
@@ -18,7 +19,7 @@ import {VgAPI} from '../../core/services/vg-api';
             z-index: 250;
         }
 
-        vg-controls :host {
+        vg-controls vg-scrub-bar {
             position: relative;
             bottom: initial;
             background: initial;

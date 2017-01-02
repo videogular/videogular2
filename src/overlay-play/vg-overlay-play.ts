@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, HostListener, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../core/services/vg-api';
 import {VgStates} from "../core/states/vg-states";
 
 @Component({
     selector: 'vg-overlay-play',
+    encapsulation: ViewEncapsulation.None,
     template:
         `<div class="vg-overlay-play">
             <div class="overlay-play-container"
@@ -12,11 +13,11 @@ import {VgStates} from "../core/states/vg-states";
             </div>
         </div>`,
     styles: [`
-        :host {
+        vg-overlay-play {
             z-index: 200;
         }
 
-        .vg-overlay-play {
+        vg-overlay-play .vg-overlay-play {
             transition: all 0.5s;
             cursor: pointer;
             position: absolute;
@@ -29,7 +30,7 @@ import {VgStates} from "../core/states/vg-states";
             opacity: 0.6;
         }
 
-        .vg-overlay-play .overlay-play-container.vg-icon-play_arrow {
+        vg-overlay-play .vg-overlay-play .overlay-play-container.vg-icon-play_arrow {
             pointer-events: none;
             width: 100%;
             height: 100%;
@@ -40,12 +41,12 @@ import {VgStates} from "../core/states/vg-states";
             font-size: 80px;
         }
 
-        .vg-overlay-play:hover {
+        vg-overlay-play .vg-overlay-play:hover {
             filter: alpha(opacity=100);
             opacity: 1;
         }
 
-        .vg-overlay-play:hover .overlay-play-container.vg-icon-play_arrow:before {
+        vg-overlay-play .vg-overlay-play:hover .overlay-play-container.vg-icon-play_arrow:before {
             transform: scale(1.2);
         }
     `]

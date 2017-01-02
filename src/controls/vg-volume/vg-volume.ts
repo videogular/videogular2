@@ -1,9 +1,10 @@
-import { Component, Input, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
 
 @Component({
     selector: 'vg-volume',
+    encapsulation: ViewEncapsulation.None,
     template:`
         <div class="volumeBar"
             (mousedown)="onMouseDown($event)">
@@ -14,10 +15,9 @@ import {VgAPI} from '../../core/services/vg-api';
         </div>
     `,
     styles: [`
-        :host {
+        vg-volume {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
-            -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
@@ -29,27 +29,27 @@ import {VgAPI} from '../../core/services/vg-api';
             color: white;
             line-height: 50px;
         }
-        :host .volumeBar {
+        vg-volume .volumeBar {
             position: relative;
             display: flex;
             flex-grow: 1;
             align-items: center;
         }
-        :host .volumeBackground {
+        vg-volume .volumeBackground {
             display: flex;
             flex-grow: 1;
             height: 5px;
             pointer-events: none;
             background-color: #333;
         }
-        :host .volumeValue {
+        vg-volume .volumeValue {
             display: flex;
             height: 5px;
             pointer-events: none;
             background-color: #FFF;
             transition:all 0.2s ease-out;
         }
-        :host .volumeKnob {
+        vg-volume .volumeKnob {
             position: absolute;
             width: 15px; height: 15px;
             left: 0; top: 50%;
@@ -59,8 +59,8 @@ import {VgAPI} from '../../core/services/vg-api';
             background-color: #FFF;
             transition:all 0.2s ease-out;
         }
-        :host .volumeBackground.dragging .volumeValue,
-        :host .volumeBackground.dragging .volumeKnob {
+        vg-volume .volumeBackground.dragging .volumeValue,
+        vg-volume .volumeBackground.dragging .volumeKnob {
             transition: none;
         }
     `]

@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
 import {VgFullscreenAPI} from "../../core/services/vg-fullscreen-api";
@@ -6,13 +6,14 @@ import {VgFullscreenAPI} from "../../core/services/vg-fullscreen-api";
 
 @Component({
     selector: 'vg-fullscreen',
+    encapsulation: ViewEncapsulation.None,
     template:
         `<div class="icon"
              [class.vg-icon-fullscreen]="!isFullscreen"
              [class.vg-icon-fullscreen_exit]="isFullscreen">
         </div>`,
     styles: [`
-        :host {
+        vg-fullscreen {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -khtml-user-select: none;
@@ -28,7 +29,7 @@ import {VgFullscreenAPI} from "../../core/services/vg-fullscreen-api";
             line-height: 50px;
         }
 
-        :host .icon {
+        vg-fullscreen .icon {
             pointer-events: none;
         }
     `]

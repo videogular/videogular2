@@ -1,5 +1,5 @@
 ///<reference path='./google.ima.ts'/>
-import { Component, ElementRef, Input, HostBinding } from '@angular/core';
+import { Component, ElementRef, Input, HostBinding, ViewEncapsulation } from '@angular/core';
 import { IPlayable } from '../core/vg-media/i-playable';
 import { VgAPI } from '../core/services/vg-api';
 import { VgEvents } from '../core/events/vg-events';
@@ -7,15 +7,16 @@ import { VgFullscreenAPI } from '../core/services/vg-fullscreen-api';
 
 @Component({
     selector: 'vg-ima-ads',
+    encapsulation: ViewEncapsulation.None,
     template: `<div class="vg-ima-ads"></div>`,
     styles: [ `
-        :host {
+        vg-ima-ads {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: 300;
         }
-        .vg-ima-ads {
+        vg-ima-ads .vg-ima-ads {
             position: absolute;
             width: 100%;
             height: 100%;

@@ -1,4 +1,7 @@
-import { Component, Input, OnInit, ElementRef, Renderer, HostBinding, AfterViewInit } from '@angular/core';
+import {
+    Component, Input, OnInit, ElementRef, Renderer, HostBinding, AfterViewInit,
+    ViewEncapsulation
+} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {VgAPI} from "../core/services/vg-api";
 
@@ -6,9 +9,10 @@ import 'rxjs/add/observable/fromEvent';
 
 @Component({
     selector: 'vg-controls',
+    encapsulation: ViewEncapsulation.None,
     template: `<ng-content></ng-content>`,
     styles: [`
-        :host {
+        vg-controls {
             position: absolute;
             display: flex;
             width: 100%;
@@ -23,7 +27,7 @@ import 'rxjs/add/observable/fromEvent';
             transition: bottom 1s;
         }
 
-        :host.hide {
+        vg-controls.hide {
           bottom: -50px;
         }
     `]
