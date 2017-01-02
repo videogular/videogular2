@@ -1,12 +1,13 @@
-import { Component, Input, ElementRef, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../../../core/services/vg-api';
 
 @Component({
     selector: 'vg-scrub-bar-buffering-time',
+    encapsulation: ViewEncapsulation.None,
     template: `<div class="background" [style.width]="getBufferTime()"></div>`,
     styles: [`
-        :host {
+        vg-scrub-bar-buffering-time {
             display: flex;
             width: 100%;
             height: 5px;
@@ -14,16 +15,16 @@ import {VgAPI} from '../../../core/services/vg-api';
             position: absolute;
         }
 
-        :host .background {
+        vg-scrub-bar-buffering-time .background {
             background-color: rgba(255, 255, 255, 0.3);
         }
 
-        vg-controls :host {
+        vg-controls vg-scrub-bar-buffering-time {
             position: absolute;
             top: calc(50% - 3px);
         }
 
-        vg-controls :host .background {
+        vg-controls vg-scrub-bar-buffering-time .background {
             -webkit-border-radius: 2px;
             -moz-border-radius: 2px;
             border-radius: 2px;

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 
 export interface Option {
@@ -9,6 +9,7 @@ export interface Option {
 
 @Component({
     selector: 'vg-track-selector',
+    encapsulation: ViewEncapsulation.None,
     template: `
         <div class="container">
             <div class="track-selected"
@@ -27,10 +28,9 @@ export interface Option {
         </div>
     `,
     styles: [ `
-        :host {
+        vg-track-selector {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
-            -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
@@ -42,7 +42,7 @@ export interface Option {
             color: white;
             line-height: 50px;
         }
-        .container {
+        vg-track-selector .container {
             position: relative;
             display: flex;
             flex-grow: 1;
@@ -51,7 +51,7 @@ export interface Option {
             padding: 0;
             margin: 5px;
         }
-        select.trackSelector {
+        vg-track-selector select.trackSelector {
             width: 50px;
             padding: 5px 8px;
             border: none;
@@ -62,10 +62,10 @@ export interface Option {
             color: transparent;
             font-size: 16px;
         }
-        select.trackSelector:focus {
+        vg-track-selector select.trackSelector:focus {
             outline: none;
         }
-        .track-selected {
+        vg-track-selector .track-selected {
             position: absolute;
             width: 100%;
             text-align: center;
@@ -74,7 +74,7 @@ export interface Option {
             padding-top: 2px;
             pointer-events: none;
         }
-        .vg-icon-closed_caption:before {
+        vg-track-selector .vg-icon-closed_caption:before {
             width: 100%;
         }
     ` ]

@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, OnInit, PipeTransform, Pipe } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, PipeTransform, Pipe, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
 
@@ -26,16 +26,16 @@ export class VgUtcPipe implements PipeTransform {
 
 @Component({
     selector: 'vg-time-display',
+    encapsulation: ViewEncapsulation.None,
     template: `
         <span *ngIf="target?.isLive">LIVE</span>
         <span *ngIf="!target?.isLive">{{ getTime() | vgUtc:vgFormat }}</span>
         <ng-content></ng-content>
     `,
     styles: [`
-        :host {
+        vg-time-display {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
-            -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;

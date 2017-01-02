@@ -1,12 +1,13 @@
-import { Component, Input, ElementRef, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../../../core/services/vg-api';
 
 @Component({
     selector: 'vg-scrub-bar-current-time',
+    encapsulation: ViewEncapsulation.None,
     template: `<div class="background" [style.width]="getPercentage()"></div>`,
     styles: [`
-        :host {
+        vg-scrub-bar-current-time {
             display: flex;
             width: 100%;
             height: 5px;
@@ -14,11 +15,11 @@ import {VgAPI} from '../../../core/services/vg-api';
             position: absolute;
         }
 
-        :host .background {
+        vg-scrub-bar-current-time .background {
             background-color: white;
         }
 
-        vg-controls :host {
+        vg-controls vg-scrub-bar-current-time {
             position: absolute;
             top: calc(50% - 3px);
             -webkit-border-radius: 2px;
@@ -26,7 +27,7 @@ import {VgAPI} from '../../../core/services/vg-api';
             border-radius: 2px;
         }
 
-        vg-controls :host .background {
+        vg-controls vg-scrub-bar-current-time .background {
             border: 1px solid white;
             -webkit-border-radius: 2px;
             -moz-border-radius: 2px;

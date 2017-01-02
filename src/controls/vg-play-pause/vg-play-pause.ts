@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
 
@@ -6,13 +6,14 @@ import {VgStates} from "../../core/states/vg-states";
 
 @Component({
     selector: 'vg-play-pause',
+    encapsulation: ViewEncapsulation.None,
     template:
         `<div class="icon"
              [class.vg-icon-pause]="getState() === 'playing'"
              [class.vg-icon-play_arrow]="getState() === 'paused' || getState() === 'ended'">
         </div>`,
     styles: [`
-        :host {
+        vg-play-pause {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -khtml-user-select: none;
@@ -28,7 +29,7 @@ import {VgStates} from "../../core/states/vg-states";
             line-height: 50px;
         }
 
-        :host .icon {
+        vg-play-pause .icon {
             pointer-events: none;
         }
     `]

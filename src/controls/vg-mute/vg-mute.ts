@@ -1,10 +1,11 @@
-import { Component, Input, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
 
 
 @Component({
     selector: 'vg-mute',
+    encapsulation: ViewEncapsulation.None,
     template:
         `<div class="icon"
              [class.vg-icon-volume_up]="getVolume() >= 0.75"
@@ -13,7 +14,7 @@ import {VgAPI} from '../../core/services/vg-api';
              [class.vg-icon-volume_off]="getVolume() === 0">
         </div>`,
     styles: [`
-        :host {
+        vg-mute {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -khtml-user-select: none;
@@ -29,7 +30,7 @@ import {VgAPI} from '../../core/services/vg-api';
             line-height: 50px;
         }
 
-        :host .icon {
+        vg-mute .icon {
             pointer-events: none;
         }
     `]

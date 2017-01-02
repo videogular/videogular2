@@ -1,15 +1,16 @@
-import { Component, OnChanges, Input, ElementRef, SimpleChange, OnInit } from "@angular/core";
+import { Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation } from "@angular/core";
 import {VgAPI} from "../../../core/services/vg-api";
 
 @Component({
     selector: 'vg-scrub-bar-cue-points',
+    encapsulation: ViewEncapsulation.None,
     template: `
         <div class="cue-point-container">
             <span *ngFor="let cp of vgCuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
         </div>
         `,
     styles: [`
-        :host {
+        vg-scrub-bar-cue-points {
             display: flex;
             width: 100%;
             height: 5px;
@@ -17,13 +18,13 @@ import {VgAPI} from "../../../core/services/vg-api";
             position: absolute;
         }
 
-        :host .cue-point-container .cue-point {
+        vg-scrub-bar-cue-points .cue-point-container .cue-point {
             position: absolute;
             height: 5px;
             background-color: rgba(255, 204, 0, 0.7);
         }
 
-        vg-controls :host {
+        vg-controls vg-scrub-bar-cue-points {
             position: absolute;
             top: calc(50% - 3px);
         }

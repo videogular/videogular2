@@ -1,13 +1,14 @@
-import { Component, Input, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 
 import {VgAPI} from '../../core/services/vg-api';
 
 
 @Component({
     selector: 'vg-playback-button',
+    encapsulation: ViewEncapsulation.None,
     template: `{{getPlaybackRate()}}x`,
     styles: [`
-        :host {
+        vg-playback-button {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -moz-user-select: none;

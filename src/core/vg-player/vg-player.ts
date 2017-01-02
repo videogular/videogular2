@@ -6,7 +6,7 @@ import {
     HostBinding,
     QueryList,
     AfterContentInit,
-    ContentChildren
+    ContentChildren, ViewEncapsulation
 } from '@angular/core';
 import { VgAPI } from '../services/vg-api';
 import { VgFullscreenAPI } from '../services/vg-fullscreen-api';
@@ -15,9 +15,10 @@ import { VgMedia } from '../vg-media/vg-media';
 
 @Component({
     selector: 'vg-player',
+    encapsulation: ViewEncapsulation.None,
     template: `<ng-content></ng-content>`,
     styles: [ `
-        :host {
+        vg-player {
             font-family: 'videogular';
             position: relative;
             display: flex;
@@ -27,7 +28,7 @@ import { VgMedia } from '../vg-media/vg-media';
             background-color: black;
         }
 
-        :host.fullscreen {
+        vg-player.fullscreen {
             position: fixed;
             left: 0;
             top: 0;
