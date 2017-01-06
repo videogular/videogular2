@@ -38,7 +38,7 @@
     "parallelshell": "2.0.0",
     "remap-istanbul": "0.8.0",
     "semantic-release": "6.3.2",
-    "tslint": "4.2.0",
+    "tslint": "4.3.1",
     "typescript": "2.0.10",
     "watch": "1.0.1"
   },
