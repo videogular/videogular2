@@ -45,4 +45,6 @@ export interface IMediaSubscriptions {
     timeUpdate: Observable<any>;
     volumeChange: Observable<any>;
     waiting: Observable<any>;
+    startAds: Observable<any>;
+    endAds: Observable<any>;
 }
