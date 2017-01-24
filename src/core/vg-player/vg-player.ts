@@ -34,7 +34,7 @@ import { VgMedia } from '../vg-media/vg-media';
             top: 0;
         }
     ` ],
-    providers: [ VgAPI ]
+    providers: [ VgAPI, VgFullscreenAPI ]
 })
 export class VgPlayer implements AfterContentInit {
     elem: HTMLElement;
