@@ -112,7 +112,12 @@ export class VgBuffering implements OnInit {
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {

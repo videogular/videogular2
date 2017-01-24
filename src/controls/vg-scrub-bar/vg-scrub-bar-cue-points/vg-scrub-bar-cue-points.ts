@@ -1,5 +1,5 @@
-import { Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation } from "@angular/core";
-import {VgAPI} from "../../../core/services/vg-api";
+import { Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation } from '@angular/core';
+import { VgAPI } from '../../../core/services/vg-api';
 
 @Component({
     selector: 'vg-scrub-bar-cue-points',
@@ -9,7 +9,7 @@ import {VgAPI} from "../../../core/services/vg-api";
             <span *ngFor="let cp of vgCuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
         </div>
         `,
-    styles: [`
+    styles: [ `
         vg-scrub-bar-cue-points {
             display: flex;
             width: 100%;
@@ -28,23 +28,28 @@ import {VgAPI} from "../../../core/services/vg-api";
             position: absolute;
             top: calc(50% - 3px);
         }
-    `]
+    ` ]
 })
 export class VgScrubBarCuePoints implements OnInit, OnChanges {
-    @Input() vgCuePoints:TextTrackCueList;
+    @Input() vgCuePoints: TextTrackCueList;
     @Input() vgFor: string;
 
-    elem:HTMLElement;
+    elem: HTMLElement;
     target: any;
     onLoadedMetadataCalled: boolean = false;
 
 
-    constructor(ref:ElementRef, public API:VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {
@@ -52,8 +57,8 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
 
         let onTimeUpdate = this.target.subscriptions.loadedMetadata;
         onTimeUpdate.subscribe(this.onLoadedMetadata.bind(this));
-        
-        if(this.onLoadedMetadataCalled) {
+
+        if (this.onLoadedMetadataCalled) {
             this.onLoadedMetadata();
         }
     }
@@ -61,17 +66,17 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
     onLoadedMetadata() {
         if (this.vgCuePoints) {
             for (let i = 0, l = this.vgCuePoints.length; i < l; i++) {
-                let end = (this.vgCuePoints[i].endTime >= 0) ? this.vgCuePoints[i].endTime : this.vgCuePoints[i].startTime + 1;
-                let cuePointDuration = (end - this.vgCuePoints[i].startTime) * 1000;
+                let end = (this.vgCuePoints[ i ].endTime >= 0) ? this.vgCuePoints[ i ].endTime : this.vgCuePoints[ i ].startTime + 1;
+                let cuePointDuration = (end - this.vgCuePoints[ i ].startTime) * 1000;
                 let position = '0';
                 let percentWidth = '0';
 
                 if (typeof cuePointDuration === 'number' && this.target.time.total) {
                     percentWidth = ((cuePointDuration * 100) / this.target.time.total) + "%";
-                    position = (this.vgCuePoints[i].startTime * 100 / (Math.round(this.target.time.total / 1000))) + "%";
+                    position = (this.vgCuePoints[ i ].startTime * 100 / (Math.round(this.target.time.total / 1000))) + "%";
                 }
 
-                (<any>this.vgCuePoints[i]).$$style = {
+                (<any>this.vgCuePoints[ i ]).$$style = {
                     width: percentWidth,
                     left: position
                 };
@@ -79,9 +84,9 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
         }
     }
 
-    ngOnChanges(changes: {[propName: string]: SimpleChange}) {
-        if (changes['vgCuePoints'].currentValue) {
-            if(!this.target) {
+    ngOnChanges(changes: { [propName: string]: SimpleChange }) {
+        if (changes[ 'vgCuePoints' ].currentValue) {
+            if (!this.target) {
                 this.onLoadedMetadataCalled = true;
                 return;
             }

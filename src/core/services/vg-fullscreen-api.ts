@@ -4,18 +4,20 @@ import {VgMedia} from "../vg-media/vg-media";
 
 @Injectable()
 export class VgFullscreenAPI {
-    static polyfill:any;
-    static onchange:string;
-    static onerror:string;
-    static nativeFullscreen:boolean = true;
-    static isFullscreen:boolean = false;
-    static isAvailable:boolean;
-    static videogularElement:HTMLElement;
-    static medias:QueryList<VgMedia>;
+    polyfill:any;
+    onchange:string;
+    onerror:string;
+    nativeFullscreen:boolean = true;
+    isFullscreen:boolean = false;
+    isAvailable:boolean;
+    videogularElement:HTMLElement;
+    medias:QueryList<VgMedia>;
 
-    static onChangeFullscreen:EventEmitter<any> = new EventEmitter();
+    onChangeFullscreen:EventEmitter<any> = new EventEmitter();
 
-    static init(elem:HTMLElement, medias:QueryList<VgMedia>) {
+    constructor() {}
+
+    init(elem:HTMLElement, medias:QueryList<VgMedia>) {
         this.videogularElement = elem;
         this.medias = medias;
 
@@ -80,7 +82,7 @@ export class VgFullscreenAPI {
         this.isAvailable = (this.polyfill != null);
     }
 
-    static toggleFullscreen(element:any = null) {
+    toggleFullscreen(element:any = null) {
         if (this.isFullscreen) {
             this.exit();
         }
@@ -89,7 +91,7 @@ export class VgFullscreenAPI {
         }
     }
 
-    static request(elem:any) {
+    request(elem:any) {
         if (!elem) {
             elem = this.videogularElement;
         }
@@ -115,11 +117,11 @@ export class VgFullscreenAPI {
         }
     }
 
-    static enterElementInFullScreen(elem:any) {
+    enterElementInFullScreen(elem:any) {
         elem[this.polyfill.request]();
     }
 
-    static exit() {
+    exit() {
         this.isFullscreen = false;
         this.onChangeFullscreen.next(false);
 

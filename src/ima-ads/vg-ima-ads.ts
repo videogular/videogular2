@@ -42,14 +42,19 @@ export class VgImaAds {
 
     @HostBinding('style.display') displayState: string = 'none';
 
-    constructor(ref: ElementRef, public API: VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI) {
         this.elem = ref.nativeElement;
         this.onContentEnded = this.onContentEnded.bind(this);
         this.API.playerReadyEvent.subscribe((api) => this.onPlayerReady());
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {
@@ -60,8 +65,7 @@ export class VgImaAds {
         this.target.subscriptions.ended.subscribe(this.onContentEnded.bind(this));
         this.target.subscriptions.play.subscribe(this.onUpdateState.bind(this));
 
-        VgFullscreenAPI.onChangeFullscreen
-            .subscribe(this.onChangeFullscreen.bind(this));
+        this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
 
         this.ima.adsLoader.addEventListener(
             google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
@@ -258,7 +262,7 @@ export class VgImaAds {
     }
 
     onChangeFullscreen(fsState: boolean) {
-        if (!VgFullscreenAPI.nativeFullscreen) {
+        if (!this.fsAPI.nativeFullscreen) {
             this.isFullscreen = fsState;
         }
     }

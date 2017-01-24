@@ -1,18 +1,23 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {IPlayable} from "../vg-media/i-playable";
 import {VgStates} from "../states/vg-states";
+import { VgFullscreenAPI } from './vg-fullscreen-api';
 
 @Injectable()
 export class VgAPI {
     medias:Object = {};// TODO: refactor to Set<IPlayable> 
     videogularElement: any;
     playerReadyEvent: EventEmitter<any> = new EventEmitter(true);
+    isPlayerReady: boolean = false;
+    fsAPI: VgFullscreenAPI;
 
     constructor() {
 
     }
 
-    onPlayerReady() {
+    onPlayerReady(fsAPI: VgFullscreenAPI) {
+        this.fsAPI = fsAPI;
+        this.isPlayerReady = true;
         this.playerReadyEvent.emit(this);
     }
 

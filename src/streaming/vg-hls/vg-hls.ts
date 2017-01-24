@@ -20,7 +20,12 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     constructor(private ref:ElementRef, public API:VgAPI) {}
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe((api:VgAPI) => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {

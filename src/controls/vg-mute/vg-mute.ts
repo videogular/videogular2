@@ -1,19 +1,17 @@
 import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-
-import {VgAPI} from '../../core/services/vg-api';
+import { VgAPI } from '../../core/services/vg-api';
 
 
 @Component({
     selector: 'vg-mute',
     encapsulation: ViewEncapsulation.None,
-    template:
-        `<div class="icon"
+    template: `<div class="icon"
              [class.vg-icon-volume_up]="getVolume() >= 0.75"
              [class.vg-icon-volume_down]="getVolume() >= 0.25 && getVolume() < 0.75"
              [class.vg-icon-volume_mute]="getVolume() > 0 && getVolume() < 0.25"
              [class.vg-icon-volume_off]="getVolume() === 0">
         </div>`,
-    styles: [`
+    styles: [ `
         vg-mute {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -33,21 +31,26 @@ import {VgAPI} from '../../core/services/vg-api';
         vg-mute .icon {
             pointer-events: none;
         }
-    `]
+    ` ]
 })
 export class VgMute implements OnInit {
     @Input() vgFor: string;
-    elem:HTMLElement;
+    elem: HTMLElement;
     target: any;
 
-    currentVolume:number;
+    currentVolume: number;
 
-    constructor(ref:ElementRef, public API:VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {

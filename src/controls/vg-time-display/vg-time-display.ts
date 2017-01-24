@@ -1,9 +1,8 @@
 import { Component, Input, ElementRef, OnInit, PipeTransform, Pipe, ViewEncapsulation } from '@angular/core';
-
-import {VgAPI} from '../../core/services/vg-api';
+import { VgAPI } from '../../core/services/vg-api';
 
 // Workaround until we can use UTC with Angular Date Pipe
-@Pipe({name: 'vgUtc'})
+@Pipe({ name: 'vgUtc' })
 export class VgUtcPipe implements PipeTransform {
     transform(value: number, format: string): string {
         let date = new Date(value);
@@ -12,9 +11,15 @@ export class VgUtcPipe implements PipeTransform {
         let mm: string|number = date.getUTCMinutes();
         let hh: string|number = date.getUTCHours();
 
-        if (ss < 10) { ss = '0' + ss; }
-        if (mm < 10) { mm = '0' + mm; }
-        if (hh < 10) { hh = '0' + hh; }
+        if (ss < 10) {
+            ss = '0' + ss;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        if (hh < 10) {
+            hh = '0' + hh;
+        }
 
         result = result.replace(/ss/g, <string>ss);
         result = result.replace(/mm/g, <string>mm);
@@ -32,7 +37,7 @@ export class VgUtcPipe implements PipeTransform {
         <span *ngIf="!target?.isLive">{{ getTime() | vgUtc:vgFormat }}</span>
         <ng-content></ng-content>
     `,
-    styles: [`
+    styles: [ `
         vg-time-display {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -49,23 +54,28 @@ export class VgUtcPipe implements PipeTransform {
             pointer-events: none;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
         }
-    `]
+    ` ]
 })
 export class VgTimeDisplay implements OnInit {
     @Input() vgFor: string;
-    @Input() vgProperty:string = 'current';
-    @Input() vgFormat:string = 'mm:ss';
+    @Input() vgProperty: string = 'current';
+    @Input() vgFormat: string = 'mm:ss';
 
-    elem:HTMLElement;
+    elem: HTMLElement;
     target: any;
 
 
-    constructor(ref:ElementRef, public API:VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {
@@ -76,7 +86,7 @@ export class VgTimeDisplay implements OnInit {
         let t = 0;
 
         if (this.target) {
-            t = Math.round(this.target.time[this.vgProperty]);
+            t = Math.round(this.target.time[ this.vgProperty ]);
             t = isNaN(t) || this.target.isLive ? 0 : t;
         }
 

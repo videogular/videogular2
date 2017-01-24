@@ -10,6 +10,7 @@ describe('Videogular Player', () => {
     let player:VgPlayer;
     let ref:ElementRef;
     let api:VgAPI;
+    let fsAPI:VgFullscreenAPI;
 
     beforeEach(() => {
         ref = {
@@ -21,11 +22,12 @@ describe('Videogular Player', () => {
         };
 
         api = new VgAPI();
-        player = new VgPlayer(ref, api);
+        fsAPI = new VgFullscreenAPI();
+        player = new VgPlayer(ref, api, fsAPI);
     });
 
     it('Should handle native fullscreen', () => {
-        VgFullscreenAPI.nativeFullscreen = true;
+        fsAPI.nativeFullscreen = true;
 
         player.onChangeFullscreen(true);
 
@@ -33,7 +35,7 @@ describe('Videogular Player', () => {
     });
 
     it('Should handle emulated fullscreen enabled', () => {
-        VgFullscreenAPI.nativeFullscreen = false;
+        fsAPI.nativeFullscreen = false;
 
         player.onChangeFullscreen(true);
 
@@ -42,7 +44,7 @@ describe('Videogular Player', () => {
     });
 
     it('Should handle emulated fullscreen enabled', () => {
-        VgFullscreenAPI.nativeFullscreen = false;
+        fsAPI.nativeFullscreen = false;
 
         player.onChangeFullscreen(false);
 

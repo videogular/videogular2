@@ -1,12 +1,11 @@
 import { Component, Input, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
-
-import {VgAPI} from '../../../core/services/vg-api';
+import { VgAPI } from '../../../core/services/vg-api';
 
 @Component({
     selector: 'vg-scrub-bar-current-time',
     encapsulation: ViewEncapsulation.None,
     template: `<div class="background" [style.width]="getPercentage()"></div>`,
-    styles: [`
+    styles: [ `
         vg-scrub-bar-current-time {
             display: flex;
             width: 100%;
@@ -33,20 +32,25 @@ import {VgAPI} from '../../../core/services/vg-api';
             -moz-border-radius: 2px;
             border-radius: 2px;
         }
-    `]
+    ` ]
 })
 export class VgScrubBarCurrentTime implements OnInit {
     @Input() vgFor: string;
 
-    elem:HTMLElement;
+    elem: HTMLElement;
     target: any;
 
-    constructor(ref:ElementRef, public API:VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {

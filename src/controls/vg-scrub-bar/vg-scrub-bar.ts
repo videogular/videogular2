@@ -1,12 +1,11 @@
 import { Component, ElementRef, Input, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-
-import {VgAPI} from '../../core/services/vg-api';
+import { VgAPI } from '../../core/services/vg-api';
 
 @Component({
     selector: 'vg-scrub-bar',
     encapsulation: ViewEncapsulation.None,
     template: `<ng-content></ng-content>`,
-    styles: [`
+    styles: [ `
         vg-scrub-bar {
             position: absolute;
             width: 100%;
@@ -28,7 +27,7 @@ import {VgAPI} from '../../core/services/vg-api';
             flex-basis: 0;
             margin: 0 10px;
         }
-    `]
+    ` ]
 })
 export class VgScrubBar implements OnInit {
     @Input() vgFor: string;
@@ -36,20 +35,25 @@ export class VgScrubBar implements OnInit {
     elem: HTMLElement;
     target: any;
 
-    constructor(ref:ElementRef, public API:VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
     }
 
-    @HostListener('mousedown', ['$event'])
-    onMouseDownScrubBar($event:any) {
+    @HostListener('mousedown', [ '$event' ])
+    onMouseDownScrubBar($event: any) {
         if (!this.target.isLive) {
             let percentage = $event.offsetX * 100 / this.elem.scrollWidth;
 

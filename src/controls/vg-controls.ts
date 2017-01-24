@@ -1,17 +1,13 @@
-import {
-    Component, Input, OnInit, ElementRef, Renderer, HostBinding, AfterViewInit,
-    ViewEncapsulation
-} from '@angular/core';
-import {Observable} from "rxjs/Observable";
-import {VgAPI} from "../core/services/vg-api";
-
+import { Component, Input, OnInit, ElementRef, HostBinding, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { VgAPI } from '../core/services/vg-api';
 import 'rxjs/add/observable/fromEvent';
 
 @Component({
     selector: 'vg-controls',
     encapsulation: ViewEncapsulation.None,
     template: `<ng-content></ng-content>`,
-    styles: [`
+    styles: [ `
         vg-controls {
             position: absolute;
             display: flex;
@@ -30,22 +26,22 @@ import 'rxjs/add/observable/fromEvent';
         vg-controls.hide {
           bottom: -50px;
         }
-    `]
+    ` ]
 })
 export class VgControls implements OnInit, AfterViewInit {
-    elem:HTMLElement;
-    vgFor:string;
-    target:any;
+    elem: HTMLElement;
+    vgFor: string;
+    target: any;
 
-    @HostBinding('style.pointer-events') isAdsPlaying:string = 'initial';
-    @HostBinding('class.hide') hideControls:boolean = false;
+    @HostBinding('style.pointer-events') isAdsPlaying: string = 'initial';
+    @HostBinding('class.hide') hideControls: boolean = false;
 
-    @Input() vgAutohide:boolean = false;
-    @Input() vgAutohideTime:number = 3;
+    @Input() vgAutohide: boolean = false;
+    @Input() vgAutohideTime: number = 3;
 
-    private timer:any;
+    private timer: any;
 
-    constructor(private API:VgAPI, private ref:ElementRef) {
+    constructor(private API: VgAPI, private ref: ElementRef) {
         this.elem = ref.nativeElement;
     }
 
@@ -56,7 +52,12 @@ export class VgControls implements OnInit, AfterViewInit {
         let mouseLeave = Observable.fromEvent(this.API.videogularElement, 'mouseleave');
         mouseLeave.subscribe(this.hide.bind(this));
 
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {

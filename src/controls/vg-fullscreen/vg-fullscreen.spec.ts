@@ -7,6 +7,7 @@ describe('Videogular Player', () => {
     let fullscreen: VgFullscreen;
     let ref:ElementRef;
     let api:VgAPI;
+    let fsAPI:VgFullscreenAPI;
 
     beforeEach(() => {
         ref = {
@@ -18,7 +19,8 @@ describe('Videogular Player', () => {
         };
 
         api = new VgAPI();
-        fullscreen = new VgFullscreen(ref, api);
+        fsAPI = new VgFullscreenAPI();
+        fullscreen = new VgFullscreen(ref, api, fsAPI);
     });
 
     it('Should get media by id on init', () => {
@@ -32,7 +34,7 @@ describe('Videogular Player', () => {
 
     describe('onClick', () => {
         beforeEach(() => {
-            spyOn(VgFullscreenAPI, 'toggleFullscreen');
+            spyOn(fsAPI, 'toggleFullscreen');
         });
 
         it('Should call toggleFullscreen with null param if target is API', () => {
@@ -40,7 +42,7 @@ describe('Videogular Player', () => {
 
             fullscreen.onClick();
 
-            expect(VgFullscreenAPI.toggleFullscreen).toHaveBeenCalledWith(null);
+            expect(fsAPI.toggleFullscreen).toHaveBeenCalledWith(null);
         });
 
         it('Should call toggleFullscreen with target param if target', () => {
@@ -48,7 +50,7 @@ describe('Videogular Player', () => {
 
             fullscreen.onClick();
 
-            expect(VgFullscreenAPI.toggleFullscreen).toHaveBeenCalledWith('test');
+            expect(fsAPI.toggleFullscreen).toHaveBeenCalledWith('test');
         });
     });
 });

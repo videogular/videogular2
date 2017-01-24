@@ -1,11 +1,10 @@
 import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-
-import {VgAPI} from '../../core/services/vg-api';
+import { VgAPI } from '../../core/services/vg-api';
 
 @Component({
     selector: 'vg-volume',
     encapsulation: ViewEncapsulation.None,
-    template:`
+    template: `
         <div class="volumeBar"
             (mousedown)="onMouseDown($event)">
             <div class="volumeBackground" [ngClass]="{dragging: isDragging}">
@@ -14,7 +13,7 @@ import {VgAPI} from '../../core/services/vg-api';
             </div>
         </div>
     `,
-    styles: [`
+    styles: [ `
         vg-volume {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -63,61 +62,66 @@ import {VgAPI} from '../../core/services/vg-api';
         vg-volume .volumeBackground.dragging .volumeKnob {
             transition: none;
         }
-    `]
+    ` ]
 })
 export class VgVolume implements OnInit {
     @Input() vgFor: string;
 
-    elem:HTMLElement;
+    elem: HTMLElement;
     target: any;
-    isDragging:boolean;
-    mouseDownPosX:number;
+    isDragging: boolean;
+    mouseDownPosX: number;
 
-    constructor(ref:ElementRef, public API:VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
         this.isDragging = false;
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
     }
 
-    onMouseDown(event:{x:number}) {
+    onMouseDown(event: { x: number }) {
         this.mouseDownPosX = event.x;
         this.isDragging = true;
     }
 
-    @HostListener('document:mousemove', ['$event'])
-    onDrag(event:{x:number}) {
-        if(this.isDragging) {
+    @HostListener('document:mousemove', [ '$event' ])
+    onDrag(event: { x: number }) {
+        if (this.isDragging) {
             this.setVolume(this.calculateVolume(event.x));
         }
     }
 
-    @HostListener('document:mouseup', ['$event'])
-    onStopDrag(event:{x:number}) {
-        if(this.isDragging) {
+    @HostListener('document:mouseup', [ '$event' ])
+    onStopDrag(event: { x: number }) {
+        if (this.isDragging) {
             this.isDragging = false;
-            if(this.mouseDownPosX === event.x) {
+            if (this.mouseDownPosX === event.x) {
                 this.setVolume(this.calculateVolume(event.x));
             }
         }
     }
-    
-    calculateVolume(mousePosX:number) {
-        const volumeBarOffsetLeft:number = (<HTMLElement>document.querySelector('.volumeBar')).offsetLeft;
+
+    calculateVolume(mousePosX: number) {
+        const volumeBarOffsetLeft: number = (<HTMLElement>document.querySelector('.volumeBar')).offsetLeft;
         return mousePosX - volumeBarOffsetLeft;
     }
 
-    setVolume(vol:number) {
-        this.target.volume =  Math.max(0, Math.min(1, vol / 100));
+    setVolume(vol: number) {
+        this.target.volume = Math.max(0, Math.min(1, vol / 100));
     }
 
-    getVolume():number {
+    getVolume(): number {
         return this.target ? this.target.volume : 0;
     }
 }
