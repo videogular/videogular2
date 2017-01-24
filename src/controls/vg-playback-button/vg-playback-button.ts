@@ -1,13 +1,12 @@
 import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-
-import {VgAPI} from '../../core/services/vg-api';
+import { VgAPI } from '../../core/services/vg-api';
 
 
 @Component({
     selector: 'vg-playback-button',
     encapsulation: ViewEncapsulation.None,
     template: `{{getPlaybackRate()}}x`,
-    styles: [`
+    styles: [ `
         vg-playback-button {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -23,25 +22,30 @@ import {VgAPI} from '../../core/services/vg-api';
             line-height: 50px;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
         }
-    `]
+    ` ]
 })
 export class VgPlaybackButton implements OnInit {
     @Input() vgFor: string;
 
-    elem:HTMLElement;
+    elem: HTMLElement;
     target: any;
 
     playbackValues: Array<string>;
     playbackIndex: number;
 
-    constructor(ref:ElementRef, public API:VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
-        this.playbackValues = ['0.5', '1.0', '1.5', '2.0'];
+        this.playbackValues = [ '0.5', '1.0', '1.5', '2.0' ];
         this.playbackIndex = 1;
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {
@@ -53,10 +57,10 @@ export class VgPlaybackButton implements OnInit {
         this.playbackIndex = ++this.playbackIndex % this.playbackValues.length;
 
         if (this.target instanceof VgAPI) {
-            this.target.playbackRate = (this.playbackValues[this.playbackIndex]);
+            this.target.playbackRate = (this.playbackValues[ this.playbackIndex ]);
         }
         else {
-            this.target.playbackRate[this.vgFor] = (this.playbackValues[this.playbackIndex]);
+            this.target.playbackRate[ this.vgFor ] = (this.playbackValues[ this.playbackIndex ]);
         }
     }
 

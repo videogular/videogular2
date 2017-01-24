@@ -1,18 +1,15 @@
 import { Component, ElementRef, HostListener, OnInit, Input, ViewEncapsulation } from '@angular/core';
-
-import {VgAPI} from '../../core/services/vg-api';
-
-import {VgStates} from "../../core/states/vg-states";
+import { VgAPI } from '../../core/services/vg-api';
+import { VgStates } from '../../core/states/vg-states';
 
 @Component({
     selector: 'vg-play-pause',
     encapsulation: ViewEncapsulation.None,
-    template:
-        `<div class="icon"
+    template: `<div class="icon"
              [class.vg-icon-pause]="getState() === 'playing'"
              [class.vg-icon-play_arrow]="getState() === 'paused' || getState() === 'ended'">
         </div>`,
-    styles: [`
+    styles: [ `
         vg-play-pause {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -32,20 +29,25 @@ import {VgStates} from "../../core/states/vg-states";
         vg-play-pause .icon {
             pointer-events: none;
         }
-    `]
+    ` ]
 })
 export class VgPlayPause implements OnInit {
-    @Input() vgFor:string;
+    @Input() vgFor: string;
 
-    elem:HTMLElement;
-    target:any;
+    elem: HTMLElement;
+    target: any;
 
-    constructor(ref:ElementRef, public API:VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {

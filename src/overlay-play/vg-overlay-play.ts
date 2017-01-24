@@ -1,18 +1,16 @@
 import { Component, OnInit, Input, ElementRef, HostListener, ViewEncapsulation } from '@angular/core';
-
-import {VgAPI} from '../core/services/vg-api';
-import {VgStates} from "../core/states/vg-states";
+import { VgAPI } from '../core/services/vg-api';
+import { VgStates } from '../core/states/vg-states';
 
 @Component({
     selector: 'vg-overlay-play',
     encapsulation: ViewEncapsulation.None,
-    template:
-        `<div class="vg-overlay-play">
+    template: `<div class="vg-overlay-play">
             <div class="overlay-play-container"
                  [class.vg-icon-play_arrow]="getState() !== 'playing'">
             </div>
         </div>`,
-    styles: [`
+    styles: [ `
         vg-overlay-play {
             z-index: 200;
         }
@@ -49,19 +47,24 @@ import {VgStates} from "../core/states/vg-states";
         vg-overlay-play .vg-overlay-play:hover .overlay-play-container.vg-icon-play_arrow:before {
             transform: scale(1.2);
         }
-    `]
+    ` ]
 })
 export class VgOverlayPlay implements OnInit {
     @Input() vgFor: string;
-    elem:HTMLElement;
+    elem: HTMLElement;
     target: any;
 
-    constructor(ref:ElementRef, public API: VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {
@@ -89,7 +92,7 @@ export class VgOverlayPlay implements OnInit {
         if (this.target) {
             if (this.target.state instanceof Array) {
                 for (let i = 0, l = this.target.state.length; i < l; i++) {
-                    if (this.target.state[i] === VgStates.VG_PLAYING) {
+                    if (this.target.state[ i ] === VgStates.VG_PLAYING) {
                         state = VgStates.VG_PLAYING;
                         break;
                     }

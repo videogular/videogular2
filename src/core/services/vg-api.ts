@@ -7,12 +7,14 @@ export class VgAPI {
     medias:Object = {};// TODO: refactor to Set<IPlayable> 
     videogularElement: any;
     playerReadyEvent: EventEmitter<any> = new EventEmitter(true);
+    isPlayerReady: boolean = false;
 
     constructor() {
 
     }
 
     onPlayerReady() {
+        this.isPlayerReady = true;
         this.playerReadyEvent.emit(this);
     }
 

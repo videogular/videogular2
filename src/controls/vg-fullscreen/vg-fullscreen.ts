@@ -1,18 +1,16 @@
-import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
-
-import {VgAPI} from '../../core/services/vg-api';
-import {VgFullscreenAPI} from "../../core/services/vg-fullscreen-api";
+import { Component, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
+import { VgAPI } from '../../core/services/vg-api';
+import { VgFullscreenAPI } from '../../core/services/vg-fullscreen-api';
 
 
 @Component({
     selector: 'vg-fullscreen',
     encapsulation: ViewEncapsulation.None,
-    template:
-        `<div class="icon"
+    template: `<div class="icon"
              [class.vg-icon-fullscreen]="!isFullscreen"
              [class.vg-icon-fullscreen_exit]="isFullscreen">
         </div>`,
-    styles: [`
+    styles: [ `
         vg-fullscreen {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -32,28 +30,33 @@ import {VgFullscreenAPI} from "../../core/services/vg-fullscreen-api";
         vg-fullscreen .icon {
             pointer-events: none;
         }
-    `]
+    ` ]
 })
 export class VgFullscreen implements OnInit {
-    elem:HTMLElement;
-    vgFor:string;
-    target:Object;
-    isFullscreen:boolean = false;
+    elem: HTMLElement;
+    vgFor: string;
+    target: Object;
+    isFullscreen: boolean = false;
 
-    constructor(ref:ElementRef, public API:VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
         VgFullscreenAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
     }
 
     ngOnInit() {
-        this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        if (this.API.isPlayerReady) {
+            this.onPlayerReady();
+        }
+        else {
+            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+        }
     }
 
     onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
     }
 
-    onChangeFullscreen(fsState:boolean) {
+    onChangeFullscreen(fsState: boolean) {
         this.isFullscreen = fsState;
     }
 
