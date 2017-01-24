@@ -38,7 +38,6 @@ import { VgMedia } from '../vg-media/vg-media';
 })
 export class VgPlayer implements AfterContentInit {
     elem: HTMLElement;
-    api: VgAPI;
 
     @HostBinding('class.fullscreen') isFullscreen: boolean = false;
     @HostBinding('style.z-index') zIndex: string;
@@ -52,8 +51,7 @@ export class VgPlayer implements AfterContentInit {
     @ContentChildren(VgMedia)
     medias: QueryList<VgMedia>;
 
-    constructor(ref: ElementRef, api: VgAPI) {
-        this.api = api;
+    constructor(ref: ElementRef, public api: VgAPI, public fsAPI: VgFullscreenAPI) {
         this.elem = ref.nativeElement;
 
         this.api.registerElement(this.elem);
@@ -64,15 +62,15 @@ export class VgPlayer implements AfterContentInit {
             this.api.registerMedia(media);
         });
 
-        this.api.onPlayerReady();
-        this.onPlayerReady.next(this.api);
+        this.fsAPI.init(this.elem, this.medias);
+        this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
 
-        VgFullscreenAPI.init(this.elem, this.medias);
-        VgFullscreenAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
+        this.api.onPlayerReady(this.fsAPI);
+        this.onPlayerReady.next(this.api);
     }
 
     onChangeFullscreen(fsState: boolean) {
-        if (!VgFullscreenAPI.nativeFullscreen) {
+        if (!this.fsAPI.nativeFullscreen) {
             this.isFullscreen = fsState;
             this.zIndex = fsState ? VgUtils.getZIndex().toString() : 'auto';
         }

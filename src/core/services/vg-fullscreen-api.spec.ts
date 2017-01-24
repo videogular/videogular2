@@ -6,6 +6,7 @@ import {VgUtils} from "./vg-utils";
 describe('Videogular Player', () => {
     let medias:QueryList<any>;
     let elem:HTMLElement;
+    let fsAPI: VgFullscreenAPI;
 
     beforeEach(() => {
         medias = new QueryList();
@@ -13,124 +14,125 @@ describe('Videogular Player', () => {
             webkitRequestFullscreen: () => {}
         };
 
-        VgFullscreenAPI.isAvailable = true;
-        VgFullscreenAPI.nativeFullscreen = true;
-        VgFullscreenAPI.init(elem, medias);
+        fsAPI = new VgFullscreenAPI();
+        fsAPI.isAvailable = true;
+        fsAPI.nativeFullscreen = true;
+        fsAPI.init(elem, medias);
     });
 
     it('Should create polyfills on init', () => {
-        expect(VgFullscreenAPI.polyfill.enabled).toBe('webkitFullscreenEnabled');
-        expect(VgFullscreenAPI.polyfill.element).toBe('webkitFullscreenElement');
-        expect(VgFullscreenAPI.polyfill.request).toBe('webkitRequestFullscreen');
-        expect(VgFullscreenAPI.polyfill.exit).toBe('webkitExitFullscreen');
-        expect(VgFullscreenAPI.polyfill.onchange).toBe('webkitfullscreenchange');
-        expect(VgFullscreenAPI.polyfill.onerror).toBe('webkitfullscreenerror');
+        expect(fsAPI.polyfill.enabled).toBe('webkitFullscreenEnabled');
+        expect(fsAPI.polyfill.element).toBe('webkitFullscreenElement');
+        expect(fsAPI.polyfill.request).toBe('webkitRequestFullscreen');
+        expect(fsAPI.polyfill.exit).toBe('webkitExitFullscreen');
+        expect(fsAPI.polyfill.onchange).toBe('webkitfullscreenchange');
+        expect(fsAPI.polyfill.onerror).toBe('webkitfullscreenerror');
     });
 
     it('Should request an element to enter in fullscreen mode (desktop)', () => {
-        spyOn(VgFullscreenAPI, 'enterElementInFullScreen').and.callFake(() => {});
+        spyOn(fsAPI, 'enterElementInFullScreen').and.callFake(() => {});
 
-        VgFullscreenAPI.request(null);
+        fsAPI.request(null);
 
-        expect(VgFullscreenAPI.isFullscreen).toBeTruthy();
-        expect(VgFullscreenAPI.enterElementInFullScreen).toHaveBeenCalledWith(elem);
+        expect(fsAPI.isFullscreen).toBeTruthy();
+        expect(fsAPI.enterElementInFullScreen).toHaveBeenCalledWith(elem);
     });
 
     it('Should request an element to enter in fullscreen mode (mobile)', () => {
         spyOn(VgUtils, 'isMobileDevice').and.callFake(() => {return true;});
-        spyOn(VgFullscreenAPI, 'enterElementInFullScreen').and.callFake(() => {});
+        spyOn(fsAPI, 'enterElementInFullScreen').and.callFake(() => {});
 
-        VgFullscreenAPI.request(null);
+        fsAPI.request(null);
 
-        expect(VgFullscreenAPI.isFullscreen).toBeTruthy();
+        expect(fsAPI.isFullscreen).toBeTruthy();
         expect(VgUtils.isMobileDevice).toHaveBeenCalled();
-        expect(VgFullscreenAPI.enterElementInFullScreen).toHaveBeenCalledWith(elem);
+        expect(fsAPI.enterElementInFullScreen).toHaveBeenCalledWith(elem);
     });
 
     it('Should request an element to enter in fullscreen mode (mobile with param elem)', () => {
         spyOn(VgUtils, 'isMobileDevice').and.callFake(() => {return true;});
-        spyOn(VgFullscreenAPI, 'enterElementInFullScreen').and.callFake(() => {});
+        spyOn(fsAPI, 'enterElementInFullScreen').and.callFake(() => {});
 
-        VgFullscreenAPI.request(elem);
+        fsAPI.request(elem);
 
-        expect(VgFullscreenAPI.isFullscreen).toBeTruthy();
+        expect(fsAPI.isFullscreen).toBeTruthy();
         expect(VgUtils.isMobileDevice).toHaveBeenCalled();
-        expect(VgFullscreenAPI.enterElementInFullScreen).toHaveBeenCalledWith(elem);
+        expect(fsAPI.enterElementInFullScreen).toHaveBeenCalledWith(elem);
     });
 
     it('Should not request an element to enter in fullscreen mode', () => {
-        spyOn(VgFullscreenAPI, 'enterElementInFullScreen').and.callFake(() => {});
+        spyOn(fsAPI, 'enterElementInFullScreen').and.callFake(() => {});
 
-        VgFullscreenAPI.nativeFullscreen = false;
-        VgFullscreenAPI.request(elem);
+        fsAPI.nativeFullscreen = false;
+        fsAPI.request(elem);
 
-        expect(VgFullscreenAPI.enterElementInFullScreen).not.toHaveBeenCalled();
+        expect(fsAPI.enterElementInFullScreen).not.toHaveBeenCalled();
     });
 
     it('Should enter in fullscreen mode', () => {
         spyOn(<any>elem, 'webkitRequestFullscreen').and.callThrough();
 
-        VgFullscreenAPI.enterElementInFullScreen(elem);
+        fsAPI.enterElementInFullScreen(elem);
 
         expect((<any>elem).webkitRequestFullscreen).toHaveBeenCalled();
     });
 
     it('Should request an element to exit from fullscreen mode (native)', () => {
-        VgFullscreenAPI.polyfill.exit = 'mockedExitFunction';
+        fsAPI.polyfill.exit = 'mockedExitFunction';
 
         (<any>document).mockedExitFunction = () => {};
 
         spyOn(document, 'mockedExitFunction').and.callThrough();
 
-        VgFullscreenAPI.exit();
+        fsAPI.exit();
 
-        expect(VgFullscreenAPI.isFullscreen).toBeFalsy();
+        expect(fsAPI.isFullscreen).toBeFalsy();
         expect((<any>document).mockedExitFunction).toHaveBeenCalled();
     });
 
     it('Should request an element to exit from fullscreen mode (emulated)', () => {
-        VgFullscreenAPI.polyfill.exit = 'mockedExitFunction';
+        fsAPI.polyfill.exit = 'mockedExitFunction';
 
         (<any>document).mockedExitFunction = () => {};
 
         spyOn(document, 'mockedExitFunction').and.callThrough();
 
-        VgFullscreenAPI.nativeFullscreen = false;
-        VgFullscreenAPI.exit();
+        fsAPI.nativeFullscreen = false;
+        fsAPI.exit();
 
-        expect(VgFullscreenAPI.isFullscreen).toBeFalsy();
+        expect(fsAPI.isFullscreen).toBeFalsy();
         expect((<any>document).mockedExitFunction).not.toHaveBeenCalled();
     });
 
     it('Should enter videogular element to fullscreen mode', () => {
-        VgFullscreenAPI.videogularElement = <HTMLElement>{id: 'vgElem'};
+        fsAPI.videogularElement = <HTMLElement>{id: 'vgElem'};
 
-        spyOn(VgFullscreenAPI, 'request').and.callFake(() => {});
+        spyOn(fsAPI, 'request').and.callFake(() => {});
 
-        VgFullscreenAPI.toggleFullscreen();
+        fsAPI.toggleFullscreen();
 
-        expect(VgFullscreenAPI.request).toHaveBeenCalledWith(null);
+        expect(fsAPI.request).toHaveBeenCalledWith(null);
     });
 
     it('Should enter other element to fullscreen mode', () => {
         let element = {id: 'main'};
 
-        VgFullscreenAPI.videogularElement = <HTMLElement>{id: 'vgElem'};
+        fsAPI.videogularElement = <HTMLElement>{id: 'vgElem'};
 
-        spyOn(VgFullscreenAPI, 'request').and.callFake(() => {});
+        spyOn(fsAPI, 'request').and.callFake(() => {});
 
-        VgFullscreenAPI.toggleFullscreen(element);
+        fsAPI.toggleFullscreen(element);
 
-        expect(VgFullscreenAPI.request).toHaveBeenCalledWith(element);
+        expect(fsAPI.request).toHaveBeenCalledWith(element);
     });
 
     it('Should exit from fullscreen mode', () => {
-        VgFullscreenAPI.isFullscreen = true;
+        fsAPI.isFullscreen = true;
 
-        spyOn(VgFullscreenAPI, 'exit').and.callFake(() => {});
+        spyOn(fsAPI, 'exit').and.callFake(() => {});
 
-        VgFullscreenAPI.toggleFullscreen();
+        fsAPI.toggleFullscreen();
 
-        expect(VgFullscreenAPI.exit).toHaveBeenCalled();
+        expect(fsAPI.exit).toHaveBeenCalled();
     });
 });

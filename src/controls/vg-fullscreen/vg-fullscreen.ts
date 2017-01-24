@@ -38,9 +38,9 @@ export class VgFullscreen implements OnInit {
     target: Object;
     isFullscreen: boolean = false;
 
-    constructor(ref: ElementRef, public API: VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI) {
         this.elem = ref.nativeElement;
-        VgFullscreenAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
+        this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
     }
 
     ngOnInit() {
@@ -68,6 +68,6 @@ export class VgFullscreen implements OnInit {
             element = null;
         }
 
-        VgFullscreenAPI.toggleFullscreen(element);
+        this.fsAPI.toggleFullscreen(element);
     }
 }
