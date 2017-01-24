@@ -24,7 +24,7 @@
     "@types/core-js": "0.9.35",
     "@types/jasmine": "2.5.38",
     "codelyzer": "2.0.0-beta.1",
-    "commitizen": "2.9.3",
+    "commitizen": "2.9.4",
     "cz-conventional-changelog": "1.2.0",
     "es6-module-loader": "0.17.11",
     "ghooks": "2.0.0",
