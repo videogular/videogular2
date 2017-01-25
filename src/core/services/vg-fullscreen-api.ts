@@ -79,6 +79,10 @@ export class VgFullscreenAPI {
             }
         }
 
+        if (VgUtils.isiOSDevice()) {
+            this.polyfill = APIs.ios
+        }
+
         this.isAvailable = (this.polyfill != null);
     }
 
@@ -105,8 +109,8 @@ export class VgFullscreenAPI {
             if (VgUtils.isMobileDevice()) {
                 // We should make fullscreen the video object if it doesn't have native fullscreen support
                 // Fallback! We can't set vg-player on fullscreen, only video/audio objects
-                if (!this.polyfill.enabled && elem === this.videogularElement) {
-                    elem = this.medias[0];
+                if ((!this.polyfill.enabled && elem === this.videogularElement) || VgUtils.isiOSDevice()) {
+                    elem = this.medias.toArray()[0].elem;
                 }
 
                 this.enterElementInFullScreen(elem);
