@@ -39,7 +39,7 @@
     "remap-istanbul": "0.8.0",
     "semantic-release": "6.3.2",
     "tslint": "4.2.0",
-    "typescript": "2.0.10",
+    "typescript": "2.1.6",
     "watch": "1.0.1"
   },
   "scripts": {
