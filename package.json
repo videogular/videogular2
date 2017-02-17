@@ -40,7 +40,7 @@
     "semantic-release": "6.3.2",
     "tslint": "4.2.0",
     "typescript": "2.0.10",
-    "watch": "1.0.1"
+    "watch": "1.0.2"
   },
   "scripts": {
     "prebuild": "npm run clean",
