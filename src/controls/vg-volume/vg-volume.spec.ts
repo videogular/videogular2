@@ -98,9 +98,14 @@ describe('Volume control', () => {
 
     describe('calculateVolume', ()=>{
         it('Shoud calculate volume based on volumeBar position', ()=>{
-            spyOn(document, 'querySelector').and.returnValue({
-                offsetLeft: 5
-            });
+            // mock volumeBarRef ViewChild
+            vgVol.volumeBarRef = {
+              nativeElement: {
+                getBoundingClientRect() {
+                  return { left: 5 }
+                }
+              }
+            };
             expect(vgVol.calculateVolume(10)).toBe(5);
         });
     });

@@ -1,11 +1,13 @@
-import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 
 @Component({
     selector: 'vg-volume',
     encapsulation: ViewEncapsulation.None,
     template: `
-        <div class="volumeBar"
+        <div 
+            #volumeBar
+            class="volumeBar"
             (mousedown)="onMouseDown($event)">
             <div class="volumeBackground" [ngClass]="{dragging: isDragging}">
                 <div class="volumeValue" [style.width]="(getVolume() * (100-15)) + '%'"></div>
@@ -66,6 +68,7 @@ import { VgAPI } from '../../core/services/vg-api';
 })
 export class VgVolume implements OnInit {
     @Input() vgFor: string;
+    @ViewChild('volumeBar') volumeBarRef: ElementRef;
 
     elem: HTMLElement;
     target: any;
@@ -113,10 +116,10 @@ export class VgVolume implements OnInit {
     }
 
     calculateVolume(mousePosX: number) {
-        const volumeBarOffsetLeft: number = (<HTMLElement>document.querySelector('.volumeBar')).offsetLeft;
+        const volumeBarOffsetLeft: number = this.volumeBarRef.nativeElement.getBoundingClientRect().left;
         return mousePosX - volumeBarOffsetLeft;
     }
-
+    
     setVolume(vol: number) {
         this.target.volume = Math.max(0, Math.min(1, vol / 100));
     }
