@@ -8,6 +8,7 @@ import { VgAPI } from '../../core/services/vg-api';
         <div 
             #volumeBar
             class="volumeBar"
+            (click)="onClick($event)"
             (mousedown)="onMouseDown($event)">
             <div class="volumeBackground" [ngClass]="{dragging: isDragging}">
                 <div class="volumeValue" [style.width]="(getVolume() * (100-15)) + '%'"></div>
@@ -93,24 +94,28 @@ export class VgVolume implements OnInit {
         this.target = this.API.getMediaById(this.vgFor);
     }
 
-    onMouseDown(event: { x: number }) {
-        this.mouseDownPosX = event.x;
+    onClick(event: { clientX: number }) {
+        this.setVolume(this.calculateVolume(event.clientX));
+    }
+
+    onMouseDown(event: { clientX: number }) {
+        this.mouseDownPosX = event.clientX;
         this.isDragging = true;
     }
 
     @HostListener('document:mousemove', [ '$event' ])
-    onDrag(event: { x: number }) {
+    onDrag(event: { clientX: number }) {
         if (this.isDragging) {
-            this.setVolume(this.calculateVolume(event.x));
+            this.setVolume(this.calculateVolume(event.clientX));
         }
     }
 
     @HostListener('document:mouseup', [ '$event' ])
-    onStopDrag(event: { x: number }) {
+    onStopDrag(event: { clientX: number }) {
         if (this.isDragging) {
             this.isDragging = false;
-            if (this.mouseDownPosX === event.x) {
-                this.setVolume(this.calculateVolume(event.x));
+            if (this.mouseDownPosX === event.clientX) {
+                this.setVolume(this.calculateVolume(event.clientX));
             }
         }
     }
@@ -119,7 +124,7 @@ export class VgVolume implements OnInit {
         const volumeBarOffsetLeft: number = this.volumeBarRef.nativeElement.getBoundingClientRect().left;
         return mousePosX - volumeBarOffsetLeft;
     }
-    
+
     setVolume(vol: number) {
         this.target.volume = Math.max(0, Math.min(1, vol / 100));
     }

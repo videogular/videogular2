@@ -39,11 +39,11 @@ describe('Volume control', () => {
 
     describe('onMouseDown', ()=>{
         it('Should set isDragging to true', ()=>{
-            vgVol.onMouseDown({x: 0});
+            vgVol.onMouseDown({clientX: 0});
             expect(vgVol.isDragging).toBe(true);
         });
         it('Should set mouseDownPosX to event.x', ()=>{
-            vgVol.onMouseDown({x: 99});
+            vgVol.onMouseDown({clientX: 99});
             expect(vgVol.mouseDownPosX).toBe(99);
         });
     });
@@ -55,12 +55,12 @@ describe('Volume control', () => {
         });
         it('Should call setVolume when dragging', ()=>{
             vgVol.isDragging = true;
-            vgVol.onDrag({x: 0});
+            vgVol.onDrag({clientX: 0});
             expect(vgVol.setVolume).toHaveBeenCalled();
         });
         it('Should not call setVolume when not dragging', ()=>{
             vgVol.isDragging = false;
-            vgVol.onDrag({x: 0});
+            vgVol.onDrag({clientX: 0});
             expect(vgVol.setVolume).not.toHaveBeenCalled();
         });
     });
@@ -73,25 +73,25 @@ describe('Volume control', () => {
         it('Should toggle dragging value when dragging', ()=>{
             vgVol.isDragging = true;
             vgVol.mouseDownPosX = 0;
-            vgVol.onStopDrag({x:0});
+            vgVol.onStopDrag({clientX:0});
             expect(vgVol.isDragging).toBe(false);
         });
         it('Should call setVolume when dragging and x positions match', ()=>{
             vgVol.isDragging = true;
             vgVol.mouseDownPosX = 0;
-            vgVol.onStopDrag({x:0});
+            vgVol.onStopDrag({clientX:0});
             expect(vgVol.setVolume).toHaveBeenCalled();
         });
         it('Should not call setVolume when dragging but x positions dont match', ()=>{
             vgVol.isDragging = true;
             vgVol.mouseDownPosX = 1;
-            vgVol.onStopDrag({x:0});
+            vgVol.onStopDrag({clientX:0});
             expect(vgVol.setVolume).not.toHaveBeenCalled();
         });
         it('Should not call setVolume when not dragging', ()=>{
             vgVol.isDragging = false;
             vgVol.mouseDownPosX = 0;
-            vgVol.onStopDrag({x:0});
+            vgVol.onStopDrag({clientX:0});
             expect(vgVol.setVolume).not.toHaveBeenCalled();
         });
     });
