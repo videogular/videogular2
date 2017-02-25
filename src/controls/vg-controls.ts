@@ -30,12 +30,12 @@ import 'rxjs/add/observable/fromEvent';
 })
 export class VgControls implements OnInit, AfterViewInit {
     elem: HTMLElement;
-    vgFor: string;
     target: any;
 
     @HostBinding('style.pointer-events') isAdsPlaying: string = 'initial';
     @HostBinding('class.hide') hideControls: boolean = false;
 
+    @Input() vgFor: string;
     @Input() vgAutohide: boolean = false;
     @Input() vgAutohideTime: number = 3;
 
