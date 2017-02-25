@@ -68,6 +68,8 @@ export interface Option {
         vg-track-selector .track-selected {
             position: absolute;
             width: 100%;
+            height: 50px;
+            top: -6px;
             text-align: center;
             text-transform: uppercase;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
