@@ -110,18 +110,21 @@ export class VgImaAds {
                 () => {
                     const adUnitPath: string = '/' + this.vgNetwork + '/' + this.vgUnitPath;
                     const slot: googletag.Slot = googletag.defineSlot(adUnitPath, this.vgCompanionSize, this.vgCompanion);
-                    slot.addService(googletag.companionAds());
-                    slot.addService(googletag.pubads());
 
-                    googletag
-                        .companionAds()
-                        .setRefreshUnfilledSlots(true);
+                    if (slot) {
+                        slot.addService(googletag.companionAds());
+                        slot.addService(googletag.pubads());
 
-                    googletag
-                        .pubads()
-                        .enableVideoAds();
+                        googletag
+                            .companionAds()
+                            .setRefreshUnfilledSlots(true);
 
-                    googletag.enableServices();
+                        googletag
+                            .pubads()
+                            .enableVideoAds();
+
+                        googletag.enableServices();
+                    }
                 }
             );
         }
