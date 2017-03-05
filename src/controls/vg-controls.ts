@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ElementRef, HostBinding, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { VgAPI } from '../core/services/vg-api';
+import { VgControlsHidden } from './../core/services/vg-controls-hidden';
 import 'rxjs/add/observable/fromEvent';
 
 @Component({
@@ -41,7 +42,7 @@ export class VgControls implements OnInit, AfterViewInit {
 
     private timer: any;
 
-    constructor(private API: VgAPI, private ref: ElementRef) {
+    constructor(private API: VgAPI, private ref: ElementRef, private hidden: VgControlsHidden) {
         this.elem = ref.nativeElement;
     }
 
@@ -94,11 +95,13 @@ export class VgControls implements OnInit, AfterViewInit {
     show() {
         clearTimeout(this.timer);
         this.hideControls = false;
+        this.hidden.state(false);
     }
 
     private hideAsync() {
         this.timer = setTimeout(() => {
             this.hideControls = true;
+            this.hidden.state(true);
         }, this.vgAutohideTime * 1000);
     }
 }
