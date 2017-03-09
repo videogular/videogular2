@@ -30,7 +30,7 @@ export class VgPlaybackButton implements OnInit {
     elem: HTMLElement;
     target: any;
 
-    playbackValues: Array<string>;
+    @Input() playbackValues: Array<string>;
     playbackIndex: number;
 
     constructor(ref: ElementRef, public API: VgAPI) {
