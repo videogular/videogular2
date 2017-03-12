@@ -1,5 +1,6 @@
-import { Component, ElementRef, Input, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Input, HostListener, OnInit, ViewEncapsulation, HostBinding } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
+import { VgControlsHidden } from './../../core/services/vg-controls-hidden';
 
 @Component({
     selector: 'vg-scrub-bar',
@@ -16,6 +17,11 @@ import { VgAPI } from '../../core/services/vg-api';
             align-items: center;
             background: rgba(0, 0, 0, 0.75);
             z-index: 250;
+            -webkit-transition: bottom 1s, opacity 0.5s;
+            -khtml-transition: bottom 1s, opacity 0.5s;
+            -moz-transition: bottom 1s, opacity 0.5s;
+            -ms-transition: bottom 1s, opacity 0.5s;
+            transition: bottom 1s, opacity 0.5s;
         }
 
         vg-controls vg-scrub-bar {
@@ -26,17 +32,35 @@ import { VgAPI } from '../../core/services/vg-api';
             flex-grow: 1;
             flex-basis: 0;
             margin: 0 10px;
+            -webkit-transition: initial;
+            -khtml-transition: initial;
+            -moz-transition: initial;
+            -ms-transition: initial;
+            transition: initial;
+        }
+
+        vg-scrub-bar.hide {
+            bottom: 0px;
+            opacity: 0;
+        }
+
+        vg-controls vg-scrub-bar.hide {
+            bottom: initial;
+            opacity: initial;
         }
     ` ]
 })
 export class VgScrubBar implements OnInit {
+    @HostBinding('class.hide') hideScrubBar: boolean = false;
+    
     @Input() vgFor: string;
 
     elem: HTMLElement;
     target: any;
 
-    constructor(ref: ElementRef, public API: VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI, vgControlsHiddenState: VgControlsHidden) {
         this.elem = ref.nativeElement;
+        vgControlsHiddenState.isHidden.subscribe(hide => this.onHideScrubBar(hide));
     }
 
     ngOnInit() {
@@ -60,4 +84,8 @@ export class VgScrubBar implements OnInit {
             this.target.seekTime(percentage, true);
         }
     }
+
+    onHideScrubBar(hide: boolean) {
+        this.hideScrubBar = hide;
+    } 
 }

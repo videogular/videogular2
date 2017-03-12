@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, ElementRef, HostBinding, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { VgAPI } from '../core/services/vg-api';
+import { VgControlsHidden } from './../core/services/vg-controls-hidden';
 import 'rxjs/add/observable/fromEvent';
+import { VgStates } from '../core/states/vg-states';
 
 @Component({
     selector: 'vg-controls',
@@ -40,17 +42,18 @@ export class VgControls implements OnInit, AfterViewInit {
     @Input() vgAutohideTime: number = 3;
 
     private timer: any;
+    private hideTimer: any;
 
-    constructor(private API: VgAPI, private ref: ElementRef) {
+    constructor(private API: VgAPI, private ref: ElementRef, private hidden: VgControlsHidden) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
-        let mouseEnter = Observable.fromEvent(this.API.videogularElement, 'mouseenter');
-        mouseEnter.subscribe(this.show.bind(this));
+        let mouseMove = Observable.fromEvent(this.API.videogularElement, 'mousemove');
+        mouseMove.subscribe(this.show.bind(this));
 
-        let mouseLeave = Observable.fromEvent(this.API.videogularElement, 'mouseleave');
-        mouseLeave.subscribe(this.hide.bind(this));
+        let touchStart = Observable.fromEvent(this.API.videogularElement, 'touchstart');
+        touchStart.subscribe(this.show.bind(this));
 
         if (this.API.isPlayerReady) {
             this.onPlayerReady();
@@ -63,6 +66,8 @@ export class VgControls implements OnInit, AfterViewInit {
     onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
 
+        this.target.subscriptions.play.subscribe(this.onPlay.bind(this));
+        this.target.subscriptions.pause.subscribe(this.onPause.bind(this));
         this.target.subscriptions.startAds.subscribe(this.onStartAds.bind(this));
         this.target.subscriptions.endAds.subscribe(this.onEndAds.bind(this));
     }
@@ -74,6 +79,18 @@ export class VgControls implements OnInit, AfterViewInit {
         else {
             this.show();
         }
+    }
+
+    onPlay() {
+        if (this.vgAutohide) {
+            this.hide();
+        }
+    }
+
+    onPause() {
+        clearTimeout(this.timer);
+        this.hideControls = false;
+        this.hidden.state(false);
     }
 
     onStartAds() {
@@ -94,11 +111,16 @@ export class VgControls implements OnInit, AfterViewInit {
     show() {
         clearTimeout(this.timer);
         this.hideControls = false;
+        this.hidden.state(false);
+        this.hideAsync();
     }
 
     private hideAsync() {
-        this.timer = setTimeout(() => {
-            this.hideControls = true;
-        }, this.vgAutohideTime * 1000);
+        if (this.API.state === VgStates.VG_PLAYING) {
+            this.timer = setTimeout(() => {
+                this.hideControls = true;
+                this.hidden.state(true);
+            }, this.vgAutohideTime * 1000);
+        }
     }
 }
