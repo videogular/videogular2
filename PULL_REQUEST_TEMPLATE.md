@@ -1,5 +1,9 @@
 ### Description
-Please explain the changes you made here.
+Please explain the changes you made here. Commit your changes with `npm run commit` instead of `git commit`.
+
+Specify if it's a fix, feature or breaking change to update the version on NPM.
+
+Thank you!
 
 ### Checklist
 Please, check that you have been followed next steps:

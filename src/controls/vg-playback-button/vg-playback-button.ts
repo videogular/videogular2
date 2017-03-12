@@ -1,7 +1,6 @@
 import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 
-
 @Component({
     selector: 'vg-playback-button',
     encapsulation: ViewEncapsulation.None,
