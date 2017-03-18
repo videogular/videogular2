@@ -16,7 +16,7 @@ For example, this is the most basic video player that you can create with Videog
 
 ```html
 <vg-player>
-    <video vgMedia id="singleVideo" preload="auto" controls>
+    <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
     </video>
 </vg-player>
@@ -52,7 +52,7 @@ Let's go to add an overlay play and a custom control bar.
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video vgMedia id="singleVideo" preload="auto">
+    <video [vgMedia]="media" #media id="singleVideo" preload="auto">
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
     </video>
 </vg-player>

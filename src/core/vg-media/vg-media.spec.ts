@@ -33,7 +33,8 @@ describe('Videogular Media', () => {
         };
 
         api = new VgAPI();
-        media = new VgMedia(ref, api);
+        media = new VgMedia(api);
+        media.vgMedia = elem;
     });
 
     xit('Should load a new media if a change on dom have been happened', () => {
@@ -54,7 +55,7 @@ describe('Videogular Media', () => {
     });
 
     it('Should not be master by default', () => {
-        expect(media.vgMedia).toBeFalsy();
+        expect(media.vgMaster).toBeFalsy();
     });
 
     it('Should have a play method', () => {

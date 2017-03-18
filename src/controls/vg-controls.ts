@@ -112,7 +112,10 @@ export class VgControls implements OnInit, AfterViewInit {
         clearTimeout(this.timer);
         this.hideControls = false;
         this.hidden.state(false);
-        this.hideAsync();
+
+        if (this.vgAutohide) {
+            this.hideAsync();
+        }
     }
 
     private hideAsync() {
