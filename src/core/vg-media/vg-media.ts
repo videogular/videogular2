@@ -17,7 +17,8 @@ import 'rxjs/add/observable/combineLatest';
 export class VgMedia implements OnInit, OnDestroy, IPlayable {
     elem: any;
 
-    @Input() vgMedia: string;
+    @Input() vgMedia: any;
+    @Input() vgMaster: boolean;
 
     state: string = VgStates.VG_PAUSED;
 
@@ -59,13 +60,19 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     volumeChangeObs: Subscription;
     errorObs: Subscription;
 
-    isMaster: boolean;
+    constructor(private api: VgAPI) {
 
-    constructor(ref: ElementRef, private api: VgAPI) {
-        this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
+        if (this.vgMedia.nodeName) {
+            // It's a native element
+            this.elem = this.vgMedia;
+        } else {
+            // It's an Angular Class
+            this.elem = this.vgMedia.elem;
+        }
+
         this.subscriptions = {
             // Native events
             abort: Observable.fromEvent(<any>this.elem, VgEvents.VG_ABORT),
@@ -99,6 +106,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             // See changes on <source> child elements to reload the video file
             mutation: Observable.create(
                 (observer: any) => {
+
                     let domObs = new MutationObserver((mutations) => {
                         observer.next(mutations);
                     });
@@ -137,9 +145,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.volumeChangeObs = this.subscriptions.volumeChange.subscribe(this.onVolumeChange.bind(this));
         this.errorObs = this.subscriptions.error.subscribe(this.onError.bind(this));
 
-        this.isMaster = (this.vgMedia === 'master');
-
-        if (this.isMaster) {
+        if (this.vgMaster) {
             this.api.playerReadyEvent.subscribe(
                 () => {
                     this.prepareSync();
@@ -197,56 +203,56 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     onMutation(mutations: any) {
-        this.elem.pause();
-        this.elem.currentTime = 0;
+        this.vgMedia.pause();
+        this.vgMedia.currentTime = 0;
 
         // TODO: This is ugly, we should find something cleaner
-        setTimeout(() => this.elem.load(), 1);
+        setTimeout(() => this.vgMedia.load(), 1);
     }
 
     play() {
-        this.elem.play();
+        this.vgMedia.play();
     }
 
     pause() {
-        this.elem.pause();
+        this.vgMedia.pause();
     }
 
     get id() {
-        return this.elem.id;
+        return this.vgMedia.id;
     }
 
     get duration() {
-        return this.elem.duration;
+        return this.vgMedia.duration;
     }
 
     set currentTime(seconds) {
-        this.elem.currentTime = seconds;
+        this.vgMedia.currentTime = seconds;
         // this.elem.dispatchEvent(new CustomEvent(VgEvents.VG_SEEK));
     }
 
     get currentTime() {
-        return this.elem.currentTime;
+        return this.vgMedia.currentTime;
     }
 
     set volume(volume) {
-        this.elem.volume = volume;
+        this.vgMedia.volume = volume;
     }
 
     get volume() {
-        return this.elem.volume;
+        return this.vgMedia.volume;
     }
 
     set playbackRate(rate) {
-        this.elem.playbackRate = rate;
+        this.vgMedia.playbackRate = rate;
     }
 
     get playbackRate() {
-        return this.elem.playbackRate;
+        return this.vgMedia.playbackRate;
     }
 
     get buffered() {
-        return this.elem.buffered;
+        return this.vgMedia.buffered;
     }
 
     onCanPlay(event: any) {
@@ -287,7 +293,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     onPlay(event: any) {
         this.state = VgStates.VG_PLAYING;
 
-        if (this.isMaster) {
+        if (this.vgMaster) {
             if (!this.syncSubscription || this.syncSubscription.closed) {
                 this.startSync();
             }
@@ -301,7 +307,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     onPause(event: any) {
         this.state = VgStates.VG_PAUSED;
 
-        if (this.isMaster) {
+        if (this.vgMaster) {
             if (!this.playAtferSync) {
                 this.syncSubscription.unsubscribe();
             }
@@ -386,7 +392,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     ngOnDestroy() {
-        this.elem.src = '';
+        this.vgMedia.src = '';
         this.mutationObs.unsubscribe();
         this.canPlayObs.unsubscribe();
         this.canPlayThroughObs.unsubscribe();

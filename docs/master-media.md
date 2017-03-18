@@ -32,11 +32,11 @@ In this example we have two videos and `masterVideo` is the master video because
         <vg-fullscreen></vg-fullscreen>
     </vg-controls>
 
-    <video vgMedia="master" id="masterVideo" preload="auto">
+    <video [vgMedia]="master" #master [vgMaster]="true" id="masterVideo" preload="auto">
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
     </video>
 
-    <video vgMedia id="slaveVideo" preload="auto">
+    <video [vgMedia]="slave" #slave id="slaveVideo" preload="auto">
         <source src="http://static.videogular.com/assets/videos/vr-demo.mp4" type="video/mp4">
     </video>
 </vg-player>
@@ -73,7 +73,7 @@ Now you can add `vgFor="video-id"` to decide which `vgMedia` target when a user 
             <vg-fullscreen vgFor="leftVideo"></vg-fullscreen>
         </vg-controls>
     
-        <video vgMedia id="leftVideo" preload="auto">
+        <video [vgMedia]="left" #left id="leftVideo" preload="auto">
             <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
         </video>
     </div>
@@ -94,7 +94,7 @@ Now you can add `vgFor="video-id"` to decide which `vgMedia` target when a user 
             <vg-fullscreen vgFor="rightVideo"></vg-fullscreen>
         </vg-controls>
         
-        <video vgMedia id="rightVideo" preload="auto">
+        <video [vgMedia]="right" #right id="rightVideo" preload="auto">
             <source src="http://static.videogular.com/assets/videos/vr-demo.mp4" type="video/mp4">
         </video>
     </div>

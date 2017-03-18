@@ -19,7 +19,7 @@ VgCuePoints will add `cues` property to the track element with all the `VTTCue` 
 
 ```html
 <vg-player>
-    <video id="vid" preload="auto">
+    <video #media [vgMedia]="media" id="vid" preload="auto">
         <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
         
         <track src="../data/cue-points.vtt" kind="metadata" label="Cue Points" default
