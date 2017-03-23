@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, HostListener, OnInit, ViewEncapsulation, HostBinding } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 import { VgControlsHidden } from './../../core/services/vg-controls-hidden';
+import {VgStates} from "../../core/states/vg-states";
 
 @Component({
     selector: 'vg-scrub-bar',
@@ -54,9 +55,12 @@ export class VgScrubBar implements OnInit {
     @HostBinding('class.hide') hideScrubBar: boolean = false;
     
     @Input() vgFor: string;
+    @Input() vgSlider: boolean = false;
 
     elem: HTMLElement;
     target: any;
+    isSeeking: boolean = false;
+    wasPlaying: boolean = false;
 
     constructor(ref: ElementRef, public API: VgAPI, vgControlsHiddenState: VgControlsHidden) {
         this.elem = ref.nativeElement;
@@ -76,12 +80,124 @@ export class VgScrubBar implements OnInit {
         this.target = this.API.getMediaById(this.vgFor);
     }
 
+    protected seekStart(){
+        if(this.API.canPlay) {
+            this.isSeeking = true;
+            if (this.target.state == VgStates.VG_PLAYING) {
+                this.wasPlaying = true;
+            }
+            this.target.pause();
+        }
+    }
+
+    protected seekMove(offset: number){
+        if(this.isSeeking) {
+            let percentage = Math.max(Math.min(offset * 100 / this.elem.scrollWidth, 99.9), 0);
+            this.target.time.current = percentage * this.target.time.total / 100;
+            this.target.seekTime(percentage, true);
+        }
+    }
+
+    protected seekEnd(offset: number){
+        this.isSeeking = false;
+        if(this.API.canPlay) {
+            let percentage = Math.max(Math.min(offset * 100 / this.elem.scrollWidth, 99.9), 0);
+            this.target.seekTime(percentage, true);
+            if (this.wasPlaying) {
+                this.wasPlaying = false;
+                this.target.play();
+            }
+        }
+    }
+
+    protected touchEnd(){
+        this.isSeeking = false;
+        if(this.wasPlaying){
+            this.wasPlaying = false;
+            this.target.play();
+        }
+    }
+
+    protected getTouchOffset(event:any){
+        let offsetLeft:number = 0;
+        let element:any = event.target;
+        while (element) {
+            offsetLeft += element.offsetLeft;
+            element = element.offsetParent;
+        }
+        return event.touches[0].pageX - offsetLeft;
+    }
+
     @HostListener('mousedown', [ '$event' ])
     onMouseDownScrubBar($event: any) {
         if (!this.target.isLive) {
-            let percentage = $event.offsetX * 100 / this.elem.scrollWidth;
+            if(!this.vgSlider) {
+                this.seekEnd($event.offsetX);
+            }
+            else{
+                this.seekStart();
+            }
+        }
+    }
 
-            this.target.seekTime(percentage, true);
+    @HostListener('mousemove', [ '$event' ])
+    onMouseMoveScrubBar($event: any) {
+        if (!this.target.isLive && this.vgSlider && this.isSeeking) {
+            this.seekMove($event.offsetX);
+        }
+    }
+
+    @HostListener('mouseout', [ '$event' ])
+    onMouseOutScrubBar($event: any) {
+        if (!this.target.isLive && this.vgSlider && this.isSeeking) {
+            this.seekEnd($event.offsetX);
+        }
+    }
+
+    @HostListener('mouseup', [ '$event' ])
+    onMouseUpScrubBar($event: any) {
+        if (!this.target.isLive && this.vgSlider) {
+            this.seekEnd($event.offsetX);
+        }
+    }
+
+    @HostListener('touchstart', [ '$event' ])
+    onTouchStartScrubBar($event:any){
+        if (!this.target.isLive) {
+            if(!this.vgSlider) {
+                this.seekEnd(this.getTouchOffset($event));
+            }
+            else{
+                this.seekStart();
+            }
+        }
+    }
+
+    @HostListener('touchmove', [ '$event' ])
+    onTouchMoveScrubBar($event:any){
+        if (!this.target.isLive && this.vgSlider && this.isSeeking) {
+            this.seekMove(this.getTouchOffset($event));
+        }
+    }
+
+    @HostListener('touchcancel', [ '$event' ])
+    onTouchCancelScrubBar($event:any){
+        if (!this.target.isLive && this.vgSlider) {
+            this.touchEnd();
+        }
+    }
+
+    @HostListener('touchend', [ '$event' ])
+    onTouchEndScrubBar($event:any){
+        if (!this.target.isLive && this.vgSlider) {
+            this.touchEnd();
+        }
+    }
+
+    @HostListener('touchleave', [ '$event' ])
+    onTouchLeaveScrubBar($event:any){
+        if (!this.target.isLive && this.vgSlider) {
+            this.touchEnd();
         }
     }
 

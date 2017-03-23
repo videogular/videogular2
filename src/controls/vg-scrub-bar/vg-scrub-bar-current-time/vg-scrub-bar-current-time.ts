@@ -4,7 +4,7 @@ import { VgAPI } from '../../../core/services/vg-api';
 @Component({
     selector: 'vg-scrub-bar-current-time',
     encapsulation: ViewEncapsulation.None,
-    template: `<div class="background" [style.width]="getPercentage()"></div>`,
+    template: `<div class="background" [style.width]="getPercentage()"></div><span class="slider" *ngIf="vgSlider"></span>`,
     styles: [ `
         vg-scrub-bar-current-time {
             display: flex;
@@ -32,10 +32,21 @@ import { VgAPI } from '../../../core/services/vg-api';
             -moz-border-radius: 2px;
             border-radius: 2px;
         }
+        
+        vg-scrub-bar-current-time .slider{
+            background: white;
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px black;
+            margin-top: -5px;
+            margin-left: -10px;
+        }
     ` ]
 })
 export class VgScrubBarCurrentTime implements OnInit {
     @Input() vgFor: string;
+    @Input() vgSlider: boolean = false;
 
     elem: HTMLElement;
     target: any;
