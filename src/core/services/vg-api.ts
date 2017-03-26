@@ -243,4 +243,8 @@ export class VgAPI {
     registerMedia(media:IPlayable) {
         this.medias[media.id] = media;
     }
+
+    unregisterMedia(media:IPlayable) {
+        delete this.medias[media.id];
+    }
 }
