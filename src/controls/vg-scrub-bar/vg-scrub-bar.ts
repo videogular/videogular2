@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, HostListener, OnInit, ViewEncapsulation, HostBinding } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 import { VgControlsHidden } from './../../core/services/vg-controls-hidden';
-import {VgStates} from "../../core/states/vg-states";
+import { VgStates } from '../../core/states/vg-states';
 
 @Component({
     selector: 'vg-scrub-bar',
@@ -53,7 +53,7 @@ import {VgStates} from "../../core/states/vg-states";
 })
 export class VgScrubBar implements OnInit {
     @HostBinding('class.hide') hideScrubBar: boolean = false;
-    
+
     @Input() vgFor: string;
     @Input() vgSlider: boolean = true;
 
@@ -80,27 +80,27 @@ export class VgScrubBar implements OnInit {
         this.target = this.API.getMediaById(this.vgFor);
     }
 
-    protected seekStart(){
-        if(this.API.canPlay) {
+    protected seekStart() {
+        if (this.target.canPlay) {
             this.isSeeking = true;
-            if (this.target.state == VgStates.VG_PLAYING) {
+            if (this.target.state === VgStates.VG_PLAYING) {
                 this.wasPlaying = true;
             }
             this.target.pause();
         }
     }
 
-    protected seekMove(offset: number){
-        if(this.isSeeking) {
+    protected seekMove(offset: number) {
+        if (this.isSeeking) {
             let percentage = Math.max(Math.min(offset * 100 / this.elem.scrollWidth, 99.9), 0);
             this.target.time.current = percentage * this.target.time.total / 100;
             this.target.seekTime(percentage, true);
         }
     }
 
-    protected seekEnd(offset: number){
+    protected seekEnd(offset: number) {
         this.isSeeking = false;
-        if(this.API.canPlay) {
+        if (this.target.canPlay) {
             let percentage = Math.max(Math.min(offset * 100 / this.elem.scrollWidth, 99.9), 0);
             this.target.seekTime(percentage, true);
             if (this.wasPlaying) {
@@ -110,31 +110,31 @@ export class VgScrubBar implements OnInit {
         }
     }
 
-    protected touchEnd(){
+    protected touchEnd() {
         this.isSeeking = false;
-        if(this.wasPlaying){
+        if (this.wasPlaying) {
             this.wasPlaying = false;
             this.target.play();
         }
     }
 
-    protected getTouchOffset(event:any){
-        let offsetLeft:number = 0;
-        let element:any = event.target;
+    protected getTouchOffset(event: any) {
+        let offsetLeft: number = 0;
+        let element: any = event.target;
         while (element) {
             offsetLeft += element.offsetLeft;
             element = element.offsetParent;
         }
-        return event.touches[0].pageX - offsetLeft;
+        return event.touches[ 0 ].pageX - offsetLeft;
     }
 
     @HostListener('mousedown', [ '$event' ])
     onMouseDownScrubBar($event: any) {
         if (!this.target.isLive) {
-            if(!this.vgSlider) {
+            if (!this.vgSlider) {
                 this.seekEnd($event.offsetX);
             }
-            else{
+            else {
                 this.seekStart();
             }
         }
@@ -162,40 +162,40 @@ export class VgScrubBar implements OnInit {
     }
 
     @HostListener('touchstart', [ '$event' ])
-    onTouchStartScrubBar($event:any){
+    onTouchStartScrubBar($event: any) {
         if (!this.target.isLive) {
-            if(!this.vgSlider) {
+            if (!this.vgSlider) {
                 this.seekEnd(this.getTouchOffset($event));
             }
-            else{
+            else {
                 this.seekStart();
             }
         }
     }
 
     @HostListener('touchmove', [ '$event' ])
-    onTouchMoveScrubBar($event:any){
+    onTouchMoveScrubBar($event: any) {
         if (!this.target.isLive && this.vgSlider && this.isSeeking) {
             this.seekMove(this.getTouchOffset($event));
         }
     }
 
     @HostListener('touchcancel', [ '$event' ])
-    onTouchCancelScrubBar($event:any){
+    onTouchCancelScrubBar($event: any) {
         if (!this.target.isLive && this.vgSlider) {
             this.touchEnd();
         }
     }
 
     @HostListener('touchend', [ '$event' ])
-    onTouchEndScrubBar($event:any){
+    onTouchEndScrubBar($event: any) {
         if (!this.target.isLive && this.vgSlider) {
             this.touchEnd();
         }
     }
 
     @HostListener('touchleave', [ '$event' ])
-    onTouchLeaveScrubBar($event:any){
+    onTouchLeaveScrubBar($event: any) {
         if (!this.target.isLive && this.vgSlider) {
             this.touchEnd();
         }
@@ -203,5 +203,5 @@ export class VgScrubBar implements OnInit {
 
     onHideScrubBar(hide: boolean) {
         this.hideScrubBar = hide;
-    } 
+    }
 }
