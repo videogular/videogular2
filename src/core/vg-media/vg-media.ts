@@ -73,6 +73,11 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             this.elem = this.vgMedia.elem;
         }
 
+        // It's not registered yet
+        if (!this.api.getMediaById(this.id)) {
+            this.api.registerMedia(this);
+        }
+
         this.subscriptions = {
             // Native events
             abort: Observable.fromEvent(<any>this.elem, VgEvents.VG_ABORT),
@@ -219,7 +224,14 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     get id() {
-        return this.vgMedia.id;
+        // We should return undefined if vgMedia still doesn't exist
+        let result = undefined;
+
+        if (this.vgMedia) {
+            result = this.vgMedia.id;
+        }
+
+        return result;
     }
 
     get duration() {
