@@ -3,6 +3,7 @@ import {VgAPI} from "../../core/services/vg-api";
 import {ElementRef} from "@angular/core";
 import {VgControlsHidden} from './../../core/services/vg-controls-hidden';
 import {VgMedia} from "../../core/vg-media/vg-media";
+import { VgStates } from '../../core/states/vg-states';
 
 describe('Scrub bar', () => {
     let scrubBar:VgScrubBar;
@@ -44,7 +45,6 @@ describe('Scrub bar', () => {
         media.vgMedia = elem;
         vgControlsHiddenState = new VgControlsHidden();
 
-
         scrubBar = new VgScrubBar(ref, api, vgControlsHiddenState);
     });
 
@@ -69,25 +69,28 @@ describe('Scrub bar', () => {
 
     describe('onMouseDownScrubBar', () => {
         it('should call API seekTime 10 when offsetX is 20 and scrollWidth is 200', () => {
-            spyOn(api, 'seekTime');
+            api = <any>{
+                seekTime: () => {},
+                pause: () => {},
+                registerMedia: () => {},
+                state: VgStates.VG_PLAYING,
+                isLive: false,
+                canPlay: true
+            };
+
             spyOn(api, 'pause');
 
             media.onCanPlay({});
             api.registerMedia(media);
 
             scrubBar.target = api;
-
-            scrubBar.onMouseDownScrubBar({ offsetX: 20 });
-
-            expect(api.seekTime).toHaveBeenCalledWith(10, true);
-
+            scrubBar.target.canPlay = true;
             scrubBar.vgSlider = true;
             scrubBar.isSeeking = true;
 
             scrubBar.onMouseDownScrubBar({ offsetX: 20 });
 
-            expect(api.seekTime).toHaveBeenCalledTimes(1);
-            expect(api.pause).toHaveBeenCalledTimes(1);
+            expect(api.pause).toHaveBeenCalled();
         });
     });
 
@@ -96,6 +99,7 @@ describe('Scrub bar', () => {
             spyOn(api, 'seekTime');
 
             scrubBar.target = api;
+            scrubBar.vgSlider = false;
 
             scrubBar.onMouseMoveScrubBar({ offsetX: 20 });
 
@@ -118,6 +122,7 @@ describe('Scrub bar', () => {
             api.registerMedia(media);
 
             scrubBar.target = api;
+            scrubBar.vgSlider = false;
 
             scrubBar.onMouseOutScrubBar({ offsetX: 20 });
 
@@ -140,6 +145,7 @@ describe('Scrub bar', () => {
             api.registerMedia(media);
 
             scrubBar.target = api;
+            scrubBar.vgSlider = false;
 
             scrubBar.onMouseUpScrubBar({ offsetX: 20 });
 
@@ -163,6 +169,7 @@ describe('Scrub bar', () => {
             api.registerMedia(media);
 
             scrubBar.target = api;
+            scrubBar.vgSlider = false;
 
             scrubBar.onTouchStartScrubBar({ touches: [ {pageX: 20 }]});
 
@@ -184,6 +191,7 @@ describe('Scrub bar', () => {
             spyOn(api, 'seekTime');
 
             scrubBar.target = api;
+            scrubBar.vgSlider = false;
 
             scrubBar.onTouchMoveScrubBar({ touches: [ {pageX: 20 }]});
 
@@ -203,6 +211,7 @@ describe('Scrub bar', () => {
             spyOn(api, 'seekTime');
 
             scrubBar.target = api;
+            scrubBar.vgSlider = false;
 
             scrubBar.onTouchCancelScrubBar({ touches: [ {pageX: 20 }]});
 
@@ -222,6 +231,7 @@ describe('Scrub bar', () => {
             spyOn(api, 'seekTime');
 
             scrubBar.target = api;
+            scrubBar.vgSlider = false;
 
             scrubBar.onTouchEndScrubBar({ touches: [ {pageX: 20 }]});
 
@@ -241,6 +251,7 @@ describe('Scrub bar', () => {
             spyOn(api, 'seekTime');
 
             scrubBar.target = api;
+            scrubBar.vgSlider = false;
 
             scrubBar.onTouchLeaveScrubBar({ touches: [ {pageX: 20 }]});
 

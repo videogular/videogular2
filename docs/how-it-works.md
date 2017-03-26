@@ -63,15 +63,15 @@ This is great! We can add some Videogular components to have a nice UI for our v
 
 The VgScrubBar inside controls has a `pointer-events: none;` to avoid clicks on it but it's necessary to create some space between components. Of course, if you like, you can remove it and create your own `div` with a `class` and it will do the job too. That's the good thing about using custom elements!
 
-You can also enable slider events in the VgScrubBar using the vgSlider attribute:
+You can also disable slider events in the VgScrubBar using the vgSlider attribute (true is default):
 ```html
-    <vg-scrub-bar [vgSlider]="true">
+    <vg-scrub-bar [vgSlider]="false">
         <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
         <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
     </vg-scrub-bar>
 ```
 
-Optionally, a circle can be shown in VgScrubBarCurrentTime using the same vgSlider attribute:
+Optionally, a circle can be shown in VgScrubBarCurrentTime using the same vgSlider attribute (false is default):
 
 ```html
     <vg-scrub-bar [vgSlider]="true">
