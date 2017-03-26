@@ -12,7 +12,7 @@ import { VgAPI } from '../../core/services/vg-api';
             (mousedown)="onMouseDown($event)">
             <div class="volumeBackground" [ngClass]="{dragging: isDragging}">
                 <div class="volumeValue" [style.width]="(getVolume() * (100-15)) + '%'"></div>
-                <div class="volumeKnob" [style.left]="(getVolume() * (100-15)) + 'px'"></div>
+                <div class="volumeKnob" [style.left]="(getVolume() * (100-15)) + '%'"></div>
             </div>
         </div>
     `,
@@ -121,8 +121,10 @@ export class VgVolume implements OnInit {
     }
 
     calculateVolume(mousePosX: number) {
-        const volumeBarOffsetLeft: number = this.volumeBarRef.nativeElement.getBoundingClientRect().left;
-        return mousePosX - volumeBarOffsetLeft;
+        const recObj = this.volumeBarRef.nativeElement.getBoundingClientRect();
+        const volumeBarOffsetLeft: number = recObj.left;
+        const volumeBarWidth: number = recObj.width;
+        return (mousePosX - volumeBarOffsetLeft) / volumeBarWidth * 100;
     }
 
     setVolume(vol: number) {
