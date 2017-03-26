@@ -416,5 +416,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.timeUpdateObs.unsubscribe();
         this.volumeChangeObs.unsubscribe();
         this.errorObs.unsubscribe();
+
+        this.api.unregisterMedia(this);
     }
 }
