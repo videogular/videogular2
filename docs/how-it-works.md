@@ -63,6 +63,23 @@ This is great! We can add some Videogular components to have a nice UI for our v
 
 The VgScrubBar inside controls has a `pointer-events: none;` to avoid clicks on it but it's necessary to create some space between components. Of course, if you like, you can remove it and create your own `div` with a `class` and it will do the job too. That's the good thing about using custom elements!
 
+You can also enable slider events in the VgScrubBar using the vgSlider attribute:
+```html
+    <vg-scrub-bar [vgSlider]="true">
+        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+    </vg-scrub-bar>
+```
+
+Optionally, a circle can be shown in VgScrubBarCurrentTime using the same vgSlider attribute:
+
+```html
+    <vg-scrub-bar [vgSlider]="true">
+        <vg-scrub-bar-current-time [vgSlider]="true"></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+    </vg-scrub-bar>
+```
+
 One of the most important things that you need to understand is that all components are not going to work if you don't add a `vgMedia` directive to the `video` tag. So remember to add at least one `vgMedia` on each player.
 
 Now you can create your TypeScript file and compile/bundle with your favourite setup.
