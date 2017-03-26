@@ -73,10 +73,8 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             this.elem = this.vgMedia.elem;
         }
 
-        // It's not registered yet
-        if (!this.api.getMediaById(this.id)) {
-            this.api.registerMedia(this);
-        }
+        // Just in case we're creating this vgMedia dynamically register again into API
+        this.api.registerMedia(this);
 
         this.subscriptions = {
             // Native events

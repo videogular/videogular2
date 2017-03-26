@@ -328,4 +328,13 @@ describe('Videogular Player', () => {
 
         expect(api.medias['main']).toBe(media);
     });
+
+    it('Should register a new media object', () => {
+        let media = {id: 'main'};
+        api['main'] = {};
+
+        api.unregisterMedia(<IPlayable>media);
+
+        expect(api.medias['main']).toBe(undefined);
+    });
 });
