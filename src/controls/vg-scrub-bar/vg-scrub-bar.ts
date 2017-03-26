@@ -55,7 +55,7 @@ export class VgScrubBar implements OnInit {
     @HostBinding('class.hide') hideScrubBar: boolean = false;
     
     @Input() vgFor: string;
-    @Input() vgSlider: boolean = false;
+    @Input() vgSlider: boolean = true;
 
     elem: HTMLElement;
     target: any;
