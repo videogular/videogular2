@@ -23,7 +23,7 @@
     "@angular/platform-server": "2.2.3",
     "@types/core-js": "0.9.35",
     "@types/jasmine": "2.5.38",
-    "codelyzer": "2.0.1",
+    "codelyzer": "2.1.0",
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.0.0",
     "es6-module-loader": "0.17.11",
