@@ -81,7 +81,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
             this.hls.attachMedia(video);
         }
         else {
-            if (this.target) {
+            if (this.target && !!this.target.pause) {
                 this.target.pause();
                 this.target.seekTime(0);
                 this.ref.nativeElement.src = this.vgHls;
