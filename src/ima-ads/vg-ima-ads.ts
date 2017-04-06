@@ -58,6 +58,11 @@ export class VgImaAds {
     }
 
     onPlayerReady() {
+        if (typeof google === "undefined") {
+            this.onMissingGoogleImaLoader();
+            return;
+        }
+
         this.target = this.API.getMediaById(this.vgFor);
 
         this.initializations();
@@ -268,6 +273,11 @@ export class VgImaAds {
         if (!this.fsAPI.nativeFullscreen) {
             this.isFullscreen = fsState;
         }
+    }
+
+    private onMissingGoogleImaLoader() {
+        this.hide();
+        this.API.play();
     }
 }
 
