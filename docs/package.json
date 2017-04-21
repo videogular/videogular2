@@ -9,7 +9,7 @@
     "gitbook-plugin-responsive-iframes": "1.0.2"
   },
   "scripts": {
-    "build": "gitbook build"
+    "build": "gitbook install && gitbook build"
   },
   "author": "Raul Jimenez <elecash@gmail.com> (http://twofuckingedevelopers.com/)",
   "license": "MIT"

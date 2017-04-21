@@ -16,7 +16,10 @@ before_script:
   - npm prune
 script:
   - npm run build:travis
-  - cd docs && npm run build && cd ..
+  - cd docs
+  - npm install
+  - npm run build
+  - cd ..
 after_success:
   - npm run semantic-release
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
