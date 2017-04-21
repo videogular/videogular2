@@ -1,0 +1,451 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Using the API · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-responsive-iframes/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../modules/core/" />
+    
+    
+    <link rel="prev" href="master-media.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Introduction</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    What's Videogular?
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Getting Started</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="how-it-works.html">
+            
+                <a href="how-it-works.html">
+            
+                    
+                    How it works
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="master-media.html">
+            
+                <a href="master-media.html">
+            
+                    
+                    Master Media
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.4" data-path="using-the-api.html">
+            
+                <a href="using-the-api.html">
+            
+                    
+                    Using the API
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Modules</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../modules/core/">
+            
+                <a href="../modules/core/">
+            
+                    
+                    videogular2/core
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../modules/core/vg-player/">
+            
+                <a href="../modules/core/vg-player/">
+            
+                    
+                    VgPlayer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../modules/core/vg-cue-points/">
+            
+                <a href="../modules/core/vg-cue-points/">
+            
+                    
+                    VgCuePoints
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../modules/core/services/vg-api/">
+            
+                <a href="../modules/core/services/vg-api/">
+            
+                    
+                    VgAPI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Using the API</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="using-the-api">Using the API</h2>
+<p>Videogular&apos;s API is the service that will allow you to control the media objects and listen to any change on them. It&apos;s not mandatory to use the API but if you need to control externally the medias or you want to listen to changes you need use it. </p>
+<p>To start using the API first you need to grab it from the player. To do that listen for the event <code>onPlayerReady</code> that will get you the API:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">vg-player</span> (<span class="hljs-attr">onPlayerReady</span>)=<span class="hljs-string">&quot;onPlayerReady($event)&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">vg-overlay-play</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-overlay-play</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">vg-buffering</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-buffering</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">vg-controls</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-play-pause</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-play-pause</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-playback-button</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-playback-button</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-time-display</span> <span class="hljs-attr">vgProperty</span>=<span class="hljs-string">&quot;current&quot;</span> <span class="hljs-attr">vgFormat</span>=<span class="hljs-string">&quot;mm:ss&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-time-display</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-scrub-bar</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">vg-scrub-bar-current-time</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-scrub-bar-current-time</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">vg-scrub-bar-buffering-time</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-scrub-bar-buffering-time</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">vg-scrub-bar</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-time-display</span> <span class="hljs-attr">vgProperty</span>=<span class="hljs-string">&quot;left&quot;</span> <span class="hljs-attr">vgFormat</span>=<span class="hljs-string">&quot;mm:ss&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-time-display</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-time-display</span> <span class="hljs-attr">vgProperty</span>=<span class="hljs-string">&quot;total&quot;</span> <span class="hljs-attr">vgFormat</span>=<span class="hljs-string">&quot;mm:ss&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-time-display</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-track-selector</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-track-selector</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-mute</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-mute</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-volume</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-volume</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">vg-fullscreen</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-fullscreen</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">vg-controls</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">video</span> [<span class="hljs-attr">vgMedia</span>]=<span class="hljs-string">&quot;media&quot;</span> #<span class="hljs-attr">media</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;singleVideo&quot;</span> <span class="hljs-attr">preload</span>=<span class="hljs-string">&quot;auto&quot;</span> <span class="hljs-attr">crossorigin</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://static.videogular.com/assets/videos/videogular.mp4&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;video/mp4&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">vg-player</span>&gt;</span>
+</code></pre>
+<p>Now on your <code>Component</code> get the API:</p>
+<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> {Component} from <span class="hljs-string">&apos;@angular/core&apos;</span>;
+<span class="hljs-keyword">import</span> {VgAPI} from <span class="hljs-string">&apos;videogular2/core&apos;</span>;
+
+@Component({
+    selector: <span class="hljs-string">&apos;bound-player&apos;</span>,
+    templateUrl: <span class="hljs-string">&apos;src/bound-player.html&apos;</span>
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> BoundPlayer {
+    preload:<span class="hljs-built_in">string</span> = <span class="hljs-string">&apos;auto&apos;</span>;
+    api:VgAPI;
+
+    <span class="hljs-keyword">constructor</span>() {}
+
+    onPlayerReady(api:VgAPI) {
+        <span class="hljs-keyword">this</span>.api = api;
+    }
+}
+</code></pre>
+<p>Now that you have the API you can listen to changes and perform actions:</p>
+<pre><code class="lang-typescript">onPlayerReady(api:VgAPI) {
+    <span class="hljs-keyword">this</span>.api = api;
+
+    <span class="hljs-keyword">this</span>.api.getDefaultMedia().subscriptions.ended.subscribe(
+        () =&gt; {
+            <span class="hljs-comment">// Set the video to the beginning</span>
+            <span class="hljs-keyword">this</span>.api.getDefaultMedia().currentTime = <span class="hljs-number">0</span>;
+        }
+    );
+}
+</code></pre>
+<p>You have a lot of events to listen:</p>
+<ul>
+<li><strong>canPlay</strong>: Sent when enough data is available that the media can be played, at least for a couple of frames. This corresponds to the <code>HAVE_ENOUGH_DATA</code> readyState.</li>
+<li><strong>canPlayThrough</strong>: Sent when the ready state changes to <code>CAN_PLAY_THROUGH</code>, indicating that the entire media can be played without interruption, assuming the download rate remains at least at the current level. It will also be fired when playback is toggled between paused and playing. Note: Manually setting the <code>currentTime</code> will eventually fire a <code>canplaythrough</code> event in firefox. Other browsers might not fire this event.</li>
+<li><strong>loadedMetadata</strong>: The media&apos;s metadata has finished loading; all attributes now contain as much useful information as they&apos;re going to.</li>
+<li><strong>waiting</strong>: Sent when the requested operation (such as playback) is delayed pending the completion of another operation (such as a seek).</li>
+<li><strong>progress</strong>: Sent periodically to inform interested parties of progress downloading the media. Information about the current amount of the media that has been downloaded is available in the media element&apos;s <code>buffered</code> attribute. </li>
+<li><strong>seeking</strong>: Sent when a seek operation begins.</li>
+<li><strong>seeked</strong>: Sent when a seek operation completes.</li>
+<li><strong>ended</strong>: Sent when playback completes.</li>
+<li><strong>playing</strong>: Sent when the media begins to play (either for the first time, after having been paused, or after ending and then restarting). </li>
+<li><strong>play</strong>: Sent when playback of the media starts after having been paused; that is, when playback is resumed after a prior pause event. </li>
+<li><strong>pause</strong>: Sent when playback is paused. </li>
+<li><strong>timeUpdate</strong>: he time indicated by the element&apos;s currentTime` attribute has changed. </li>
+<li><strong>volumeChange</strong>: Sent when the audio volume changes (both when the volume is set and when the muted attribute is changed). </li>
+<li><strong>error</strong>: Sent when an error occurs.  The element&apos;s error attribute contains more information. </li>
+<li><strong>startAds</strong>: Sent when an advertisement started. This event will only be triggered if you have the Videogular Google IMA in your media player. </li>
+<li><strong>endAds</strong>: Sent when an advertisement completes. This event will only be triggered if you have the Videogular Google IMA in your media player. </li>
+</ul>
+<p>Event information extracted from MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events" target="_blank">https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="master-media.html" class="navigation navigation-prev " aria-label="Previous page: Master Media">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../modules/core/" class="navigation navigation-next " aria-label="Next page: videogular2/core">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Using the API","level":"2.4","depth":1,"next":{"title":"videogular2/core","level":"3.1","depth":1,"path":"modules/core/README.md","ref":"modules/core/README.md","articles":[{"title":"VgPlayer","level":"3.1.1","depth":2,"path":"modules/core/vg-player/README.md","ref":"modules/core/vg-player/README.md","articles":[]},{"title":"VgCuePoints","level":"3.1.2","depth":2,"path":"modules/core/vg-cue-points/README.md","ref":"modules/core/vg-cue-points/README.md","articles":[]},{"title":"VgAPI","level":"3.1.3","depth":2,"path":"modules/core/services/vg-api/README.md","ref":"modules/core/services/vg-api/README.md","articles":[]}]},"previous":{"title":"Master Media","level":"2.3","depth":1,"path":"getting-started/master-media.md","ref":"getting-started/master-media.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting-started/using-the-api.md","mtime":"2017-04-21T16:30:38.994Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-21T16:32:29.660Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-responsive-iframes/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

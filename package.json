@@ -1,99 +1,16 @@
 {
-  "name": "videogular2",
-  "version": "0.0.0-semantically-released",
-  "description": "Videogular is a video application framework for desktop and mobile powered by Angular 2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/videogular/videogular2"
-  },
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "Videogular documentation",
+  "main": "index.js",
   "dependencies": {
-    "core-js": "2.4.1",
-    "reflect-metadata": "0.1.10",
-    "rxjs": "5.0.0-beta.12",
-    "systemjs": "0.20.9",
-    "zone.js": "0.8.5"
-  },
-  "devDependencies": {
-    "@angular/common": "2.2.3",
-    "@angular/compiler": "2.2.3",
-    "@angular/compiler-cli": "2.2.3",
-    "@angular/core": "2.2.3",
-    "@angular/platform-browser": "2.2.3",
-    "@angular/platform-browser-dynamic": "2.2.3",
-    "@angular/platform-server": "2.2.3",
-    "@types/core-js": "0.9.35",
-    "@types/jasmine": "2.5.38",
-    "codelyzer": "2.0.1",
-    "commitizen": "2.9.6",
-    "cz-conventional-changelog": "2.0.0",
-    "es6-module-loader": "0.17.11",
-    "ghooks": "2.0.0",
-    "http-server": "0.9.0",
-    "jasmine-core": "2.5.2",
-    "karma": "1.5.0",
-    "karma-chrome-launcher": "2.0.0",
-    "karma-coverage": "1.1.1",
-    "karma-jasmine": "1.1.0",
-    "karma-spec-reporter": "0.0.30",
-    "parallelshell": "2.0.0",
-    "remap-istanbul": "0.9.5",
-    "semantic-release": "6.3.2",
-    "tslint": "4.5.1",
-    "typescript": "2.0.10",
-    "watch": "1.0.2"
+    "gitbook-cli": "2.3.0",
+    "gitbook-plugin-ga": "1.0.1",
+    "gitbook-plugin-responsive-iframes": "1.0.2"
   },
   "scripts": {
-    "prebuild": "npm run clean",
-    "build": "ngc",
-    "postbuild": "npm test",
-    "build:travis": "ngc",
-    "postbuild:travis": "npm run test",
-    "clean": "rm -rf ./src/**/*.js && rm -rf ./src/**/*.d.ts && rm -rf ./compiled",
-    "precommit": "npm test",
-    "commit": "git-cz",
-    "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
-    "start": "parallelshell 'npm run watch:ts' 'npm run start:coverage-server'",
-    "start:coverage-server": "http-server -c-1 -o -p 9875 ./coverage",
-    "test": "karma start karma.conf.js",
-    "posttest": "remap-istanbul -i coverage/coverage-final.json -o coverage -t html",
-    "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "watch:ts": "watch 'npm run build' src",
-    "parallelshell": "parallelshell",
-    "lint": "tslint '**/*.ts' -e 'node_modules/**/*' -e 'compiled/**/**'  --fix --noUnusedParameters --noUnusedLocals"
+    "build": "gitbook install && gitbook build"
   },
-  "engines": {
-    "node": ">= 4"
-  },
-  "keywords": [
-    "video",
-    "player",
-    "framework",
-    "angular2",
-    "javascript"
-  ],
-  "author": "Raúl Jiménez <elecash@gmail.com>",
-  "contributors": [
-    {
-      "name": "Alberto García",
-      "email": "cernhelm@gmail.com"
-    },
-    {
-      "name": "Joan Llenas Masó",
-      "email": "joan.llenas.maso@gmail.com"
-    }
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/videogular/videogular2/issues"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    },
-    "ghooks": {
-      "pre-commit": "npm run test"
-    }
-  },
-  "homepage": "http://videogular.com"
+  "author": "Raul Jimenez <elecash@gmail.com> (http://twofuckingedevelopers.com/)",
+  "license": "MIT"
 }
