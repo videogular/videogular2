@@ -10,6 +10,7 @@ npm-debug.log
 **/*.metadata.json
 coverage
 compiled
+docs/_book
 !karma.conf.js
 !karma-test-shim.js
 
