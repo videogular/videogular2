@@ -1,7 +1,3 @@
----
-currentMenu: how-it-works
----
-
 ## How Videogular works
 
 Videogular relies heavily on HTML5 standards allowing you to create your own video player just by adding some tags and attributes to your HTML code.
@@ -119,5 +115,3 @@ export class SingleMediaPlayer {}
 ```
 
 Now that we know how to create a simple player let's see in the next page how to create a more complex player.
-
-[Go to Using the API](using-the-api.md)

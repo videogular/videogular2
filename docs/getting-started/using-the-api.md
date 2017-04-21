@@ -1,7 +1,3 @@
----
-currentMenu: using-the-api
----
-
 ## Using the API
 
 Videogular's API is the service that will allow you to control the media objects and listen to any change on them. It's not mandatory to use the API but if you need to control externally the medias or you want to listen to changes you need use it. 
@@ -97,5 +93,3 @@ You have a lot of events to listen:
 - **endAds**: Sent when an advertisement completes. This event will only be triggered if you have the Videogular Google IMA in your media player. 
 
 Event information extracted from MDN: https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
-
-<a href="master-media.html">Go to Master Media</a>

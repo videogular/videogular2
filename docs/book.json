@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    "ga",
+    "responsive-iframes"
+  ],
+  "pluginsConfig": {
+    "ga": {
+      "token": "UA-45418240-1"
+    }
+  }
+}

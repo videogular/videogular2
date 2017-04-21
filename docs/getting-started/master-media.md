@@ -1,7 +1,3 @@
----
-currentMenu: master-media
----
-
 ## Master media
 
 Master media is a new feature introduced in Videogular 2 that allows you to have several `vgMedia` and decide which one is the main media.
