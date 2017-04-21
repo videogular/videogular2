@@ -10,6 +10,7 @@ currentMenu: home
 **Videogular is an HTML5 video player for Angular 2.0**. Videogular is a wrapper over the HTML5 video tag, so you can just add whatever you want. This provides a very powerful, but simple to use solution, for everybody.
 
 You can see a demo here: https://videogular.github.io/videogular2-showroom/#/
+Documentation: https://videogular.github.io/videogular2
 
 # How to install
 
