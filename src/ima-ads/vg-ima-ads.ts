@@ -256,12 +256,22 @@ export class VgImaAds {
     }
 
     show() {
-        window.dispatchEvent(new CustomEvent(VgEvents.VG_START_ADS));
+        try {
+            window.dispatchEvent(new CustomEvent(VgEvents.VG_START_ADS));
+        } catch (e) {
+            console.log(e);
+        }
+
         this.displayState = 'block';
     }
 
     hide() {
-        window.dispatchEvent(new CustomEvent(VgEvents.VG_END_ADS));
+        try {
+            window.dispatchEvent(new CustomEvent(VgEvents.VG_END_ADS));
+        } catch (e) {
+            console.log(e);
+        }
+
         this.displayState = 'none';
     }
 
