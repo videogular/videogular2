@@ -1,7 +1,3 @@
----
-currentMenu: services/vg-api
----
-
 # VgAPI @Injectable Service
 
 Service that controls all media objects inside `vg-player` element.
@@ -13,6 +9,14 @@ This service is created by the element `vg-player` when it is instantiated. On c
 ### getDefaultMedia():void
 
 Returns the first media registered to the API.
+
+### getMasterMedia():IPlayable
+
+Returns the master media registered to the API.
+
+### isMasterDefined():boolean
+
+Returns if there is a master media registered to the API.
 
 ### getMediaById(id:string = null):any
 
@@ -34,7 +38,9 @@ Registers a new element as container and saves a reference internally in to the 
 
 Register a new media element and saves internally a reference in to the `medias` property.
 
+### seekTime(value:number, byPercent:boolean)
 
+Will seek to `value` in seconds or in percentage if `byPercent` is true. By default `byPercent` is false. If there's a master media defined the seek by percentage would be calculated based on master media's duration.
 
 <hr>
 
@@ -83,6 +89,14 @@ When media is loading data `isWaiting` property value is `true`. Default value i
 ### isCompleted [read-only] :boolean|object
 
 When a media have been reached the end of the video `isCompleted` property value is `true`. Default value is `false`. It will return an object with all `isCompleted` values if there are more than one media object registered.
+
+### isLive [read-only] :boolean|object
+
+Boolean value to know if the current media is a live stream.
+
+### isMaster [read-only] :boolean|object
+
+Boolean value to know if the current media is the master media.
 
 ### time [read-only] :object
 
@@ -145,10 +159,11 @@ Object definition is:
 
 Default value is `undefined`.
 
-### subscriptions [read-only] :object
+### subscriptions [read-only] :IMediaSubscriptions
 
-Returns an `object` with a list of observables or an object with all observables in all medias if there are more than one media object registered.
+Returns an `IMediaSubscriptions` with a list of observables or an object with all observables in all medias if there are more than one media object registered.
 
 ### videogularElement [read-write] :object
 
 This property haves a reference to the container element, usually `vg-player` but it could be overridden in case that you're building your own implementation of `vg-player`.
+
