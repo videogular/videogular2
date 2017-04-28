@@ -75,21 +75,30 @@ onPlayerReady(api:VgAPI) {
 
 You have a lot of events to listen:
 
-- **canPlay**: Sent when enough data is available that the media can be played, at least for a couple of frames. This corresponds to the `HAVE_ENOUGH_DATA` readyState.
-- **canPlayThrough**: Sent when the ready state changes to `CAN_PLAY_THROUGH`, indicating that the entire media can be played without interruption, assuming the download rate remains at least at the current level. It will also be fired when playback is toggled between paused and playing. Note: Manually setting the `currentTime` will eventually fire a `canplaythrough` event in firefox. Other browsers might not fire this event.
-- **loadedMetadata**: The media's metadata has finished loading; all attributes now contain as much useful information as they're going to.
-- **waiting**: Sent when the requested operation (such as playback) is delayed pending the completion of another operation (such as a seek).
-- **progress**: Sent periodically to inform interested parties of progress downloading the media. Information about the current amount of the media that has been downloaded is available in the media element's `buffered` attribute. 
-- **seeking**: Sent when a seek operation begins.
-- **seeked**: Sent when a seek operation completes.
-- **ended**: Sent when playback completes.
-- **playing**: Sent when the media begins to play (either for the first time, after having been paused, or after ending and then restarting). 
-- **play**: Sent when playback of the media starts after having been paused; that is, when playback is resumed after a prior pause event. 
-- **pause**: Sent when playback is paused. 
-- **timeUpdate**: he time indicated by the element's currentTime` attribute has changed. 
-- **volumeChange**: Sent when the audio volume changes (both when the volume is set and when the muted attribute is changed). 
-- **error**: Sent when an error occurs.  The element's error attribute contains more information. 
-- **startAds**: Sent when an advertisement started. This event will only be triggered if you have the Videogular Google IMA in your media player. 
-- **endAds**: Sent when an advertisement completes. This event will only be triggered if you have the Videogular Google IMA in your media player. 
+- **abort**: Fired when the loading of the media has been aborted.
+- **canPlay**: Fired when enough data is available that the media can be played, at least for a couple of frames. This corresponds to the `HAVE_ENOUGH_DATA` readyState.
+- **canPlayThrough**: Fired when the ready state changes to `CAN_PLAY_THROUGH`, indicating that the entire media can be played without interruption, assuming the download rate remains at least at the current level. It will also be fired when playback is toggled between paused and playing. Note: Manually setting the `currentTime` will eventually fire a `canplaythrough` event in firefox. Other browsers might not fire this event.
+- **durationChange**: Fired when the duration of the media has changed.
+- **emptied**: Fired when the current playlist has been emptied.
+- **encrypted**: Fired when the current media must be decrypted by the Encrypted Media Extensions API.
+- **ended**: Fired when playback completes.
+- **error**: Fired when an error occurs.  The element's error attribute contains more information.
+- **loadedData**: Fired when the current frame of the media has been loaded.
+- **loadedMetadata**: Fired when the media's metadata has finished loading; all attributes now contain as much useful information as they're going to.
+- **loadedStart**: Fired when the browser starts loading the media.
+- **pause**: Fired when playback is paused.
+- **play**: Fired when playback of the media starts after having been paused; that is, when playback is resumed after a prior pause event.
+- **playing**: Fired when the media begins to play (either for the first time, after having been paused, or after ending and then restarting).
+- **progress**: Fired periodically to inform interested parties of progress downloading the media. Information about the current amount of the media that has been downloaded is available in the media element's `buffered` attribute.
+- **rateChange**: Fired when the playback rate of the media has been changed.
+- **seeked**: Fired when a seek operation completes.
+- **seeking**: Fired when a seek operation begins.
+- **stalled**: Fired when the browser is trying to get media data but the data is not available.
+- **suspend**: Fired when the browser is intentionally not getting media data.
+- **timeUpdate**: Fired when the time indicated by the element's `currentTime` attribute has changed.
+- **volumeChange**: Fired when the audio volume changes (both when the volume is set and when the muted attribute is changed).
+- **waiting**: Fired when the requested operation (such as playback) is delayed pending the completion of another operation (such as a seek).
+- **startAds**: Fired when an advertisement started. This event will only be triggered if you have the Videogular Google IMA in your media player.
+- **endAds**: Fired when an advertisement completes. This event will only be triggered if you have the Videogular Google IMA in your media player.
 
 Event information extracted from MDN: https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
