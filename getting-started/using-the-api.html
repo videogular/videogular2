@@ -128,12 +128,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="how-it-works.html">
+        <li class="chapter " data-level="2.2" data-path="how-videogular-works.html">
             
-                <a href="how-it-works.html">
+                <a href="how-videogular-works.html">
             
                     
-                    How it works
+                    How Videogular works
             
                 </a>
             
@@ -201,12 +201,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.2" data-path="../modules/core/vg-cue-points/">
+        <li class="chapter " data-level="3.1.2" data-path="../modules/core/vg-media/">
             
-                <a href="../modules/core/vg-cue-points/">
+                <a href="../modules/core/vg-media/">
             
                     
-                    VgCuePoints
+                    VgMedia
             
                 </a>
             
@@ -220,6 +220,19 @@
             
                     
                     VgAPI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../modules/core/vg-cue-points/">
+            
+                <a href="../modules/core/vg-cue-points/">
+            
+                    
+                    VgCuePoints
             
                 </a>
             
@@ -343,22 +356,31 @@
 </code></pre>
 <p>You have a lot of events to listen:</p>
 <ul>
-<li><strong>canPlay</strong>: Sent when enough data is available that the media can be played, at least for a couple of frames. This corresponds to the <code>HAVE_ENOUGH_DATA</code> readyState.</li>
-<li><strong>canPlayThrough</strong>: Sent when the ready state changes to <code>CAN_PLAY_THROUGH</code>, indicating that the entire media can be played without interruption, assuming the download rate remains at least at the current level. It will also be fired when playback is toggled between paused and playing. Note: Manually setting the <code>currentTime</code> will eventually fire a <code>canplaythrough</code> event in firefox. Other browsers might not fire this event.</li>
-<li><strong>loadedMetadata</strong>: The media&apos;s metadata has finished loading; all attributes now contain as much useful information as they&apos;re going to.</li>
-<li><strong>waiting</strong>: Sent when the requested operation (such as playback) is delayed pending the completion of another operation (such as a seek).</li>
-<li><strong>progress</strong>: Sent periodically to inform interested parties of progress downloading the media. Information about the current amount of the media that has been downloaded is available in the media element&apos;s <code>buffered</code> attribute. </li>
-<li><strong>seeking</strong>: Sent when a seek operation begins.</li>
-<li><strong>seeked</strong>: Sent when a seek operation completes.</li>
-<li><strong>ended</strong>: Sent when playback completes.</li>
-<li><strong>playing</strong>: Sent when the media begins to play (either for the first time, after having been paused, or after ending and then restarting). </li>
-<li><strong>play</strong>: Sent when playback of the media starts after having been paused; that is, when playback is resumed after a prior pause event. </li>
-<li><strong>pause</strong>: Sent when playback is paused. </li>
-<li><strong>timeUpdate</strong>: he time indicated by the element&apos;s currentTime` attribute has changed. </li>
-<li><strong>volumeChange</strong>: Sent when the audio volume changes (both when the volume is set and when the muted attribute is changed). </li>
-<li><strong>error</strong>: Sent when an error occurs.  The element&apos;s error attribute contains more information. </li>
-<li><strong>startAds</strong>: Sent when an advertisement started. This event will only be triggered if you have the Videogular Google IMA in your media player. </li>
-<li><strong>endAds</strong>: Sent when an advertisement completes. This event will only be triggered if you have the Videogular Google IMA in your media player. </li>
+<li><strong>abort</strong>: Fired when the loading of the media has been aborted.</li>
+<li><strong>canPlay</strong>: Fired when enough data is available that the media can be played, at least for a couple of frames. This corresponds to the <code>HAVE_ENOUGH_DATA</code> readyState.</li>
+<li><strong>canPlayThrough</strong>: Fired when the ready state changes to <code>CAN_PLAY_THROUGH</code>, indicating that the entire media can be played without interruption, assuming the download rate remains at least at the current level. It will also be fired when playback is toggled between paused and playing. Note: Manually setting the <code>currentTime</code> will eventually fire a <code>canplaythrough</code> event in firefox. Other browsers might not fire this event.</li>
+<li><strong>durationChange</strong>: Fired when the duration of the media has changed.</li>
+<li><strong>emptied</strong>: Fired when the current playlist has been emptied.</li>
+<li><strong>encrypted</strong>: Fired when the current media must be decrypted by the Encrypted Media Extensions API.</li>
+<li><strong>ended</strong>: Fired when playback completes.</li>
+<li><strong>error</strong>: Fired when an error occurs.  The element&apos;s error attribute contains more information.</li>
+<li><strong>loadedData</strong>: Fired when the current frame of the media has been loaded.</li>
+<li><strong>loadedMetadata</strong>: Fired when the media&apos;s metadata has finished loading; all attributes now contain as much useful information as they&apos;re going to.</li>
+<li><strong>loadedStart</strong>: Fired when the browser starts loading the media.</li>
+<li><strong>pause</strong>: Fired when playback is paused.</li>
+<li><strong>play</strong>: Fired when playback of the media starts after having been paused; that is, when playback is resumed after a prior pause event.</li>
+<li><strong>playing</strong>: Fired when the media begins to play (either for the first time, after having been paused, or after ending and then restarting).</li>
+<li><strong>progress</strong>: Fired periodically to inform interested parties of progress downloading the media. Information about the current amount of the media that has been downloaded is available in the media element&apos;s <code>buffered</code> attribute.</li>
+<li><strong>rateChange</strong>: Fired when the playback rate of the media has been changed.</li>
+<li><strong>seeked</strong>: Fired when a seek operation completes.</li>
+<li><strong>seeking</strong>: Fired when a seek operation begins.</li>
+<li><strong>stalled</strong>: Fired when the browser is trying to get media data but the data is not available.</li>
+<li><strong>suspend</strong>: Fired when the browser is intentionally not getting media data.</li>
+<li><strong>timeUpdate</strong>: Fired when the time indicated by the element&apos;s <code>currentTime</code> attribute has changed.</li>
+<li><strong>volumeChange</strong>: Fired when the audio volume changes (both when the volume is set and when the muted attribute is changed).</li>
+<li><strong>waiting</strong>: Fired when the requested operation (such as playback) is delayed pending the completion of another operation (such as a seek).</li>
+<li><strong>startAds</strong>: Fired when an advertisement started. This event will only be triggered if you have the Videogular Google IMA in your media player.</li>
+<li><strong>endAds</strong>: Fired when an advertisement completes. This event will only be triggered if you have the Videogular Google IMA in your media player.</li>
 </ul>
 <p>Event information extracted from MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events" target="_blank">https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events</a></p>
 
@@ -404,7 +426,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Using the API","level":"2.4","depth":1,"next":{"title":"videogular2/core","level":"3.1","depth":1,"path":"modules/core/README.md","ref":"modules/core/README.md","articles":[{"title":"VgPlayer","level":"3.1.1","depth":2,"path":"modules/core/vg-player/README.md","ref":"modules/core/vg-player/README.md","articles":[]},{"title":"VgCuePoints","level":"3.1.2","depth":2,"path":"modules/core/vg-cue-points/README.md","ref":"modules/core/vg-cue-points/README.md","articles":[]},{"title":"VgAPI","level":"3.1.3","depth":2,"path":"modules/core/services/vg-api/README.md","ref":"modules/core/services/vg-api/README.md","articles":[]}]},"previous":{"title":"Master Media","level":"2.3","depth":1,"path":"getting-started/master-media.md","ref":"getting-started/master-media.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting-started/using-the-api.md","mtime":"2017-04-23T16:17:51.411Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-23T16:19:45.577Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Using the API","level":"2.4","depth":1,"next":{"title":"videogular2/core","level":"3.1","depth":1,"path":"modules/core/README.md","ref":"modules/core/README.md","articles":[{"title":"VgPlayer","level":"3.1.1","depth":2,"path":"modules/core/vg-player/README.md","ref":"modules/core/vg-player/README.md","articles":[]},{"title":"VgMedia","level":"3.1.2","depth":2,"path":"modules/core/vg-media/README.md","ref":"modules/core/vg-media/README.md","articles":[]},{"title":"VgAPI","level":"3.1.3","depth":2,"path":"modules/core/services/vg-api/README.md","ref":"modules/core/services/vg-api/README.md","articles":[]},{"title":"VgCuePoints","level":"3.1.4","depth":2,"path":"modules/core/vg-cue-points/README.md","ref":"modules/core/vg-cue-points/README.md","articles":[]}]},"previous":{"title":"Master Media","level":"2.3","depth":1,"path":"getting-started/master-media.md","ref":"getting-started/master-media.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting-started/using-the-api.md","mtime":"2017-04-28T18:10:50.250Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-28T18:13:17.247Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

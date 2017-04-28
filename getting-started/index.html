@@ -61,7 +61,7 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="how-it-works.html" />
+    <link rel="next" href="how-videogular-works.html" />
     
     
     <link rel="prev" href="../" />
@@ -128,12 +128,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="how-it-works.html">
+        <li class="chapter " data-level="2.2" data-path="how-videogular-works.html">
             
-                <a href="how-it-works.html">
+                <a href="how-videogular-works.html">
             
                     
-                    How it works
+                    How Videogular works
             
                 </a>
             
@@ -201,12 +201,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.2" data-path="../modules/core/vg-cue-points/">
+        <li class="chapter " data-level="3.1.2" data-path="../modules/core/vg-media/">
             
-                <a href="../modules/core/vg-cue-points/">
+                <a href="../modules/core/vg-media/">
             
                     
-                    VgCuePoints
+                    VgMedia
             
                 </a>
             
@@ -220,6 +220,19 @@
             
                     
                     VgAPI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../modules/core/vg-cue-points/">
+            
+                <a href="../modules/core/vg-cue-points/">
+            
+                    
+                    VgCuePoints
             
                 </a>
             
@@ -285,7 +298,7 @@
 <pre><code class="lang-bash">npm install videogular2 --save
 npm install @types/core-js --save-dev
 </code></pre>
-<h2 id="creating-a-simple-video-player">Creating a simple video player</h2>
+<h2 id="adding-the-icon-font">Adding the icon font</h2>
 <p>If you want to, you can use the official Videogular font to set icons on your buttons and controls. To do that you need to add a CSS on you <code>.angular-cli.json</code> file available on the root of your project.</p>
 <pre><code class="lang-json">{
    ...
@@ -303,6 +316,7 @@ npm install @types/core-js --save-dev
 }
 </code></pre>
 <p>If you want to set your own font and styles, you can set your custom css here or inside <code>styles.scss</code>.</p>
+<h2 id="updating-your-application-module">Updating your application module</h2>
 <p>To start using Videogular in your project you have to add the Videogular module to your application module.</p>
 <p>Open <code>src/app/app.module.ts</code> and remove the FormsModule and the HttpModule, we will not need that for this demo. This is how your <code>app.module.ts</code> file should like:</p>
 <pre><code class="lang-typescript"><span class="hljs-keyword">import</span> {NgModule} from <span class="hljs-string">&apos;@angular/core&apos;</span>;
@@ -328,49 +342,9 @@ npm install @types/core-js --save-dev
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> AppModule {
 }
 </code></pre>
-<p>Create your video player with HTML in your template <code>single-media-player.html</code>:</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">vg-player</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">vg-overlay-play</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-overlay-play</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">vg-buffering</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-buffering</span>&gt;</span>
-
-    <span class="hljs-tag">&lt;<span class="hljs-name">vg-scrub-bar</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-scrub-bar-current-time</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-scrub-bar-current-time</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-scrub-bar-buffering-time</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-scrub-bar-buffering-time</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">vg-scrub-bar</span>&gt;</span>
-
-    <span class="hljs-tag">&lt;<span class="hljs-name">vg-controls</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-play-pause</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-play-pause</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-playback-button</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-playback-button</span>&gt;</span>
-
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-time-display</span> <span class="hljs-attr">vgProperty</span>=<span class="hljs-string">&quot;current&quot;</span> <span class="hljs-attr">vgFormat</span>=<span class="hljs-string">&quot;mm:ss&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-time-display</span>&gt;</span>
-
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-scrub-bar</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;pointer-events: none;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-scrub-bar</span>&gt;</span>
-
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-time-display</span> <span class="hljs-attr">vgProperty</span>=<span class="hljs-string">&quot;left&quot;</span> <span class="hljs-attr">vgFormat</span>=<span class="hljs-string">&quot;mm:ss&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-time-display</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-time-display</span> <span class="hljs-attr">vgProperty</span>=<span class="hljs-string">&quot;total&quot;</span> <span class="hljs-attr">vgFormat</span>=<span class="hljs-string">&quot;mm:ss&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-time-display</span>&gt;</span>
-
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-track-selector</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-track-selector</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-mute</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-mute</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-volume</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-volume</span>&gt;</span>
-
-        <span class="hljs-tag">&lt;<span class="hljs-name">vg-fullscreen</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">vg-fullscreen</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">vg-controls</span>&gt;</span>
-
-    <span class="hljs-tag">&lt;<span class="hljs-name">video</span> [<span class="hljs-attr">vgMedia</span>]=<span class="hljs-string">&quot;media&quot;</span> #<span class="hljs-attr">media</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;singleVideo&quot;</span> <span class="hljs-attr">preload</span>=<span class="hljs-string">&quot;auto&quot;</span> <span class="hljs-attr">crossorigin</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://static.videogular.com/assets/videos/videogular.mp4&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;video/mp4&quot;</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://static.videogular.com/assets/videos/videogular.ogg&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;video/ogg&quot;</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://static.videogular.com/assets/videos/videogular.webm&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;video/webm&quot;</span>&gt;</span>
-
-        <span class="hljs-tag">&lt;<span class="hljs-name">track</span> <span class="hljs-attr">kind</span>=<span class="hljs-string">&quot;subtitles&quot;</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;English&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://static.videogular.com/assets/subs/pale-blue-dot.vtt&quot;</span> <span class="hljs-attr">srclang</span>=<span class="hljs-string">&quot;en&quot;</span> <span class="hljs-attr">default</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">track</span> <span class="hljs-attr">kind</span>=<span class="hljs-string">&quot;subtitles&quot;</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Espa&#xF1;ol&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://static.videogular.com/assets/subs/pale-blue-dot-es.vtt&quot;</span> <span class="hljs-attr">srclang</span>=<span class="hljs-string">&quot;es&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">vg-player</span>&gt;</span>
-</code></pre>
-<p>And run the app:</p>
-<pre><code class="lang-bash">npm run start
-</code></pre>
-<p>And this is how it should look:</p>
-<p>// TODO: Insert iframe with demo</p>
+<p>Now we&apos;re ready to start creating our video player.</p>
+<p>In the next section we will see how to create our very first video player!</p>
+<p><a href="how-videogular-works.html">Go to How Videogular Works</a></p>
 
                                 
                                 </section>
@@ -403,7 +377,7 @@ npm install @types/core-js --save-dev
                 </a>
                 
                 
-                <a href="how-it-works.html" class="navigation navigation-next " aria-label="Next page: How it works">
+                <a href="how-videogular-works.html" class="navigation navigation-next " aria-label="Next page: How Videogular works">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -414,7 +388,7 @@ npm install @types/core-js --save-dev
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"2.1","depth":1,"next":{"title":"How it works","level":"2.2","depth":1,"path":"getting-started/how-it-works.md","ref":"getting-started/how-it-works.md","articles":[]},"previous":{"title":"What's Videogular?","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting-started/README.md","mtime":"2017-04-23T16:17:51.407Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-23T16:19:45.577Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"2.1","depth":1,"next":{"title":"How Videogular works","level":"2.2","depth":1,"path":"getting-started/how-videogular-works.md","ref":"getting-started/how-videogular-works.md","articles":[]},"previous":{"title":"What's Videogular?","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting-started/README.md","mtime":"2017-04-28T18:10:50.250Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-28T18:13:17.247Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
