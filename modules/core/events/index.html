@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>VgCuePoints · GitBook</title>
+        <title>VgEvents · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -61,10 +61,10 @@
     <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../events/" />
+    <link rel="next" href="../states/" />
     
     
-    <link rel="prev" href="../services/vg-utils/" />
+    <link rel="prev" href="../vg-cue-points/" />
     
 
     </head>
@@ -253,9 +253,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.1.6" data-path="./">
+        <li class="chapter " data-level="3.1.6" data-path="../vg-cue-points/">
             
-                <a href="./">
+                <a href="../vg-cue-points/">
             
                     
                     VgCuePoints
@@ -266,9 +266,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.7" data-path="../events/">
+        <li class="chapter active" data-level="3.1.7" data-path="./">
             
-                <a href="../events/">
+                <a href="./">
             
                     
                     VgEvents
@@ -423,7 +423,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../.." >VgCuePoints</a>
+        <a href="../../.." >VgEvents</a>
     </h1>
 </div>
 
@@ -438,41 +438,40 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="vgcuepoints-directive">VgCuePoints @Directive</h1>
-<p>Directive to get events on a track object. <code>VgCuePoints</code> are defined as an attribute in a <code>track</code> element.</p>
-<p><code>VgCuePoints</code> will add <code>cues</code> property to the track element with all the <code>VTTCue</code> objects loaded by the <code>track</code> element. For example, you can use the <code>cues</code> property to list all the cues with a <code>*ngFor</code> or to populate the <code>VgScrubBarCuePoints</code> component.</p>
-<h2 id="outputs">Outputs</h2>
-<table>
-<thead>
-<tr>
-<th>Output</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>onEnterCuePoint</td>
-<td>Triggered when player time is bigger than <code>start</code> cue point property.</td>
-</tr>
-<tr>
-<td>onExitCuePoint</td>
-<td>Triggered when player time moves to a position lower than cue point <code>start</code> property.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="html-definition">HTML Definition</h2>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">vg-player</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">video</span> #<span class="hljs-attr">media</span> [<span class="hljs-attr">vgMedia</span>]=<span class="hljs-string">&quot;media&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;vid&quot;</span> <span class="hljs-attr">preload</span>=<span class="hljs-string">&quot;auto&quot;</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://static.videogular.com/assets/videos/videogular.mp4&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;video/mp4&quot;</span>&gt;</span>
-
-        <span class="hljs-tag">&lt;<span class="hljs-name">track</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../data/cue-points.vtt&quot;</span> <span class="hljs-attr">kind</span>=<span class="hljs-string">&quot;metadata&quot;</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Cue Points&quot;</span> <span class="hljs-attr">default</span>
-               #<span class="hljs-attr">metadataTrack</span>
-               <span class="hljs-attr">vgCuePoints</span>
-               (<span class="hljs-attr">onEnterCuePoint</span>)=<span class="hljs-string">&quot;onEnterCuePoint($event)&quot;</span>
-               (<span class="hljs-attr">onExitCuePoint</span>)=<span class="hljs-string">&quot;onExitCuePoint($event)&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">vg-player</span>&gt;</span>
-</code></pre>
+                                <h1 id="vgevents-static-class">VgEvents Static Class</h1>
+<p>Static class to store event strings. Use it as <code>VgEvents.VG_PLAY</code> instead of <code>&apos;play&apos;</code>.</p>
+<h2 id="properties">Properties</h2>
+<ul>
+<li><strong>VG_ABORT</strong> [static] :string = &apos;abort&apos;;</li>
+<li><strong>VG_CAN_PLAY</strong> [static] :string = &apos;canplay&apos;;</li>
+<li><strong>VG_CAN_PLAY_THROUGH</strong> [static] :string = &apos;canplaythrough&apos;;</li>
+<li><strong>VG_DURATION_CHANGE</strong> [static] :string = &apos;durationchange&apos;;</li>
+<li><strong>VG_EMPTIED</strong> [static] :string = &apos;emptied&apos;;</li>
+<li><strong>VG_ENCRYPTED</strong> [static] :string = &apos;encrypted&apos;;</li>
+<li><strong>VG_ENDED</strong> [static] :string = &apos;ended&apos;;</li>
+<li><strong>VG_ERROR</strong> [static] :string = &apos;error&apos;;</li>
+<li><strong>VG_LOADED_DATA</strong> [static] :string = &apos;loadeddata&apos;;</li>
+<li><strong>VG_LOADED_METADATA</strong> [static] :string = &apos;loadedmetadata&apos;;</li>
+<li><strong>VG_LOAD_START</strong> [static] :string = &apos;loadstart&apos;;</li>
+<li><strong>VG_PAUSE</strong> [static] :string = &apos;pause&apos;;</li>
+<li><strong>VG_PLAY</strong> [static] :string = &apos;play&apos;;</li>
+<li><strong>VG_PLAYING</strong> [static] :string = &apos;playing&apos;;</li>
+<li><strong>VG_PROGRESS</strong> [static] :string = &apos;progress&apos;;</li>
+<li><strong>VG_RATE_CHANGE</strong> [static] :string = &apos;ratechange&apos;;</li>
+<li><strong>VG_SEEK</strong> [static] :string = &apos;seek&apos;;</li>
+<li><strong>VG_SEEKED</strong> [static] :string = &apos;seeked&apos;;</li>
+<li><strong>VG_SEEKING</strong> [static] :string = &apos;seeking&apos;;</li>
+<li><strong>VG_STALLED</strong> [static] :string = &apos;stalled&apos;;</li>
+<li><strong>VG_SUSPEND</strong> [static] :string = &apos;suspend&apos;;</li>
+<li><strong>VG_TIME_UPDATE</strong> [static] :string = &apos;timeupdate&apos;;</li>
+<li><strong>VG_VOLUME_CHANGE</strong> [static] :string = &apos;volumechange&apos;;</li>
+<li><strong>VG_WAITING</strong> [static] :string = &apos;waiting&apos;;</li>
+<li><strong>VG_LOAD</strong> [static] :string = &apos;load&apos;;</li>
+<li><strong>VG_ENTER</strong> [static] :string = &apos;enter&apos;;</li>
+<li><strong>VG_EXIT</strong> [static] :string = &apos;exit&apos;;</li>
+<li><strong>VG_START_ADS</strong> [static] :string = &apos;startads&apos;;</li>
+<li><strong>VG_END_ADS</strong> [static] :string = &apos;endads&apos;;</li>
+</ul>
 
                                 
                                 </section>
@@ -500,12 +499,12 @@
 
             
                 
-                <a href="../services/vg-utils/" class="navigation navigation-prev " aria-label="Previous page: VgUtils">
+                <a href="../vg-cue-points/" class="navigation navigation-prev " aria-label="Previous page: VgCuePoints">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../events/" class="navigation navigation-next " aria-label="Next page: VgEvents">
+                <a href="../states/" class="navigation navigation-next " aria-label="Next page: VgStates">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -516,7 +515,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"VgCuePoints","level":"3.1.6","depth":2,"next":{"title":"VgEvents","level":"3.1.7","depth":2,"path":"modules/core/events/README.md","ref":"modules/core/events/README.md","articles":[]},"previous":{"title":"VgUtils","level":"3.1.5","depth":2,"path":"modules/core/services/vg-utils/README.md","ref":"modules/core/services/vg-utils/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/core/vg-cue-points/README.md","mtime":"2017-04-30T15:39:17.855Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-30T15:40:58.925Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"VgEvents","level":"3.1.7","depth":2,"next":{"title":"VgStates","level":"3.1.8","depth":2,"path":"modules/core/states/README.md","ref":"modules/core/states/README.md","articles":[]},"previous":{"title":"VgCuePoints","level":"3.1.6","depth":2,"path":"modules/core/vg-cue-points/README.md","ref":"modules/core/vg-cue-points/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/core/events/README.md","mtime":"2017-04-30T15:39:17.855Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-30T15:40:58.925Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

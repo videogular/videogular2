@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>VgAPI · GitBook</title>
+        <title>VgFullscreenAPI · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -61,10 +61,10 @@
     <link rel="shortcut icon" href="../../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../vg-fullscreen-api/" />
+    <link rel="next" href="../vg-utils/" />
     
     
-    <link rel="prev" href="../../vg-media/" />
+    <link rel="prev" href="../vg-api/" />
     
 
     </head>
@@ -214,9 +214,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.1.3" data-path="./">
+        <li class="chapter " data-level="3.1.3" data-path="../vg-api/">
             
-                <a href="./">
+                <a href="../vg-api/">
             
                     
                     VgAPI
@@ -227,9 +227,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.4" data-path="../vg-fullscreen-api/">
+        <li class="chapter active" data-level="3.1.4" data-path="./">
             
-                <a href="../vg-fullscreen-api/">
+                <a href="./">
             
                     
                     VgFullscreenAPI
@@ -423,7 +423,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../../.." >VgAPI</a>
+        <a href="../../../.." >VgFullscreenAPI</a>
     </h1>
 </div>
 
@@ -438,101 +438,24 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="vgapi-injectable-service">VgAPI @Injectable Service</h1>
-<p>Service that controls all media objects inside <code>vg-player</code> element.</p>
-<p>This service is created by the element <code>vg-player</code> when it is instantiated. On component initialization, <code>vg-player</code> will register all medias inside of it but you can also register elements outside of <code>vg-player</code> element programmatically through the method <code>registerMedia</code>.</p>
+                                <h1 id="vgfullscreenapi-injectable-service">VgFullscreenAPI @Injectable Service</h1>
+<p>Service to handle full screen events and states.</p>
+<p>This service is created by the element <code>vg-player</code> when it is instantiated.</p>
 <h2 id="methods">Methods</h2>
-<h3 id="getdefaultmediavoid">getDefaultMedia():void</h3>
-<p>Returns the first media registered to the API.</p>
-<h3 id="getmastermediaiplayable">getMasterMedia():IPlayable</h3>
-<p>Returns the master media registered to the API.</p>
-<h3 id="ismasterdefinedboolean">isMasterDefined():boolean</h3>
-<p>Returns if there is a master media registered to the API.</p>
-<h3 id="getmediabyididstring--nullany">getMediaById(id:string = null):any</h3>
-<p>Returns a media by <code>id</code>. The <code>id</code> must match with the attribute <code>id</code> on the media object.</p>
-<h3 id="play">play()</h3>
-<p>Play all medias registered.</p>
-<h3 id="pause">pause()</h3>
-<p>Pause all medias registered.</p>
-<h3 id="registerelementelemhtmlelement">registerElement(elem:HTMLElement)</h3>
-<p>Registers a new element as container and saves a reference internally in to the <code>videogularElement</code> property.</p>
-<h3 id="registermediamediaany">registerMedia(media:any)</h3>
-<p>Register a new media element and saves internally a reference in to the <code>medias</code> property.</p>
-<h3 id="seektimevaluenumber-bypercentboolean">seekTime(value:number, byPercent:boolean)</h3>
-<p>Will seek to <code>value</code> in seconds or in percentage if <code>byPercent</code> is true. By default <code>byPercent</code> is false. If there&apos;s a master media defined the seek by percentage would be calculated based on master media&apos;s duration.</p>
+<h3 id="initelem-htmlelement-medias-querylistvoid">init(elem: HTMLElement, medias: QueryList<vgmedia>):void</vgmedia></h3>
+<p>Initialize the polyfill service.</p>
+<p>Params:</p>
+<ul>
+<li><strong>elem</strong>: Element to set to full screen mode.</li>
+<li><strong>medias</strong>: <code>QueryList</code> of <code>VgMedia</code> to fallback to video on iOS.</li>
+</ul>
+<h3 id="togglefullscreenvoid">toggleFullscreen():void</h3>
+<p>Changes between full screen and normal mode.</p>
 <hr>
 
 <h2 id="properties">Properties</h2>
-<h3 id="duration-read-only-numberobject">duration [read-only] :number|object</h3>
-<p>Returns a <code>number</code> with media duration or an object with all durations if there are more than one media object registered.</p>
-<h3 id="currenttime-read-write-numberobject">currentTime [read-write] :number|object</h3>
-<p>Seeks to a specific time to all medias registered.
-Returns a <code>number</code> with current time or an object with all current times if there are more than one media object registered.</p>
-<h3 id="state-read-write-stringobject">state [read-write] :string|object</h3>
-<p>Updates media state to all medias registered. States can be <code>play</code> or <code>pause</code>.
-Returns a <code>string</code> with current state or an object with all states if there are more than one media object registered.</p>
-<h3 id="volume-read-write-numberobject">volume [read-write] :number|object</h3>
-<p>Updates volume to all medias registered. Volume is a float value between 0 and 1 where 1 is default.
-Returns a <code>number</code> with current volume or an object with all volumes if there are more than one media object registered.</p>
-<h3 id="playbackrate-read-write-numberobject">playbackRate [read-write] :number|object</h3>
-<p>Updates playback speed to a specific value to all medias registered. Playback rate is a float value greater than 0 where 1 is default.
-Returns a <code>number</code> with current playback rate or an object with all rates if there are more than one media object registered.</p>
-<h3 id="canplay-read-only-booleanobject">canPlay [read-only] :boolean|object</h3>
-<p>When media object is ready to be played <code>canPlay</code> property value is <code>true</code>. Default value is <code>false</code>. It will return an object with all <code>canPlay</code> values if there are more than one media object registered.</p>
-<h3 id="canplaythrough-read-only-booleanobject">canPlayThrough [read-only] :boolean|object</h3>
-<p>When media object is ready to be played without buffering <code>canPlayThrough</code> property value is <code>true</code>. Default value is <code>false</code>. It will return an object with all <code>canPlayThrough</code> values if there are more than one media object registered.</p>
-<h3 id="ismetadataloaded-read-only-booleanobject">isMetadataLoaded [read-only] :boolean|object</h3>
-<p>When media metadata has been loaded <code>isMetadataLoaded</code> property value is <code>true</code>. Default value is <code>false</code>. It will return an object with all <code>isMetadataLoaded</code> values if there are more than one media object registered.</p>
-<h3 id="iswaiting-read-only-booleanobject">isWaiting [read-only] :boolean|object</h3>
-<p>When media is loading data <code>isWaiting</code> property value is <code>true</code>. Default value is <code>false</code>. It will return an object with all <code>isWaiting</code> values if there are more than one media object registered.</p>
-<h3 id="iscompleted-read-only-booleanobject">isCompleted [read-only] :boolean|object</h3>
-<p>When a media have been reached the end of the video <code>isCompleted</code> property value is <code>true</code>. Default value is <code>false</code>. It will return an object with all <code>isCompleted</code> values if there are more than one media object registered.</p>
-<h3 id="islive-read-only-booleanobject">isLive [read-only] :boolean|object</h3>
-<p>Boolean value to know if the current media is a live stream.</p>
-<h3 id="ismaster-read-only-booleanobject">isMaster [read-only] :boolean|object</h3>
-<p>Boolean value to know if the current media is the master media.</p>
-<h3 id="time-read-only-object">time [read-only] :object</h3>
-<p>Returns an <code>object</code> with time information or an object with all times if there are more than one media object registered.</p>
-<p>Object definition is:</p>
-<pre><code class="lang-json">{
-    current: &lt;float&gt;,
-    total: &lt;float&gt;,
-    left: &lt;float&gt;
-}
-</code></pre>
-<p>Default value is:</p>
-<pre><code class="lang-json">{
-    current: <span class="hljs-number">0</span>,
-    total: <span class="hljs-number">0</span>,
-    left: <span class="hljs-number">0</span>
-}
-</code></pre>
-<h3 id="buffer-read-only-object">buffer [read-only] :object</h3>
-<p>Returns an <code>object</code> with buffer information or an object with all buffers if there are more than one media object registered.</p>
-<p>Object definition is:</p>
-<pre><code class="lang-json">{
-    end: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">float</span>&gt;</span>
-}
-</span></code></pre>
-<p>Default value is:</p>
-<pre><code class="lang-json">{
-    end: <span class="hljs-number">0</span>
-}
-</code></pre>
-<h3 id="buffered-read-only-object">buffered [read-only] :object</h3>
-<p>Returns an <code>object</code> with buffer information or an object with all buffers if there are more than one media object registered.</p>
-<p>This is the native object and is different from <code>buffer</code> property which haves basically the same information in a property and transformed to milliseconds.</p>
-<p>Object definition is:</p>
-<pre><code class="lang-json">{
-    end: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">function</span>&gt;</span>
-    length: :number&gt;
-}
-</span></code></pre>
-<p>Default value is <code>undefined</code>.</p>
-<h3 id="subscriptions-read-only-imediasubscriptions">subscriptions [read-only] :IMediaSubscriptions</h3>
-<p>Returns an <code>IMediaSubscriptions</code> with a list of observables or an object with all observables in all medias if there are more than one media object registered.</p>
-<h3 id="videogularelement-read-write-object">videogularElement [read-write] :object</h3>
-<p>This property haves a reference to the container element, usually <code>vg-player</code> but it could be overridden in case that you&apos;re building your own implementation of <code>vg-player</code>.</p>
+<h3 id="onchangefullscreen-read-only-eventemitter">onChangeFullscreen [read-only] :EventEmitter</h3>
+<p>Observable to listen changes on the full screen state.</p>
 
                                 
                                 </section>
@@ -560,12 +483,12 @@ Returns a <code>number</code> with current playback rate or an object with all r
 
             
                 
-                <a href="../../vg-media/" class="navigation navigation-prev " aria-label="Previous page: VgMedia">
+                <a href="../vg-api/" class="navigation navigation-prev " aria-label="Previous page: VgAPI">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../vg-fullscreen-api/" class="navigation navigation-next " aria-label="Next page: VgFullscreenAPI">
+                <a href="../vg-utils/" class="navigation navigation-next " aria-label="Next page: VgUtils">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -576,7 +499,7 @@ Returns a <code>number</code> with current playback rate or an object with all r
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"VgAPI","level":"3.1.3","depth":2,"next":{"title":"VgFullscreenAPI","level":"3.1.4","depth":2,"path":"modules/core/services/vg-fullscreen-api/README.md","ref":"modules/core/services/vg-fullscreen-api/README.md","articles":[]},"previous":{"title":"VgMedia","level":"3.1.2","depth":2,"path":"modules/core/vg-media/README.md","ref":"modules/core/vg-media/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/core/services/vg-api/README.md","mtime":"2017-04-30T15:39:17.855Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-30T15:40:58.925Z"},"basePath":"../../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"VgFullscreenAPI","level":"3.1.4","depth":2,"next":{"title":"VgUtils","level":"3.1.5","depth":2,"path":"modules/core/services/vg-utils/README.md","ref":"modules/core/services/vg-utils/README.md","articles":[]},"previous":{"title":"VgAPI","level":"3.1.3","depth":2,"path":"modules/core/services/vg-api/README.md","ref":"modules/core/services/vg-api/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/core/services/vg-fullscreen-api/README.md","mtime":"2017-04-30T15:39:17.855Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-30T15:40:58.925Z"},"basePath":"../../../..","book":{"language":""}});
         });
     </script>
 </div>

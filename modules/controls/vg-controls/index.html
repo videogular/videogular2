@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>VgCuePoints · GitBook</title>
+        <title>VgControls · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -61,10 +61,8 @@
     <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../events/" />
     
-    
-    <link rel="prev" href="../services/vg-utils/" />
+    <link rel="prev" href="../" />
     
 
     </head>
@@ -174,9 +172,9 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="../">
+        <li class="chapter " data-level="3.1" data-path="../../core/">
             
-                <a href="../">
+                <a href="../../core/">
             
                     
                     videogular2/core
@@ -188,9 +186,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1.1" data-path="../vg-player/">
+        <li class="chapter " data-level="3.1.1" data-path="../../core/vg-player/">
             
-                <a href="../vg-player/">
+                <a href="../../core/vg-player/">
             
                     
                     VgPlayer
@@ -201,9 +199,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.2" data-path="../vg-media/">
+        <li class="chapter " data-level="3.1.2" data-path="../../core/vg-media/">
             
-                <a href="../vg-media/">
+                <a href="../../core/vg-media/">
             
                     
                     VgMedia
@@ -214,9 +212,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.3" data-path="../services/vg-api/">
+        <li class="chapter " data-level="3.1.3" data-path="../../core/services/vg-api/">
             
-                <a href="../services/vg-api/">
+                <a href="../../core/services/vg-api/">
             
                     
                     VgAPI
@@ -227,9 +225,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.4" data-path="../services/vg-fullscreen-api/">
+        <li class="chapter " data-level="3.1.4" data-path="../../core/services/vg-fullscreen-api/">
             
-                <a href="../services/vg-fullscreen-api/">
+                <a href="../../core/services/vg-fullscreen-api/">
             
                     
                     VgFullscreenAPI
@@ -240,9 +238,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.5" data-path="../services/vg-utils/">
+        <li class="chapter " data-level="3.1.5" data-path="../../core/services/vg-utils/">
             
-                <a href="../services/vg-utils/">
+                <a href="../../core/services/vg-utils/">
             
                     
                     VgUtils
@@ -253,9 +251,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.1.6" data-path="./">
+        <li class="chapter " data-level="3.1.6" data-path="../../core/vg-cue-points/">
             
-                <a href="./">
+                <a href="../../core/vg-cue-points/">
             
                     
                     VgCuePoints
@@ -266,9 +264,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.7" data-path="../events/">
+        <li class="chapter " data-level="3.1.7" data-path="../../core/events/">
             
-                <a href="../events/">
+                <a href="../../core/events/">
             
                     
                     VgEvents
@@ -279,9 +277,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.1.8" data-path="../states/">
+        <li class="chapter " data-level="3.1.8" data-path="../../core/states/">
             
-                <a href="../states/">
+                <a href="../../core/states/">
             
                     
                     VgStates
@@ -361,9 +359,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.4" data-path="../../controls/">
+        <li class="chapter " data-level="3.4" data-path="../">
             
-                <a href="../../controls/">
+                <a href="../">
             
                     
                     videogular2/controls
@@ -375,9 +373,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.4.1" data-path="../../controls/vg-controls/">
+        <li class="chapter active" data-level="3.4.1" data-path="./">
             
-                <a href="../../controls/vg-controls/">
+                <a href="./">
             
                     
                     VgControls
@@ -423,7 +421,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../.." >VgCuePoints</a>
+        <a href="../../.." >VgControls</a>
     </h1>
 </div>
 
@@ -438,39 +436,38 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="vgcuepoints-directive">VgCuePoints @Directive</h1>
-<p>Directive to get events on a track object. <code>VgCuePoints</code> are defined as an attribute in a <code>track</code> element.</p>
-<p><code>VgCuePoints</code> will add <code>cues</code> property to the track element with all the <code>VTTCue</code> objects loaded by the <code>track</code> element. For example, you can use the <code>cues</code> property to list all the cues with a <code>*ngFor</code> or to populate the <code>VgScrubBarCuePoints</code> component.</p>
-<h2 id="outputs">Outputs</h2>
+                                <h1 id="vgcontrols-component">VgControls @Component</h1>
+<p>Component to act as container for other components.</p>
+<h2 id="inputs">Inputs</h2>
 <table>
 <thead>
 <tr>
-<th>Output</th>
+<th>Input</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>onEnterCuePoint</td>
-<td>Triggered when player time is bigger than <code>start</code> cue point property.</td>
+<td>vgFor</td>
+<td>Target media <code>id</code> property to listen to play/pause events (used to auto hide controls). This parameter is optional and only necessary if you have more than one media registered into <code>VgAPI</code>.</td>
 </tr>
 <tr>
-<td>onExitCuePoint</td>
-<td>Triggered when player time moves to a position lower than cue point <code>start</code> property.</td>
+<td>vgAutohide</td>
+<td>Boolean value to set if we want to enable auto hide controls when video is playing. Default is <code>false</code>.</td>
+</tr>
+<tr>
+<td>vgAutohideTime</td>
+<td>Number value to specify in seconds when the controls should automatically hide after video plays. Default is <code>3</code>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="html-definition">HTML Definition</h2>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">vg-player</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">video</span> #<span class="hljs-attr">media</span> [<span class="hljs-attr">vgMedia</span>]=<span class="hljs-string">&quot;media&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;vid&quot;</span> <span class="hljs-attr">preload</span>=<span class="hljs-string">&quot;auto&quot;</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">source</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://static.videogular.com/assets/videos/videogular.mp4&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;video/mp4&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">vg-controls</span> [<span class="hljs-attr">vgFor</span>]=<span class="hljs-string">&quot;my-video&quot;</span> [<span class="hljs-attr">vgAutohide</span>]=<span class="hljs-string">&quot;true&quot;</span> [<span class="hljs-attr">vgAutohideTime</span>]=<span class="hljs-string">&quot;5&quot;</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- more components here --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">vg-controls</span>&gt;</span>
 
-        <span class="hljs-tag">&lt;<span class="hljs-name">track</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;../data/cue-points.vtt&quot;</span> <span class="hljs-attr">kind</span>=<span class="hljs-string">&quot;metadata&quot;</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Cue Points&quot;</span> <span class="hljs-attr">default</span>
-               #<span class="hljs-attr">metadataTrack</span>
-               <span class="hljs-attr">vgCuePoints</span>
-               (<span class="hljs-attr">onEnterCuePoint</span>)=<span class="hljs-string">&quot;onEnterCuePoint($event)&quot;</span>
-               (<span class="hljs-attr">onExitCuePoint</span>)=<span class="hljs-string">&quot;onExitCuePoint($event)&quot;</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">video</span> #<span class="hljs-attr">myMedia</span> [<span class="hljs-attr">vgMedia</span>]=<span class="hljs-string">&quot;myMedia&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-video&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://static.videogular.com/assets/videos/videogular.mp4&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;video/mp4&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">vg-player</span>&gt;</span>
 </code></pre>
 
@@ -500,14 +497,10 @@
 
             
                 
-                <a href="../services/vg-utils/" class="navigation navigation-prev " aria-label="Previous page: VgUtils">
+                <a href="../" class="navigation navigation-prev navigation-unique" aria-label="Previous page: videogular2/controls">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="../events/" class="navigation navigation-next " aria-label="Next page: VgEvents">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -516,7 +509,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"VgCuePoints","level":"3.1.6","depth":2,"next":{"title":"VgEvents","level":"3.1.7","depth":2,"path":"modules/core/events/README.md","ref":"modules/core/events/README.md","articles":[]},"previous":{"title":"VgUtils","level":"3.1.5","depth":2,"path":"modules/core/services/vg-utils/README.md","ref":"modules/core/services/vg-utils/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/core/vg-cue-points/README.md","mtime":"2017-04-30T15:39:17.855Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-30T15:40:58.925Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"VgControls","level":"3.4.1","depth":2,"previous":{"title":"videogular2/controls","level":"3.4","depth":1,"path":"modules/controls/README.md","ref":"modules/controls/README.md","articles":[{"title":"VgControls","level":"3.4.1","depth":2,"path":"modules/controls/vg-controls/README.md","ref":"modules/controls/vg-controls/README.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/controls/vg-controls/README.md","mtime":"2017-04-30T15:39:17.855Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-30T15:40:58.925Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
