@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ElementRef, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, HostListener, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../core/services/vg-api';
 import { VgStates } from '../core/states/vg-states';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-overlay-play',
@@ -49,10 +50,12 @@ import { VgStates } from '../core/states/vg-states';
         }
     ` ]
 })
-export class VgOverlayPlay implements OnInit {
+export class VgOverlayPlay implements OnInit, OnDestroy {
     @Input() vgFor: string;
     elem: HTMLElement;
     target: any;
+
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -63,7 +66,7 @@ export class VgOverlayPlay implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -104,5 +107,9 @@ export class VgOverlayPlay implements OnInit {
         }
 
         return state;
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

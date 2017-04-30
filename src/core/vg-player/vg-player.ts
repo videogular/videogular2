@@ -6,12 +6,13 @@ import {
     HostBinding,
     QueryList,
     AfterContentInit,
-    ContentChildren, ViewEncapsulation
+    ContentChildren, ViewEncapsulation, OnDestroy
 } from '@angular/core';
 import { VgAPI } from '../services/vg-api';
 import { VgFullscreenAPI } from '../services/vg-fullscreen-api';
 import { VgUtils } from '../services/vg-utils';
 import { VgMedia } from '../vg-media/vg-media';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-player',
@@ -36,7 +37,7 @@ import { VgMedia } from '../vg-media/vg-media';
     ` ],
     providers: [ VgAPI, VgFullscreenAPI ]
 })
-export class VgPlayer implements AfterContentInit {
+export class VgPlayer implements AfterContentInit, OnDestroy {
     elem: HTMLElement;
 
     @HostBinding('class.fullscreen') isFullscreen: boolean = false;
@@ -51,6 +52,8 @@ export class VgPlayer implements AfterContentInit {
     @ContentChildren(VgMedia)
     medias: QueryList<VgMedia>;
 
+    subscriptions: Subscription[] = [];
+
     constructor(ref: ElementRef, public api: VgAPI, public fsAPI: VgFullscreenAPI) {
         this.elem = ref.nativeElement;
 
@@ -63,7 +66,7 @@ export class VgPlayer implements AfterContentInit {
         });
 
         this.fsAPI.init(this.elem, this.medias);
-        this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
+        this.subscriptions.push(this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this)));
 
         this.api.onPlayerReady(this.fsAPI);
         this.onPlayerReady.next(this.api);
@@ -74,5 +77,9 @@ export class VgPlayer implements AfterContentInit {
             this.isFullscreen = fsState;
             this.zIndex = fsState ? VgUtils.getZIndex().toString() : 'auto';
         }
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { VgAPI } from '../../core/services/vg-api';
+import { Subscription } from 'rxjs/Subscription';
 
 declare let dashjs;
 
@@ -13,6 +14,8 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
     target: any;
     dash:any;
 
+    subscriptions: Subscription[] = [];
+
     constructor(private ref:ElementRef, public API:VgAPI) {}
 
     ngOnInit() {
@@ -20,7 +23,7 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -67,6 +70,7 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
         this.destroyPlayer();
     }
 }

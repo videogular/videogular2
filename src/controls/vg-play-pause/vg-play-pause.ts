@@ -1,6 +1,7 @@
-import { Component, ElementRef, HostListener, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 import { VgStates } from '../../core/states/vg-states';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-play-pause',
@@ -31,11 +32,13 @@ import { VgStates } from '../../core/states/vg-states';
         }
     ` ]
 })
-export class VgPlayPause implements OnInit {
+export class VgPlayPause implements OnInit, OnDestroy {
     @Input() vgFor: string;
 
     elem: HTMLElement;
     target: any;
+
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -46,7 +49,7 @@ export class VgPlayPause implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -72,5 +75,9 @@ export class VgPlayPause implements OnInit {
 
     getState() {
         return this.target ? this.target.state : VgStates.VG_PAUSED;
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

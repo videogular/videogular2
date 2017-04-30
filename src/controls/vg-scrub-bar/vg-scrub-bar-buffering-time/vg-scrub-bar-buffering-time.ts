@@ -1,5 +1,6 @@
-import { Component, Input, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../../core/services/vg-api';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-scrub-bar-buffering-time',
@@ -30,11 +31,13 @@ import { VgAPI } from '../../../core/services/vg-api';
         }
     ` ]
 })
-export class VgScrubBarBufferingTime implements OnInit {
+export class VgScrubBarBufferingTime implements OnInit, OnDestroy {
     @Input() vgFor: string;
 
     elem: HTMLElement;
     target: any;
+
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -45,7 +48,7 @@ export class VgScrubBarBufferingTime implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -66,5 +69,9 @@ export class VgScrubBarBufferingTime implements OnInit {
         }
 
         return bufferTime;
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

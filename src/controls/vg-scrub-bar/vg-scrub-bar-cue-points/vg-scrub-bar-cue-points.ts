@@ -1,5 +1,9 @@
-import { Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation,
+    OnDestroy
+} from '@angular/core';
 import { VgAPI } from '../../../core/services/vg-api';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-scrub-bar-cue-points',
@@ -30,7 +34,7 @@ import { VgAPI } from '../../../core/services/vg-api';
         }
     ` ]
 })
-export class VgScrubBarCuePoints implements OnInit, OnChanges {
+export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
     @Input() vgCuePoints: TextTrackCueList;
     @Input() vgFor: string;
 
@@ -38,6 +42,7 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
     target: any;
     onLoadedMetadataCalled: boolean = false;
 
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -48,7 +53,7 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -56,7 +61,7 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
         this.target = this.API.getMediaById(this.vgFor);
 
         let onTimeUpdate = this.target.subscriptions.loadedMetadata;
-        onTimeUpdate.subscribe(this.onLoadedMetadata.bind(this));
+        this.subscriptions.push(onTimeUpdate.subscribe(this.onLoadedMetadata.bind(this)));
 
         if (this.onLoadedMetadataCalled) {
             this.onLoadedMetadata();
@@ -92,5 +97,9 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
             }
             this.onLoadedMetadata();
         }
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

@@ -4,6 +4,7 @@ import { VgAPI } from '../core/services/vg-api';
 import { VgControlsHidden } from './../core/services/vg-controls-hidden';
 import 'rxjs/add/observable/fromEvent';
 import { VgStates } from '../core/states/vg-states';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-controls',
@@ -44,32 +45,34 @@ export class VgControls implements OnInit, AfterViewInit {
     private timer: any;
     private hideTimer: any;
 
+    subscriptions: Subscription[] = [];
+
     constructor(private API: VgAPI, private ref: ElementRef, private hidden: VgControlsHidden) {
         this.elem = ref.nativeElement;
     }
 
     ngOnInit() {
         let mouseMove = Observable.fromEvent(this.API.videogularElement, 'mousemove');
-        mouseMove.subscribe(this.show.bind(this));
+        this.subscriptions.push(mouseMove.subscribe(this.show.bind(this)));
 
         let touchStart = Observable.fromEvent(this.API.videogularElement, 'touchstart');
-        touchStart.subscribe(this.show.bind(this));
+        this.subscriptions.push(touchStart.subscribe(this.show.bind(this)));
 
         if (this.API.isPlayerReady) {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
     onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
 
-        this.target.subscriptions.play.subscribe(this.onPlay.bind(this));
-        this.target.subscriptions.pause.subscribe(this.onPause.bind(this));
-        this.target.subscriptions.startAds.subscribe(this.onStartAds.bind(this));
-        this.target.subscriptions.endAds.subscribe(this.onEndAds.bind(this));
+        this.subscriptions.push(this.target.subscriptions.play.subscribe(this.onPlay.bind(this)));
+        this.subscriptions.push(this.target.subscriptions.pause.subscribe(this.onPause.bind(this)));
+        this.subscriptions.push(this.target.subscriptions.startAds.subscribe(this.onStartAds.bind(this)));
+        this.subscriptions.push(this.target.subscriptions.endAds.subscribe(this.onEndAds.bind(this)));
     }
 
     ngAfterViewInit() {
@@ -125,5 +128,9 @@ export class VgControls implements OnInit, AfterViewInit {
                 this.hidden.state(true);
             }, this.vgAutohideTime * 1000);
         }
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

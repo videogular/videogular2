@@ -1,7 +1,8 @@
-import { Component, ElementRef, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { VgAPI } from '../core/services/vg-api';
 import { IPlayable } from '../core/vg-media/i-playable';
 import { VgStates } from '../core/states/vg-states';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-buffering',
@@ -94,7 +95,7 @@ import { VgStates } from '../core/states/vg-states';
         }
     ` ]
 })
-export class VgBuffering implements OnInit {
+export class VgBuffering implements OnInit, OnDestroy {
     @Input() vgFor: string;
 
     elem: HTMLElement;
@@ -104,11 +105,12 @@ export class VgBuffering implements OnInit {
     currentPlayPos: number = 0;
     lastPlayPos: number = 0;
 
+    subscriptions: Subscription[] = [];
+
     @HostBinding('style.display') displayState: string = 'none';
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
-        API.playerReadyEvent.subscribe((api: VgAPI) => this.onPlayerReady());
     }
 
     ngOnInit() {
@@ -116,7 +118,7 @@ export class VgBuffering implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -143,5 +145,9 @@ export class VgBuffering implements OnInit {
 
     hide() {
         this.displayState = 'none';
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

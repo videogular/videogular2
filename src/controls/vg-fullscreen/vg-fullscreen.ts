@@ -1,6 +1,7 @@
-import { Component, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 import { VgFullscreenAPI } from '../../core/services/vg-fullscreen-api';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -32,15 +33,17 @@ import { VgFullscreenAPI } from '../../core/services/vg-fullscreen-api';
         }
     ` ]
 })
-export class VgFullscreen implements OnInit {
+export class VgFullscreen implements OnInit, OnDestroy {
     elem: HTMLElement;
     vgFor: string;
     target: Object;
     isFullscreen: boolean = false;
 
+    subscriptions: Subscription[] = [];
+
     constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI) {
         this.elem = ref.nativeElement;
-        this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
+        this.subscriptions.push(this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this)));
     }
 
     ngOnInit() {
@@ -48,7 +51,7 @@ export class VgFullscreen implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -69,5 +72,9 @@ export class VgFullscreen implements OnInit {
         }
 
         this.fsAPI.toggleFullscreen(element);
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }
