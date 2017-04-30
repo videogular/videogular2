@@ -1,5 +1,6 @@
-import { Component, Input, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../../core/services/vg-api';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-scrub-bar-current-time',
@@ -44,12 +45,14 @@ import { VgAPI } from '../../../core/services/vg-api';
         }
     ` ]
 })
-export class VgScrubBarCurrentTime implements OnInit {
+export class VgScrubBarCurrentTime implements OnInit, OnDestroy {
     @Input() vgFor: string;
     @Input() vgSlider: boolean = false;
 
     elem: HTMLElement;
     target: any;
+
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -60,7 +63,7 @@ export class VgScrubBarCurrentTime implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -70,5 +73,9 @@ export class VgScrubBarCurrentTime implements OnInit {
 
     getPercentage() {
         return this.target ? ((this.target.time.current * 100) / this.target.time.total) + '%' : '0%';
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

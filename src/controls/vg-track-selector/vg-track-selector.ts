@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
+import { Subscription } from 'rxjs/Subscription';
 
 export interface Option {
     id: string;
@@ -81,13 +82,15 @@ export interface Option {
         }
     ` ]
 })
-export class VgTrackSelector implements OnInit {
+export class VgTrackSelector implements OnInit, OnDestroy {
     @Input() vgFor: string;
 
     elem: HTMLElement;
     target: any;
     tracks: Array<Option>;
     trackSelected: string;
+
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -98,7 +101,7 @@ export class VgTrackSelector implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -137,5 +140,9 @@ export class VgTrackSelector implements OnInit {
                     item.mode = 'hidden';
                 }
             });
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

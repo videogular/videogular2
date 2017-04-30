@@ -1,9 +1,10 @@
 ///<reference path='./google.ima.ts'/>
-import { Component, ElementRef, Input, HostBinding, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Input, HostBinding, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { IPlayable } from '../core/vg-media/i-playable';
 import { VgAPI } from '../core/services/vg-api';
 import { VgEvents } from '../core/events/vg-events';
 import { VgFullscreenAPI } from '../core/services/vg-fullscreen-api';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-ima-ads',
@@ -24,7 +25,7 @@ import { VgFullscreenAPI } from '../core/services/vg-fullscreen-api';
         }
     ` ]
 })
-export class VgImaAds {
+export class VgImaAds implements OnInit, OnDestroy {
     @Input() vgFor: string;
     @Input() vgNetwork: string;
     @Input() vgUnitPath: string;
@@ -36,16 +37,16 @@ export class VgImaAds {
     elem: HTMLElement;
     target: IPlayable;
     ima: Ima;
-    subscriptions: any = {};
     isFullscreen: boolean = false;
     skipButton: HTMLElement;
+
+    subscriptions: Subscription[] = [];
 
     @HostBinding('style.display') displayState: string = 'none';
 
     constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI) {
         this.elem = ref.nativeElement;
         this.onContentEnded = this.onContentEnded.bind(this);
-        this.API.playerReadyEvent.subscribe((api) => this.onPlayerReady());
     }
 
     ngOnInit() {
@@ -53,7 +54,7 @@ export class VgImaAds {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -67,10 +68,10 @@ export class VgImaAds {
 
         this.initializations();
 
-        this.target.subscriptions.ended.subscribe(this.onContentEnded.bind(this));
-        this.target.subscriptions.play.subscribe(this.onUpdateState.bind(this));
+        this.subscriptions.push(this.target.subscriptions.ended.subscribe(this.onContentEnded.bind(this)));
+        this.subscriptions.push(this.target.subscriptions.play.subscribe(this.onUpdateState.bind(this)));
 
-        this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this));
+        this.subscriptions.push(this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this)));
 
         this.ima.adsLoader.addEventListener(
             google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
@@ -278,6 +279,10 @@ export class VgImaAds {
     private onMissingGoogleImaLoader() {
         this.hide();
         this.API.play();
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }
 

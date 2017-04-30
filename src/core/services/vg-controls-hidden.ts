@@ -4,15 +4,15 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class VgControlsHidden {
-  isHidden: Observable<boolean>;
+    isHidden: Observable<boolean>;
 
-  private isHiddenSubject: Subject<boolean> = new Subject<boolean>();
+    private isHiddenSubject: Subject<boolean> = new Subject<boolean>();
 
-  constructor() {
-    this.isHidden = this.isHiddenSubject.asObservable();
-  }
+    constructor() {
+        this.isHidden = this.isHiddenSubject.asObservable();
+    }
 
-  state(hidden: boolean) {
-    this.isHiddenSubject.next(hidden);
-  }
+    state(hidden: boolean) {
+        this.isHiddenSubject.next(hidden);
+    }
 }

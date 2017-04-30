@@ -1,5 +1,6 @@
-import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-playback-button',
@@ -23,7 +24,7 @@ import { VgAPI } from '../../core/services/vg-api';
         }
     ` ]
 })
-export class VgPlaybackButton implements OnInit {
+export class VgPlaybackButton implements OnInit, OnDestroy {
     @Input() vgFor: string;
 
     elem: HTMLElement;
@@ -31,6 +32,8 @@ export class VgPlaybackButton implements OnInit {
 
     @Input() playbackValues: Array<string>;
     playbackIndex: number;
+
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -43,7 +46,7 @@ export class VgPlaybackButton implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -65,5 +68,9 @@ export class VgPlaybackButton implements OnInit {
 
     getPlaybackRate() {
         return this.target ? this.target.playbackRate : 1.0;
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }
