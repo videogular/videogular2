@@ -1,21 +1,24 @@
-# VgControls @Component
+# VgScrubBar @Component
 
-Component to act as container for other components.
+Component to act as container for other scrub bar components.
+
+This component also has listeners to seek when user clicks or drag in the scrub bar.
 
 ## Inputs
 
 | Input | Description |
 |--- |--- |
 | vgFor | Target media `id` property to listen to play/pause events (used to auto hide controls). This parameter is optional and only necessary if you have more than one media registered into `VgAPI`. |
-| vgAutohide | Boolean value to set if we want to enable auto hide controls when video is playing. Default is `false`. |
-| vgAutohideTime | Number value to specify in seconds when the controls should automatically hide after video plays. Default is `3`. |
+| vgSlider | Boolean value to set if we want to enable drag and drop events. Default is `true`. |
 
 ## HTML Definition
 
 ```html
 <vg-player>
-    <vg-controls [vgFor]="my-video" [vgAutohide]="true" [vgAutohideTime]="5">
-        <!-- more components here -->
+    <vg-controls>
+        <vg-scrub-bar [vgFor]="my-video" [vgSlider]="false">
+            <!-- more components here -->
+        </vg-scrub-bar>
     </vg-controls>
 
     <video #myMedia

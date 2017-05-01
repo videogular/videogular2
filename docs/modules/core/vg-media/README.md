@@ -122,5 +122,6 @@ Returns a `boolean` value to know if the element is a live streaming
            [vgMaster]="true" id="my-video"
            src="http://static.videogular.com/assets/videos/videogular.mp4"
            type="video/mp4">
+    </video>
 </vg-player>
 ```

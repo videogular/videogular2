@@ -14,6 +14,11 @@ To create the `VgAPI`, Videogular needs that each `VgMedia` directive has an `id
 
 ```html
 <vg-player (onPlayerReady)="onPlayerReady($event)">
-    <video #myMedia [vgMedia]="myMedia" id="my-video" src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
+    <video #myMedia
+           [vgMedia]="myMedia"
+           id="my-video"
+           src="http://static.videogular.com/assets/videos/videogular.mp4"
+           type="video/mp4">
+    </video>
 </vg-player>
 ```
