@@ -37,13 +37,18 @@ describe('Videogular Media', () => {
         media.vgMedia = elem;
     });
 
-    xit('Should load a new media if a change on dom have been happened', () => {
+    it('Should load a new media if a change on dom have been happened', () => {
         jasmine.clock().install();
 
         spyOn(elem, 'load').and.callThrough();
         spyOn(elem, 'pause').and.callThrough();
 
-        media.onMutation({});
+        media.onMutation([
+            <MutationRecord>{
+                type: 'attributes',
+                attributeName: 'src'
+            }
+        ]);
 
         jasmine.clock().tick(10);
 

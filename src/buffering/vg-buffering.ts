@@ -100,7 +100,6 @@ export class VgBuffering implements OnInit, OnDestroy {
 
     elem: HTMLElement;
     target: IPlayable;
-    checkBufferInterval: number;
     checkInterval: number = 50;
     currentPlayPos: number = 0;
     lastPlayPos: number = 0;
@@ -118,7 +117,9 @@ export class VgBuffering implements OnInit, OnDestroy {
             this.onPlayerReady();
         }
         else {
-            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
+            this.subscriptions.push(
+                this.API.playerReadyEvent.subscribe(() => this.onPlayerReady())
+            );
         }
     }
 

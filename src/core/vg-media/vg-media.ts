@@ -114,7 +114,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
                         observer.next(mutations);
                     });
 
-                    domObs.observe(<any>this.elem, { childList: true });
+                    domObs.observe(<any>this.elem, { childList: true, attributes: true });
 
                     return () => {
                         domObs.disconnect();
@@ -205,12 +205,23 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         );
     }
 
-    onMutation(mutations: any) {
-        this.vgMedia.pause();
-        this.vgMedia.currentTime = 0;
+    onMutation(mutations: Array<MutationRecord>) {
+        // Detect changes only for source elements or src attribute
+        for (let i=0, l=mutations.length; i<l; i++) {
+            let mut: MutationRecord = mutations[i];
 
-        // TODO: This is ugly, we should find something cleaner
-        setTimeout(() => this.vgMedia.load(), 1);
+            if ((mut.type === 'attributes' && mut.attributeName === 'src') || mut.type === 'childList') {
+                this.vgMedia.pause();
+                this.vgMedia.currentTime = 0;
+
+                this.stopBufferCheck();
+
+                // TODO: This is ugly, we should find something cleaner
+                setTimeout(() => this.vgMedia.load(), 1);
+
+                break;
+            }
+        }
     }
 
     play() {
@@ -382,9 +393,15 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     stopBufferCheck() {
-        this.checkBufferSubscription.unsubscribe();
+        if (this.checkBufferSubscription) {
+            this.checkBufferSubscription.unsubscribe();
+        }
+
         this.isBufferDetected = false;
-        this.bufferObserver.next(this.isBufferDetected);
+
+        if (this.bufferObserver) {
+            this.bufferObserver.next(this.isBufferDetected);
+        }
     }
 
     seekTime(value:number, byPercent:boolean = false) {
