@@ -10,9 +10,7 @@ describe('Videogular Player', () => {
 
     beforeEach(() => {
         medias = new QueryList();
-        elem = <HTMLElement>{
-            webkitRequestFullscreen: () => {}
-        };
+        elem = document.createElement('video');
 
         fsAPI = new VgFullscreenAPI();
         fsAPI.isAvailable = true;
