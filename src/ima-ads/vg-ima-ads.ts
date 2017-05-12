@@ -90,10 +90,12 @@ export class VgImaAds implements OnInit, OnDestroy {
     initializations() {
         this.ima = new Ima(this.elem);
 
-        this.skipButton = document.querySelector(this.vgSkipButton) as HTMLElement;
-        this.skipButton.style.display = 'none';
-        this.skipButton.addEventListener('click', this.onClickSkip.bind(this));
-        this.elem.insertBefore(this.skipButton, this.elem.firstChild);
+        if (this.vgSkipButton) {
+            this.skipButton = document.querySelector(this.vgSkipButton) as HTMLElement;
+            this.skipButton.style.display = 'none';
+            this.skipButton.addEventListener('click', this.onClickSkip.bind(this));
+            this.elem.insertBefore(this.skipButton, this.elem.firstChild);
+        }
 
         window.addEventListener('resize', () => {
             const w = this.API.videogularElement.offsetWidth;
