@@ -210,6 +210,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         for (let i=0, l=mutations.length; i<l; i++) {
             let mut: MutationRecord = mutations[i];
 
+            // TODO: Add control only for childLists of type `source`
             if ((mut.type === 'attributes' && mut.attributeName === 'src') || mut.type === 'childList') {
                 this.vgMedia.pause();
                 this.vgMedia.currentTime = 0;
