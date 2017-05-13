@@ -31,8 +31,8 @@ import { Subscription } from 'rxjs/Subscription';
 
         vg-controls vg-scrub-bar {
             position: relative;
-            bottom: initial;
-            background: initial;
+            bottom: 0;
+            background: transparent;
             height: 50px;
             flex-grow: 1;
             flex-basis: 0;
@@ -45,7 +45,7 @@ import { Subscription } from 'rxjs/Subscription';
         }
 
         vg-scrub-bar.hide {
-            bottom: 0px;
+            bottom: 0;
             opacity: 0;
         }
 
