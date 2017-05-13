@@ -84,6 +84,7 @@ export class VgOverlayPlay implements OnInit, OnDestroy {
                 break;
 
             case VgStates.VG_PAUSED:
+            case VgStates.VG_ENDED:
                 this.target.play();
                 break;
         }
