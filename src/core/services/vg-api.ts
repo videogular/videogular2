@@ -165,6 +165,17 @@ export class VgAPI {
         }
     }
 
+     addTextTrack(start:number, end:number, text:string){
+         for (let id in this.medias) {
+            if (this.medias[id]) {
+                this.$$addTextTrack(this.medias[ id ], start, end, text);
+            }
+        }   
+    }
+    $$addTextTrack(media:IPlayable, start:number, end:number, text:string){
+        media.track.addCue(new TextTrackCue(start, end, text));
+    }
+
     $$seek(media:IPlayable, value:number, byPercent:boolean = false) {
         let second:number;
         let duration:number = media.duration;
@@ -247,4 +258,6 @@ export class VgAPI {
     unregisterMedia(media:IPlayable) {
         delete this.medias[media.id];
     }
+
+
 }
