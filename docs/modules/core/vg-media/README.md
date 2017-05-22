@@ -25,6 +25,11 @@ Call to the `pause` method of the element reference passed via the `@Input` prop
 
 Seek to an specified `value` by second or percentage defined by `byPercent` property.
 
+### addTextTrack(start:number, end:number, text:string)
+
+Create a custom cue on Demand, with `start` `end` time ( like 0,300 or currentTime ) and added `text` for the video.
+    
+
 ## Properties
 
 ### id [read-only] :string

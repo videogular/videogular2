@@ -42,6 +42,10 @@ Register a new media element and saves internally a reference in to the `medias`
 
 Will seek to `value` in seconds or in percentage if `byPercent` is true. By default `byPercent` is false. If there's a master media defined the seek by percentage would be calculated based on master media's duration.
 
+### addTextTrack(start:number, end:number, text:string)
+
+Create a custom cue on Demand, with `start` `end` time ( like 0,300 or currentTime ) and added `text` for the video.
+
 <hr>
 
 ## Properties
