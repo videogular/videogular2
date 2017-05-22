@@ -5,7 +5,7 @@ export interface IPlayable {
     elem:any;
     time:any;
     buffer:any;
-    track?:any;
+    track?:any; 
     canPlay:boolean;
     canPlayThrough:boolean;
     isMetadataLoaded:boolean;
