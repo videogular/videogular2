@@ -1,12 +1,16 @@
-import { Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation,
+    OnDestroy
+} from '@angular/core';
 import { VgAPI } from '../../../core/services/vg-api';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-scrub-bar-cue-points',
     encapsulation: ViewEncapsulation.None,
     template: `
         <div class="cue-point-container">
-            <span *ngFor="let cp of vgCuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
+            <span *ngFor="let cp of cuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
         </div>
         `,
     styles: [ `
@@ -30,14 +34,16 @@ import { VgAPI } from '../../../core/services/vg-api';
         }
     ` ]
 })
-export class VgScrubBarCuePoints implements OnInit, OnChanges {
+export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
     @Input() vgCuePoints: TextTrackCueList;
     @Input() vgFor: string;
 
     elem: HTMLElement;
     target: any;
     onLoadedMetadataCalled: boolean = false;
+    cuePoints: Array<any> = [];
 
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -48,7 +54,7 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -56,7 +62,7 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
         this.target = this.API.getMediaById(this.vgFor);
 
         let onTimeUpdate = this.target.subscriptions.loadedMetadata;
-        onTimeUpdate.subscribe(this.onLoadedMetadata.bind(this));
+        this.subscriptions.push(onTimeUpdate.subscribe(this.onLoadedMetadata.bind(this)));
 
         if (this.onLoadedMetadataCalled) {
             this.onLoadedMetadata();
@@ -65,6 +71,10 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
 
     onLoadedMetadata() {
         if (this.vgCuePoints) {
+            // We need to transform the TextTrackCueList to Array or it doesn't work on IE11/Edge.
+            // See: https://github.com/videogular/videogular2/issues/369
+            this.cuePoints = [];
+
             for (let i = 0, l = this.vgCuePoints.length; i < l; i++) {
                 let end = (this.vgCuePoints[ i ].endTime >= 0) ? this.vgCuePoints[ i ].endTime : this.vgCuePoints[ i ].startTime + 1;
                 let cuePointDuration = (end - this.vgCuePoints[ i ].startTime) * 1000;
@@ -80,6 +90,8 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
                     width: percentWidth,
                     left: position
                 };
+
+                this.cuePoints.push(this.vgCuePoints[ i ]);
             }
         }
     }
@@ -92,5 +104,9 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges {
             }
             this.onLoadedMetadata();
         }
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

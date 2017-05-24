@@ -16,8 +16,17 @@ before_script:
   - npm prune
 script:
   - npm run build:travis
+  - cd docs
+  - npm install
+  - npm run build
+  - cd ..
 after_success:
   - npm run semantic-release
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
 branches:
   only:
     - master
+    - /^greenkeeper/.*$/
+env:
+  global:
+    secure: uhPSYPeQ+ISDEMAgznMlOyqfBPSV8M7EQF2kAsDh7ZI7mPHr+N/Oik9+9C358xB6O9f5n+/mpaM/11Dh8b8OXowrSPKKyOG0+TmqB9+5iwD5ng665TJuG7e0C/ZCGbruycUZ9B/cY2VxU8NhLYzubzYbR1OM8Ga4+/5qfyQIg/zirekDfW2y9nbWRm7vfLKeRPeEei8xuVkBoZlWu/jkx/vFjkH4Ez+D6ISwYsjwBBaCwn2sMtVNK0fgMLBkGZKGNsz2zKns2ZP5KU6irVouCwZvHH9yn1RsIVOOdqwMM2IAN8KUHUim1pPOWJoUt75DXVvebNLDLR7Py9YPJ+HaaBl15EwA0vlyqQsmRFTMOZOC4DJhPgoNj1PQytNZadxjfanjYcVlgvoU7DH0diKldj173JWI1nIKZsY8cl7+IKxOQz5VqcqbysKpZ6Tat4ttN+K5vbSsn90C8QfCq2isVjPUKTMDrwgDx6ufP8W03Ept6asdAVKy+lBfoN3QDU0TvRg1uKD+bucyJRIdZLLIbBN8Sduu2IsNsgWd8GLMgk3bcXnZBHSpFm18Xug6g22ZR3A7LS0okdhwXt7mSXQE/sA9egOi9v/dHk0D5ix+jAwA0aasMp+KWIOF84kokvR8IH/aFPBKb6JRMTYHlWGu/aBDxEz46kqITqITSTeyfUo=

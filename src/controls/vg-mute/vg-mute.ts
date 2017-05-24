@@ -1,5 +1,6 @@
-import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -33,12 +34,14 @@ import { VgAPI } from '../../core/services/vg-api';
         }
     ` ]
 })
-export class VgMute implements OnInit {
+export class VgMute implements OnInit, OnDestroy {
     @Input() vgFor: string;
     elem: HTMLElement;
     target: any;
 
     currentVolume: number;
+
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -49,7 +52,7 @@ export class VgMute implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -73,5 +76,9 @@ export class VgMute implements OnInit {
 
     getVolume() {
         return this.target ? this.target.volume : 0;
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

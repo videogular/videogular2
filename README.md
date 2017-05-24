@@ -1,15 +1,13 @@
----
-currentMenu: home
----
-
 # Videogular
 [![travis build](https://travis-ci.org/videogular/videogular2.svg?branch=master)](https://travis-ci.org/videogular/videogular2)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/2fdevs/videogular?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Dependency Status](https://david-dm.org/videogular/videogular2.svg)](https://david-dm.org/videogular/videogular2)
+[![Greenkeeper badge](https://badges.greenkeeper.io/videogular/videogular2.svg)](https://greenkeeper.io/)
 
 **Videogular is an HTML5 video player for Angular 2.0**. Videogular is a wrapper over the HTML5 video tag, so you can just add whatever you want. This provides a very powerful, but simple to use solution, for everybody.
 
-You can see a demo here: http://www.videogular.com/alpha
+You can see a demo here: https://videogular.github.io/videogular2-showroom/#/
+
+Documentation: https://videogular.github.io/videogular2
 
 # How to install
 
@@ -54,9 +52,8 @@ npm start
 
 Videogular wants to thank you to this companies for support this project:
 
-[![](http://www.videogular.com/wp-content/uploads/2015/08/browserstack.png)](https://www.browserstack.com)
-[![](http://www.videogular.com/wp-content/uploads/2015/08/logo_jetbrains.png)](https://www.jetbrains.com)
-[![](http://www.videogular.com/wp-content/uploads/2015/03/logo-q.png)](http://q-interactiva.com)
+[![](sponsors/jetbrains.png)](https://www.jetbrains.com)
+[![](sponsors/toptal.png)](https://www.toptal.com)
 
 ## Credits
 

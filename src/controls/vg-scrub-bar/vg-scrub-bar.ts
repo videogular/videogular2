@@ -1,7 +1,11 @@
-import { Component, ElementRef, Input, HostListener, OnInit, ViewEncapsulation, HostBinding } from '@angular/core';
+import {
+    Component, ElementRef, Input, HostListener, OnInit, ViewEncapsulation, HostBinding,
+    OnDestroy
+} from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 import { VgControlsHidden } from './../../core/services/vg-controls-hidden';
 import { VgStates } from '../../core/states/vg-states';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'vg-scrub-bar',
@@ -27,8 +31,8 @@ import { VgStates } from '../../core/states/vg-states';
 
         vg-controls vg-scrub-bar {
             position: relative;
-            bottom: initial;
-            background: initial;
+            bottom: 0;
+            background: transparent;
             height: 50px;
             flex-grow: 1;
             flex-basis: 0;
@@ -41,7 +45,7 @@ import { VgStates } from '../../core/states/vg-states';
         }
 
         vg-scrub-bar.hide {
-            bottom: 0px;
+            bottom: 0;
             opacity: 0;
         }
 
@@ -51,7 +55,7 @@ import { VgStates } from '../../core/states/vg-states';
         }
     ` ]
 })
-export class VgScrubBar implements OnInit {
+export class VgScrubBar implements OnInit, OnDestroy {
     @HostBinding('class.hide') hideScrubBar: boolean = false;
 
     @Input() vgFor: string;
@@ -62,9 +66,11 @@ export class VgScrubBar implements OnInit {
     isSeeking: boolean = false;
     wasPlaying: boolean = false;
 
+    subscriptions: Subscription[] = [];
+
     constructor(ref: ElementRef, public API: VgAPI, vgControlsHiddenState: VgControlsHidden) {
         this.elem = ref.nativeElement;
-        vgControlsHiddenState.isHidden.subscribe(hide => this.onHideScrubBar(hide));
+        this.subscriptions.push(vgControlsHiddenState.isHidden.subscribe(hide => this.onHideScrubBar(hide)));
     }
 
     ngOnInit() {
@@ -72,7 +78,7 @@ export class VgScrubBar implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -203,5 +209,9 @@ export class VgScrubBar implements OnInit {
 
     onHideScrubBar(hide: boolean) {
         this.hideScrubBar = hide;
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }

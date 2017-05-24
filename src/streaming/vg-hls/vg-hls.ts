@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { VgAPI } from "../../core/services/vg-api";
 import { IHLSConfig } from './hls-config';
+import { Subscription } from 'rxjs/Subscription';
 
 declare let Hls;
 
@@ -17,6 +18,8 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     crossorigin: string;
     config: IHLSConfig;
 
+    subscriptions: Subscription[] = [];
+
     constructor(private ref:ElementRef, public API:VgAPI) {}
 
     ngOnInit() {
@@ -24,7 +27,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -48,12 +51,14 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         this.createPlayer();
 
         if (!this.preload) {
-            this.API.subscriptions.play.subscribe(
-                () => {
-                    if (this.hls) {
-                        this.hls.startLoad(0);
+            this.subscriptions.push(
+                this.API.subscriptions.play.subscribe(
+                    () => {
+                        if (this.hls) {
+                            this.hls.startLoad(0);
+                        }
                     }
-                }
+                )
             );
         }
     }
@@ -97,6 +102,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
         this.destroyPlayer();
     }
 }

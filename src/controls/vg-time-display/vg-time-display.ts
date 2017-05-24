@@ -1,5 +1,6 @@
-import { Component, Input, ElementRef, OnInit, PipeTransform, Pipe, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, PipeTransform, Pipe, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
+import { Subscription } from 'rxjs/Subscription';
 
 // Workaround until we can use UTC with Angular Date Pipe
 @Pipe({ name: 'vgUtc' })
@@ -56,7 +57,7 @@ export class VgUtcPipe implements PipeTransform {
         }
     ` ]
 })
-export class VgTimeDisplay implements OnInit {
+export class VgTimeDisplay implements OnInit, OnDestroy {
     @Input() vgFor: string;
     @Input() vgProperty: string = 'current';
     @Input() vgFormat: string = 'mm:ss';
@@ -64,6 +65,7 @@ export class VgTimeDisplay implements OnInit {
     elem: HTMLElement;
     target: any;
 
+    subscriptions: Subscription[] = [];
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -74,7 +76,7 @@ export class VgTimeDisplay implements OnInit {
             this.onPlayerReady();
         }
         else {
-            this.API.playerReadyEvent.subscribe(() => this.onPlayerReady());
+            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
     }
 
@@ -91,5 +93,9 @@ export class VgTimeDisplay implements OnInit {
         }
 
         return t;
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
     }
 }
