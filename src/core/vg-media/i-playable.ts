@@ -12,12 +12,14 @@ export interface IPlayable {
     isWaiting:boolean;
     isCompleted:boolean;
     isLive:boolean;
+    textTracks: TextTrack[];
     state:string;
     subscriptions:IMediaSubscriptions;
     duration:number;
     currentTime:number;
     play:Function;
     pause:Function;
+    addTextTrack?:Function;
     dispatchEvent?:Function;
 }
 

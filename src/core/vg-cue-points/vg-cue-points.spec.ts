@@ -7,13 +7,24 @@ import 'rxjs/add/observable/fromEvent';
 describe('Cue points', () => {
     let cuePoints:VgCuePoints;
     let ref:ElementRef;
+    let differ:any;
 
     beforeEach(() => {
         ref = {
             nativeElement: document.createElement('div')
         };
 
-        cuePoints = new VgCuePoints(ref);
+        differ = {
+            find: () => {
+                return {
+                    create: () => {
+                        return {};
+                    }
+                };
+            }
+        };
+
+        cuePoints = new VgCuePoints(ref, differ);
     });
 
     it('Should handle onLoad event', () => {

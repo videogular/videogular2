@@ -281,6 +281,10 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         return this.vgMedia.buffered;
     }
 
+    get textTracks() {
+        return this.vgMedia.textTracks;
+    }
+
     onCanPlay(event: any) {
         this.canPlay = true;
     }
@@ -423,8 +427,12 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.currentTime = second;
     }
 
-    addTextTrack(start:number, end:number, text:string){
-        this.track.addCue(new TextTrackCue(start, end, text));
+    addTextTrack(type:string, label?:string, language?:string, mode?:'disabled' | 'hidden' | 'showing') {
+        const newTrack:TextTrack = this.vgMedia.addTextTrack(type, label, language);
+
+        if (mode) {
+            newTrack.mode = mode;
+        }
     }
 
     ngOnDestroy() {

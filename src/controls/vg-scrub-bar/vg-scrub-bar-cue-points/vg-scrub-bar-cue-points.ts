@@ -1,6 +1,6 @@
 import {
     Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation,
-    OnDestroy
+    OnDestroy, IterableDiffers, IterableDiffer
 } from '@angular/core';
 import { VgAPI } from '../../../core/services/vg-api';
 import { Subscription } from 'rxjs/Subscription';
@@ -45,8 +45,11 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
-    constructor(ref: ElementRef, public API: VgAPI) {
+    iterableDiffer: IterableDiffer;
+
+    constructor(ref: ElementRef, public API: VgAPI, private differ: IterableDiffers) {
         this.elem = ref.nativeElement;
+        this.iterableDiffer = this.differ.find([]).create(null);
     }
 
     ngOnInit() {
@@ -96,13 +99,25 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
         }
     }
 
+    updateCuePoints() {
+        if (!this.target) {
+            this.onLoadedMetadataCalled = true;
+            return;
+        }
+        this.onLoadedMetadata();
+    }
+
     ngOnChanges(changes: { [propName: string]: SimpleChange }) {
         if (changes[ 'vgCuePoints' ].currentValue) {
-            if (!this.target) {
-                this.onLoadedMetadataCalled = true;
-                return;
-            }
-            this.onLoadedMetadata();
+            this.updateCuePoints();
+        }
+    }
+
+    ngDoCheck() {
+        const changes = this.iterableDiffer.diff(this.vgCuePoints);
+
+        if (changes) {
+            this.updateCuePoints();
         }
     }
 
