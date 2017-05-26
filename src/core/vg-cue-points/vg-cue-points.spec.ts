@@ -1,30 +1,19 @@
-import {ElementRef} from "@angular/core";
-import {Observable} from 'rxjs/Observable';
-import {VgCuePoints} from "./vg-cue-points";
+import { ElementRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { VgCuePoints } from './vg-cue-points';
 
 import 'rxjs/add/observable/fromEvent';
 
 describe('Cue points', () => {
-    let cuePoints:VgCuePoints;
-    let ref:ElementRef;
-    let differ:any;
+    let cuePoints: VgCuePoints;
+    let ref: ElementRef;
 
     beforeEach(() => {
         ref = {
             nativeElement: document.createElement('div')
         };
 
-        differ = {
-            find: () => {
-                return {
-                    create: () => {
-                        return {};
-                    }
-                };
-            }
-        };
-
-        cuePoints = new VgCuePoints(ref, differ);
+        cuePoints = new VgCuePoints(ref);
     });
 
     it('Should handle onLoad event', () => {
