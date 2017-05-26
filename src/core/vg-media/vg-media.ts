@@ -25,6 +25,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     time: any = { current: 0, total: 0, left: 0 };
     buffer: any = { end: 0 };
     subscriptions: IMediaSubscriptions | any;
+    track: any;
 
     canPlay: boolean = false;
     canPlayThrough: boolean = false;
@@ -155,6 +156,9 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
                 }
             );
         }
+
+        //inits cuePoints
+        this.track = this.elem.addTextTrack('metadata'); // previusly implemented as addTrack()
     }
 
     prepareSync() {
@@ -417,6 +421,10 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         }
 
         this.currentTime = second;
+    }
+
+    addTextTrack(start:number, end:number, text:string){
+        this.track.addCue(new TextTrackCue(start, end, text));
     }
 
     ngOnDestroy() {
