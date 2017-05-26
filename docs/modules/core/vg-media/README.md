@@ -25,10 +25,9 @@ Call to the `pause` method of the element reference passed via the `@Input` prop
 
 Seek to an specified `value` by second or percentage defined by `byPercent` property.
 
-### addTextTrack(start:number, end:number, text:string)
+### addTextTrack(type:'subtitles' | 'caption' | 'descriptions' | 'chapters' | 'metadata', label?:string, language?:string, mode?:'disabled' | 'hidden' | 'showing')
 
-Create a custom cue on Demand, with `start` `end` time ( like 0,300 or currentTime ) and added `text` for the video.
-    
+Create a `TextTrack` dynamically. You can add `VTTCue` objects using the `addCue` method available in the `TextTrack` class.
 
 ## Properties
 
@@ -117,6 +116,10 @@ Returns a `boolean` value to know if the element has been completed.
 ### isLive [read-only] :boolean;
 
 Returns a `boolean` value to know if the element is a live streaming
+
+### textTracks [read-only] :TextTrack[]
+
+Returns an array of `TextTrack` objects. Use this array to get your track to add and remove `VTTCue` objects dynamically.
 
 ## HTML Definition
 

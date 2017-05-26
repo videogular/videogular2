@@ -1,11 +1,12 @@
 import {VgScrubBarCuePoints} from "./vg-scrub-bar-cue-points";
 import {VgAPI} from "../../../core/services/vg-api";
-import {ElementRef, SimpleChange} from "@angular/core";
+import { ElementRef, IterableDiffers, SimpleChange } from "@angular/core";
 
 describe('Scrub bar current time', () => {
     let scrubBarCuePoints: VgScrubBarCuePoints;
     let ref:ElementRef;
     let api:VgAPI;
+    let differ:any;
 
     beforeEach(() => {
         ref = {
@@ -23,7 +24,17 @@ describe('Scrub bar current time', () => {
 
         api = new VgAPI();
 
-        scrubBarCuePoints = new VgScrubBarCuePoints(ref, api);
+        differ = {
+            find: () => {
+                return {
+                    create: () => {
+                        return {};
+                    }
+                };
+            }
+        };
+
+        scrubBarCuePoints = new VgScrubBarCuePoints(ref, api, differ);
     });
 
     it('Should create cue points when metadata is loaded', () => {
