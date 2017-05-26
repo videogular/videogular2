@@ -2,30 +2,24 @@ import {VgMedia} from "./vg-media";
 import {VgAPI} from "../services/vg-api";
 import {ElementRef} from "@angular/core";
 import {VgStates} from "../states/vg-states";
+import { VgMediaElement } from './vg-media-element';
 
 
 describe('Videogular Media', () => {
     let media:VgMedia;
     let ref:ElementRef;
     let api:VgAPI;
-    let elem = {
-        play: () => {},
-        pause: () => {},
-        load: () => {},
-        duration: 100,
-        currentTime: 0,
-        volume: 1,
-        playbackRate: 1,
-        buffered: {
-            length: 2,
-            end: () => {return 50;}
-        },
-        id: 'testVideo',
-        observe: () => {
-            return <any>{};
-        },
-        dispatchEvent: () => {}
+    let elem = new VgMediaElement();
+    elem.duration = 100;
+    elem.currentTime = 0;
+    elem.volume = 1;
+    elem.playbackRate = 1;
+    elem.buffered = {
+        length: 2,
+        start: () => {return 0;},
+        end: () => {return 50;}
     };
+    elem.id = 'testVideo';
 
     beforeEach(() => {
         ref = {
@@ -176,6 +170,7 @@ describe('Videogular Media', () => {
         elem.currentTime = 25;
         elem.buffered = {
             length: 0,
+            start: () => {return 0;},
             end: () => {return 0;}
         };
 
@@ -187,6 +182,7 @@ describe('Videogular Media', () => {
 
         elem.buffered = {
             length: 2,
+            start: () => {return 0;},
             end: () => {return 50;}
         };
     });
@@ -200,6 +196,7 @@ describe('Videogular Media', () => {
     it('Should handle onProgress native event (without buffer)', () => {
         elem.buffered = {
             length: 0,
+            start: () => {return 0;},
             end: () => {return 0;}
         };
 
@@ -209,6 +206,7 @@ describe('Videogular Media', () => {
 
         elem.buffered = {
             length: 2,
+            start: () => {return 0;},
             end: () => {return 50;}
         };
     });

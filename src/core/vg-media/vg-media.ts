@@ -7,6 +7,7 @@ import { Observer } from "rxjs/Observer";
 import { VgStates } from '../states/vg-states';
 import { VgAPI } from '../services/vg-api';
 import { VgEvents } from '../events/vg-events';
+import { IMediaElement } from './i-media-element';
 
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/combineLatest';
@@ -17,7 +18,7 @@ import 'rxjs/add/observable/combineLatest';
 export class VgMedia implements OnInit, OnDestroy, IPlayable {
     elem: any;
 
-    @Input() vgMedia: any;
+    @Input() vgMedia: IMediaElement;
     @Input() vgMaster: boolean;
 
     state: string = VgStates.VG_PAUSED;
