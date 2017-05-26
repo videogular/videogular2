@@ -1,6 +1,12 @@
 import {
-    Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation,
-    OnDestroy, IterableDiffers, IterableDiffer
+    Component,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    SimpleChange,
+    ViewEncapsulation
 } from '@angular/core';
 import { VgAPI } from '../../../core/services/vg-api';
 import { Subscription } from 'rxjs/Subscription';
@@ -10,9 +16,10 @@ import { Subscription } from 'rxjs/Subscription';
     encapsulation: ViewEncapsulation.None,
     template: `
         <div class="cue-point-container">
-            <span *ngFor="let cp of cuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
+            <span *ngFor="let cp of cuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left"
+                  class="cue-point"></span>
         </div>
-        `,
+    `,
     styles: [ `
         vg-scrub-bar-cue-points {
             display: flex;
@@ -45,11 +52,10 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
-    iterableDiffer: IterableDiffer;
+    totalCues = 0;
 
-    constructor(ref: ElementRef, public API: VgAPI, private differ: IterableDiffers) {
+    constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
-        this.iterableDiffer = this.differ.find([]).create(null);
     }
 
     ngOnInit() {
@@ -114,10 +120,13 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
     }
 
     ngDoCheck() {
-        const changes = this.iterableDiffer.diff(this.vgCuePoints);
+        if (this.vgCuePoints) {
+            const changes = this.totalCues !== this.vgCuePoints.length;
 
-        if (changes) {
-            this.updateCuePoints();
+            if (changes) {
+                this.totalCues = this.vgCuePoints.length;
+                this.updateCuePoints();
+            }
         }
     }
 
