@@ -19,7 +19,7 @@ export class VgCuePoints implements OnInit, OnDestroy {
     subscriptions: Subscription[] = [];
     cuesSubscriptions: Subscription[] = [];
 
-    iterableDiffer: IterableDiffer;
+    iterableDiffer: IterableDiffer<any>;
 
     constructor(public ref:ElementRef, private differ: IterableDiffers) {
         this.iterableDiffer = this.differ.find([]).create(null);
