@@ -14,13 +14,13 @@
     "zone.js": "0.8.5"
   },
   "devDependencies": {
-    "@angular/common": "~2.2.3",
-    "@angular/compiler": "~2.2.3",
-    "@angular/compiler-cli": "~2.2.3",
-    "@angular/core": "~2.2.3",
-    "@angular/platform-browser": "~2.2.3",
-    "@angular/platform-browser-dynamic": "~2.2.3",
-    "@angular/platform-server": "~2.2.3",
+    "@angular/common": "2.2.3",
+    "@angular/compiler": "2.2.3",
+    "@angular/compiler-cli": "2.2.3",
+    "@angular/core": "2.2.3",
+    "@angular/platform-browser": "2.2.3",
+    "@angular/platform-browser-dynamic": "2.2.3",
+    "@angular/platform-server": "2.2.3",
     "@types/core-js": "0.9.35",
     "@types/jasmine": "2.5.38",
     "codelyzer": "2.0.1",
@@ -39,7 +39,7 @@
     "remap-istanbul": "0.9.5",
     "semantic-release": "6.3.2",
     "tslint": "4.5.1",
-    "typescript": "~2.2.0",
+    "typescript": "2.0.10",
     "watch": "1.0.2"
   },
   "scripts": {
