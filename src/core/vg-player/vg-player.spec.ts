@@ -5,12 +5,14 @@ import {VgMedia} from "../vg-media/vg-media";
 import {VgAPI} from "../services/vg-api";
 import {VgFullscreenAPI} from "../services/vg-fullscreen-api";
 import {ElementRef} from "@angular/core";
+import { VgControlsHidden } from '../services/vg-controls-hidden';
 
 describe('Videogular Player', () => {
     let player:VgPlayer;
     let ref:ElementRef;
     let api:VgAPI;
     let fsAPI:VgFullscreenAPI;
+    let controlsHidden:VgControlsHidden;
 
     beforeEach(() => {
         ref = {
@@ -21,9 +23,15 @@ describe('Videogular Player', () => {
             }
         };
 
+        controlsHidden = {
+            isHidden: {
+                subscribe: () => {}
+            }
+        } as VgControlsHidden;
+
         api = new VgAPI();
         fsAPI = new VgFullscreenAPI();
-        player = new VgPlayer(ref, api, fsAPI);
+        player = new VgPlayer(ref, api, fsAPI, controlsHidden);
     });
 
     it('Should handle native fullscreen', () => {
