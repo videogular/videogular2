@@ -134,7 +134,8 @@ export class VgVolume implements OnInit, OnDestroy {
     }
 
     setVolume(vol: number) {
-        this.target.volume = Math.max(0, Math.min(1, vol / 100));
+        const volumeBarWidth: number = this.volumeBarRef.nativeElement.getBoundingClientRect().width;
+        this.target.volume = Math.max(0, Math.min(1, vol / volumeBarWidth));
     }
 
     getVolume(): number {
