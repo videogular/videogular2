@@ -19,6 +19,7 @@
     * [VgAPI](modules/core/services/vg-api/README.md)
     * [VgFullscreenAPI](modules/core/services/vg-fullscreen-api/README.md)
     * [VgUtils](modules/core/services/vg-utils/README.md)
+    * [VgControlsHidden](modules/core/services/vg-controls-hidden/README.md)
     * [VgCuePoints](modules/core/vg-cue-points/README.md)
     * [VgEvents](modules/core/events/README.md)
     * [VgStates](modules/core/states/README.md)
