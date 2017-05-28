@@ -25,6 +25,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     time: any = { current: 0, total: 0, left: 0 };
     buffer: any = { end: 0 };
     subscriptions: IMediaSubscriptions | any;
+    track: any;
 
     canPlay: boolean = false;
     canPlayThrough: boolean = false;
@@ -155,6 +156,9 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
                 }
             );
         }
+
+        //inits cuePoints
+        this.track = this.elem.addTextTrack('metadata'); // previusly implemented as addTrack()
     }
 
     prepareSync() {
@@ -275,6 +279,10 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     get buffered() {
         return this.vgMedia.buffered;
+    }
+
+    get textTracks() {
+        return this.vgMedia.textTracks;
     }
 
     onCanPlay(event: any) {
@@ -417,6 +425,14 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         }
 
         this.currentTime = second;
+    }
+
+    addTextTrack(type:string, label?:string, language?:string, mode?:'disabled' | 'hidden' | 'showing') {
+        const newTrack:TextTrack = this.vgMedia.addTextTrack(type, label, language);
+
+        if (mode) {
+            newTrack.mode = mode;
+        }
     }
 
     ngOnDestroy() {
