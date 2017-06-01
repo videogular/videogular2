@@ -1,6 +1,6 @@
 import {VgScrubBar} from "./vg-scrub-bar";
 import {VgAPI} from "../../core/services/vg-api";
-import {ElementRef} from "@angular/core";
+import {ChangeDetectorRef, ElementRef} from "@angular/core";
 import {VgControlsHidden} from './../../core/services/vg-controls-hidden';
 import {VgMedia} from "../../core/vg-media/vg-media";
 import { VgStates } from '../../core/states/vg-states';
@@ -8,6 +8,7 @@ import { VgStates } from '../../core/states/vg-states';
 describe('Scrub bar', () => {
     let scrubBar:VgScrubBar;
     let ref:ElementRef;
+    let cdRef:ChangeDetectorRef;
     let api:VgAPI;
     let vgControlsHiddenState: VgControlsHidden;
     let media:VgMedia;
@@ -39,9 +40,16 @@ describe('Scrub bar', () => {
                 scrollWidth: 200
             }
         };
+        cdRef = {
+            detectChanges: () => {},
+            markForCheck: () => {},
+            detach: () => {},
+            reattach: () => {},
+            checkNoChanges: () => {}
+        }
 
         api = new VgAPI();
-        media = new VgMedia(api);
+        media = new VgMedia(api, cdRef);
         media.vgMedia = elem;
         vgControlsHiddenState = new VgControlsHidden();
 

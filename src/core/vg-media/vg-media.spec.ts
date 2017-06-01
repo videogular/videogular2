@@ -1,12 +1,13 @@
 import {VgMedia} from "./vg-media";
 import {VgAPI} from "../services/vg-api";
-import {ElementRef} from "@angular/core";
+import {ChangeDetectorRef, ElementRef} from "@angular/core";
 import {VgStates} from "../states/vg-states";
 
 
 describe('Videogular Media', () => {
     let media:VgMedia;
     let ref:ElementRef;
+    let cdRef:ChangeDetectorRef;
     let api:VgAPI;
     let elem = {
         play: () => {},
@@ -31,9 +32,15 @@ describe('Videogular Media', () => {
         ref = {
             nativeElement: elem
         };
-
+        cdRef = {
+            detectChanges: () => {},
+            markForCheck: () => {},
+            detach: () => {},
+            reattach: () => {},
+            checkNoChanges: () => {}
+        }
         api = new VgAPI();
-        media = new VgMedia(api);
+        media = new VgMedia(api, cdRef);
         media.vgMedia = elem;
     });
 
