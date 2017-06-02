@@ -221,8 +221,8 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
                 this.stopBufferCheck();
 
-                // TODO: This is ugly, we should find something cleaner
-                setTimeout(() => this.vgMedia.load(), 1);
+                // TODO: This is ugly, we should find something cleaner. For some reason a TimerObservable doesn't works.
+                setTimeout(() => this.vgMedia.load(), 10);
 
                 break;
             }
