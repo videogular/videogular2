@@ -1,4 +1,4 @@
-import { ElementRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
+import { ChangeDetectorRef, ElementRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
 import { Observable } from "rxjs/Observable";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
@@ -61,7 +61,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     volumeChangeObs: Subscription;
     errorObs: Subscription;
 
-    constructor(private api: VgAPI) {
+    constructor(private api: VgAPI, private ref: ChangeDetectorRef) {
 
     }
 
@@ -287,37 +287,45 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     onCanPlay(event: any) {
         this.canPlay = true;
+        this.ref.detectChanges();
     }
 
     onCanPlayThrough(event: any) {
         this.canPlayThrough = true;
+        this.ref.detectChanges();
     }
 
     onLoadMetadata(event: any) {
         this.isMetadataLoaded = true;
 
-        this.time.current = 0;
-        this.time.left = 0;
-        this.time.total = this.duration * 1000;
+        this.time = {
+            current: 0,
+            left: 0,
+            total: this.duration * 1000
+        };
 
         this.state = VgStates.VG_PAUSED;
 
         // Live streaming check
         let t:number = Math.round(this.time.total);
         this.isLive = (t === Infinity);
+        this.ref.detectChanges();
     }
 
     onWait(event: any) {
         this.isWaiting = true;
+        this.ref.detectChanges();
     }
 
     onComplete(event: any) {
         this.isCompleted = true;
         this.state = VgStates.VG_ENDED;
+        this.ref.detectChanges();
     }
 
     onStartPlaying(event: any) {
         this.state = VgStates.VG_PLAYING;
+        this.ref.detectChanges();
     }
 
     onPlay(event: any) {
@@ -332,6 +340,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         if (this.bufferObserver) {
             this.startBufferCheck();
         }
+        this.ref.detectChanges();
     }
 
     onPause(event: any) {
@@ -346,33 +355,41 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         if (this.bufferObserver) {
             this.stopBufferCheck();
         }
+        this.ref.detectChanges();
     }
 
     onTimeUpdate(event: any) {
         let end = this.buffered.length - 1;
 
-        this.time.current = this.currentTime * 1000;
-        this.time.left = (this.duration - this.currentTime) * 1000;
+        this.time = {
+            current: this.currentTime * 1000,
+            total: this.time.total,
+            left: (this.duration - this.currentTime) * 1000
+        };
 
         if (end >= 0) {
-            this.buffer.end = this.buffered.end(end) * 1000;
+            this.buffer = { end: this.buffered.end(end) * 1000 };
         }
+        this.ref.detectChanges();
     }
 
     onProgress(event: any) {
         let end = this.buffered.length - 1;
 
         if (end >= 0) {
-            this.buffer.end = this.buffered.end(end) * 1000;
+            this.buffer = { end: this.buffered.end(end) * 1000 };
         }
+        this.ref.detectChanges();
     }
 
     onVolumeChange(event: any) {
         // TODO: Save to localstorage the current volume
+        this.ref.detectChanges();
     }
 
     onError(event: any) {
         // TODO: Handle error messages
+        this.ref.detectChanges();
     }
 
     // http://stackoverflow.com/a/23828241/779529
