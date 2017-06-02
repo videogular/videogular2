@@ -427,12 +427,13 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.currentTime = second;
     }
 
-    addTextTrack(type:string, label?:string, language?:string, mode?:'disabled' | 'hidden' | 'showing') {
+    addTextTrack(type:string, label?:string, language?:string, mode?:'disabled' | 'hidden' | 'showing'): TextTrack {
         const newTrack:TextTrack = this.vgMedia.addTextTrack(type, label, language);
 
         if (mode) {
             newTrack.mode = mode;
         }
+        return newTrack;
     }
 
     ngOnDestroy() {
