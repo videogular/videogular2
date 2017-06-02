@@ -27,8 +27,8 @@
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.0.0",
     "es6-module-loader": "0.17.11",
-    "ghooks": "2.0.0",
     "http-server": "0.10.0",
+    "husky": "0.13.4",
     "jasmine-core": "2.5.2",
     "karma": "1.5.0",
     "karma-chrome-launcher": "2.0.0",
@@ -41,9 +41,11 @@
     "semantic-release": "6.3.2",
     "tslint": "4.5.1",
     "typescript": "2.0.10",
+    "validate-commit-msg": "2.12.1",
     "watch": "1.0.2"
   },
   "scripts": {
+    "commitmsg": "validate-commit-msg",
     "prebuild": "npm run clean",
     "build": "ngc",
     "postbuild": "npm test",
@@ -92,8 +94,32 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     },
-    "ghooks": {
-      "pre-commit": "npm run test"
+    "validate-commit-msg": {
+      "types": [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "chore",
+        "revert"
+      ],
+      "scope": {
+        "required": true,
+        "allowed": [
+          "*"
+        ],
+        "validate": true,
+        "multiple": false
+      },
+      "warnOnFail": false,
+      "maxSubjectLength": 100,
+      "subjectPattern": ".+",
+      "subjectPatternErrorMsg": "subject does not match subject pattern!",
+      "helpMessage": "",
+      "autoFix": false
     }
   },
   "homepage": "http://videogular.com"
