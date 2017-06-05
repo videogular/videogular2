@@ -7,6 +7,7 @@ import { Observer } from "rxjs/Observer";
 import { VgStates } from '../states/vg-states';
 import { VgAPI } from '../services/vg-api';
 import { VgEvents } from '../events/vg-events';
+import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/combineLatest';
@@ -41,7 +42,6 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     currentPlayPos: number = 0;
     lastPlayPos: number = 0;
 
-    bufferObserver: Observer<any>;
     checkBufferSubscription: any;
     syncSubscription: Subscription;
     canPlayAllSubscription: any;
@@ -60,6 +60,8 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     timeUpdateObs: Subscription;
     volumeChangeObs: Subscription;
     errorObs: Subscription;
+
+    bufferDetected: Subject<boolean> = new Subject();
 
     constructor(private api: VgAPI, private ref: ChangeDetectorRef) {
 
@@ -124,15 +126,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             ),
 
             // Custom buffering detection
-            bufferDetected: Observable.create(
-                (observer: any) => {
-                    this.bufferObserver = observer;
-
-                    return () => {
-                        observer.disconnect();
-                    };
-                }
-            )
+            bufferDetected: this.bufferDetected
         };
 
         this.mutationObs = this.subscriptions.mutation.subscribe(this.onMutation.bind(this));
@@ -219,7 +213,10 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
                 this.vgMedia.pause();
                 this.vgMedia.currentTime = 0;
 
+                // Start buffering until we can play the media file
                 this.stopBufferCheck();
+                this.isBufferDetected = true;
+                this.bufferDetected.next(this.isBufferDetected);
 
                 // Only load src file if it's not a blob (for DASH / HLS sources)
                 if (mut.target['src'] && mut.target['src'].length > 0 && mut.target['src'].indexOf('blob:') < 0) {
@@ -288,11 +285,15 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     onCanPlay(event: any) {
+        this.isBufferDetected = false;
+        this.bufferDetected.next(this.isBufferDetected);
         this.canPlay = true;
         this.ref.detectChanges();
     }
 
     onCanPlayThrough(event: any) {
+        this.isBufferDetected = false;
+        this.bufferDetected.next(this.isBufferDetected);
         this.canPlayThrough = true;
         this.ref.detectChanges();
     }
@@ -339,9 +340,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             }
         }
 
-        if (this.bufferObserver) {
-            this.startBufferCheck();
-        }
+        this.startBufferCheck();
         this.ref.detectChanges();
     }
 
@@ -354,9 +353,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             }
         }
 
-        if (this.bufferObserver) {
-            this.stopBufferCheck();
-        }
+        this.stopBufferCheck();
         this.ref.detectChanges();
     }
 
@@ -407,7 +404,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             this.isBufferDetected = false;
         }
 
-        this.bufferObserver.next(this.isBufferDetected);
+        this.bufferDetected.next(this.isBufferDetected);
 
         this.lastPlayPos = this.currentPlayPos;
     }
@@ -427,9 +424,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
         this.isBufferDetected = false;
 
-        if (this.bufferObserver) {
-            this.bufferObserver.next(this.isBufferDetected);
-        }
+        this.bufferDetected.next(this.isBufferDetected);
     }
 
     seekTime(value:number, byPercent:boolean = false) {
