@@ -38,7 +38,7 @@ describe('Videogular Media', () => {
             detach: () => {},
             reattach: () => {},
             checkNoChanges: () => {}
-        }
+        };
         api = new VgAPI();
         media = new VgMedia(api, cdRef);
         media.vgMedia = elem;
@@ -51,9 +51,12 @@ describe('Videogular Media', () => {
         spyOn(elem, 'pause').and.callThrough();
 
         media.onMutation([
-            <MutationRecord>{
+            <any>{
                 type: 'attributes',
-                attributeName: 'src'
+                attributeName: 'src',
+                target: {
+                    src: 'my-new-file.mp4'
+                }
             }
         ]);
 

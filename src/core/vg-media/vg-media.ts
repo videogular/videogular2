@@ -221,10 +221,12 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
                 this.stopBufferCheck();
 
-                // TODO: This is ugly, we should find something cleaner. For some reason a TimerObservable doesn't works.
-                setTimeout(() => this.vgMedia.load(), 10);
-
-                break;
+                // Only load src file if it's not a blob (for DASH / HLS sources)
+                if (mut.target['src'] && mut.target['src'].length > 0 && mut.target['src'].indexOf('blob:') < 0) {
+                    // TODO: This is ugly, we should find something cleaner. For some reason a TimerObservable doesn't works.
+                    setTimeout(() => this.vgMedia.load(), 10);
+                    break;
+                }
             }
         }
     }
