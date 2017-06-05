@@ -33,12 +33,17 @@ describe('Videogular Player', () => {
     });
 
     it('Should get media by id on init', () => {
-        spyOn(api, 'getMediaById').and.callFake(() => { });
+        spyOn(api, 'getMediaById').and.returnValue({
+            subscriptions: {
+                bufferDetected: {subscribe: jasmine.createSpy('bufferDetected') }
+            }
+        });
 
         overlayPlay.vgFor = 'test';
         overlayPlay.onPlayerReady();
 
         expect(api.getMediaById).toHaveBeenCalledWith('test');
+        expect(overlayPlay.target.subscriptions.bufferDetected.subscribe).toHaveBeenCalled();
     });
 
     describe('onClick', () => {

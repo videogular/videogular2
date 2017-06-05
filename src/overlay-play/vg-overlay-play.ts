@@ -23,6 +23,10 @@ import { VgControlsHidden } from '../core/services/vg-controls-hidden';
             z-index: 200;
         }
 
+        vg-overlay-play.is-buffering {
+            display: none;
+        }
+
         vg-overlay-play .vg-overlay-play {
             transition: all 0.5s;
             cursor: pointer;
@@ -71,6 +75,8 @@ export class VgOverlayPlay implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
+    @HostBinding('class.is-buffering') isBuffering: boolean = false;
+
     constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI, private controlsHidden: VgControlsHidden) {
         this.elem = ref.nativeElement;
     }
@@ -88,6 +94,15 @@ export class VgOverlayPlay implements OnInit, OnDestroy {
         this.target = this.API.getMediaById(this.vgFor);
         this.subscriptions.push(this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this)));
         this.subscriptions.push(this.controlsHidden.isHidden.subscribe(this.onHideControls.bind(this)));
+        this.subscriptions.push(
+            this.target.subscriptions.bufferDetected.subscribe(
+                isBuffering => this.onUpdateBuffer(isBuffering)
+            )
+        );
+    }
+
+    onUpdateBuffer(isBuffering) {
+        this.isBuffering = isBuffering;
     }
 
     onChangeFullscreen(fsState: boolean) {
