@@ -209,23 +209,30 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             let mut: MutationRecord = mutations[i];
 
             // TODO: Add control only for childLists of type `source`
-            if ((mut.type === 'attributes' && mut.attributeName === 'src') || mut.type === 'childList') {
-                this.vgMedia.pause();
-                this.vgMedia.currentTime = 0;
-
-                // Start buffering until we can play the media file
-                this.stopBufferCheck();
-                this.isBufferDetected = true;
-                this.bufferDetected.next(this.isBufferDetected);
-
+            if (mut.type === 'attributes' && mut.attributeName === 'src') {
                 // Only load src file if it's not a blob (for DASH / HLS sources)
                 if (mut.target['src'] && mut.target['src'].length > 0 && mut.target['src'].indexOf('blob:') < 0) {
-                    // TODO: This is ugly, we should find something cleaner. For some reason a TimerObservable doesn't works.
-                    setTimeout(() => this.vgMedia.load(), 10);
+                    this.loadMedia();
                     break;
                 }
+            } else if (mut.type === 'childList' && mut.removedNodes[0].nodeName.toLowerCase() === 'source') {
+                this.loadMedia();
+                break;
             }
         }
+    }
+
+    loadMedia() {
+        this.vgMedia.pause();
+        this.vgMedia.currentTime = 0;
+
+        // Start buffering until we can play the media file
+        this.stopBufferCheck();
+        this.isBufferDetected = true;
+        this.bufferDetected.next(this.isBufferDetected);
+
+        // TODO: This is ugly, we should find something cleaner. For some reason a TimerObservable doesn't works.
+        setTimeout(() => this.vgMedia.load(), 10);
     }
 
     play() {
