@@ -204,14 +204,13 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         for (let i=0, l=mutations.length; i<l; i++) {
             let mut: MutationRecord = mutations[i];
 
-            // TODO: Add control only for childLists of type `source`
             if (mut.type === 'attributes' && mut.attributeName === 'src') {
                 // Only load src file if it's not a blob (for DASH / HLS sources)
                 if (mut.target['src'] && mut.target['src'].length > 0 && mut.target['src'].indexOf('blob:') < 0) {
                     this.loadMedia();
                     break;
                 }
-            } else if (mut.type === 'childList' && mut.removedNodes[0].nodeName.toLowerCase() === 'source') {
+            } else if (mut.type === 'childList' && mut.removedNodes.length && mut.removedNodes[0].nodeName.toLowerCase() === 'source') {
                 this.loadMedia();
                 break;
             }
