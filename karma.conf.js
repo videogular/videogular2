@@ -1,14 +1,5 @@
 module.exports = function(config) {
     var configuration = {
-
-        // Only for travis
-        customLaunchers: {
-            Chrome_travis_ci: {
-                base: 'Chrome',
-                flags: ['--no-sandbox']
-            }
-        },
-
         basePath: '.',
 
         frameworks: ['jasmine'],
@@ -99,7 +90,6 @@ module.exports = function(config) {
     };
 
     if (process.env.TRAVIS) {
-        configuration.browsers = ['Chrome_travis_ci'];
         configuration.reporters = ['spec', 'coverage'];
     }
 

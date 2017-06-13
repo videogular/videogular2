@@ -104,7 +104,8 @@
         "perf",
         "test",
         "chore",
-        "revert"
+        "revert",
+        "ci"
       ],
       "scope": {
         "required": true,
