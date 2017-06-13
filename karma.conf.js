@@ -70,7 +70,7 @@ module.exports = function(config) {
 
         autoWatch: true,
 
-        browsers: ['Chrome'],
+        browsers: ['ChromeHeadless'],
 
         // Karma plugins loaded
         plugins: [
