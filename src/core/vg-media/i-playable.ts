@@ -1,28 +1,32 @@
-import {Observable} from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 export interface IPlayable {
-    id:string;
-    elem:any;
-    time:any;
-    buffer:any;
-    canPlay:boolean;
-    canPlayThrough:boolean;
-    isMetadataLoaded:boolean;
-    isWaiting:boolean;
-    isCompleted:boolean;
-    isLive:boolean;
-    state:string;
-    subscriptions:IMediaSubscriptions;
-    duration:number;
-    currentTime:number;
-    play:Function;
-    pause:Function;
-    dispatchEvent?:Function;
+    id: string;
+    elem: any;
+    time: any;
+    buffer: any;
+    track?: any;
+    canPlay: boolean;
+    canPlayThrough: boolean;
+    isMetadataLoaded: boolean;
+    isWaiting: boolean;
+    isCompleted: boolean;
+    isLive: boolean;
+    textTracks: TextTrack[];
+    state: string;
+    subscriptions: IMediaSubscriptions;
+    duration: number;
+    currentTime: number;
+    play: Function;
+    pause: Function;
+    addTextTrack?: Function;
+    dispatchEvent?: Function;
 }
 
 export interface IMediaSubscriptions {
     abort: Observable<any>;
-    bufferDetected: Observable<any>;
+    bufferDetected: Subject<boolean>;
     canPlay: Observable<any>;
     canPlayThrough: Observable<any>;
     durationChange: Observable<any>;

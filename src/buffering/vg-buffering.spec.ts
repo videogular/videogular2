@@ -34,49 +34,14 @@ describe('Buffering', () => {
         });
     });
 
-    describe('isBuffering', ()=>{
-        it('should show if buffer is detected and video is playing', () => {
-            vgBuffering.target = <IPlayable>{
-                state: VgStates.VG_PLAYING
-            };
-
-            spyOn(vgBuffering, 'show');
+    describe('isBuffering', ()=> {
+        it('should show if buffer is detected', () => {
             vgBuffering.onUpdateBuffer(true);
-            expect(vgBuffering.show).toHaveBeenCalled();
+            expect(vgBuffering.isBuffering).toBe(true);
         });
-        it('should hide if buffer is not detected and video is playing', () => {
-            vgBuffering.target = <IPlayable>{
-                state: VgStates.VG_PLAYING
-            };
-
-            spyOn(vgBuffering, 'hide');
+        it('should hide if buffer is not detected', () => {
             vgBuffering.onUpdateBuffer(false);
-            expect(vgBuffering.hide).toHaveBeenCalled();
-        });
-        it('should hide if buffer is detected and video is not playing', () => {
-            vgBuffering.target = <IPlayable>{
-                state: VgStates.VG_PAUSED
-            };
-
-            spyOn(vgBuffering, 'hide');
-            vgBuffering.onUpdateBuffer(true);
-            expect(vgBuffering.hide).toHaveBeenCalled();
-        });
-    });
-
-    describe('show', ()=>{
-        it('should set displayState to "block"', () => {
-            vgBuffering.displayState = 'none';
-            vgBuffering.show();
-            expect(vgBuffering.displayState).toBe('block');
-        });
-    });
-    
-    describe('hide', ()=>{
-        it('should set displayState to "none"', () => {
-            vgBuffering.displayState = 'block';
-            vgBuffering.hide();
-            expect(vgBuffering.displayState).toBe('none');
+            expect(vgBuffering.isBuffering).toBe(false);
         });
     });
 });

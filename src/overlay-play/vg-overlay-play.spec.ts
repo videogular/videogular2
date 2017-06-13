@@ -2,11 +2,15 @@ import {VgOverlayPlay} from "./vg-overlay-play";
 import {VgAPI} from "../core/services/vg-api";
 import {ElementRef} from "@angular/core";
 import {VgStates} from "../core/states/vg-states";
+import { VgFullscreenAPI } from '../core/services/vg-fullscreen-api';
+import { VgControlsHidden } from '../core/services/vg-controls-hidden';
 
 describe('Videogular Player', () => {
     let overlayPlay: VgOverlayPlay;
     let ref:ElementRef;
     let api:VgAPI;
+    let fsAPI:VgFullscreenAPI;
+    let controlsHidden:VgControlsHidden;
 
     beforeEach(() => {
         ref = {
@@ -17,17 +21,29 @@ describe('Videogular Player', () => {
             }
         };
 
+        controlsHidden = {
+            isHidden: {
+                subscribe: () => {}
+            }
+        } as VgControlsHidden;
+
         api = new VgAPI();
-        overlayPlay = new VgOverlayPlay(ref, api);
+        fsAPI = new VgFullscreenAPI();
+        overlayPlay = new VgOverlayPlay(ref, api, fsAPI, controlsHidden);
     });
 
     it('Should get media by id on init', () => {
-        spyOn(api, 'getMediaById').and.callFake(() => { });
+        spyOn(api, 'getMediaById').and.returnValue({
+            subscriptions: {
+                bufferDetected: {subscribe: jasmine.createSpy('bufferDetected') }
+            }
+        });
 
         overlayPlay.vgFor = 'test';
         overlayPlay.onPlayerReady();
 
         expect(api.getMediaById).toHaveBeenCalledWith('test');
+        expect(overlayPlay.target.subscriptions.bufferDetected.subscribe).toHaveBeenCalled();
     });
 
     describe('onClick', () => {

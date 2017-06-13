@@ -1,6 +1,12 @@
 import {
-    Component, OnChanges, Input, ElementRef, SimpleChange, OnInit, ViewEncapsulation,
-    OnDestroy
+    Component,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    SimpleChange,
+    ViewEncapsulation
 } from '@angular/core';
 import { VgAPI } from '../../../core/services/vg-api';
 import { Subscription } from 'rxjs/Subscription';
@@ -10,9 +16,10 @@ import { Subscription } from 'rxjs/Subscription';
     encapsulation: ViewEncapsulation.None,
     template: `
         <div class="cue-point-container">
-            <span *ngFor="let cp of vgCuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left" class="cue-point"></span>
+            <span *ngFor="let cp of cuePoints" [style.width]="cp.$$style?.width" [style.left]="cp.$$style?.left"
+                  class="cue-point"></span>
         </div>
-        `,
+    `,
     styles: [ `
         vg-scrub-bar-cue-points {
             display: flex;
@@ -41,8 +48,11 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
     elem: HTMLElement;
     target: any;
     onLoadedMetadataCalled: boolean = false;
+    cuePoints: Array<any> = [];
 
     subscriptions: Subscription[] = [];
+
+    totalCues = 0;
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -70,6 +80,10 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
 
     onLoadedMetadata() {
         if (this.vgCuePoints) {
+            // We need to transform the TextTrackCueList to Array or it doesn't work on IE11/Edge.
+            // See: https://github.com/videogular/videogular2/issues/369
+            this.cuePoints = [];
+
             for (let i = 0, l = this.vgCuePoints.length; i < l; i++) {
                 let end = (this.vgCuePoints[ i ].endTime >= 0) ? this.vgCuePoints[ i ].endTime : this.vgCuePoints[ i ].startTime + 1;
                 let cuePointDuration = (end - this.vgCuePoints[ i ].startTime) * 1000;
@@ -85,17 +99,34 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
                     width: percentWidth,
                     left: position
                 };
+
+                this.cuePoints.push(this.vgCuePoints[ i ]);
             }
         }
     }
 
+    updateCuePoints() {
+        if (!this.target) {
+            this.onLoadedMetadataCalled = true;
+            return;
+        }
+        this.onLoadedMetadata();
+    }
+
     ngOnChanges(changes: { [propName: string]: SimpleChange }) {
         if (changes[ 'vgCuePoints' ].currentValue) {
-            if (!this.target) {
-                this.onLoadedMetadataCalled = true;
-                return;
+            this.updateCuePoints();
+        }
+    }
+
+    ngDoCheck() {
+        if (this.vgCuePoints) {
+            const changes = this.totalCues !== this.vgCuePoints.length;
+
+            if (changes) {
+                this.totalCues = this.vgCuePoints.length;
+                this.updateCuePoints();
             }
-            this.onLoadedMetadata();
         }
     }
 

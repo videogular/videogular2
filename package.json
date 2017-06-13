@@ -27,8 +27,8 @@
     "commitizen": "2.9.6",
     "cz-conventional-changelog": "2.0.0",
     "es6-module-loader": "0.17.11",
-    "ghooks": "2.0.0",
     "http-server": "0.10.0",
+    "husky": "0.13.4",
     "jasmine-core": "2.5.2",
     "karma": "1.5.0",
     "karma-chrome-launcher": "2.0.0",
@@ -37,28 +37,31 @@
     "karma-spec-reporter": "0.0.30",
     "parallelshell": "2.0.0",
     "remap-istanbul": "0.9.5",
+    "rimraf": "2.6.1",
     "semantic-release": "6.3.2",
     "tslint": "4.5.1",
     "typescript": "2.0.10",
+    "validate-commit-msg": "2.12.1",
     "watch": "1.0.2"
   },
   "scripts": {
+    "commitmsg": "validate-commit-msg",
     "prebuild": "npm run clean",
     "build": "ngc",
     "postbuild": "npm test",
     "build:travis": "ngc",
     "postbuild:travis": "npm run test",
-    "clean": "rm -rf ./src/**/*.js && rm -rf ./src/**/*.d.ts && rm -rf ./compiled",
+    "clean": "rimraf -rf ./src/**/*.js && rimraf -rf ./src/**/*.d.ts && rimraf -rf ./compiled",
     "precommit": "npm test",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
-    "start": "parallelshell 'npm run watch:ts' 'npm run start:coverage-server'",
+    "start": "parallelshell \"npm run watch:ts\" \"npm run start:coverage-server\"",
     "start:coverage-server": "http-server -c-1 -o -p 9875 ./coverage",
     "test": "karma start karma.conf.js",
     "posttest": "remap-istanbul -i coverage/coverage-final.json -o coverage -t html",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "watch:ts": "watch 'npm run build' src",
+    "watch:ts": "watch \"npm run build\" src",
     "parallelshell": "parallelshell",
     "lint": "tslint '**/*.ts' -e 'node_modules/**/*' -e 'compiled/**/**'  --fix --noUnusedParameters --noUnusedLocals"
   },
@@ -91,8 +94,32 @@
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
     },
-    "ghooks": {
-      "pre-commit": "npm run test"
+    "validate-commit-msg": {
+      "types": [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "chore",
+        "revert"
+      ],
+      "scope": {
+        "required": true,
+        "allowed": [
+          "*"
+        ],
+        "validate": true,
+        "multiple": false
+      },
+      "warnOnFail": false,
+      "maxSubjectLength": 100,
+      "subjectPattern": ".+",
+      "subjectPatternErrorMsg": "subject does not match subject pattern!",
+      "helpMessage": "",
+      "autoFix": false
     }
   },
   "homepage": "http://videogular.com"

@@ -157,6 +157,10 @@ export class VgAPI {
         return this.$$getAllProperties('subscriptions');
     }
 
+    get textTracks() {
+        return this.$$getAllProperties('textTracks');
+    }
+
     seekTime(value:number, byPercent:boolean = false) {
         for (let id in this.medias) {
             if (this.medias[id]) {
@@ -181,6 +185,17 @@ export class VgAPI {
         }
 
         media.currentTime = second;
+    }
+
+    addTextTrack(type:string, label?:string, language?:string) {
+        for (let id in this.medias) {
+            if (this.medias[id]) {
+                this.$$addTextTrack(this.medias[ id ], type, label, language);
+            }
+        }
+    }
+    $$addTextTrack(media:IPlayable, type:string, label?:string, language?:string) {
+        media.addTextTrack(type, label, language);
     }
 
     $$getAllProperties(property:string){
@@ -247,4 +262,6 @@ export class VgAPI {
     unregisterMedia(media:IPlayable) {
         delete this.medias[media.id];
     }
+
+
 }

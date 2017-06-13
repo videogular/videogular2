@@ -1,4 +1,4 @@
-import { ElementRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
+import { ChangeDetectorRef, ElementRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
 import { Observable } from "rxjs/Observable";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
@@ -7,6 +7,7 @@ import { Observer } from "rxjs/Observer";
 import { VgStates } from '../states/vg-states';
 import { VgAPI } from '../services/vg-api';
 import { VgEvents } from '../events/vg-events';
+import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/combineLatest';
@@ -40,7 +41,6 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     currentPlayPos: number = 0;
     lastPlayPos: number = 0;
 
-    bufferObserver: Observer<any>;
     checkBufferSubscription: any;
     syncSubscription: Subscription;
     canPlayAllSubscription: any;
@@ -60,7 +60,9 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     volumeChangeObs: Subscription;
     errorObs: Subscription;
 
-    constructor(private api: VgAPI) {
+    bufferDetected: Subject<boolean> = new Subject();
+
+    constructor(private api: VgAPI, private ref: ChangeDetectorRef) {
 
     }
 
@@ -123,15 +125,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             ),
 
             // Custom buffering detection
-            bufferDetected: Observable.create(
-                (observer: any) => {
-                    this.bufferObserver = observer;
-
-                    return () => {
-                        observer.disconnect();
-                    };
-                }
-            )
+            bufferDetected: this.bufferDetected
         };
 
         this.mutationObs = this.subscriptions.mutation.subscribe(this.onMutation.bind(this));
@@ -210,19 +204,30 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         for (let i=0, l=mutations.length; i<l; i++) {
             let mut: MutationRecord = mutations[i];
 
-            // TODO: Add control only for childLists of type `source`
-            if ((mut.type === 'attributes' && mut.attributeName === 'src') || mut.type === 'childList') {
-                this.vgMedia.pause();
-                this.vgMedia.currentTime = 0;
-
-                this.stopBufferCheck();
-
-                // TODO: This is ugly, we should find something cleaner
-                setTimeout(() => this.vgMedia.load(), 1);
-
+            if (mut.type === 'attributes' && mut.attributeName === 'src') {
+                // Only load src file if it's not a blob (for DASH / HLS sources)
+                if (mut.target['src'] && mut.target['src'].length > 0 && mut.target['src'].indexOf('blob:') < 0) {
+                    this.loadMedia();
+                    break;
+                }
+            } else if (mut.type === 'childList' && mut.removedNodes.length && mut.removedNodes[0].nodeName.toLowerCase() === 'source') {
+                this.loadMedia();
                 break;
             }
         }
+    }
+
+    loadMedia() {
+        this.vgMedia.pause();
+        this.vgMedia.currentTime = 0;
+
+        // Start buffering until we can play the media file
+        this.stopBufferCheck();
+        this.isBufferDetected = true;
+        this.bufferDetected.next(this.isBufferDetected);
+
+        // TODO: This is ugly, we should find something cleaner. For some reason a TimerObservable doesn't works.
+        setTimeout(() => this.vgMedia.load(), 10);
     }
 
     play() {
@@ -277,39 +282,55 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         return this.vgMedia.buffered;
     }
 
+    get textTracks() {
+        return this.vgMedia.textTracks;
+    }
+
     onCanPlay(event: any) {
+        this.isBufferDetected = false;
+        this.bufferDetected.next(this.isBufferDetected);
         this.canPlay = true;
+        this.ref.detectChanges();
     }
 
     onCanPlayThrough(event: any) {
+        this.isBufferDetected = false;
+        this.bufferDetected.next(this.isBufferDetected);
         this.canPlayThrough = true;
+        this.ref.detectChanges();
     }
 
     onLoadMetadata(event: any) {
         this.isMetadataLoaded = true;
 
-        this.time.current = 0;
-        this.time.left = 0;
-        this.time.total = this.duration * 1000;
+        this.time = {
+            current: 0,
+            left: 0,
+            total: this.duration * 1000
+        };
 
         this.state = VgStates.VG_PAUSED;
 
         // Live streaming check
         let t:number = Math.round(this.time.total);
         this.isLive = (t === Infinity);
+        this.ref.detectChanges();
     }
 
     onWait(event: any) {
         this.isWaiting = true;
+        this.ref.detectChanges();
     }
 
     onComplete(event: any) {
         this.isCompleted = true;
         this.state = VgStates.VG_ENDED;
+        this.ref.detectChanges();
     }
 
     onStartPlaying(event: any) {
         this.state = VgStates.VG_PLAYING;
+        this.ref.detectChanges();
     }
 
     onPlay(event: any) {
@@ -321,9 +342,8 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             }
         }
 
-        if (this.bufferObserver) {
-            this.startBufferCheck();
-        }
+        this.startBufferCheck();
+        this.ref.detectChanges();
     }
 
     onPause(event: any) {
@@ -335,36 +355,42 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             }
         }
 
-        if (this.bufferObserver) {
-            this.stopBufferCheck();
-        }
+        this.stopBufferCheck();
+        this.ref.detectChanges();
     }
 
     onTimeUpdate(event: any) {
         let end = this.buffered.length - 1;
 
-        this.time.current = this.currentTime * 1000;
-        this.time.left = (this.duration - this.currentTime) * 1000;
+        this.time = {
+            current: this.currentTime * 1000,
+            total: this.time.total,
+            left: (this.duration - this.currentTime) * 1000
+        };
 
         if (end >= 0) {
-            this.buffer.end = this.buffered.end(end) * 1000;
+            this.buffer = { end: this.buffered.end(end) * 1000 };
         }
+        this.ref.detectChanges();
     }
 
     onProgress(event: any) {
         let end = this.buffered.length - 1;
 
         if (end >= 0) {
-            this.buffer.end = this.buffered.end(end) * 1000;
+            this.buffer = { end: this.buffered.end(end) * 1000 };
         }
+        this.ref.detectChanges();
     }
 
     onVolumeChange(event: any) {
         // TODO: Save to localstorage the current volume
+        this.ref.detectChanges();
     }
 
     onError(event: any) {
         // TODO: Handle error messages
+        this.ref.detectChanges();
     }
 
     // http://stackoverflow.com/a/23828241/779529
@@ -380,7 +406,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             this.isBufferDetected = false;
         }
 
-        this.bufferObserver.next(this.isBufferDetected);
+        this.bufferDetected.next(this.isBufferDetected);
 
         this.lastPlayPos = this.currentPlayPos;
     }
@@ -400,9 +426,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
         this.isBufferDetected = false;
 
-        if (this.bufferObserver) {
-            this.bufferObserver.next(this.isBufferDetected);
-        }
+        this.bufferDetected.next(this.isBufferDetected);
     }
 
     seekTime(value:number, byPercent:boolean = false) {
@@ -417,6 +441,15 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         }
 
         this.currentTime = second;
+    }
+
+    addTextTrack(type:string, label?:string, language?:string, mode?:'disabled' | 'hidden' | 'showing'): TextTrack {
+        const newTrack:TextTrack = this.vgMedia.addTextTrack(type, label, language);
+
+        if (mode) {
+            newTrack.mode = mode;
+        }
+        return newTrack;
     }
 
     ngOnDestroy() {
