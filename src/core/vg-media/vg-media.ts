@@ -62,6 +62,8 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     bufferDetected: Subject<boolean> = new Subject();
 
+    playPromise: Promise<any>;
+
     constructor(private api: VgAPI, private ref: ChangeDetectorRef) {
 
     }
@@ -231,11 +233,36 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     play() {
-        this.vgMedia.play();
+        // short-circuit if already playing
+        if (this.playPromise || this.state !== VgStates.VG_PAUSED) {
+            return;
+        }
+
+        this.playPromise = this.vgMedia.play();
+
+        // browser has async play promise
+        if (this.playPromise && this.playPromise.then && this.playPromise.catch) {
+            this.playPromise
+                .then(() => {
+                    this.playPromise = null;
+                })
+                .catch(() => {
+                    // deliberately empty for the sake of eating console noise
+                });
+        }
     }
 
     pause() {
-        this.vgMedia.pause();
+        // browser has async play promise
+        if (this.playPromise) {
+            this.playPromise
+                .then(() => {
+                    this.vgMedia.pause();
+                });
+        }
+        else {
+            this.vgMedia.pause();
+        }
     }
 
     get id() {
