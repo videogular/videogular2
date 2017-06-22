@@ -433,7 +433,10 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             this.isBufferDetected = false;
         }
 
-        this.bufferDetected.next(this.isBufferDetected);
+        // Prevent calls to bufferCheck after ngOnDestroy have been called
+        if (!this.bufferDetected.closed) {
+            this.bufferDetected.next(this.isBufferDetected);
+        }
 
         this.lastPlayPos = this.currentPlayPos;
     }
