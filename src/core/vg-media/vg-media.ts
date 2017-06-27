@@ -234,7 +234,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     play() {
         // short-circuit if already playing
-        if (this.playPromise || this.state !== VgStates.VG_PAUSED) {
+        if (this.playPromise || (this.state !== VgStates.VG_PAUSED && this.state !== VgStates.VG_ENDED)) {
             return;
         }
 
