@@ -52,7 +52,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
 
         if (!this.preload) {
             this.subscriptions.push(
-                this.API.subscriptions.play.subscribe(
+-                this.API.subscriptions.play.subscribe(
                     () => {
                         if (this.hls) {
                             this.hls.startLoad(0);
@@ -78,7 +78,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         }
 
         // It's a HLS source
-        if (this.vgHls && ((this.vgHls.indexOf('.m3u8') > 1) || (this.vgHls.indexOf('m3u8-aapl') > -1)) && Hls.isSupported()) {
+        if (this.vgHls && ((this.vgHls.indexOf('.m3u8') > -1) || (this.vgHls.indexOf('m3u8-aapl') > -1)) && Hls.isSupported()) {
             let video:HTMLVideoElement = this.ref.nativeElement;
 
             this.hls = new Hls(this.config);
