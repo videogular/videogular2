@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
+-import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { VgAPI } from '../../core/services/vg-api';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -48,7 +48,7 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
         }
 
         // It's a DASH source
-        if (this.vgDash && ((this.vgDash.indexOf('.mpd') > 1) || (this.vgDash.indexOf('mpd-time-csf') > -1))) {
+        if (this.vgDash && ((this.vgDash.indexOf('.mpd') > -1) || (this.vgDash.indexOf('mpd-time-csf') > -1))) {
             this.dash = dashjs.MediaPlayer().create();
             this.dash.getDebug().setLogToBrowserConsole(false);
             this.dash.initialize(this.ref.nativeElement, this.vgDash, false);
