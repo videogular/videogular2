@@ -1,4 +1,4 @@
--import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
+import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { VgAPI } from '../../core/services/vg-api';
 import { Subscription } from 'rxjs/Subscription';
 
