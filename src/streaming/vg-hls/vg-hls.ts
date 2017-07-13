@@ -52,7 +52,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
 
         if (!this.preload) {
             this.subscriptions.push(
--                this.API.subscriptions.play.subscribe(
+                this.API.subscriptions.play.subscribe(
                     () => {
                         if (this.hls) {
                             this.hls.startLoad(0);
