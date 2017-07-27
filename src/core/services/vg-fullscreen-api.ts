@@ -86,6 +86,13 @@ export class VgFullscreenAPI {
             this.polyfill = APIs.ios
         }
 
+        this.isAvailable = (this.polyfill != null);
+
+        if(this.polyfill == null)
+        {
+            return;
+        }
+
         let fsElemDispatcher;
 
         switch (this.polyfill.onchange) {
@@ -109,7 +116,7 @@ export class VgFullscreenAPI {
             this.onFullscreenChange();
         });
 
-        this.isAvailable = (this.polyfill != null);
+        
     }
 
     onFullscreenChange() {
