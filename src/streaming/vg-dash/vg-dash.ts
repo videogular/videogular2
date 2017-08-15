@@ -9,6 +9,8 @@ declare let dashjs;
 })
 export class VgDASH implements OnInit, OnChanges, OnDestroy {
     @Input() vgDash:string;
+    @Input() vgDRMToken:string;
+    @Input() vgDRMLicenseServer:string;
 
     vgFor: string;
     target: any;
@@ -48,10 +50,32 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
         }
 
         // It's a DASH source
-        if (this.vgDash && this.vgDash.indexOf('.mpd') > -1) {
+        if (this.vgDash && (
+            (this.vgDash.indexOf('.mpd') > -1) ||
+            (this.vgDash.indexOf('mpd-time-csf') > -1))
+        ) {
+            let drmOptions;
+
+            if (this.vgDRMLicenseServer) {
+                drmOptions = this.vgDRMLicenseServer;
+
+                if (this.vgDRMToken) {
+                    for (let drmServer in drmOptions) {
+                        drmOptions[drmServer].httpRequestHeaders = { Authorization: this.vgDRMToken };
+                    }
+                }
+            }
+
             this.dash = dashjs.MediaPlayer().create();
             this.dash.getDebug().setLogToBrowserConsole(false);
-            this.dash.initialize(this.ref.nativeElement, this.vgDash, false);
+            this.dash.initialize(this.ref.nativeElement);
+            this.dash.setAutoPlay(false);
+
+            if (drmOptions) {
+                this.dash.setProtectionData(drmOptions);
+            }
+
+            this.dash.attachSource(this.vgDash);
         }
         else {
             if (this.target) {
