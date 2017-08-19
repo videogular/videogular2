@@ -43,16 +43,34 @@ This module is dependant of `dashjs` library and you need to install via `npm in
 | Input | Description |
 |--- |--- |
 | vgDash | Url to DASH `mpd` file. |
+| vgDRMLicenseServer | An object with `IDRMLicenseServer` signature with the license servers. |
+| vgDRMToken | Token to validate on license server. |
 
 ## HTML Definition
 
 ```html
 <vg-player>
     <video #myMedia
-           [vgDash]="'http://static.videogular.com/assets/videos/videogular.mpd'"
+           [vgDash]="stream.source"
+           [vgDRMLicenseServer]="stream.licenseServers"
+           [vgDRMToken]="stream.token"
            id="my-video"
            type="video/mp4"
            controls>
     </video>
 </vg-player>
+```
+
+In your component create a `stream` property
+
+```typescript
+stream = {
+    source: 'https://storage.googleapis.com/shaka-demo-assets/angel-one-widevine/dash.mpd',
+    licenseServers: {
+        'com.widevine.alpha': {
+            serverURL: 'https://widevine-proxy.appspot.com/proxy'
+        }
+    },
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+}
 ```

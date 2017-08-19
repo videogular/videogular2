@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import { VgAPI } from '../../core/services/vg-api';
 import { Subscription } from 'rxjs/Subscription';
+import { IDRMLicenseServer } from '../streaming';
 
 declare let dashjs;
 
@@ -10,7 +11,7 @@ declare let dashjs;
 export class VgDASH implements OnInit, OnChanges, OnDestroy {
     @Input() vgDash:string;
     @Input() vgDRMToken:string;
-    @Input() vgDRMLicenseServer:string;
+    @Input() vgDRMLicenseServer:IDRMLicenseServer;
 
     vgFor: string;
     target: any;
