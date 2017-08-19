@@ -739,17 +739,38 @@
 <td>vgDash</td>
 <td>Url to DASH <code>mpd</code> file.</td>
 </tr>
+<tr>
+<td>vgDRMLicenseServer</td>
+<td>An object with <code>IDRMLicenseServer</code> signature with the license servers.</td>
+</tr>
+<tr>
+<td>vgDRMToken</td>
+<td>Token to validate on license server.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="html-definition">HTML Definition</h2>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">vg-player</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">video</span> #<span class="hljs-attr">myMedia</span>
-           [<span class="hljs-attr">vgDash</span>]=<span class="hljs-string">&quot;&apos;http://static.videogular.com/assets/videos/videogular.mpd&apos;&quot;</span>
+           [<span class="hljs-attr">vgDash</span>]=<span class="hljs-string">&quot;stream.source&quot;</span>
+           [<span class="hljs-attr">vgDRMLicenseServer</span>]=<span class="hljs-string">&quot;stream.licenseServers&quot;</span>
+           [<span class="hljs-attr">vgDRMToken</span>]=<span class="hljs-string">&quot;stream.token&quot;</span>
            <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-video&quot;</span>
            <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;video/mp4&quot;</span>
            <span class="hljs-attr">controls</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">vg-player</span>&gt;</span>
+</code></pre>
+<p>In your component create a <code>stream</code> property</p>
+<pre><code class="lang-typescript">stream = {
+    source: <span class="hljs-string">&apos;https://storage.googleapis.com/shaka-demo-assets/angel-one-widevine/dash.mpd&apos;</span>,
+    licenseServers: {
+        <span class="hljs-string">&apos;com.widevine.alpha&apos;</span>: {
+            serverURL: <span class="hljs-string">&apos;https://widevine-proxy.appspot.com/proxy&apos;</span>
+        }
+    },
+    token: <span class="hljs-string">&apos;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&apos;</span>
+}
 </code></pre>
 
                                 
@@ -794,7 +815,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"VgDASH","level":"3.6.1","depth":2,"next":{"title":"VgHLS","level":"3.6.2","depth":2,"path":"modules/streaming/vg-hls/README.md","ref":"modules/streaming/vg-hls/README.md","articles":[]},"previous":{"title":"videogular2/streaming","level":"3.6","depth":1,"path":"modules/streaming/README.md","ref":"modules/streaming/README.md","articles":[{"title":"VgDASH","level":"3.6.1","depth":2,"path":"modules/streaming/vg-dash/README.md","ref":"modules/streaming/vg-dash/README.md","articles":[]},{"title":"VgHLS","level":"3.6.2","depth":2,"path":"modules/streaming/vg-hls/README.md","ref":"modules/streaming/vg-hls/README.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/streaming/vg-dash/README.md","mtime":"2017-08-15T10:14:36.745Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-08-15T10:16:58.544Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"VgDASH","level":"3.6.1","depth":2,"next":{"title":"VgHLS","level":"3.6.2","depth":2,"path":"modules/streaming/vg-hls/README.md","ref":"modules/streaming/vg-hls/README.md","articles":[]},"previous":{"title":"videogular2/streaming","level":"3.6","depth":1,"path":"modules/streaming/README.md","ref":"modules/streaming/README.md","articles":[{"title":"VgDASH","level":"3.6.1","depth":2,"path":"modules/streaming/vg-dash/README.md","ref":"modules/streaming/vg-dash/README.md","articles":[]},{"title":"VgHLS","level":"3.6.2","depth":2,"path":"modules/streaming/vg-hls/README.md","ref":"modules/streaming/vg-hls/README.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/streaming/vg-dash/README.md","mtime":"2017-08-19T08:49:40.041Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-08-19T08:51:24.365Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
