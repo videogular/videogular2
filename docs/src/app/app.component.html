@@ -1,0 +1,34 @@
+<section class="intro-description">
+    <h2 class="section-title">Incredibly powerful video apps</h2>
+    <p>Videogular is designed as as a declarative framework, so you can compose Videogular elements with HTML5
+        standard markup.</p>
+    <p>Build your media player with tags and attributes. No need to learn complex APIs or
+        config files to skin your video player, just plain CSS.</p>
+
+    <a class="hero-button hero-button__dark" href="https://videogular.github.io/videogular2/docs" target="_blank">Get Started</a>
+</section>
+
+<section class="demo" [ngClass]="{'demo--enabled': isDemoEnabled}">
+    <iframe [src]="currentDemo"
+            allowfullscreen="true"
+            scrolling="no">
+    </iframe>
+
+    <div class="see-demo">
+        <span class="see-demo-label">Live Demo</span>
+        <div class="on-off-switch">
+            <input type="checkbox"
+                   (change)="isDemoEnabled = !isDemoEnabled"
+                   id="my-on-off-switch"
+                   class="on-off-switch-checkbox">
+            <label class="on-off-switch-label" for="my-on-off-switch"></label>
+        </div>
+    </div>
+
+</section>
+
+<ul class="demo-buttons" [ngClass]="{ 'show': isDemoEnabled }">
+    <li *ngFor="let demo of demos">
+        <a class="hero-button hero-button__dark hero-button__arrow" [ngClass]="{'hero-button__selected': demo === selectedDemo}" (click)="updateDemo(demo)">{{ demo.label }}</a>
+    </li>
+</ul>
