@@ -11,6 +11,7 @@ notifications:
 node_js:
   - '6.9.x'
 before_install:
+  - nvm install 6.9.x
   - npm i -g npm@^3.0.0
   - sleep 1
 before_script:
