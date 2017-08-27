@@ -9,7 +9,7 @@ cache:
 notifications:
   email: false
 node_js:
-  - '4'
+  - '6.9.x'
 before_install:
   - npm i -g npm@^3.0.0
   - sleep 1
