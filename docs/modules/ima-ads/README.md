@@ -19,6 +19,7 @@ To use this module you need to add this script to your `head` tag and initialize
 
 <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 ```
+And you need to initialize googletag property on index.html before the declaration for the script above.
 
 And you need to initialize googletag property on index.html before the declaration for the script above.
 
