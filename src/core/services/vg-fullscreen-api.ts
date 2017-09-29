@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter, QueryList } from '@angular/core';
+import { EventEmitter, Injectable, QueryList } from '@angular/core';
 import { VgUtils } from './vg-utils';
 import { VgMedia } from '../vg-media/vg-media';
 import { Subscription } from 'rxjs/Subscription';
@@ -18,7 +18,8 @@ export class VgFullscreenAPI {
     fsChangeSubscription: Subscription;
     onChangeFullscreen: EventEmitter<any> = new EventEmitter();
 
-    constructor() {}
+    constructor() {
+    }
 
     init(elem: HTMLElement, medias: QueryList<VgMedia>) {
         this.videogularElement = elem;
@@ -88,8 +89,7 @@ export class VgFullscreenAPI {
 
         this.isAvailable = (this.polyfill != null);
 
-        if(this.polyfill == null)
-        {
+        if (this.polyfill == null) {
             return;
         }
 
@@ -115,8 +115,6 @@ export class VgFullscreenAPI {
         this.fsChangeSubscription = Observable.fromEvent(fsElemDispatcher, this.polyfill.onchange).subscribe(() => {
             this.onFullscreenChange();
         });
-
-        
     }
 
     onFullscreenChange() {
