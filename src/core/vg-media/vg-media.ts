@@ -26,7 +26,6 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     time: any = { current: 0, total: 0, left: 0 };
     buffer: any = { end: 0 };
     subscriptions: IMediaSubscriptions | any;
-    track: any;
 
     canPlay: boolean = false;
     canPlayThrough: boolean = false;
@@ -62,6 +61,8 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     errorObs: Subscription;
 
     bufferDetected: Subject<boolean> = new Subject();
+
+    playPromise: Promise<any>;
 
     constructor(private api: VgAPI, private ref: ChangeDetectorRef) {
 
@@ -150,9 +151,6 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
                 }
             );
         }
-
-        //inits cuePoints
-        this.track = this.elem.addTextTrack('metadata'); // previusly implemented as addTrack()
     }
 
     prepareSync() {
@@ -208,32 +206,63 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         for (let i=0, l=mutations.length; i<l; i++) {
             let mut: MutationRecord = mutations[i];
 
-            // TODO: Add control only for childLists of type `source`
-            if ((mut.type === 'attributes' && mut.attributeName === 'src') || mut.type === 'childList') {
-                this.vgMedia.pause();
-                this.vgMedia.currentTime = 0;
-
-                // Start buffering until we can play the media file
-                this.stopBufferCheck();
-                this.isBufferDetected = true;
-                this.bufferDetected.next(this.isBufferDetected);
-
+            if (mut.type === 'attributes' && mut.attributeName === 'src') {
                 // Only load src file if it's not a blob (for DASH / HLS sources)
                 if (mut.target['src'] && mut.target['src'].length > 0 && mut.target['src'].indexOf('blob:') < 0) {
-                    // TODO: This is ugly, we should find something cleaner. For some reason a TimerObservable doesn't works.
-                    setTimeout(() => this.vgMedia.load(), 10);
+                    this.loadMedia();
                     break;
                 }
+            } else if (mut.type === 'childList' && mut.removedNodes.length && mut.removedNodes[0].nodeName.toLowerCase() === 'source') {
+                this.loadMedia();
+                break;
             }
         }
     }
 
+    loadMedia() {
+        this.vgMedia.pause();
+        this.vgMedia.currentTime = 0;
+
+        // Start buffering until we can play the media file
+        this.stopBufferCheck();
+        this.isBufferDetected = true;
+        this.bufferDetected.next(this.isBufferDetected);
+
+        // TODO: This is ugly, we should find something cleaner. For some reason a TimerObservable doesn't works.
+        setTimeout(() => this.vgMedia.load(), 10);
+    }
+
     play() {
-        this.vgMedia.play();
+        // short-circuit if already playing
+        if (this.playPromise || (this.state !== VgStates.VG_PAUSED && this.state !== VgStates.VG_ENDED)) {
+            return;
+        }
+
+        this.playPromise = this.vgMedia.play();
+
+        // browser has async play promise
+        if (this.playPromise && this.playPromise.then && this.playPromise.catch) {
+            this.playPromise
+                .then(() => {
+                    this.playPromise = null;
+                })
+                .catch(() => {
+                    // deliberately empty for the sake of eating console noise
+                });
+        }
     }
 
     pause() {
-        this.vgMedia.pause();
+        // browser has async play promise
+        if (this.playPromise) {
+            this.playPromise
+                .then(() => {
+                    this.vgMedia.pause();
+                });
+        }
+        else {
+            this.vgMedia.pause();
+        }
     }
 
     get id() {
@@ -404,7 +433,10 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             this.isBufferDetected = false;
         }
 
-        this.bufferDetected.next(this.isBufferDetected);
+        // Prevent calls to bufferCheck after ngOnDestroy have been called
+        if (!this.bufferDetected.closed) {
+            this.bufferDetected.next(this.isBufferDetected);
+        }
 
         this.lastPlayPos = this.currentPlayPos;
     }
@@ -465,6 +497,17 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.timeUpdateObs.unsubscribe();
         this.volumeChangeObs.unsubscribe();
         this.errorObs.unsubscribe();
+        
+        if (this.checkBufferSubscription) {
+            this.checkBufferSubscription.unsubscribe();
+        }
+
+        if(this.syncSubscription) {
+            this.syncSubscription.unsubscribe();
+        }
+        
+        this.bufferDetected.complete();
+        this.bufferDetected.unsubscribe();
 
         this.api.unregisterMedia(this);
     }
