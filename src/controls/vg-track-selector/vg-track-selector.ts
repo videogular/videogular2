@@ -14,13 +14,17 @@ export interface Option {
     template: `
         <div class="container">
             <div class="track-selected"
-                [class.vg-icon-closed_caption]="!trackSelected">
+                 [class.vg-icon-closed_caption]="!trackSelected">
                 {{ trackSelected || '' }}
             </div>
             
-            <select class="trackSelector" (change)="selectTrack($event.target.value)">
+            <select class="trackSelector" 
+                    (change)="selectTrack($event.target.value)"
+                    tabindex="0"
+                    aria-label="track selector"
+                    [attr.aria-valuetext]="ariaValue">
                 <option 
-                    *ngFor="let track of tracks" 
+                    *ngFor="let track of tracks"
                     [value]="track.id"
                     [selected]="track.selected === true">
                     {{ track.label }}
@@ -62,9 +66,6 @@ export interface Option {
             appearance: none;
             color: transparent;
             font-size: 16px;
-        }
-        vg-track-selector select.trackSelector:focus {
-            outline: none;
         }
         vg-track-selector .track-selected {
             position: absolute;

@@ -12,6 +12,14 @@ import { Subscription } from 'rxjs/Subscription';
         <div 
             #volumeBar
             class="volumeBar"
+            tabindex="0"
+            role="slider"
+            aria-label="volume level"
+            aria-level="polite"
+            [attr.aria-valuenow]="ariaValue"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [attr.aria-valuetext]="ariaValue + '%'"
             (click)="onClick($event)"
             (mousedown)="onMouseDown($event)">
             <div class="volumeBackground" [ngClass]="{dragging: isDragging}">
@@ -79,6 +87,7 @@ export class VgVolume implements OnInit, OnDestroy {
     target: any;
     isDragging: boolean;
     mouseDownPosX: number;
+    ariaValue: number;
 
     subscriptions: Subscription[] = [];
 
@@ -98,6 +107,7 @@ export class VgVolume implements OnInit, OnDestroy {
 
     onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
+        this.ariaValue = this.getVolume() * 100;
     }
 
     onClick(event: { clientX: number }) {
@@ -126,6 +136,18 @@ export class VgVolume implements OnInit, OnDestroy {
         }
     }
 
+    @HostListener('keydown', ['$event'])
+    arrowAdjustVolume(event: KeyboardEvent) {
+        if (event.keyCode === 38 || event.keyCode === 39) {
+            event.preventDefault();
+            this.setVolume(Math.max(0, Math.min(100,(this.getVolume() * 100) + 10)));
+        }
+        else if (event.keyCode === 37 || event.keyCode === 40) {
+            event.preventDefault();
+            this.setVolume(Math.max(0, Math.min(100,(this.getVolume() * 100) - 10)));
+        }
+    }
+
     calculateVolume(mousePosX: number) {
         const recObj = this.volumeBarRef.nativeElement.getBoundingClientRect();
         const volumeBarOffsetLeft: number = recObj.left;
@@ -135,6 +157,7 @@ export class VgVolume implements OnInit, OnDestroy {
 
     setVolume(vol: number) {
         this.target.volume = Math.max(0, Math.min(1, vol / 100));
+        this.ariaValue = this.target.volume * 100;
     }
 
     getVolume(): number {

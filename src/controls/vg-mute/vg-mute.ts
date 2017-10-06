@@ -6,11 +6,16 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
     selector: 'vg-mute',
     encapsulation: ViewEncapsulation.None,
-    template: `<div class="icon"
+    template: `
+        <div class="icon"
              [class.vg-icon-volume_up]="getVolume() >= 0.75"
              [class.vg-icon-volume_down]="getVolume() >= 0.25 && getVolume() < 0.75"
              [class.vg-icon-volume_mute]="getVolume() > 0 && getVolume() < 0.25"
-             [class.vg-icon-volume_off]="getVolume() === 0">
+             [class.vg-icon-volume_off]="getVolume() === 0"
+             tabindex="0"
+             role="button"
+             aria-label="mute button"
+             [attr.aria-valuetext]="ariaValue">
         </div>`,
     styles: [ `
         vg-mute {
@@ -43,6 +48,8 @@ export class VgMute implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
+    ariaValue = 'unmuted';
+
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
@@ -63,6 +70,19 @@ export class VgMute implements OnInit, OnDestroy {
 
     @HostListener('click')
     onClick() {
+        this.changeMuteState();
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        // On press Enter (13) or Space (32)
+        if (event.keyCode === 13 || event.keyCode === 32) {
+            event.preventDefault();
+            this.changeMuteState();
+        }
+    }
+
+    changeMuteState() {
         let volume = this.getVolume();
 
         if (volume === 0) {
@@ -75,7 +95,9 @@ export class VgMute implements OnInit, OnDestroy {
     }
 
     getVolume() {
-        return this.target ? this.target.volume : 0;
+        const volume = this.target ? this.target.volume : 0;
+        this.ariaValue = volume ? 'unmuted' : 'muted';
+        return volume;
     }
 
     ngOnDestroy() {

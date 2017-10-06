@@ -6,9 +6,14 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
     selector: 'vg-play-pause',
     encapsulation: ViewEncapsulation.None,
-    template: `<div class="icon"
+    template: `
+        <div class="icon"
              [class.vg-icon-pause]="getState() === 'playing'"
-             [class.vg-icon-play_arrow]="getState() === 'paused' || getState() === 'ended'">
+             [class.vg-icon-play_arrow]="getState() === 'paused' || getState() === 'ended'"
+             tabindex="0"
+             role="button"
+             aria-label="play pause button"
+             [attr.aria-valuetext]="ariaValue">
         </div>`,
     styles: [ `
         vg-play-pause {
@@ -40,6 +45,8 @@ export class VgPlayPause implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
+    ariaValue = VgStates.VG_PAUSED;
+
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
@@ -59,6 +66,19 @@ export class VgPlayPause implements OnInit, OnDestroy {
 
     @HostListener('click')
     onClick() {
+        this.playPause();
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        // On press Enter (13) or Space (32)
+        if (event.keyCode === 13 || event.keyCode === 32) {
+            event.preventDefault();
+            this.playPause();
+        }
+    }
+
+    playPause() {
         let state = this.getState();
 
         switch (state) {
@@ -74,7 +94,8 @@ export class VgPlayPause implements OnInit, OnDestroy {
     }
 
     getState() {
-        return this.target ? this.target.state : VgStates.VG_PAUSED;
+        this.ariaValue = this.target ? this.target.state : VgStates.VG_PAUSED;
+        return this.ariaValue;
     }
 
     ngOnDestroy() {

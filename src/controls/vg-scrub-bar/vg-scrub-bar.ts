@@ -10,9 +10,27 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
     selector: 'vg-scrub-bar',
     encapsulation: ViewEncapsulation.None,
-    template: `<ng-content></ng-content>`,
+    template: `
+        <div class="scrubBar"
+             tabindex="0"
+             role="slider"
+             aria-label="scrub bar"
+             aria-level="polite"
+             [attr.aria-valuenow]="getPercentage()"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             [attr.aria-valuetext]="getPercentage() + '%'">
+            <ng-content></ng-content>
+        </div>
+        
+    `,
     styles: [ `
         vg-scrub-bar {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
             position: absolute;
             width: 100%;
             height: 5px;
@@ -27,6 +45,13 @@ import { Subscription } from 'rxjs/Subscription';
             -moz-transition: bottom 1s, opacity 0.5s;
             -ms-transition: bottom 1s, opacity 0.5s;
             transition: bottom 1s, opacity 0.5s;
+        }
+        
+        vg-scrub-bar .scrubBar {
+            position: relative;
+            display: flex;
+            flex-grow: 1;
+            align-items: center;
         }
 
         vg-controls vg-scrub-bar {
@@ -98,6 +123,7 @@ export class VgScrubBar implements OnInit, OnDestroy {
 
     protected seekMove(offset: number) {
         if (this.isSeeking) {
+            console.log(offset);
             let percentage = Math.max(Math.min(offset * 100 / this.elem.scrollWidth, 99.9), 0);
             this.target.time.current = percentage * this.target.time.total / 100;
             this.target.seekTime(percentage, true);
@@ -205,6 +231,22 @@ export class VgScrubBar implements OnInit, OnDestroy {
         if (!this.target.isLive && this.vgSlider) {
             this.touchEnd();
         }
+    }
+
+    @HostListener('keydown', ['$event'])
+    arrowAdjustVolume(event: KeyboardEvent) {
+        if (event.keyCode === 38 || event.keyCode === 39) {
+            event.preventDefault();
+            this.target.seekTime((this.target.time.current + 5000) / 1000, false);
+        }
+        else if (event.keyCode === 37 || event.keyCode === 40) {
+            event.preventDefault();
+            this.target.seekTime((this.target.time.current - 5000) / 1000, false);
+        }
+    }
+
+    getPercentage() {
+        return this.target ? ((this.target.time.current * 100) / this.target.time.total) + '%' : '0%';
     }
 
     onHideScrubBar(hide: boolean) {
