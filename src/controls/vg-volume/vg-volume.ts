@@ -138,11 +138,11 @@ export class VgVolume implements OnInit, OnDestroy {
 
     @HostListener('keydown', ['$event'])
     arrowAdjustVolume(event: KeyboardEvent) {
-        if (event.keyCode == 38 || event.keyCode == 39) { 
+        if (event.keyCode === 38 || event.keyCode === 39) {
             event.preventDefault();
             this.setVolume(Math.max(0, Math.min(100,(this.getVolume() * 100) + 10)));
         }
-        else if (event.keyCode == 37 || event.keyCode == 40) {
+        else if (event.keyCode === 37 || event.keyCode === 40) {
             event.preventDefault();
             this.setVolume(Math.max(0, Math.min(100,(this.getVolume() * 100) - 10)));
         }
