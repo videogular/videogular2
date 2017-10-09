@@ -93,6 +93,8 @@ export class VgTrackSelector implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
+    ariaValue: string;
+
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
     }
@@ -127,15 +129,20 @@ export class VgTrackSelector implements OnInit, OnDestroy {
             }
         ];
 
-        this.trackSelected = this.tracks.filter((item: Option) => item.selected === true)[ 0 ].id;
+        const track: Option = this.tracks.filter((item: Option) => item.selected === true)[ 0 ];
+        this.trackSelected = track.id;
+        this.ariaValue = track.label;
     }
 
     selectTrack(trackId: string) {
         this.trackSelected = (trackId === 'null') ? null : trackId;
 
+        this.ariaValue = 'No track selected';
+
         Array.from((this.API.getMasterMedia().elem as HTMLMediaElement).textTracks)
             .forEach((item: TextTrack) => {
                 if (item.language === trackId) {
+                    this.ariaValue = item.label;
                     item.mode = 'showing';
                 } else {
                     item.mode = 'hidden';
