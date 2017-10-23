@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-@angular/core@4.4.4 MIT
+@angular/core@4.4.6 MIT
 
 zone.js@0.8.18 MIT
 The MIT License
@@ -69,9 +69,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-@angular/platform-browser@4.4.4 MIT
+@angular/platform-browser@4.4.6 MIT
 
-@angular/common@4.4.4 MIT
+@angular/common@4.4.6 MIT
 
 normalize.css@7.0.0 MIT
 # The MIT License (MIT)
