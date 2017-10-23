@@ -52,6 +52,7 @@ import { Subscription } from 'rxjs/Subscription';
             display: flex;
             flex-grow: 1;
             align-items: center;
+            height: 100%;
         }
 
         vg-controls vg-scrub-bar {
