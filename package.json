@@ -6,12 +6,12 @@
     "type": "git",
     "url": "https://github.com/videogular/videogular2"
   },
-  "dependencies": {
-    "core-js": "2.4.1",
-    "reflect-metadata": "0.1.10",
-    "rxjs": "5.1.0",
-    "systemjs": "0.20.9",
-    "zone.js": "0.8.5"
+  "peerDependencies": {
+    "core-js": "^2.4.1",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.1.0",
+    "systemjs": "^0.20.9",
+    "zone.js": "^0.8.5"
   },
   "devDependencies": {
     "@angular/common": "2.2.3",
@@ -25,6 +25,7 @@
     "@types/jasmine": "2.5.38",
     "codelyzer": "2.0.1",
     "commitizen": "2.9.6",
+    "core-js": "2.4.1",
     "cz-conventional-changelog": "2.0.0",
     "es6-module-loader": "0.17.11",
     "http-server": "0.10.0",
@@ -36,13 +37,17 @@
     "karma-jasmine": "1.1.0",
     "karma-spec-reporter": "0.0.30",
     "parallelshell": "2.0.0",
+    "reflect-metadata": "0.1.10",
     "remap-istanbul": "0.9.5",
     "rimraf": "2.6.1",
+    "rxjs": "5.1.0",
     "semantic-release": "6.3.2",
+    "systemjs": "0.20.9",
     "tslint": "4.5.1",
     "typescript": "2.0.10",
     "validate-commit-msg": "2.12.1",
-    "watch": "1.0.2"
+    "watch": "1.0.2",
+    "zone.js": "0.8.5"
   },
   "scripts": {
     "commitmsg": "validate-commit-msg",
