@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
           [attr.aria-valuetext]="ariaValue">
         {{getPlaybackRate()}}x
     </span>`,
-    styles: [ `
+    styles: [`
         vg-playback-button {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -53,7 +53,7 @@ export class VgPlaybackButton implements OnInit, OnDestroy {
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
-        this.playbackValues = [ '0.5', '1.0', '1.5', '2.0' ];
+        this.playbackValues = ['0.5', '1.0', '1.5', '2.0'];
         this.playbackIndex = 1;
     }
 
@@ -64,6 +64,7 @@ export class VgPlaybackButton implements OnInit, OnDestroy {
         else {
             this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
         }
+        this.getPlaybackRate();
     }
 
     onPlayerReady() {
@@ -88,10 +89,10 @@ export class VgPlaybackButton implements OnInit, OnDestroy {
         this.playbackIndex = ++this.playbackIndex % this.playbackValues.length;
 
         if (this.target instanceof VgAPI) {
-            this.target.playbackRate = (this.playbackValues[ this.playbackIndex ]);
+            this.target.playbackRate = (this.playbackValues[this.playbackIndex]);
         }
         else {
-            this.target.playbackRate[ this.vgFor ] = (this.playbackValues[ this.playbackIndex ]);
+            this.target.playbackRate[this.vgFor] = (this.playbackValues[this.playbackIndex]);
         }
     }
 
