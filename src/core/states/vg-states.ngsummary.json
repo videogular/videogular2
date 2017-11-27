@@ -1,0 +1,1 @@
+{"moduleName":null,"summaries":[{"symbol":{"__symbol":0,"members":[]},"metadata":{"__symbolic":"class","statics":{"VG_ENDED":"ended","VG_PAUSED":"paused","VG_PLAYING":"playing","VG_LOADING":"waiting"}},"type":{"summaryKind":3,"type":{"reference":{"__symbol":0,"members":[]},"diDeps":[],"lifecycleHooks":[]}}}],"symbols":[{"__symbol":0,"name":"VgStates","filePath":"./vg-states"}]}
