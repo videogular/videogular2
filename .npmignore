@@ -15,10 +15,12 @@ tsconfig.json
 tslint.json
 .travis.yml
 .gitignore
+package-lock.json
 
 !**/*.js
 !**/*.d.ts
 !**/*.metadata.json
+!**/*.ngsummary.json
 
 #################
 ## JetBrains
