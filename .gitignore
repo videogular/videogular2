@@ -8,9 +8,12 @@ npm-debug.log
 **/*.js.map
 **/*.d.ts
 **/*.metadata.json
+**/*.ngsummary.json
 coverage
 compiled
 docs/_book
+package-lock.json
+
 !karma.conf.js
 !karma-test-shim.js
 
