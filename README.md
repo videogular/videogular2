@@ -48,6 +48,11 @@ npm run build
 npm start
 ```
 
+## Quick template
+
+[Stackblitz Template](https://stackblitz.com/edit/angular-videogular?file=app%2Fhello.component.ts)
+
+
 ## Supported by
 
 Videogular wants to thank you to this companies for support this project:
