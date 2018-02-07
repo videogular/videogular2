@@ -172,23 +172,16 @@ export class VgScrubBar implements OnInit, OnDestroy {
         }
     }
 
-    @HostListener('mousemove', [ '$event' ])
+    @HostListener('document:mousemove', [ '$event' ])
     onMouseMoveScrubBar($event: any) {
         if (!this.target.isLive && this.vgSlider && this.isSeeking) {
             this.seekMove($event.offsetX);
         }
     }
 
-    @HostListener('mouseout', [ '$event' ])
-    onMouseOutScrubBar($event: any) {
-        if (!this.target.isLive && this.vgSlider && this.isSeeking) {
-            this.seekEnd($event.offsetX);
-        }
-    }
-
-    @HostListener('mouseup', [ '$event' ])
+    @HostListener('document:mouseup', [ '$event' ])
     onMouseUpScrubBar($event: any) {
-        if (!this.target.isLive && this.vgSlider) {
+        if (!this.target.isLive && this.vgSlider && this.isSeeking) {
             this.seekEnd($event.offsetX);
         }
     }
@@ -205,30 +198,23 @@ export class VgScrubBar implements OnInit, OnDestroy {
         }
     }
 
-    @HostListener('touchmove', [ '$event' ])
+    @HostListener('document:touchmove', [ '$event' ])
     onTouchMoveScrubBar($event: any) {
         if (!this.target.isLive && this.vgSlider && this.isSeeking) {
             this.seekMove(this.getTouchOffset($event));
         }
     }
 
-    @HostListener('touchcancel', [ '$event' ])
+    @HostListener('document:touchcancel', [ '$event' ])
     onTouchCancelScrubBar($event: any) {
-        if (!this.target.isLive && this.vgSlider) {
+        if (!this.target.isLive && this.vgSlider && this.isSeeking) {
             this.touchEnd();
         }
     }
 
-    @HostListener('touchend', [ '$event' ])
+    @HostListener('document:touchend', [ '$event' ])
     onTouchEndScrubBar($event: any) {
-        if (!this.target.isLive && this.vgSlider) {
-            this.touchEnd();
-        }
-    }
-
-    @HostListener('touchleave', [ '$event' ])
-    onTouchLeaveScrubBar($event: any) {
-        if (!this.target.isLive && this.vgSlider) {
+        if (!this.target.isLive && this.vgSlider && this.isSeeking) {
             this.touchEnd();
         }
     }

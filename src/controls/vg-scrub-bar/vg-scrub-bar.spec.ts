@@ -122,29 +122,6 @@ describe('Scrub bar', () => {
         });
     });
 
-    describe('onMouseOutScrubBar', () => {
-        it('should modify time.current to 10 when offsetX is 20 and scrollWidth is 200 and vgSlider is true and isSeeking is true', () => {
-            spyOn(api, 'seekTime');
-
-            media.onCanPlay({});
-            api.registerMedia(media);
-
-            scrubBar.target = api;
-            scrubBar.vgSlider = false;
-
-            scrubBar.onMouseOutScrubBar({ offsetX: 20 });
-
-            expect(api.seekTime).toHaveBeenCalledTimes(0);
-
-            scrubBar.vgSlider = true;
-            scrubBar.isSeeking = true;
-
-            scrubBar.onMouseOutScrubBar({ offsetX: 20 });
-
-            expect(api.seekTime).toHaveBeenCalledWith(10, true);
-        });
-    });
-
     describe('onMouseUpScrubBar', () => {
         it('should modify time.current to 10 when offsetX is 20 and scrollWidth is 200 and vgSlider is true and isSeeking is true', () => {
             spyOn(api, 'seekTime');
@@ -249,26 +226,6 @@ describe('Scrub bar', () => {
             scrubBar.isSeeking = true;
 
             scrubBar.onTouchEndScrubBar({ touches: [ {pageX: 20 }]});
-
-            expect(api.seekTime).toHaveBeenCalledTimes(0);
-        });
-    });
-
-    describe('onTouchLeaveScrubBar', () => {
-        it('should not seek', () => {
-            spyOn(api, 'seekTime');
-
-            scrubBar.target = api;
-            scrubBar.vgSlider = false;
-
-            scrubBar.onTouchLeaveScrubBar({ touches: [ {pageX: 20 }]});
-
-            expect(api.seekTime).toHaveBeenCalledTimes(0);
-
-            scrubBar.vgSlider = true;
-            scrubBar.isSeeking = true;
-
-            scrubBar.onTouchLeaveScrubBar({ touches: [ {pageX: 20 }]});
 
             expect(api.seekTime).toHaveBeenCalledTimes(0);
         });
