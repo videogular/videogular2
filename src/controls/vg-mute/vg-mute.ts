@@ -86,6 +86,10 @@ export class VgMute implements OnInit, OnDestroy {
         let volume = this.getVolume();
 
         if (volume === 0) {
+            if (this.target.volume === 0 && this.currentVolume === 0) {
+                this.currentVolume = 1;
+            }
+
             this.target.volume = this.currentVolume;
         }
         else {
