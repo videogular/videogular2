@@ -1,19 +1,30 @@
-import { Component, OnInit, Input, ElementRef, HostListener, ViewEncapsulation, OnDestroy } from '@angular/core';
+import {
+    Component, OnInit, Input, ElementRef, HostListener, ViewEncapsulation, OnDestroy,
+    HostBinding
+} from '@angular/core';
 import { VgAPI } from '../core/services/vg-api';
 import { VgStates } from '../core/states/vg-states';
 import { Subscription } from 'rxjs/Subscription';
+import { VgFullscreenAPI } from '../core/services/vg-fullscreen-api';
+import { VgControlsHidden } from '../core/services/vg-controls-hidden';
 
 @Component({
     selector: 'vg-overlay-play',
     encapsulation: ViewEncapsulation.None,
-    template: `<div class="vg-overlay-play">
-            <div class="overlay-play-container"
-                 [class.vg-icon-play_arrow]="getState() !== 'playing'">
-            </div>
-        </div>`,
+    template: `<div class="vg-overlay-play"
+                    [class.native-fullscreen]="isNativeFullscreen"
+                    [class.controls-hidden]="areControlsHidden">
+                   <div class="overlay-play-container"
+                        [class.vg-icon-play_arrow]="getState() !== 'playing'">
+                   </div>
+               </div>`,
     styles: [ `
         vg-overlay-play {
             z-index: 200;
+        }
+
+        vg-overlay-play.is-buffering {
+            display: none;
         }
 
         vg-overlay-play .vg-overlay-play {
@@ -27,6 +38,10 @@ import { Subscription } from 'rxjs/Subscription';
             font-size: 80px;
             filter: alpha(opacity=60);
             opacity: 0.6;
+        }
+
+        vg-overlay-play .vg-overlay-play.native-fullscreen.controls-hidden {
+            cursor: none;
         }
 
         vg-overlay-play .vg-overlay-play .overlay-play-container.vg-icon-play_arrow {
@@ -55,9 +70,14 @@ export class VgOverlayPlay implements OnInit, OnDestroy {
     elem: HTMLElement;
     target: any;
 
+    isNativeFullscreen: boolean = false;
+    areControlsHidden: boolean = false;
+
     subscriptions: Subscription[] = [];
 
-    constructor(ref: ElementRef, public API: VgAPI) {
+    @HostBinding('class.is-buffering') isBuffering: boolean = false;
+
+    constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI, private controlsHidden: VgControlsHidden) {
         this.elem = ref.nativeElement;
     }
 
@@ -72,6 +92,27 @@ export class VgOverlayPlay implements OnInit, OnDestroy {
 
     onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
+        this.subscriptions.push(this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this)));
+        this.subscriptions.push(this.controlsHidden.isHidden.subscribe(this.onHideControls.bind(this)));
+        this.subscriptions.push(
+            this.target.subscriptions.bufferDetected.subscribe(
+                isBuffering => this.onUpdateBuffer(isBuffering)
+            )
+        );
+    }
+
+    onUpdateBuffer(isBuffering) {
+        this.isBuffering = isBuffering;
+    }
+
+    onChangeFullscreen(fsState: boolean) {
+        if (this.fsAPI.nativeFullscreen) {
+            this.isNativeFullscreen = fsState;
+        }
+    }
+
+    onHideControls(hidden: boolean) {
+        this.areControlsHidden = hidden;
     }
 
     @HostListener('click')

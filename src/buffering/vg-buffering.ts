@@ -14,8 +14,14 @@ import { Subscription } from 'rxjs/Subscription';
         </div>`,
     styles: [ `
         vg-buffering {
+            display: none;
             z-index: 201;
         }
+
+        vg-buffering.is-buffering {
+            display: block;
+        }
+        
         .vg-buffering {
             position: absolute;
             display: block;
@@ -106,7 +112,7 @@ export class VgBuffering implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
-    @HostBinding('style.display') displayState: string = 'none';
+    @HostBinding('class.is-buffering') isBuffering: boolean = false;
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -126,26 +132,15 @@ export class VgBuffering implements OnInit, OnDestroy {
     onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
 
-        this.target.subscriptions.bufferDetected.subscribe(
-            isBuffering => this.onUpdateBuffer(isBuffering)
+        this.subscriptions.push(
+            this.target.subscriptions.bufferDetected.subscribe(
+                isBuffering => this.onUpdateBuffer(isBuffering)
+            )
         );
     }
 
     onUpdateBuffer(isBuffering) {
-        if (isBuffering && this.target.state === VgStates.VG_PLAYING) {
-            this.show();
-        }
-        else {
-            this.hide();
-        }
-    }
-
-    show() {
-        this.displayState = 'block';
-    }
-
-    hide() {
-        this.displayState = 'none';
+        this.isBuffering = isBuffering;
     }
 
     ngOnDestroy() {

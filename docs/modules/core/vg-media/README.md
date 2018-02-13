@@ -25,6 +25,10 @@ Call to the `pause` method of the element reference passed via the `@Input` prop
 
 Seek to an specified `value` by second or percentage defined by `byPercent` property.
 
+### addTextTrack(type:'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata', label?:string, language?:string, mode?:'disabled' | 'hidden' | 'showing')
+
+Create a `TextTrack` dynamically. You can add `VTTCue` objects using the `addCue` method available in the `TextTrack` class.
+
 ## Properties
 
 ### id [read-only] :string
@@ -69,7 +73,7 @@ Returns an `IMediaSubscriptions` object of event subscriptions to subscribe to s
 - **error**: Fired when an error occurs.  The element's error attribute contains more information.
 - **loadedData**: Fired when the current frame of the media has been loaded.
 - **loadedMetadata**: Fired when the media's metadata has finished loading; all attributes now contain as much useful information as they're going to.
-- **loadedStart**: Fired when the browser starts loading the media.
+- **loadStart**: Fired when the browser starts loading the media.
 - **pause**: Fired when playback is paused.
 - **play**: Fired when playback of the media starts after having been paused; that is, when playback is resumed after a prior pause event.
 - **playing**: Fired when the media begins to play (either for the first time, after having been paused, or after ending and then restarting).
@@ -112,6 +116,10 @@ Returns a `boolean` value to know if the element has been completed.
 ### isLive [read-only] :boolean;
 
 Returns a `boolean` value to know if the element is a live streaming
+
+### textTracks [read-only] :TextTrack[]
+
+Returns an array of `TextTrack` objects. Use this array to get your track to add and remove `VTTCue` objects dynamically.
 
 ## HTML Definition
 

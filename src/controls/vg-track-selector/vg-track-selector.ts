@@ -14,13 +14,17 @@ export interface Option {
     template: `
         <div class="container">
             <div class="track-selected"
-                [class.vg-icon-closed_caption]="!trackSelected">
+                 [class.vg-icon-closed_caption]="!trackSelected">
                 {{ trackSelected || '' }}
             </div>
             
-            <select class="trackSelector" (change)="selectTrack($event.target.value)">
+            <select class="trackSelector" 
+                    (change)="selectTrack($event.target.value)"
+                    tabindex="0"
+                    aria-label="track selector"
+                    [attr.aria-valuetext]="ariaValue">
                 <option 
-                    *ngFor="let track of tracks" 
+                    *ngFor="let track of tracks"
                     [value]="track.id"
                     [selected]="track.selected === true">
                     {{ track.label }}
@@ -63,9 +67,6 @@ export interface Option {
             color: transparent;
             font-size: 16px;
         }
-        vg-track-selector select.trackSelector:focus {
-            outline: none;
-        }
         vg-track-selector .track-selected {
             position: absolute;
             width: 100%;
@@ -91,6 +92,8 @@ export class VgTrackSelector implements OnInit, OnDestroy {
     trackSelected: string;
 
     subscriptions: Subscription[] = [];
+
+    ariaValue: string;
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -126,15 +129,20 @@ export class VgTrackSelector implements OnInit, OnDestroy {
             }
         ];
 
-        this.trackSelected = this.tracks.filter((item: Option) => item.selected === true)[ 0 ].id;
+        const track: Option = this.tracks.filter((item: Option) => item.selected === true)[ 0 ];
+        this.trackSelected = track.id;
+        this.ariaValue = track.label;
     }
 
     selectTrack(trackId: string) {
         this.trackSelected = (trackId === 'null') ? null : trackId;
 
+        this.ariaValue = 'No track selected';
+
         Array.from((this.API.getMasterMedia().elem as HTMLMediaElement).textTracks)
             .forEach((item: TextTrack) => {
                 if (item.language === trackId) {
+                    this.ariaValue = item.label;
                     item.mode = 'showing';
                 } else {
                     item.mode = 'hidden';

@@ -5,7 +5,14 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
     selector: 'vg-playback-button',
     encapsulation: ViewEncapsulation.None,
-    template: `{{getPlaybackRate()}}x`,
+    template: `
+    <span class="button"
+          tabindex="0"
+          role="button"
+          aria-label="playback speed button"
+          [attr.aria-valuetext]="ariaValue">
+        {{getPlaybackRate()}}x
+    </span>`,
     styles: [ `
         vg-playback-button {
             -webkit-touch-callout: none;
@@ -22,6 +29,13 @@ import { Subscription } from 'rxjs/Subscription';
             line-height: 50px;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
         }
+
+        vg-playback-button .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+        }
     ` ]
 })
 export class VgPlaybackButton implements OnInit, OnDestroy {
@@ -34,6 +48,8 @@ export class VgPlaybackButton implements OnInit, OnDestroy {
     playbackIndex: number;
 
     subscriptions: Subscription[] = [];
+
+    ariaValue = 1;
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;
@@ -56,6 +72,19 @@ export class VgPlaybackButton implements OnInit, OnDestroy {
 
     @HostListener('click')
     onClick() {
+        this.updatePlaybackSpeed();
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        // On press Enter (13) or Space (32)
+        if (event.keyCode === 13 || event.keyCode === 32) {
+            event.preventDefault();
+            this.updatePlaybackSpeed();
+        }
+    }
+
+    updatePlaybackSpeed() {
         this.playbackIndex = ++this.playbackIndex % this.playbackValues.length;
 
         if (this.target instanceof VgAPI) {
@@ -67,7 +96,8 @@ export class VgPlaybackButton implements OnInit, OnDestroy {
     }
 
     getPlaybackRate() {
-        return this.target ? this.target.playbackRate : 1.0;
+        this.ariaValue = this.target ? this.target.playbackRate : 1.0;
+        return this.ariaValue;
     }
 
     ngOnDestroy() {

@@ -167,7 +167,7 @@ export interface IMediaElement {
     /**
      * Loads and starts playback of a media resource.
      */
-    play(): void;
+    play(): Promise<any>;
     setMediaKeys(mediaKeys: MediaKeys | null): Promise<void>;
     readonly HAVE_CURRENT_DATA: number;
     readonly HAVE_ENOUGH_DATA: number;

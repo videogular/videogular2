@@ -11,7 +11,9 @@ fi
 
 rev=$(git rev-parse --short HEAD)
 
-cd docs/_book
+cd docs
+mv _book dist/docs
+cd dist
 
 git init
 git config user.name "Raul Jimenez"

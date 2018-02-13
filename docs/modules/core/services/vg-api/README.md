@@ -42,6 +42,10 @@ Register a new media element and saves internally a reference in to the `medias`
 
 Will seek to `value` in seconds or in percentage if `byPercent` is true. By default `byPercent` is false. If there's a master media defined the seek by percentage would be calculated based on master media's duration.
 
+### addTextTrack(type:'subtitles' | 'caption' | 'descriptions' | 'chapters' | 'metadata', label?:string, language?:string, mode?:'disabled' | 'hidden' | 'showing')
+
+Create a track dynamically in all registered `medias`. You can add `VTTCue` objects using the `addCue` method available in the `TextTrack` class.
+
 <hr>
 
 ## Properties
@@ -167,3 +171,6 @@ Returns an `IMediaSubscriptions` with a list of observables or an object with al
 
 This property haves a reference to the container element, usually `vg-player` but it could be overridden in case that you're building your own implementation of `vg-player`.
 
+### textTracks [read-only] :TextTrack[]
+
+Returns an array of `TextTrack` objects. Use this array to get your track to add and remove `VTTCue` objects dynamically.

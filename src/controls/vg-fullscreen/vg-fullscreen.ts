@@ -7,9 +7,14 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
     selector: 'vg-fullscreen',
     encapsulation: ViewEncapsulation.None,
-    template: `<div class="icon"
+    template: `
+        <div class="icon"
              [class.vg-icon-fullscreen]="!isFullscreen"
-             [class.vg-icon-fullscreen_exit]="isFullscreen">
+             [class.vg-icon-fullscreen_exit]="isFullscreen"
+             tabindex="0"
+             role="button"
+             aria-label="fullscreen button"
+             [attr.aria-valuetext]="ariaValue">
         </div>`,
     styles: [ `
         vg-fullscreen {
@@ -41,6 +46,8 @@ export class VgFullscreen implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
+    ariaValue = 'normal mode';
+
     constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI) {
         this.elem = ref.nativeElement;
         this.subscriptions.push(this.fsAPI.onChangeFullscreen.subscribe(this.onChangeFullscreen.bind(this)));
@@ -60,11 +67,25 @@ export class VgFullscreen implements OnInit, OnDestroy {
     }
 
     onChangeFullscreen(fsState: boolean) {
+        this.ariaValue = fsState ? 'fullscren mode' : 'normal mode';
         this.isFullscreen = fsState;
     }
 
     @HostListener('click')
     onClick() {
+        this.changeFullscreenState();
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
+        // On press Enter (13) or Space (32)
+        if (event.keyCode === 13 || event.keyCode === 32) {
+            event.preventDefault();
+            this.changeFullscreenState();
+        }
+    }
+
+    changeFullscreenState() {
         let element = this.target;
 
         if (this.target instanceof VgAPI) {

@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Videogular2Website</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Open+Sans+Condensed:300" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<span class="polygon polygon-red"></span>
+<span class="polygon polygon-yellow"></span>
+<span class="polygon polygon-blue"></span>
+
+<span class="header-decoration">
+        <span class="header-detail header-detail--green"></span>
+        <span class="header-detail header-detail--yellow"></span>
+        <span class="header-detail header-detail--pink"></span>
+        <span class="header-detail header-detail--blue"></span>
+    </span>
+
+<header class="main-menu l-flex l-flex--center">
+    <div class="l-inner l-flex l-flex--space-between">
+        <ul class="menu">
+            <li>
+                <a class="menu--links"
+                   href="https://videogular.github.io/videogular2/docs"
+                   target="_blank">
+                    Docs
+                </a>
+            </li>
+            <li>
+                <a class="menu--links"
+                   href="#demos">
+                    Demos
+                </a>
+            </li>
+            <li>
+                <a class="menu--links"
+                   href="https://www.github.com/videogular/videogular2-showroom/"
+                   target="_blank">
+                    Code Samples
+                </a>
+            </li>
+        </ul>
+
+        <ul class="menu icons">
+            <li>
+                <a class="menu--icons menu--icons__github"
+                   href="https://github.com/videogular/videogular2"
+                   target="_blank"></a>
+            </li>
+            <li>
+                <a class="menu--icons menu--icons__npm"
+                   href="https://www.npmjs.com/package/videogular2"
+                   target="_blank"></a>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<section class="hero l-flex l-flex--center">
+    <div class="l-inner">
+        <div>
+            <h1 class="section-title logo">Videogular</h1>
+            <h1 class="section-title">Futuristic Video Applications</h1>
+            <p class="subtitle l-mw450">
+                Videogular is a revolutionary framework built on top of <a href="https://angular.io" target="_blank">Angular</a>
+                to develop highly interactive media apps for desktop and mobile
+            </p>
+        </div>
+
+        <div class="l-mw400 l-flex l-flex--space-between">
+            <a class="hero-button" href="https://videogular.github.io/videogular2/docs" target="_blank">Get Started</a>
+            <a class="hero-button" href="https://github.com/videogular/videogular2" target="_blank">Github</a>
+        </div>
+    </div>
+
+    <video class="video-bg"
+           src="http://static.videogular.com/assets/videos/videogular-bg.mp4"
+           autoplay
+           muted
+           loop>
+    </video>
+</section>
+
+<section class="logos-container l-flex l-flex--center">
+    <ul class="logos l-inner l-flex l-flex--space-between l-flex--center">
+        <li><img class="logo-img" src="assets/nbc.png" alt="NBC"></li>
+        <li><img class="logo-img" src="assets/vmware.png" alt="VMware"></li>
+        <li><img class="logo-img" src="assets/cisco.png" alt="Cisco"></li>
+        <li><img class="logo-img" src="assets/mercedes-benz.png" alt="Mercedes-Benz"></li>
+        <li><img class="logo-img" src="assets/microsoft.png" alt="Microsoft"></li>
+        <li><img class="logo-img" src="assets/discovery.png" alt="Discovery"></li>
+    </ul>
+</section>
+
+<article class="intro l-inner l-flex l-flex--space-between" id="demos">
+    <app-root></app-root>
+</article>
+
+<article class="core-features l-inner l-mt100">
+    <h2 class="section-title">Core Features</h2>
+    <section class="core-features-container l-flex">
+        <div class="core-features-image"></div>
+
+        <ul class="core-features-list">
+            <li>
+                <input type="radio" name="core-features" id="multi-cam" checked>
+                <div class="core-features-item">
+                    <label for="multi-cam" class="core-features-label">
+                        Multi-cam
+                    </label>
+                    <p class="core-features-description">
+                        Videogular has <a href="https://videogular.github.io/videogular2-showroom/#/master-player"
+                                          target="_blank">built-in multi-cam support</a>
+                        by default. Attach several media elementss inside your player and control them simultaneously or
+                        individually. You can even synchronize all medias and is accurate to a millisecond precision.
+                    </p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="core-features" id="cue-points">
+                <div class="core-features-item">
+                    <label for="cue-points" class="core-features-label">
+                        Cue points
+                    </label>
+                    <p class="core-features-description">
+                        <a href="https://videogular.github.io/videogular2-showroom/#/cue-points-player" target="_blank">Control
+                            your text tracks</a>
+                        dynamically. Create, edit and remove text tracks and cue points easily with bindings.
+                    </p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="core-features" id="reactive">
+                <div class="core-features-item">
+                    <label for="reactive" class="core-features-label">
+                        Reactive
+                    </label>
+                    <p class="core-features-description">
+                        Videogular's API is built on top of <a href="https://github.com/Reactive-Extensions/RxJS"
+                                                               target="_blank">RxJS</a>
+                        so you can listen to changes on the media player reactively.
+                    </p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="core-features" id="extensible">
+                <div class="core-features-item">
+                    <label for="extensible" class="core-features-label">
+                        Extensible
+                    </label>
+                    <p class="core-features-description">
+                        Create your own plugins using the Videogular API. Extend the player with your custom elements.
+                        Change the skin with plain CSS. And don’t forget to check our <a
+                        href="https://videogular.github.io/videogular2/docs" target="_blank">official modules</a>.
+                    </p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="core-features" id="play-anything">
+                <div class="core-features-item">
+                    <label for="play-anything" class="core-features-label">
+                        Play anything
+                    </label>
+                    <p class="core-features-description">
+                        With Videogular you can <a
+                        href="https://videogular.github.io/videogular2-showroom/#/custom-media" target="_blank">play
+                        literally anything</a>. Thanks to our API you can create your own media elements to play maps,
+                        <a href="https://videogular.github.io/videogular2-showroom/#/custom-media" target="_blank">SVG/CSS
+                            animations</a>, slides, VR, etc... and still use the same controls. The possibilities are
+                        endless!
+                    </p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="core-features" id="drm">
+                <div class="core-features-item">
+                    <label for="drm" class="core-features-label">
+                        Streaming with DRM
+                    </label>
+                    <p class="core-features-description">
+                        Stream your media files with <a
+                        href="https://videogular.github.io/videogular2-showroom/#/streaming-player" target="_blank">DASH
+                        or HLS and protect your content</a> with our DRM support for
+                        Widevine and PlayReady. Live streaming is also available and you can even combine mixed
+                        playlists with both technologies!
+                    </p>
+                </div>
+            </li>
+            <li>
+                <input type="radio" name="core-features" id="aria">
+                <div class="core-features-item">
+                    <label for="aria" class="core-features-label">
+                        WAI-ARIA support
+                    </label>
+                    <p class="core-features-description">
+                        Videogular has out-of-the-box <a href="https://www.w3.org/WAI/intro/aria" target="_blank">WAI-ARIA</a>
+                        support for all buttons like play/pause, mute, fullscreen and more, but also for other components
+                        like track selector, volume, scrub bar and so on.
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </section>
+</article>
+
+<article class="get-started l-inner l-flex l-flex--space-between l-mt100">
+    <section class="get-started-title">
+        <h2 class="section-title">Get started now</h2>
+        <p>Start building the future of video applications!</p>
+    </section>
+    <section class="get-started-logos-container">
+        <ul class="get-started-logos">
+            <li class="get-started-logo">
+                <a href="https://videogular.github.io/videogular2/docs"
+                   target="_blank">
+                    <img src="assets/logo_docs@2x.png">
+                </a>
+                <h3>DOCS</h3>
+            </li>
+            <li class="get-started-logo">
+                <a href="https://github.com/videogular/videogular2"
+                   target="_blank">
+                    <img src="assets/logo_github@2x.png">
+                </a>
+                <h3>GITHUB</h3>
+            </li>
+            <li class="get-started-logo">
+                <a href="https://www.npmjs.com/package/videogular2"
+                   target="_blank">
+                    <img src="assets/logo_npm@2x.png">
+                </a>
+                <h3>NPM</h3>
+            </li>
+        </ul>
+    </section>
+</article>
+
+<footer>
+    <section class="l-inner l-flex">
+            <span class="credits">
+                This project was created and is maintained by the amazing <a href="https://github.com/videogular"
+                                                                             target="_blank">Videogular Team</a>.
+                Design by <a href="http://eyegraphic.net/" target="_blank">Eyegraphic</a>,
+                video by <a href="https://vimeo.com/38708088" target="_blank">Fabien Bouchard</a>,
+                voice by <a href="https://en.wikipedia.org/wiki/Pale_Blue_Dot" target="_blank">Carl Sagan</a> and
+                music by <a
+                href="https://audiojungle.net/item/inspirational-piano/5900498?ref=ilovemedia-es&clickthrough_id=1059738821&redirect_back=true"
+                target="_blank">Raquel G. Cabañas.</a>
+            </span>
+    </section>
+</footer>
+
+<span class="header-decoration header-decoration--h15">
+        <span class="header-detail header-detail--green"></span>
+        <span class="header-detail header-detail--yellow"></span>
+        <span class="header-detail header-detail--pink"></span>
+        <span class="header-detail header-detail--blue"></span>
+    </span>
+
+<div class="blue-footer"></div>
+</body>
+</html>
