@@ -251,6 +251,8 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
                     // deliberately empty for the sake of eating console noise
                 });
         }
+
+        return this.playPromise;
     }
 
     pause() {

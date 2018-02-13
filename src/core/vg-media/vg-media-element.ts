@@ -82,7 +82,8 @@ export class VgMediaElement implements IMediaElement {
     pause(): void {
     }
 
-    play(): void {
+    play(): Promise<any> {
+        return null;
     }
 
     setMediaKeys(mediaKeys: MediaKeys | any): Promise<void> {

@@ -13,7 +13,7 @@ To create the `VgAPI`, Videogular needs that each `VgMedia` directive has an `id
 
 ## Methods
 
-### play():void
+### play():Promise<any>
 
 Call to the `play` method of the element reference passed via the `@Input` property `vgMedia`. This usually is a `video` or `audio` element.
 
