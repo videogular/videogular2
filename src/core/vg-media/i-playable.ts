@@ -13,7 +13,7 @@ export interface IPlayable {
     isWaiting: boolean;
     isCompleted: boolean;
     isLive: boolean;
-    textTracks: TextTrack[];
+    textTracks: TextTrackList;
     state: string;
     subscriptions: IMediaSubscriptions;
     duration: number;

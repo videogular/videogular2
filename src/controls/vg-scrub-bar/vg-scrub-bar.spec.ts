@@ -4,6 +4,7 @@ import {ChangeDetectorRef, ElementRef} from "@angular/core";
 import {VgControlsHidden} from './../../core/services/vg-controls-hidden';
 import {VgMedia} from "../../core/vg-media/vg-media";
 import { VgStates } from '../../core/states/vg-states';
+import { VgMediaElement } from '../../core/vg-media/vg-media-element';
 
 describe('Scrub bar', () => {
     let scrubBar:VgScrubBar;
@@ -12,24 +13,17 @@ describe('Scrub bar', () => {
     let api:VgAPI;
     let vgControlsHiddenState: VgControlsHidden;
     let media:VgMedia;
-    let elem = {
-        play: () => {},
-        pause: () => {},
-        load: () => {},
-        duration: 100,
-        currentTime: 0,
-        volume: 1,
-        playbackRate: 1,
-        buffered: {
-            length: 2,
-            end: () => {return 50;}
-        },
-        id: 'testVideo',
-        observe: () => {
-            return <any>{};
-        },
-        dispatchEvent: () => {}
+    let elem = new VgMediaElement();
+    elem.duration = 100;
+    elem.currentTime = 0;
+    elem.volume = 1;
+    elem.playbackRate = 1;
+    elem.buffered = {
+        length: 2,
+        start: () => {return 0;},
+        end: () => {return 50;}
     };
+    elem.id = 'testVideo';
 
     beforeEach(() => {
         ref = {

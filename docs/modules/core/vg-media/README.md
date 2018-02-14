@@ -13,7 +13,7 @@ To create the `VgAPI`, Videogular needs that each `VgMedia` directive has an `id
 
 ## Methods
 
-### play():void
+### play():Promise<any>
 
 Call to the `play` method of the element reference passed via the `@Input` property `vgMedia`. This usually is a `video` or `audio` element.
 
@@ -117,9 +117,9 @@ Returns a `boolean` value to know if the element has been completed.
 
 Returns a `boolean` value to know if the element is a live streaming
 
-### textTracks [read-only] :TextTrack[]
+### textTracks [read-only] :TextTrackList
 
-Returns an array of `TextTrack` objects. Use this array to get your track to add and remove `VTTCue` objects dynamically.
+Returns a `TextTrackList` object. Use this array to get your track to add and remove `VTTCue` objects dynamically.
 
 ## HTML Definition
 
