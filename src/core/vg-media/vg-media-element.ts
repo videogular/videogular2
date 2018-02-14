@@ -2,7 +2,7 @@ import { IMediaElement } from './i-media-element';
 
 export class VgMediaElement implements IMediaElement {
     id: string;
-    elem: string;
+    elem: any;
     get audioTracks(): AudioTrackList { return null; };
     autoplay: boolean;
     buffered: TimeRanges;
