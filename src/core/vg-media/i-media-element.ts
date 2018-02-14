@@ -10,7 +10,7 @@ export interface IMediaElement {
     /**
      * Returns the node element. Only available on Angular classes.
      */
-    readonly elem?: string;
+    readonly elem?: any;
     /**
      * Returns an AudioTrackList object with the audio tracks for a given video element.
      */
