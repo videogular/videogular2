@@ -117,9 +117,9 @@ Returns a `boolean` value to know if the element has been completed.
 
 Returns a `boolean` value to know if the element is a live streaming
 
-### textTracks [read-only] :TextTrack[]
+### textTracks [read-only] :TextTrackList
 
-Returns an array of `TextTrack` objects. Use this array to get your track to add and remove `VTTCue` objects dynamically.
+Returns a `TextTrackList` object. Use this array to get your track to add and remove `VTTCue` objects dynamically.
 
 ## HTML Definition
 
