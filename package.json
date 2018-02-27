@@ -55,6 +55,7 @@
     "postbuild:travis": "npm run test",
     "clean": "rimraf -rf ./src/**/*.js && rimraf -rf ./src/**/*.d.ts && rimraf -rf ./compiled",
     "precommit": "npm test",
+    "postinstall": "npm run build",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
     "start": "parallelshell \"npm run watch:ts\" \"npm run start:coverage-server\"",
