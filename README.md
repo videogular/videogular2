@@ -11,7 +11,7 @@ Documentation: https://videogular.github.io/videogular2
 
 # How to install
 
-To get up and running quickly, check out the [getting started guide](https://videogular.github.io/videogular2/getting-started/).
+To get up and running quickly, check out the [getting started guide](https://videogular.github.io/videogular2/docs/getting-started/).
 
 ## NPM commands
 
