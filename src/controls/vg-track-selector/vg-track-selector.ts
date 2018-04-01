@@ -67,6 +67,9 @@ export interface Option {
             color: transparent;
             font-size: 16px;
         }
+        vg-track-selector select.trackSelector::-ms-expand {
+            display: none;
+        }
         vg-track-selector select.trackSelector option {
             color: #000;
         }
