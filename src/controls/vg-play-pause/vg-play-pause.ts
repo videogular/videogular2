@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
              [class.vg-icon-play_arrow]="getState() === 'paused' || getState() === 'ended'"
              tabindex="0"
              role="button"
-             aria-label="play pause button"
+             [attr.aria-label]="getState() === 'paused'?'play':'pause'"
              [attr.aria-valuetext]="ariaValue">
         </div>`,
     styles: [ `
