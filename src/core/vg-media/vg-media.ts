@@ -1,9 +1,7 @@
-import { ChangeDetectorRef, ElementRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
+import { ChangeDetectorRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
 import { Observable } from "rxjs/Observable";
-import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { Subscription } from "rxjs/Subscription";
-import { Observer } from "rxjs/Observer";
 import { VgStates } from '../states/vg-states';
 import { VgAPI } from '../services/vg-api';
 import { VgEvents } from '../events/vg-events';
@@ -12,6 +10,8 @@ import { IMediaElement } from './i-media-element';
 
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/observable/timer';
+
 
 @Directive({
     selector: '[vgMedia]'
@@ -176,7 +176,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     startSync() {
-        this.syncSubscription = TimerObservable.create(0, 1000).subscribe(
+        this.syncSubscription = Observable.timer(0, 1000).subscribe(
             () => {
                 for (let media in this.api.medias) {
                     if (this.api.medias[ media ] !== this) {
@@ -445,7 +445,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     startBufferCheck() {
-        this.checkBufferSubscription = TimerObservable.create(0, this.checkInterval).subscribe(
+        this.checkBufferSubscription = Observable.timer(0, this.checkInterval).subscribe(
             () => {
                 this.bufferCheck();
             }
