@@ -39,6 +39,7 @@
     * [VgTimeDisplay](modules/controls/vg-time-display/README.md)
         * [VgUtcPipe](modules/controls/vg-time-display/vg-utc.md)
     * [VgTrackSelector](modules/controls/vg-track-selector/README.md)
+    * [VgQualitySelector](modules/controls/vg-quality-selector/README.md)
     * [VgMute](modules/controls/vg-mute/README.md)
     * [VgVolume](modules/controls/vg-volume/README.md)
     * [VgFullscreen](modules/controls/vg-fullscreen/README.md)
