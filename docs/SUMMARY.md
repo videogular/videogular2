@@ -23,6 +23,7 @@
     * [VgCuePoints](modules/core/vg-cue-points/README.md)
     * [VgEvents](modules/core/events/README.md)
     * [VgStates](modules/core/states/README.md)
+    * [BitrateOption](modules/core/bitrate-option/README.md)
 
 * [videogular2/buffering](modules/buffering/README.md)
     * [VgBuffering](modules/buffering/vg-buffering/README.md)
