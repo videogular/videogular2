@@ -1,4 +1,4 @@
-core-js@2.5.4 MIT
+core-js@2.5.5 MIT
 Copyright (c) 2014-2018 Denis Pushkarev
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,9 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-@angular/core@4.4.6 MIT
+@angular/core@4.4.7 MIT
 
-zone.js@0.8.23 MIT
+zone.js@0.8.26 MIT
 The MIT License
 
 Copyright (c) 2016-2018 Google, Inc.
@@ -69,7 +69,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-@angular/platform-browser@4.4.6 MIT
+@angular/platform-browser@4.4.7 MIT
 
 css-loader@0.28.11 MIT
 Copyright JS Foundation and other contributors
@@ -94,7 +94,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-@angular/common@4.4.6 MIT
+@angular/common@4.4.7 MIT
 
 normalize.css@7.0.0 MIT
 # The MIT License (MIT)
