@@ -305,6 +305,19 @@
             
         </li>
     
+        <li class="chapter " data-level="3.1.10" data-path="../../core/bitrate-option/">
+            
+                <a href="../../core/bitrate-option/">
+            
+                    
+                    BitrateOption
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -699,9 +712,11 @@
                                 <h1 id="vgdash-directive">VgDASH @Directive</h1>
 <p>Component to stream with DASH an <code>mpd</code> file.</p>
 <p>You can combine <code>VgDASH</code> and <code>VgHLS</code> together. If you pass a VOD file (that means, not HLS or DASH) it will fallback to the native video implementation.</p>
-<p>In this example you can pass either an <code>mpd</code>, <code>m3u8</code> or <code>mp4</code> file.</p>
+<p><code>VgDASH</code> Directive is exported as <code>vgDash</code> in case you want to access to it from your template. </p>
+<p>In this example <code>currentStream</code> can contain either an <code>mpd</code>, <code>m3u8</code> or <code>mp4</code> file.</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">vg-player</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">video</span> #<span class="hljs-attr">media</span>
+           #<span class="hljs-attr">vgDash</span>=<span class="hljs-string">&quot;vgDash&quot;</span>
            [<span class="hljs-attr">vgMedia</span>]=<span class="hljs-string">&quot;media&quot;</span>
            [<span class="hljs-attr">vgDash</span>]=<span class="hljs-string">&quot;currentStream&quot;</span>
            [<span class="hljs-attr">vgHls</span>]=<span class="hljs-string">&quot;currentStream&quot;</span>
@@ -749,12 +764,28 @@
 </tr>
 </tbody>
 </table>
+<h2 id="outputs">Outputs</h2>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onGetBitrates</td>
+<td>Emitted when a list of bitrates is retrieved from the file. Sends an Array of <code>BitrateOption</code>.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="html-definition">HTML Definition</h2>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">vg-player</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">video</span> #<span class="hljs-attr">myMedia</span>
            [<span class="hljs-attr">vgDash</span>]=<span class="hljs-string">&quot;stream.source&quot;</span>
            [<span class="hljs-attr">vgDRMLicenseServer</span>]=<span class="hljs-string">&quot;stream.licenseServers&quot;</span>
            [<span class="hljs-attr">vgDRMToken</span>]=<span class="hljs-string">&quot;stream.token&quot;</span>
+           (<span class="hljs-attr">onGetBitrates</span>)=<span class="hljs-string">&quot;dashBitrates = $event&quot;</span>
            <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-video&quot;</span>
            <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;video/mp4&quot;</span>
            <span class="hljs-attr">controls</span>&gt;</span>
@@ -815,7 +846,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"VgDASH","level":"3.6.1","depth":2,"next":{"title":"VgHLS","level":"3.6.2","depth":2,"path":"modules/streaming/vg-hls/README.md","ref":"modules/streaming/vg-hls/README.md","articles":[]},"previous":{"title":"videogular2/streaming","level":"3.6","depth":1,"path":"modules/streaming/README.md","ref":"modules/streaming/README.md","articles":[{"title":"VgDASH","level":"3.6.1","depth":2,"path":"modules/streaming/vg-dash/README.md","ref":"modules/streaming/vg-dash/README.md","articles":[]},{"title":"VgHLS","level":"3.6.2","depth":2,"path":"modules/streaming/vg-hls/README.md","ref":"modules/streaming/vg-hls/README.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/streaming/vg-dash/README.md","mtime":"2018-04-18T15:36:46.892Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-18T15:41:35.771Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"VgDASH","level":"3.6.1","depth":2,"next":{"title":"VgHLS","level":"3.6.2","depth":2,"path":"modules/streaming/vg-hls/README.md","ref":"modules/streaming/vg-hls/README.md","articles":[]},"previous":{"title":"videogular2/streaming","level":"3.6","depth":1,"path":"modules/streaming/README.md","ref":"modules/streaming/README.md","articles":[{"title":"VgDASH","level":"3.6.1","depth":2,"path":"modules/streaming/vg-dash/README.md","ref":"modules/streaming/vg-dash/README.md","articles":[]},{"title":"VgHLS","level":"3.6.2","depth":2,"path":"modules/streaming/vg-hls/README.md","ref":"modules/streaming/vg-hls/README.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["ga","responsive-iframes"],"pluginsConfig":{"ga":{"configuration":"auto","token":"UA-45418240-1"},"responsive-iframes":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"modules/streaming/vg-dash/README.md","mtime":"2018-04-18T15:47:23.386Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-04-18T15:51:06.282Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
