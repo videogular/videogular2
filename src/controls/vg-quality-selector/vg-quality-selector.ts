@@ -18,7 +18,7 @@ import { BitrateOption } from '../../core/core';
     template: `
         <div class="container">
             <div class="quality-selected"
-                 [class.vg-icon-closed_caption]="!bitrateSelected">
+                 [class.vg-icon-hd]="!bitrateSelected">
                 {{ bitrateSelected?.label }}
             </div>
             
@@ -30,7 +30,7 @@ import { BitrateOption } from '../../core/core';
                 <option 
                     *ngFor="let bitrate of bitrates"
                     [value]="bitrate.qualityIndex"
-                    [selected]="bitrate.qualityIndex === bitrateSelected.qualityIndex">
+                    [selected]="bitrate.qualityIndex === bitrateSelected?.qualityIndex">
                     {{ bitrate.label }}
                 </option>
             </select>
@@ -94,7 +94,6 @@ import { BitrateOption } from '../../core/core';
     ` ]
 })
 export class VgQualitySelector implements OnInit, OnChanges, OnDestroy {
-    @Input() vgFor: string;
     @Input() bitrates: BitrateOption[];
 
     @Output() onBitrateChange: EventEmitter<BitrateOption> = new EventEmitter();
@@ -113,22 +112,12 @@ export class VgQualitySelector implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit() {
-        if (this.API.isPlayerReady) {
-            this.onPlayerReady();
-        }
-        else {
-            this.subscriptions.push(this.API.playerReadyEvent.subscribe(() => this.onPlayerReady()));
-        }
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['bitrates'].currentValue && changes['bitrates'].currentValue.length) {
             this.bitrates.forEach(item => item.label = item.label || Math.round(item.bitrate / 1000).toString())
         }
-    }
-
-    onPlayerReady() {
-        this.target = this.API.getMediaById(this.vgFor);
     }
 
     selectBitrate(index: number) {

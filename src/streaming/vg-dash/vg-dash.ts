@@ -24,8 +24,6 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
     @Input() vgDash:string;
     @Input() vgDRMToken:string;
     @Input() vgDRMLicenseServer:IDRMLicenseServer;
-    @Input() vgDashBitrate: BitrateOption;
-    @Input() vgDashAuto = true;
 
     @Output() onGetBitrates: EventEmitter<BitrateOption[]> = new EventEmitter();
 
@@ -58,10 +56,6 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
         }
         else {
             this.destroyPlayer();
-        }
-
-        if (changes['vgDashBitrate'] && changes['vgDashBitrate'].currentValue) {
-            this.setBitrate(changes['vgDashBitrate'].currentValue);
         }
     }
 
@@ -97,33 +91,29 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
                 const videoList = this.dash.getBitrateInfoListFor('video');
 
                 if (audioList.length > 1) {
-                    if (this.vgDashAuto) {
-                        audioList.forEach(item => item.qualityIndex = ++item.qualityIndex);
-                        audioList.unshift({
-                            qualityIndex: 0,
-                            width: 0,
-                            height: 0,
-                            bitrate: 0,
-                            mediaType: 'video',
-                            label: 'AUTO'
-                        });
-                    }
+                    audioList.forEach(item => item.qualityIndex = ++item.qualityIndex);
+                    audioList.unshift({
+                        qualityIndex: 0,
+                        width: 0,
+                        height: 0,
+                        bitrate: 0,
+                        mediaType: 'video',
+                        label: 'AUTO'
+                    });
 
                     this.onGetBitrates.emit(audioList);
                 }
 
                 if (videoList.length > 1) {
-                    if (this.vgDashAuto) {
-                        videoList.forEach(item => item.qualityIndex = ++item.qualityIndex);
-                        videoList.unshift({
-                            qualityIndex: 0,
-                            width: 0,
-                            height: 0,
-                            bitrate: 0,
-                            mediaType: 'video',
-                            label: 'AUTO'
-                        });
-                    }
+                    videoList.forEach(item => item.qualityIndex = ++item.qualityIndex);
+                    videoList.unshift({
+                        qualityIndex: 0,
+                        width: 0,
+                        height: 0,
+                        bitrate: 0,
+                        mediaType: 'video',
+                        label: 'AUTO'
+                    });
 
                     this.onGetBitrates.emit(videoList);
                 }
@@ -151,11 +141,8 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
                     this.dash.setAutoSwitchQualityFor(bitrate.mediaType, false);
                 }
 
-                if (this.vgDashAuto) {
-                    this.dash.setQualityFor(bitrate.mediaType, bitrate.qualityIndex - 1);
-                } else {
-                    this.dash.setQualityFor(bitrate.mediaType, bitrate.qualityIndex);
-                }
+                const nextIndex = bitrate.qualityIndex - 1;
+                this.dash.setQualityFor(bitrate.mediaType, nextIndex);
             } else {
                 this.dash.setAutoSwitchQualityFor(bitrate.mediaType, true);
             }
