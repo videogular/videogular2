@@ -1,17 +1,33 @@
-import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
+import {
+    Directive,
+    ElementRef,
+    Input,
+    SimpleChanges,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    EventEmitter
+} from "@angular/core";
 import { VgAPI } from '../../core/services/vg-api';
 import { Subscription } from 'rxjs/Subscription';
 import { IDRMLicenseServer } from '../streaming';
+import { BitrateOption } from '../../core/core';
 
 declare let dashjs;
 
 @Directive({
-    selector: '[vgDash]'
+    selector: '[vgDash]',
+    exportAs: 'vgDash'
 })
 export class VgDASH implements OnInit, OnChanges, OnDestroy {
     @Input() vgDash:string;
     @Input() vgDRMToken:string;
     @Input() vgDRMLicenseServer:IDRMLicenseServer;
+    @Input() vgDashBitrate: BitrateOption;
+    @Input() vgDashAuto = true;
+
+    @Output() onGetBitrates: EventEmitter<BitrateOption[]> = new EventEmitter();
 
     vgFor: string;
     target: any;
@@ -37,11 +53,15 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes:SimpleChanges) {
-        if (changes['vgDash'].currentValue) {
+        if (changes['vgDash'] && changes['vgDash'].currentValue) {
             this.createPlayer();
         }
         else {
             this.destroyPlayer();
+        }
+
+        if (changes['vgDashBitrate'] && changes['vgDashBitrate'].currentValue) {
+            this.setBitrate(changes['vgDashBitrate'].currentValue);
         }
     }
 
@@ -72,6 +92,43 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
             this.dash.initialize(this.ref.nativeElement);
             this.dash.setAutoPlay(false);
 
+            this.dash.on(dashjs.MediaPlayer.events.STREAM_INITIALIZED, () => {
+                const audioList = this.dash.getBitrateInfoListFor('audio');
+                const videoList = this.dash.getBitrateInfoListFor('video');
+
+                if (audioList.length > 1) {
+                    if (this.vgDashAuto) {
+                        audioList.forEach(item => item.qualityIndex = ++item.qualityIndex);
+                        audioList.unshift({
+                            qualityIndex: 0,
+                            width: 0,
+                            height: 0,
+                            bitrate: 0,
+                            mediaType: 'video',
+                            label: 'AUTO'
+                        });
+                    }
+
+                    this.onGetBitrates.emit(audioList);
+                }
+
+                if (videoList.length > 1) {
+                    if (this.vgDashAuto) {
+                        videoList.forEach(item => item.qualityIndex = ++item.qualityIndex);
+                        videoList.unshift({
+                            qualityIndex: 0,
+                            width: 0,
+                            height: 0,
+                            bitrate: 0,
+                            mediaType: 'video',
+                            label: 'AUTO'
+                        });
+                    }
+
+                    this.onGetBitrates.emit(videoList);
+                }
+            });
+
             if (drmOptions) {
                 this.dash.setProtectionData(drmOptions);
             }
@@ -83,6 +140,24 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
                 this.target.pause();
                 this.target.seekTime(0);
                 this.ref.nativeElement.src = this.vgDash;
+            }
+        }
+    }
+
+    setBitrate(bitrate: BitrateOption) {
+        if (this.dash) {
+            if (bitrate.qualityIndex > 0) {
+                if (this.dash.getAutoSwitchQualityFor(bitrate.mediaType)) {
+                    this.dash.setAutoSwitchQualityFor(bitrate.mediaType, false);
+                }
+
+                if (this.vgDashAuto) {
+                    this.dash.setQualityFor(bitrate.mediaType, bitrate.qualityIndex - 1);
+                } else {
+                    this.dash.setQualityFor(bitrate.mediaType, bitrate.qualityIndex);
+                }
+            } else {
+                this.dash.setAutoSwitchQualityFor(bitrate.mediaType, true);
             }
         }
     }
