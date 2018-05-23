@@ -23,6 +23,7 @@
     * [VgCuePoints](modules/core/vg-cue-points/README.md)
     * [VgEvents](modules/core/events/README.md)
     * [VgStates](modules/core/states/README.md)
+    * [BitrateOption](modules/core/bitrate-option/README.md)
 
 * [videogular2/buffering](modules/buffering/README.md)
     * [VgBuffering](modules/buffering/vg-buffering/README.md)
@@ -38,6 +39,7 @@
     * [VgTimeDisplay](modules/controls/vg-time-display/README.md)
         * [VgUtcPipe](modules/controls/vg-time-display/vg-utc.md)
     * [VgTrackSelector](modules/controls/vg-track-selector/README.md)
+    * [VgQualitySelector](modules/controls/vg-quality-selector/README.md)
     * [VgMute](modules/controls/vg-mute/README.md)
     * [VgVolume](modules/controls/vg-volume/README.md)
     * [VgFullscreen](modules/controls/vg-fullscreen/README.md)
@@ -51,3 +53,4 @@
 * [videogular2/streaming](modules/streaming/README.md)
     * [VgDASH](modules/streaming/vg-dash/README.md)
     * [VgHLS](modules/streaming/vg-hls/README.md)
+
