@@ -2,12 +2,12 @@ import {
     Component, Input, OnInit, ElementRef, HostBinding, AfterViewInit, ViewEncapsulation,
     EventEmitter, Output
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { VgAPI } from '../core/services/vg-api';
 import { VgControlsHidden } from './../core/services/vg-controls-hidden';
-import 'rxjs/add/observable/fromEvent';
+
 import { VgStates } from '../core/states/vg-states';
-import { Subscription } from 'rxjs/Subscription';
+import {fromEvent} from 'rxjs';
 
 @Component({
     selector: 'vg-controls',
@@ -55,10 +55,10 @@ export class VgControls implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        let mouseMove = Observable.fromEvent(this.API.videogularElement, 'mousemove');
+        let mouseMove = fromEvent(this.API.videogularElement, 'mousemove');
         this.subscriptions.push(mouseMove.subscribe(this.show.bind(this)));
 
-        let touchStart = Observable.fromEvent(this.API.videogularElement, 'touchstart');
+        let touchStart = fromEvent(this.API.videogularElement, 'touchstart');
         this.subscriptions.push(touchStart.subscribe(this.show.bind(this)));
 
         if (this.API.isPlayerReady) {

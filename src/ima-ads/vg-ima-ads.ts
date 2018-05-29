@@ -4,7 +4,7 @@ import { IPlayable } from '../core/vg-media/i-playable';
 import { VgAPI } from '../core/services/vg-api';
 import { VgEvents } from '../core/events/vg-events';
 import { VgFullscreenAPI } from '../core/services/vg-fullscreen-api';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'vg-ima-ads',

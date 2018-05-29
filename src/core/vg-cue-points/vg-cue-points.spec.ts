@@ -1,8 +1,8 @@
 import { ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { VgCuePoints } from './vg-cue-points';
 
-import 'rxjs/add/observable/fromEvent';
+
 
 describe('Cue points', () => {
     let cuePoints: VgCuePoints;

@@ -12,7 +12,7 @@ import { VgAPI } from '../services/vg-api';
 import { VgFullscreenAPI } from '../services/vg-fullscreen-api';
 import { VgUtils } from '../services/vg-utils';
 import { VgMedia } from '../vg-media/vg-media';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { VgControlsHidden } from '../services/vg-controls-hidden';
 
 @Component({
@@ -78,7 +78,7 @@ export class VgPlayer implements AfterContentInit, OnDestroy {
         this.subscriptions.push(this.controlsHidden.isHidden.subscribe(this.onHideControls.bind(this)));
 
         this.api.onPlayerReady(this.fsAPI);
-        this.onPlayerReady.next(this.api);
+        this.onPlayerReady.emit(this.api);
     }
 
     onChangeFullscreen(fsState: boolean) {

@@ -11,7 +11,7 @@ import {
 } from "@angular/core";
 import { VgAPI } from "../../core/services/vg-api";
 import { IHLSConfig } from './hls-config';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { BitrateOption } from '../../core/core';
 
 declare let Hls;
