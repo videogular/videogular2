@@ -14,14 +14,18 @@ export class VgCuePoints implements OnInit, OnDestroy {
     subscriptions: Subscription[] = [];
     cuesSubscriptions: Subscription[] = [];
 
+    onLoad$: Observable<any>;
+    onEnter$: Observable<any>;
+    onExit$: Observable<any>;
+
     totalCues = 0;
 
     constructor(public ref: ElementRef) {
     }
 
     ngOnInit() {
-        let onLoad = fromEvent(this.ref.nativeElement, VgEvents.VG_LOAD);
-        this.subscriptions.push(onLoad.subscribe(this.onLoad.bind(this)));
+        this.onLoad$ = fromEvent(this.ref.nativeElement, VgEvents.VG_LOAD);
+        this.subscriptions.push(this.onLoad$.subscribe(this.onLoad.bind(this)));
     }
 
     onLoad(event: any) {
@@ -36,11 +40,11 @@ export class VgCuePoints implements OnInit, OnDestroy {
         this.cuesSubscriptions.forEach(s => s.unsubscribe());
 
         for (let i = 0, l = cues.length; i < l; i++) {
-            let onEnter = fromEvent(cues[ i ], VgEvents.VG_ENTER);
-            this.cuesSubscriptions.push(onEnter.subscribe(this.onEnter.bind(this)));
+            this.onEnter$ = fromEvent(cues[ i ], VgEvents.VG_ENTER);
+            this.cuesSubscriptions.push(this.onEnter$.subscribe(this.onEnter.bind(this)));
 
-            let onExit = fromEvent(cues[ i ], VgEvents.VG_EXIT);
-            this.cuesSubscriptions.push(onExit.subscribe(this.onExit.bind(this)));
+            this.onExit$ = fromEvent(cues[ i ], VgEvents.VG_EXIT);
+            this.cuesSubscriptions.push(this.onExit$.subscribe(this.onExit.bind(this)));
         }
     }
 

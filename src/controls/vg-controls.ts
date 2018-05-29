@@ -48,6 +48,9 @@ export class VgControls implements OnInit, AfterViewInit {
     private timer: any;
     private hideTimer: any;
 
+    mouseMove$: Observable<any>;
+    touchStart$: Observable<any>;
+
     subscriptions: Subscription[] = [];
 
     constructor(private API: VgAPI, private ref: ElementRef, private hidden: VgControlsHidden) {
@@ -55,11 +58,11 @@ export class VgControls implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        let mouseMove = fromEvent(this.API.videogularElement, 'mousemove');
-        this.subscriptions.push(mouseMove.subscribe(this.show.bind(this)));
+        this.mouseMove$ = fromEvent(this.API.videogularElement, 'mousemove');
+        this.subscriptions.push(this.mouseMove$.subscribe(this.show.bind(this)));
 
-        let touchStart = fromEvent(this.API.videogularElement, 'touchstart');
-        this.subscriptions.push(touchStart.subscribe(this.show.bind(this)));
+        this.touchStart$ = fromEvent(this.API.videogularElement, 'touchstart');
+        this.subscriptions.push(this.touchStart$.subscribe(this.show.bind(this)));
 
         if (this.API.isPlayerReady) {
             this.onPlayerReady();

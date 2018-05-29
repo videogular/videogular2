@@ -39,7 +39,6 @@ describe('Controls Bar', () => {
     });
 
     it('Should listen for mouseenter and mouseleave events', () => {
-        spyOn(Observable, 'fromEvent').and.callThrough();
 
         let vgElem = document.createElement('vg-player');
 
@@ -47,8 +46,13 @@ describe('Controls Bar', () => {
 
         controls.ngOnInit();
 
-        expect(fromEvent).toHaveBeenCalledWith(api.videogularElement, 'mousemove');
-        expect(fromEvent).toHaveBeenCalledWith(api.videogularElement, 'touchstart');
+        spyOn(controls.mouseMove$, 'subscribe').and.callThrough();
+        spyOn(controls.touchStart$, 'subscribe').and.callThrough();
+
+
+
+        expect(controls.mouseMove$.subscribe).toHaveBeenCalledWith(api.videogularElement, 'mousemove');
+        expect(controls.touchStart$.subscribe).toHaveBeenCalledWith(api.videogularElement, 'touchstart');
     });
 
     it('Should hide controls after view init', () => {

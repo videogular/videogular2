@@ -24,8 +24,10 @@ describe('Cue points', () => {
         expect(fromEvent).toHaveBeenCalledWith(ref.nativeElement, 'load');
     });
 
-    xit('Should handle onLoad event', () => {
-        spyOn(Observable, 'fromEvent').and.callThrough();
+    it('Should handle onLoad event', () => {
+        spyOn(cuePoints.onLoad$, 'subscribe').and.callThrough();
+        spyOn(cuePoints.onEnter$, 'subscribe').and.callThrough();
+        spyOn(cuePoints.onExit$, 'subscribe').and.callThrough();
 
         let event = {
             target: document.createElement('video')
@@ -36,9 +38,9 @@ describe('Cue points', () => {
 
         cuePoints.onLoad(event);
 
-        expect(fromEvent).toHaveBeenCalledWith(cue, 'enter');
-        expect(fromEvent).toHaveBeenCalledWith(cue, 'exit');
-        expect(fromEvent).toHaveBeenCalledTimes(8);
+        expect(cuePoints.onEnter$.subscribe).toHaveBeenCalledWith(cue, 'enter');
+        expect(cuePoints.onExit$.subscribe).toHaveBeenCalledWith(cue, 'exit');
+        expect(cuePoints.onLoad$.subscribe).toHaveBeenCalledTimes(8);
     });
 
     it('Should handle onEnter event', () => {
