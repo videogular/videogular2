@@ -1,6 +1,6 @@
 import {
     Component, Input, OnInit, ElementRef, HostBinding, AfterViewInit, ViewEncapsulation,
-    EventEmitter, Output
+    EventEmitter, Output, OnDestroy
 } from '@angular/core';
 import { Observable ,  Subscription } from 'rxjs';
 import { VgAPI } from '../core/services/vg-api';
@@ -34,7 +34,7 @@ import {fromEvent} from 'rxjs';
         }
     `]
 })
-export class VgControls implements OnInit, AfterViewInit {
+export class VgControls implements OnInit, AfterViewInit, OnDestroy {
     elem: HTMLElement;
     target: any;
 
