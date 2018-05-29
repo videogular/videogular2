@@ -7,17 +7,17 @@
     "url": "https://github.com/videogular/videogular2"
   },
   "peerDependencies": {
-    "@angular/core": "^5.0.0",
+    "@angular/core": "^6.0.3",
     "rxjs": "^6.0.0"
   },
   "devDependencies": {
-    "@angular/common": "^5.0.0",
-    "@angular/compiler": "^5.0.0",
-    "@angular/compiler-cli": "^5.0.0",
-    "@angular/core": "^5.0.0",
-    "@angular/platform-browser": "^5.0.0",
-    "@angular/platform-browser-dynamic": "^5.0.0",
-    "@angular/platform-server": "^5.0.0",
+    "@angular/common": "^6.0.3",
+    "@angular/compiler": "^6.0.3",
+    "@angular/compiler-cli": "^6.0.3",
+    "@angular/core": "^6.0.3",
+    "@angular/platform-browser": "^6.0.3",
+    "@angular/platform-browser-dynamic": "^6.0.3",
+    "@angular/platform-server": "^6.0.3",
     "@types/core-js": "0.9.35",
     "@types/jasmine": "2.5.38",
     "codelyzer": "4.0.1",
@@ -41,7 +41,7 @@
     "semantic-release": "6.3.2",
     "systemjs": "^0.20.9",
     "tslint": "5.0.0",
-    "typescript": "2.4.2",
+    "typescript": "2.7.2",
     "validate-commit-msg": "2.12.1",
     "watch": "1.0.2",
     "zone.js": "^0.8.5"

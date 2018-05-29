@@ -1,5 +1,5 @@
 import { ElementRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, fromEvent} from 'rxjs';
 import { VgCuePoints } from './vg-cue-points';
 
 
@@ -21,7 +21,7 @@ describe('Cue points', () => {
 
         cuePoints.ngOnInit();
 
-        expect(Observable.fromEvent).toHaveBeenCalledWith(ref.nativeElement, 'load');
+        expect(fromEvent).toHaveBeenCalledWith(ref.nativeElement, 'load');
     });
 
     xit('Should handle onLoad event', () => {
@@ -36,9 +36,9 @@ describe('Cue points', () => {
 
         cuePoints.onLoad(event);
 
-        expect(Observable.fromEvent).toHaveBeenCalledWith(cue, 'enter');
-        expect(Observable.fromEvent).toHaveBeenCalledWith(cue, 'exit');
-        expect(Observable.fromEvent).toHaveBeenCalledTimes(8);
+        expect(fromEvent).toHaveBeenCalledWith(cue, 'enter');
+        expect(fromEvent).toHaveBeenCalledWith(cue, 'exit');
+        expect(fromEvent).toHaveBeenCalledTimes(8);
     });
 
     it('Should handle onEnter event', () => {
@@ -50,7 +50,7 @@ describe('Cue points', () => {
 
         cuePoints.onEnter(event);
 
-        expect(cuePoints.onEnterCuePoint.next).toHaveBeenCalledWith(event.target);
+        expect(cuePoints.onEnterCuePoint.emit).toHaveBeenCalledWith(event.target);
     });
 
     it('Should handle onExit event', () => {
@@ -62,6 +62,6 @@ describe('Cue points', () => {
 
         cuePoints.onExit(event);
 
-        expect(cuePoints.onExitCuePoint.next).toHaveBeenCalledWith(event.target);
+        expect(cuePoints.onExitCuePoint.emit).toHaveBeenCalledWith(event.target);
     });
 });
