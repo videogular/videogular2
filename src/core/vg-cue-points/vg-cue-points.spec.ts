@@ -37,10 +37,9 @@ describe('Cue points', () => {
         let cue = track.addCue(new TextTrackCue(1, 2, 'cue 1')); // Illegal Constructor
 
         cuePoints.onLoad(event);
-
+        expect(cuePoints.onLoad$.subscribe).toHaveBeenCalledWith(cue, 'load');
         expect(cuePoints.onEnter$.subscribe).toHaveBeenCalledWith(cue, 'enter');
         expect(cuePoints.onExit$.subscribe).toHaveBeenCalledWith(cue, 'exit');
-        expect(cuePoints.onLoad$.subscribe).toHaveBeenCalledTimes(8);
     });
 
     it('Should handle onEnter event', () => {

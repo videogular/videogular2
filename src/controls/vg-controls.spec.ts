@@ -44,12 +44,12 @@ describe('Controls Bar', () => {
 
         api.registerElement(vgElem);
 
-        controls.ngOnInit();
+
 
         spyOn(controls.mouseMove$, 'subscribe').and.callThrough();
         spyOn(controls.touchStart$, 'subscribe').and.callThrough();
 
-
+        controls.ngOnInit();
 
         expect(controls.mouseMove$.subscribe).toHaveBeenCalledWith(api.videogularElement, 'mousemove');
         expect(controls.touchStart$.subscribe).toHaveBeenCalledWith(api.videogularElement, 'touchstart');
