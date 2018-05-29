@@ -2,7 +2,7 @@ import {VgControls} from "./vg-controls";
 import {VgControlsHidden} from './../core/services/vg-controls-hidden';
 import {ElementRef} from "@angular/core";
 import {VgAPI} from "../core/services/vg-api";
-import {Observable, fromEvent} from "rxjs";
+
 
 import { VgStates } from '../core/states/vg-states';
 
@@ -44,15 +44,10 @@ describe('Controls Bar', () => {
 
         api.registerElement(vgElem);
 
-
-
-        spyOn(controls.mouseMove$, 'subscribe').and.callThrough();
-        spyOn(controls.touchStart$, 'subscribe').and.callThrough();
-
         controls.ngOnInit();
 
-        expect(controls.mouseMove$.subscribe).toHaveBeenCalledWith(api.videogularElement, 'mousemove');
-        expect(controls.touchStart$.subscribe).toHaveBeenCalledWith(api.videogularElement, 'touchstart');
+        expect(controls.mouseMove$).toBeDefined();
+        expect(controls.touchStart$).toBeDefined();
     });
 
     it('Should hide controls after view init', () => {
