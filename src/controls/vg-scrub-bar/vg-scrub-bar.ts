@@ -5,7 +5,7 @@ import {
 import { VgAPI } from '../../core/services/vg-api';
 import { VgControlsHidden } from './../../core/services/vg-controls-hidden';
 import { VgStates } from '../../core/states/vg-states';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'vg-scrub-bar',

@@ -57,11 +57,12 @@ System.config(
             'app': 'base/src'
         },
         packages: {
+            'rxjs/operators': { defaultExtension: 'js', main: 'index' },
             'app': {
                 defaultExtension: 'js'
             },
             'rxjs': {
-                defaultExtension: 'js'
+                defaultExtension: 'js',  main: 'index'
             }
         }
     });

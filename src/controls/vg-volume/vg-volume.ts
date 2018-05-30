@@ -3,7 +3,7 @@ import {
     OnDestroy
 } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'vg-volume',
