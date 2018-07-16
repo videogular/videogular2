@@ -250,6 +250,7 @@ export class VgImaAds implements OnInit, OnDestroy {
         }
         this.hide();
         this.API.play();
+        this.onAdStop.emit(true);
     }
 
     onAllAdsComplete() {
@@ -257,12 +258,14 @@ export class VgImaAds implements OnInit, OnDestroy {
         // The last ad was a post-roll
         if (this.ima.adsManager.getCuePoints().join().indexOf('-1') >= 0) {
             this.API.pause(); // it was stop() in Videogular v1
+            this.onAdStop.emit(true);
         }
     }
 
     onAdComplete() {
         // TODO: Update view with current ad count
         this.ima.currentAd++;
+        this.onAdStop.emit(true);
     }
 
     show() {
@@ -277,6 +280,7 @@ export class VgImaAds implements OnInit, OnDestroy {
 
     onContentEnded() {
         this.ima.adsLoader.contentComplete();
+        this.onAdStop.emit(true);
     }
 
     onChangeFullscreen(fsState: boolean) {
