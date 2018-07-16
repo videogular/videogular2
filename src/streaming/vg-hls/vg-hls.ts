@@ -1,15 +1,29 @@
-import { Directive, ElementRef, Input, SimpleChanges, OnChanges, OnDestroy, OnInit } from "@angular/core";
+import {
+    Directive,
+    ElementRef,
+    Input,
+    SimpleChanges,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    EventEmitter
+} from "@angular/core";
 import { VgAPI } from "../../core/services/vg-api";
 import { IHLSConfig } from './hls-config';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+import { BitrateOption } from '../../core/core';
 
 declare let Hls;
 
 @Directive({
-    selector: '[vgHls]'
+    selector: '[vgHls]',
+    exportAs: 'vgHls'
 })
 export class VgHLS implements OnInit, OnChanges, OnDestroy {
     @Input() vgHls:string;
+
+    @Output() onGetBitrates: EventEmitter<BitrateOption[]> = new EventEmitter();
 
     vgFor: string;
     target: any;
@@ -64,7 +78,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes:SimpleChanges) {
-        if (changes['vgHls'].currentValue) {
+        if (changes['vgHls'] && changes['vgHls'].currentValue) {
             this.createPlayer();
         }
         else {
@@ -82,6 +96,34 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
             let video:HTMLVideoElement = this.ref.nativeElement;
 
             this.hls = new Hls(this.config);
+            this.hls.on(
+                Hls.Events.MANIFEST_PARSED,
+                (event, data) => {
+                    const videoList = [];
+
+                    videoList.push({
+                        qualityIndex: 0,
+                        width: 0,
+                        height: 0,
+                        bitrate: 0,
+                        mediaType: 'video',
+                        label: 'AUTO'
+                    });
+
+                    data.levels.forEach((item, index) => {
+                        videoList.push({
+                            qualityIndex: ++index,
+                            width: item.width,
+                            height: item.height,
+                            bitrate: item.bitrate,
+                            mediaType: 'video',
+                            label: item.name
+                        });
+                    });
+
+                    this.onGetBitrates.emit(videoList);
+                }
+            );
             this.hls.loadSource(this.vgHls);
             this.hls.attachMedia(video);
         }
@@ -91,6 +133,12 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
                 this.target.seekTime(0);
                 this.ref.nativeElement.src = this.vgHls;
             }
+        }
+    }
+
+    setBitrate(bitrate: BitrateOption) {
+        if (this.hls) {
+            this.hls.nextLevel = bitrate.qualityIndex - 1;
         }
     }
 

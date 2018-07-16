@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 export interface Option {
     id: string;
@@ -66,6 +66,12 @@ export interface Option {
             appearance: none;
             color: transparent;
             font-size: 16px;
+        }
+        vg-track-selector select.trackSelector::-ms-expand {
+            display: none;
+        }
+        vg-track-selector select.trackSelector option {
+            color: #000;
         }
         vg-track-selector .track-selected {
             position: absolute;

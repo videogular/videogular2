@@ -23,6 +23,21 @@ export * from './services/vg-controls-hidden';
 export * from './events/vg-events';
 export * from './states/vg-states';
 
+// interfaces
+export * from './vg-media/i-media-element';
+
+// utility classes
+export * from './vg-media/vg-media-element';
+
+export interface BitrateOption {
+    qualityIndex: number;
+    width: number;
+    height: number;
+    bitrate: number;
+    mediaType: string;
+    label?: string;
+}
+
 /**
  * @internal
  */

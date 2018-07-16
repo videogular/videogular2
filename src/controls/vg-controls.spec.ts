@@ -2,9 +2,8 @@ import {VgControls} from "./vg-controls";
 import {VgControlsHidden} from './../core/services/vg-controls-hidden';
 import {ElementRef} from "@angular/core";
 import {VgAPI} from "../core/services/vg-api";
-import {Observable} from "rxjs/Observable";
 
-import 'rxjs/add/observable/fromEvent';
+
 import { VgStates } from '../core/states/vg-states';
 
 describe('Controls Bar', () => {
@@ -40,7 +39,6 @@ describe('Controls Bar', () => {
     });
 
     it('Should listen for mouseenter and mouseleave events', () => {
-        spyOn(Observable, 'fromEvent').and.callThrough();
 
         let vgElem = document.createElement('vg-player');
 
@@ -48,8 +46,8 @@ describe('Controls Bar', () => {
 
         controls.ngOnInit();
 
-        expect(Observable.fromEvent).toHaveBeenCalledWith(api.videogularElement, 'mousemove');
-        expect(Observable.fromEvent).toHaveBeenCalledWith(api.videogularElement, 'touchstart');
+        expect(controls.mouseMove$).toBeDefined();
+        expect(controls.touchStart$).toBeDefined();
     });
 
     it('Should hide controls after view init', () => {

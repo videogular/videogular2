@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, Input, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 import { VgStates } from '../../core/states/vg-states';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'vg-play-pause',
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
              [class.vg-icon-play_arrow]="getState() === 'paused' || getState() === 'ended'"
              tabindex="0"
              role="button"
-             aria-label="play pause button"
+             [attr.aria-label]="getState() === 'paused'?'play':'pause'"
              [attr.aria-valuetext]="ariaValue">
         </div>`,
     styles: [ `

@@ -3,7 +3,7 @@ import {
     OnDestroy
 } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'vg-volume',
@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs/Subscription';
             [attr.aria-valuenow]="ariaValue"
             aria-valuemin="0"
             aria-valuemax="100"
+            aria-orientation="horizontal"
             [attr.aria-valuetext]="ariaValue + '%'"
             (click)="onClick($event)"
             (mousedown)="onMouseDown($event)">

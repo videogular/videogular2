@@ -1,13 +1,13 @@
 import {
     Component, Input, OnInit, ElementRef, HostBinding, AfterViewInit, ViewEncapsulation,
-    EventEmitter, Output
+    EventEmitter, Output, OnDestroy
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { VgAPI } from '../core/services/vg-api';
 import { VgControlsHidden } from './../core/services/vg-controls-hidden';
-import 'rxjs/add/observable/fromEvent';
+
 import { VgStates } from '../core/states/vg-states';
-import { Subscription } from 'rxjs/Subscription';
+import {fromEvent} from 'rxjs';
 
 @Component({
     selector: 'vg-controls',
@@ -34,7 +34,7 @@ import { Subscription } from 'rxjs/Subscription';
         }
     `]
 })
-export class VgControls implements OnInit, AfterViewInit {
+export class VgControls implements OnInit, AfterViewInit, OnDestroy {
     elem: HTMLElement;
     target: any;
 
@@ -48,6 +48,9 @@ export class VgControls implements OnInit, AfterViewInit {
     private timer: any;
     private hideTimer: any;
 
+    mouseMove$: Observable<any>;
+    touchStart$: Observable<any>;
+
     subscriptions: Subscription[] = [];
 
     constructor(private API: VgAPI, private ref: ElementRef, private hidden: VgControlsHidden) {
@@ -55,11 +58,11 @@ export class VgControls implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        let mouseMove = Observable.fromEvent(this.API.videogularElement, 'mousemove');
-        this.subscriptions.push(mouseMove.subscribe(this.show.bind(this)));
+        this.mouseMove$ = fromEvent(this.API.videogularElement, 'mousemove');
+        this.subscriptions.push(this.mouseMove$.subscribe(this.show.bind(this)));
 
-        let touchStart = Observable.fromEvent(this.API.videogularElement, 'touchstart');
-        this.subscriptions.push(touchStart.subscribe(this.show.bind(this)));
+        this.touchStart$ = fromEvent(this.API.videogularElement, 'touchstart');
+        this.subscriptions.push(this.touchStart$.subscribe(this.show.bind(this)));
 
         if (this.API.isPlayerReady) {
             this.onPlayerReady();

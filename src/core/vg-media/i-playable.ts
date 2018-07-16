@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable ,  Subject } from 'rxjs';
 
 export interface IPlayable {
     id: string;
@@ -13,7 +12,7 @@ export interface IPlayable {
     isWaiting: boolean;
     isCompleted: boolean;
     isLive: boolean;
-    textTracks: TextTrack[];
+    textTracks: TextTrackList;
     state: string;
     subscriptions: IMediaSubscriptions;
     duration: number;

@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -86,6 +86,10 @@ export class VgMute implements OnInit, OnDestroy {
         let volume = this.getVolume();
 
         if (volume === 0) {
+            if (this.target.volume === 0 && this.currentVolume === 0) {
+                this.currentVolume = 1;
+            }
+
             this.target.volume = this.currentVolume;
         }
         else {

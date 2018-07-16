@@ -1,8 +1,7 @@
 import { EventEmitter, Injectable, QueryList } from '@angular/core';
 import { VgUtils } from './vg-utils';
 import { VgMedia } from '../vg-media/vg-media';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Subscription ,  Observable, fromEvent } from 'rxjs';
 
 @Injectable()
 export class VgFullscreenAPI {
@@ -112,14 +111,14 @@ export class VgFullscreenAPI {
                 fsElemDispatcher = elem;
         }
 
-        this.fsChangeSubscription = Observable.fromEvent(fsElemDispatcher, this.polyfill.onchange).subscribe(() => {
+        this.fsChangeSubscription = fromEvent(fsElemDispatcher, this.polyfill.onchange).subscribe(() => {
             this.onFullscreenChange();
         });
     }
 
     onFullscreenChange() {
         this.isFullscreen = !!document[ this.polyfill.element ];
-        this.onChangeFullscreen.next(this.isFullscreen);
+        this.onChangeFullscreen.emit(this.isFullscreen);
     }
 
     toggleFullscreen(element: any = null) {
@@ -137,7 +136,7 @@ export class VgFullscreenAPI {
         }
 
         this.isFullscreen = true;
-        this.onChangeFullscreen.next(true);
+        this.onChangeFullscreen.emit(true);
 
         // Perform native full screen support
         if (this.isAvailable && this.nativeFullscreen) {
@@ -163,7 +162,7 @@ export class VgFullscreenAPI {
 
     exit() {
         this.isFullscreen = false;
-        this.onChangeFullscreen.next(false);
+        this.onChangeFullscreen.emit(false);
 
         // Exit from native fullscreen
         if (this.isAvailable && this.nativeFullscreen) {

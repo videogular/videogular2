@@ -1,8 +1,8 @@
 import { ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+
 import { VgCuePoints } from './vg-cue-points';
 
-import 'rxjs/add/observable/fromEvent';
+
 
 describe('Cue points', () => {
     let cuePoints: VgCuePoints;
@@ -17,15 +17,14 @@ describe('Cue points', () => {
     });
 
     it('Should handle onLoad event', () => {
-        spyOn(Observable, 'fromEvent').and.callThrough();
+
 
         cuePoints.ngOnInit();
 
-        expect(Observable.fromEvent).toHaveBeenCalledWith(ref.nativeElement, 'load');
+        expect(cuePoints.onLoad$).toBeDefined()
     });
 
-    xit('Should handle onLoad event', () => {
-        spyOn(Observable, 'fromEvent').and.callThrough();
+    xit('Should handle enter/exit events', () => {
 
         let event = {
             target: document.createElement('video')
@@ -35,14 +34,12 @@ describe('Cue points', () => {
         let cue = track.addCue(new TextTrackCue(1, 2, 'cue 1')); // Illegal Constructor
 
         cuePoints.onLoad(event);
-
-        expect(Observable.fromEvent).toHaveBeenCalledWith(cue, 'enter');
-        expect(Observable.fromEvent).toHaveBeenCalledWith(cue, 'exit');
-        expect(Observable.fromEvent).toHaveBeenCalledTimes(8);
+        expect(cuePoints.onEnter$).toBeDefined();
+        expect(cuePoints.onExit$).toBeDefined();
     });
 
     it('Should handle onEnter event', () => {
-        spyOn(cuePoints.onEnterCuePoint, 'next').and.callThrough();
+        spyOn(cuePoints.onEnterCuePoint, 'emit').and.callThrough();
 
         let event = {
             target: {}
@@ -50,11 +47,11 @@ describe('Cue points', () => {
 
         cuePoints.onEnter(event);
 
-        expect(cuePoints.onEnterCuePoint.next).toHaveBeenCalledWith(event.target);
+        expect(cuePoints.onEnterCuePoint.emit).toHaveBeenCalledWith(event.target);
     });
 
     it('Should handle onExit event', () => {
-        spyOn(cuePoints.onExitCuePoint, 'next').and.callThrough();
+        spyOn(cuePoints.onExitCuePoint, 'emit').and.callThrough();
 
         let event = {
             target: {}
@@ -62,6 +59,6 @@ describe('Cue points', () => {
 
         cuePoints.onExit(event);
 
-        expect(cuePoints.onExitCuePoint.next).toHaveBeenCalledWith(event.target);
+        expect(cuePoints.onExitCuePoint.emit).toHaveBeenCalledWith(event.target);
     });
 });

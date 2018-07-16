@@ -85,7 +85,7 @@ You have a lot of events to listen:
 - **error**: Fired when an error occurs.  The element's error attribute contains more information.
 - **loadedData**: Fired when the current frame of the media has been loaded.
 - **loadedMetadata**: Fired when the media's metadata has finished loading; all attributes now contain as much useful information as they're going to.
-- **loadedStart**: Fired when the browser starts loading the media.
+- **loadStart**: Fired when the browser starts loading the media.
 - **pause**: Fired when playback is paused.
 - **play**: Fired when playback of the media starts after having been paused; that is, when playback is resumed after a prior pause event.
 - **playing**: Fired when the media begins to play (either for the first time, after having been paused, or after ending and then restarting).

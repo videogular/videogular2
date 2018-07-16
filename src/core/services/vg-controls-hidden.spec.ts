@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { VgControlsHidden } from './vg-controls-hidden';
 
 describe('VgControlsHidden Service', () => {

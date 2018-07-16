@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { VgAPI } from '../core/services/vg-api';
 import { VgStates } from '../core/states/vg-states';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { VgFullscreenAPI } from '../core/services/vg-fullscreen-api';
 import { VgControlsHidden } from '../core/services/vg-controls-hidden';
 

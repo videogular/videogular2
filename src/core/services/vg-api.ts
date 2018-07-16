@@ -32,7 +32,7 @@ export class VgAPI {
     getMasterMedia():IPlayable {
         let master:any;
         for (let id in this.medias) {
-            if (this.medias[id].vgMedia === 'true' || this.medias[id].vgMedia === true) {
+            if (this.medias[id].vgMaster === 'true' || this.medias[id].vgMaster === true) {
                 master = this.medias[id];
                 break;
             }
@@ -43,7 +43,7 @@ export class VgAPI {
     isMasterDefined():boolean {
         let result = false;
         for (let id in this.medias) {
-            if (this.medias[id].vgMedia === 'true' || this.medias[id].vgMedia === true) {
+            if (this.medias[id].vgMaster === 'true' || this.medias[id].vgMaster === true) {
                 result = true;
                 break;
             }
