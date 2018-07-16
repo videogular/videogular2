@@ -1,5 +1,5 @@
 ///<reference path='./google.ima.ts'/>
-import { Component, ElementRef, Input, HostBinding, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Input, HostBinding, ViewEncapsulation, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { IPlayable } from '../core/vg-media/i-playable';
 import { VgAPI } from '../core/services/vg-api';
 import { VgEvents } from '../core/events/vg-events';
@@ -33,6 +33,10 @@ export class VgImaAds implements OnInit, OnDestroy {
     @Input() vgCompanionSize: Array<Number>;
     @Input() vgAdTagUrl: string;
     @Input() vgSkipButton: string;
+
+    @Output() onAdStart: EventEmitter<boolean> = new EventEmitter();
+    @Output() onAdStop: EventEmitter<boolean> = new EventEmitter();
+    @Output() onSkipAd: EventEmitter<boolean> = new EventEmitter();
 
     elem: HTMLElement;
     target: IPlayable;
@@ -225,15 +229,18 @@ export class VgImaAds implements OnInit, OnDestroy {
 
     onClickSkip() {
         this.ima.adsManager.skip();
+        this.onSkipAd.emit(true);
     }
 
     onContentPauseRequested() {
         this.show();
         this.API.pause();
+        this.onAdStop.emit(true);
     }
 
     onContentResumeRequested() {
         this.API.play();
+        this.onAdStart.emit(true);
         this.hide();
     }
 
