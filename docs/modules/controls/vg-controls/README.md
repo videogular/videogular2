@@ -14,7 +14,7 @@ Component to act as container for other components.
 
 ```html
 <vg-player>
-    <vg-controls [vgFor]="my-video" [vgAutohide]="true" [vgAutohideTime]="5">
+    <vg-controls vgFor="my-video" [vgAutohide]="true" [vgAutohideTime]="5">
         <!-- more components here -->
     </vg-controls>
 

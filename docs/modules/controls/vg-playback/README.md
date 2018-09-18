@@ -14,7 +14,7 @@ Button to toggle between different playback speeds.
 ```html
 <vg-player>
     <vg-controls>
-        <vg-playback-button [vgFor]="my-video" [playbackValues]="[ '1.0', '2.0', '4.0' ]"></vg-playback-button>
+        <vg-playback-button vgFor="my-video" [playbackValues]="[ '1.0', '2.0', '4.0' ]"></vg-playback-button>
     </vg-controls>
 
     <video #myMedia

@@ -13,7 +13,7 @@ Component to display a selector for tracks of kind `subtitles` registered to the
 ```html
 <vg-player>
     <vg-controls>
-        <vg-track-selector [vgFor]="my-video"></vg-track-selector>
+        <vg-track-selector vgFor="my-video"></vg-track-selector>
     </vg-controls>
 
     <video #myMedia

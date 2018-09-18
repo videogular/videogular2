@@ -15,7 +15,7 @@ Component to display in a bar all cue points in a `TextTrackCueList`.
 <vg-player>
     <vg-controls>
         <vg-scrub-bar>
-            <vg-scrub-bar-cue-points [vgFor]="my-video" [vgCuePoints]="metadataTrack.cues"></vg-scrub-bar-cue-points>
+            <vg-scrub-bar-cue-points vgFor="my-video" [vgCuePoints]="metadataTrack.cues"></vg-scrub-bar-cue-points>
         </vg-scrub-bar>
     </vg-controls>
 

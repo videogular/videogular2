@@ -12,7 +12,7 @@ Component to display a big play button over the video.
 
 ```html
 <vg-player>
-    <vg-overlay-play [vgFor]="my-video"></vg-overlay-play>
+    <vg-overlay-play vgFor="my-video"></vg-overlay-play>
 
     <video #myMedia
            [vgMedia]="myMedia"

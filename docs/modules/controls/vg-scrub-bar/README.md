@@ -16,7 +16,7 @@ This component also has listeners to seek when user clicks or drag in the scrub 
 ```html
 <vg-player>
     <vg-controls>
-        <vg-scrub-bar [vgFor]="my-video" [vgSlider]="false">
+        <vg-scrub-bar vgFor="my-video" [vgSlider]="false">
             <!-- more components here -->
         </vg-scrub-bar>
     </vg-controls>

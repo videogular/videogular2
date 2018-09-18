@@ -13,7 +13,7 @@ Button to toggle between current selected volume and muted volume.
 ```html
 <vg-player>
     <vg-controls>
-        <vg-mute [vgFor]="my-video"></vg-mute>
+        <vg-mute vgFor="my-video"></vg-mute>
     </vg-controls>
 
     <video #myMedia

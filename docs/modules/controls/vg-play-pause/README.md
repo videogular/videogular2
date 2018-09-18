@@ -13,7 +13,7 @@ Button to toggle between play and pause states.
 ```html
 <vg-player>
     <vg-controls>
-        <vg-play-pause [vgFor]="my-video"></vg-play-pause>
+        <vg-play-pause vgFor="my-video"></vg-play-pause>
     </vg-controls>
 
     <video #myMedia
