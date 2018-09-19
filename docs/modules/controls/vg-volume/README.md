@@ -13,7 +13,7 @@ Component to display an horizontal slider bar to change the volume of the curren
 ```html
 <vg-player>
     <vg-controls>
-        <vg-volume [vgFor]="my-video"></vg-volume>
+        <vg-volume vgFor="my-video"></vg-volume>
     </vg-controls>
 
     <video #myMedia

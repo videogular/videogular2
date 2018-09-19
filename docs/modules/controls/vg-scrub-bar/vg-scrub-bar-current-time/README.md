@@ -15,7 +15,7 @@ Component to display the current time in percentage as an horizontal bar.
 <vg-player>
     <vg-controls>
         <vg-scrub-bar>
-            <vg-scrub-bar-current-time [vgFor]="my-video" [vgSlider]="true"></vg-scrub-bar-current-time>
+            <vg-scrub-bar-current-time vgFor="my-video" [vgSlider]="true"></vg-scrub-bar-current-time>
         </vg-scrub-bar>
     </vg-controls>
 

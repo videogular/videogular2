@@ -12,7 +12,7 @@ Buffering component to display a buffer icon when the media is paused and loadin
 
 ```html
 <vg-player>
-    <vg-buffering [vgFor]="my-video"></vg-buffering>
+    <vg-buffering vgFor="my-video"></vg-buffering>
 
     <video #myMedia
            [vgMedia]="myMedia"

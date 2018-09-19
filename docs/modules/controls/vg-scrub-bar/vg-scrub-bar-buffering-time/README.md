@@ -14,7 +14,7 @@ Component to display the current buffering percentage loaded.
 <vg-player>
     <vg-controls>
         <vg-scrub-bar>
-            <vg-scrub-bar-buffering-time [vgFor]="my-video"></vg-scrub-bar-buffering-time>
+            <vg-scrub-bar-buffering-time vgFor="my-video"></vg-scrub-bar-buffering-time>
         </vg-scrub-bar>
     </vg-controls>
 

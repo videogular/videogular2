@@ -15,9 +15,9 @@ Component to display the current time, total time or time left for the current m
 ```html
 <vg-player>
     <vg-controls>
-        <vg-time-display [vgFor]="my-video" [vgProperty]="'current'" [vgFormat]="'mm:ss'"></vg-time-display>
-        <vg-time-display [vgFor]="my-video" [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
-        <vg-time-display [vgFor]="my-video" [vgProperty]="'total'" [vgFormat]="'mm:ss'"></vg-time-display>
+        <vg-time-display vgFor="my-video" [vgProperty]="'current'" [vgFormat]="'mm:ss'"></vg-time-display>
+        <vg-time-display vgFor="my-video" [vgProperty]="'left'" [vgFormat]="'mm:ss'"></vg-time-display>
+        <vg-time-display vgFor="my-video" [vgProperty]="'total'" [vgFormat]="'mm:ss'"></vg-time-display>
     </vg-controls>
 
     <video #myMedia
