@@ -1,10 +1,10 @@
 {
-  "name": "videogular2",
-  "version": "0.0.0-semantically-released",
+  "name": "videogular2-with-offset",
+  "version": "0.0.2",
   "description": "Videogular is a video application framework for desktop and mobile powered by Angular",
   "repository": {
     "type": "git",
-    "url": "https://github.com/videogular/videogular2"
+    "url": "https://github.com/flowup/videogular2"
   },
   "peerDependencies": {
     "@angular/core": "^6.0.3",
