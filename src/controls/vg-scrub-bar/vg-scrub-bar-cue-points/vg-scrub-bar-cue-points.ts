@@ -6,7 +6,8 @@ import {
     OnDestroy,
     OnInit,
     SimpleChange,
-    ViewEncapsulation
+    ViewEncapsulation,
+    DoCheck
 } from '@angular/core';
 import { VgAPI } from '../../../core/services/vg-api';
 import { Subscription } from 'rxjs';
@@ -41,13 +42,13 @@ import { Subscription } from 'rxjs';
         }
     ` ]
 })
-export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
+export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy, DoCheck {
     @Input() vgCuePoints: TextTrackCueList;
     @Input() vgFor: string;
 
     elem: HTMLElement;
     target: any;
-    onLoadedMetadataCalled: boolean = false;
+    onLoadedMetadataCalled = false;
     cuePoints: Array<any> = [];
 
     subscriptions: Subscription[] = [];

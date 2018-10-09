@@ -70,12 +70,12 @@ export class VgOverlayPlay implements OnInit, OnDestroy {
     elem: HTMLElement;
     target: any;
 
-    isNativeFullscreen: boolean = false;
-    areControlsHidden: boolean = false;
+    isNativeFullscreen = false;
+    areControlsHidden = false;
 
     subscriptions: Subscription[] = [];
 
-    @HostBinding('class.is-buffering') isBuffering: boolean = false;
+    @HostBinding('class.is-buffering') isBuffering = false;
 
     constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI, private controlsHidden: VgControlsHidden) {
         this.elem = ref.nativeElement;

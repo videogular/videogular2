@@ -106,13 +106,13 @@ export class VgBuffering implements OnInit, OnDestroy {
 
     elem: HTMLElement;
     target: IPlayable;
-    checkInterval: number = 50;
-    currentPlayPos: number = 0;
-    lastPlayPos: number = 0;
+    checkInterval = 50;
+    currentPlayPos = 0;
+    lastPlayPos = 0;
 
     subscriptions: Subscription[] = [];
 
-    @HostBinding('class.is-buffering') isBuffering: boolean = false;
+    @HostBinding('class.is-buffering') isBuffering = false;
 
     constructor(ref: ElementRef, public API: VgAPI) {
         this.elem = ref.nativeElement;

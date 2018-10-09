@@ -8,10 +8,6 @@ import { VgEvents } from '../events/vg-events';
 import { IMediaElement } from './i-media-element';
 import {timer, combineLatest} from 'rxjs';
 
-
-
-
-
 @Directive({
     selector: '[vgMedia]'
 })
@@ -28,23 +24,23 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     track: any;
     subscriptions: IMediaSubscriptions | any;
 
-    canPlay: boolean = false;
-    canPlayThrough: boolean = false;
-    isMetadataLoaded: boolean = false;
-    isWaiting: boolean = false;
-    isCompleted: boolean = false;
-    isLive: boolean = false;
+    canPlay = false;
+    canPlayThrough = false;
+    isMetadataLoaded = false;
+    isWaiting = false;
+    isCompleted = false;
+    isLive = false;
 
-    isBufferDetected: boolean = false;
+    isBufferDetected = false;
 
-    checkInterval: number = 200;
-    currentPlayPos: number = 0;
-    lastPlayPos: number = 0;
+    checkInterval = 200;
+    currentPlayPos = 0;
+    lastPlayPos = 0;
 
     checkBufferSubscription: any;
     syncSubscription: Subscription;
     canPlayAllSubscription: any;
-    playAtferSync: boolean = false;
+    playAtferSync = false;
 
     mutationObs: Subscription;
     canPlayObs: Subscription;

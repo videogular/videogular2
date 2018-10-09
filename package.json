@@ -54,7 +54,6 @@
     "build:travis": "ngc",
     "postbuild:travis": "npm run test",
     "clean": "rimraf -rf ./src/**/*.js && rimraf -rf ./src/**/*.d.ts && rimraf -rf ./compiled",
-    "precommit": "npm test",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
     "start": "parallelshell \"npm run watch:ts\" \"npm run start:coverage-server\"",
@@ -65,7 +64,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "watch:ts": "watch \"npm run build\" src",
     "parallelshell": "parallelshell",
-    "lint": "tslint '**/*.ts' -e 'node_modules/**/*' -e 'compiled/**/**'  --fix --noUnusedParameters --noUnusedLocals"
+    "lint": "tslint '**/*.ts' -e 'node_modules/**/*' -e 'compiled/**/**'  --fix"
   },
   "engines": {
     "node": ">= 4"
