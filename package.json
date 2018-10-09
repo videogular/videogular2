@@ -44,7 +44,7 @@
     "typescript": "2.7.2",
     "validate-commit-msg": "2.12.1",
     "watch": "1.0.2",
-    "zone.js": "^0.8.5"
+    "zone.js": "^0.8.26"
   },
   "scripts": {
     "commitmsg": "validate-commit-msg",

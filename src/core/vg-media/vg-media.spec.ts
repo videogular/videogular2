@@ -3,7 +3,7 @@ import {VgAPI} from "../services/vg-api";
 import {ChangeDetectorRef, ElementRef} from "@angular/core";
 import {VgStates} from "../states/vg-states";
 import { VgMediaElement } from './vg-media-element';
-
+import { fakeAsync, tick } from "@angular/core/testing";
 
 describe('Videogular Media', () => {
     let media:VgMedia;
@@ -38,9 +38,7 @@ describe('Videogular Media', () => {
         media.vgMedia = elem;
     });
 
-    it('Should load a new media if a change on dom have been happened', () => {
-        jasmine.clock().install();
-
+    it('Should load a new media if a change on dom have been happened', fakeAsync(() => {
         spyOn(elem, 'load').and.callThrough();
         spyOn(elem, 'pause').and.callThrough();
 
@@ -54,14 +52,12 @@ describe('Videogular Media', () => {
             }
         ]);
 
-        jasmine.clock().tick(10);
+        tick(10);
 
         expect(elem.load).toHaveBeenCalled();
         expect(elem.pause).toHaveBeenCalled();
         expect(elem.currentTime).toBe(0);
-
-        jasmine.clock().uninstall();
-    });
+    }));
 
     it('Should not be master by default', () => {
         expect(media.vgMaster).toBeFalsy();
