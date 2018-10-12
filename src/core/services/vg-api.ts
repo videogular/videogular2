@@ -177,8 +177,12 @@ export class VgAPI {
             if (this.isMasterDefined()) {
                 duration = this.getMasterMedia().duration;
             }
-
-            second = value * duration / 100;
+            
+            if (media.offset) {
+                second = (value * duration / 100) + media.offset.start;
+            } else {
+                second = value * duration / 100;
+            }
         }
         else {
             second = value;
@@ -257,11 +261,10 @@ export class VgAPI {
 
     registerMedia(media:IPlayable) {
         this.medias[media.id] = media;
+        this.medias[media.id].currentTime = media.offset ? media.offset.start : 0;
     }
 
     unregisterMedia(media:IPlayable) {
         delete this.medias[media.id];
     }
-
-
 }

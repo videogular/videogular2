@@ -1,3 +1,4 @@
+import { OffsetModel } from './offset.model';
 import { Observable ,  Subject } from 'rxjs';
 
 export interface IPlayable {
@@ -21,6 +22,7 @@ export interface IPlayable {
     pause: Function;
     addTextTrack?: Function;
     dispatchEvent?: Function;
+    offset?: OffsetModel;
 }
 
 export interface IMediaSubscriptions {

@@ -1,3 +1,4 @@
+import { OffsetModel } from './offset.model';
 import { ChangeDetectorRef, ElementRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
 import { Observable ,  Subscription ,  Observer ,  Subject, fromEvent } from "rxjs";
@@ -8,6 +9,8 @@ import { VgEvents } from '../events/vg-events';
 import { IMediaElement } from './i-media-element';
 import {timer, combineLatest} from 'rxjs';
 
+const msFloatSub = 0.3;
+
 @Directive({
     selector: '[vgMedia]'
 })
@@ -16,6 +19,33 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     @Input() vgMedia: IMediaElement;
     @Input() vgMaster: boolean;
+    @Input() set vgOffset(offset: OffsetModel) {
+        if (this.vgMedia.duration < offset.end) {
+            offset.end = this.vgMedia.duration;
+        }
+        if (offset.start < 0) {
+            offset.start = 0
+        }
+
+        this.offset = offset;
+        // Disabled for now, not supported by all browsers and it changes src of video so it stops
+        // Maybe will be enabled later via config
+        // Must be in setTimeout otherwise coreSrc is undefined
+        // setTimeout(() => {
+        //     this.vgMedia.src = `${this.coreSrc}#t=${offset.start},${offset.end}`;
+        // }, 0);
+
+        setTimeout(() => {
+            if (offset.jumpToStart) {
+                this.seekTime(offset.start);
+            } else if(offset.jumpToEnd) {
+                this.seekTime(offset.end);
+            }
+        }, 0);
+    }
+
+    offset: OffsetModel;
+    coreSrc: string;
 
     state: string = VgStates.VG_PAUSED;
 
@@ -33,14 +63,14 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     isBufferDetected = false;
 
-    checkInterval = 200;
+    checkInterval = 50;
     currentPlayPos = 0;
     lastPlayPos = 0;
 
     checkBufferSubscription: any;
     syncSubscription: Subscription;
     canPlayAllSubscription: any;
-    playAtferSync = false;
+    playAfterSync = false;
 
     mutationObs: Subscription;
     canPlayObs: Subscription;
@@ -65,6 +95,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     ngOnInit() {
+        this.coreSrc = this.vgMedia.src;
         if (this.vgMedia.nodeName) {
             // It's a native element
             this.elem = this.vgMedia;
@@ -177,18 +208,18 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
                     if (this.api.medias[ media ] !== this) {
                         let diff: number = this.api.medias[ media ].currentTime - this.currentTime;
 
-                        if (diff < -0.3 || diff > 0.3) {
-                            this.playAtferSync = (this.state === VgStates.VG_PLAYING);
+                        if (diff < -msFloatSub || diff > msFloatSub) {
+                            this.playAfterSync = (this.state === VgStates.VG_PLAYING);
 
                             this.pause();
                             this.api.medias[ media ].pause();
                             this.api.medias[ media ].currentTime = this.currentTime;
                         }
                         else {
-                            if (this.playAtferSync) {
+                            if (this.playAfterSync) {
                                 this.play();
                                 this.api.medias[ media ].play();
-                                this.playAtferSync = false;
+                                this.playAfterSync = false;
                             }
                         }
                     }
@@ -234,6 +265,10 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             return;
         }
 
+        if (this.time.left <= msFloatSub * 1000) {
+            this.currentTime = this.offset ? this.offset.start : 0;
+        }
+
         this.playPromise = this.vgMedia.play();
 
         // browser has async play promise
@@ -276,7 +311,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     }
 
     get duration() {
-        return this.vgMedia.duration;
+        return this.offset ? this.offset.end - this.offset.start : this.vgMedia.duration;
     }
 
     set currentTime(seconds) {
@@ -332,7 +367,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.time = {
             current: 0,
             left: 0,
-            total: this.duration * 1000
+            total: this.offset ? (this.offset.end - this.offset.start) * 1000 : this.duration * 1000
         };
 
         this.state = VgStates.VG_PAUSED;
@@ -376,7 +411,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.state = VgStates.VG_PAUSED;
 
         if (this.vgMaster) {
-            if (!this.playAtferSync) {
+            if (!this.playAfterSync) {
                 this.syncSubscription.unsubscribe();
             }
         }
@@ -389,14 +424,21 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         let end = this.buffered.length - 1;
 
         this.time = {
-            current: this.currentTime * 1000,
-            total: this.time.total,
-            left: (this.duration - this.currentTime) * 1000
+            current: this.offset ? (this.currentTime - this.offset.start) * 1000 : this.currentTime * 1000,
+            total: this.offset ? (this.offset.end - this.offset.start) * 1000 : this.duration * 1000,
+            left: this.offset
+                ? (this.duration - this.currentTime + this.offset.start + msFloatSub) * 1000
+                : (this.duration - this.currentTime) * 1000
         };
 
         if (end >= 0) {
             this.buffer = { end: this.buffered.end(end) * 1000 };
         }
+
+        if (this.time.left <= 0) {
+            this.pause();
+        }
+
         this.ref.detectChanges();
     }
 

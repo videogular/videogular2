@@ -1,6 +1,6 @@
 {
   "name": "videogular2-with-offset",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Videogular is a video application framework for desktop and mobile powered by Angular",
   "repository": {
     "type": "git",
@@ -76,20 +76,11 @@
     "angular2",
     "javascript"
   ],
-  "author": "Raúl Jiménez <elecash@gmail.com>",
-  "contributors": [
-    {
-      "name": "Alberto García",
-      "email": "cernhelm@gmail.com"
-    },
-    {
-      "name": "Joan Llenas Masó",
-      "email": "joan.llenas.maso@gmail.com"
-    }
-  ],
+  "author": "Petr Glaser <syreanis@gmail.com>",
+  "contributors": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/videogular/videogular2/issues"
+    "url": "https://github.com/flowup/videogular2/issues"
   },
   "config": {
     "commitizen": {
