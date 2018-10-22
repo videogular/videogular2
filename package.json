@@ -77,7 +77,12 @@
     "javascript"
   ],
   "author": "Petr Glaser <syreanis@gmail.com>",
-  "contributors": [],
+  "contributors": [
+    {
+      "name": "Peter Sisovsky",
+      "email": "peter.sisovsky@flowup.cz"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/flowup/videogular2/issues"

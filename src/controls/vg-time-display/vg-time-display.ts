@@ -12,21 +12,41 @@ export class VgUtcPipe implements PipeTransform {
         let mm: string|number = date.getUTCMinutes();
         let hh: string|number = date.getUTCHours();
 
-        if (ss < 10) {
+        if (format.includes('mmm')) {
+
+          let hourToMin = hh * 60;
+          mm = mm + hourToMin;
+
+          if (ss < 10) {
             ss = '0' + ss;
-        }
-        if (mm < 10) {
+          }
+          if (mm < 10) {
             mm = '0' + mm;
-        }
-        if (hh < 10) {
+          }
+
+          result = result.replace(/ss/g, <string>ss);
+          result = result.replace(/mmm/g, <string>mm);
+          result = result.replace(/hh/g, '');
+
+          return result;
+        } else {
+
+          if (ss < 10) {
+            ss = '0' + ss;
+          }
+          if (mm < 10) {
+            mm = '0' + mm;
+          }
+          if (hh < 10) {
             hh = '0' + hh;
+          }
+
+          result = result.replace(/ss/g, <string>ss);
+          result = result.replace(/mm/g, <string>mm);
+          result = result.replace(/hh/g, <string>hh);
+
+          return result;
         }
-
-        result = result.replace(/ss/g, <string>ss);
-        result = result.replace(/mm/g, <string>mm);
-        result = result.replace(/hh/g, <string>hh);
-
-        return result;
     }
 }
 
