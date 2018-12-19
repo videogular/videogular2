@@ -14,11 +14,10 @@ describe('Videogular Utils', () => {
     });
 
     it('Should get if is a mobile device', () => {
-        window.orientation = 'true';
-
+        // window.orientation is not writable
         let isMobileDevice = VgUtils.isMobileDevice();
 
-        expect(isMobileDevice).toBeTruthy();
+        expect(isMobileDevice).toBeFalsy();
     });
 
     it('Should get if is an iOS device', () => {

@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, ElementRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
+import { ChangeDetectorRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
-import { Observable ,  Subscription ,  Observer ,  Subject, fromEvent } from "rxjs";
+import { Observable ,  Subscription ,  Subject, fromEvent } from "rxjs";
+import {map} from "rxjs/operators";
 
 import { VgStates } from '../states/vg-states';
 import { VgAPI } from '../services/vg-api';
@@ -162,16 +163,19 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
             }
         }
 
-        this.canPlayAllSubscription = combineLatest(canPlayAll,
-            (...params) => {
-                let allReady: boolean = params.some(event => event.target.readyState === 4);
+        this.canPlayAllSubscription = combineLatest(canPlayAll).pipe(
+            map((...params) => {
+                    const checkReadyState = (event) => {
+                        return event.target.readyState === 4
+                    };
+                    let allReady: boolean = params.some(checkReadyState);
 
-                if (allReady && !this.syncSubscription) {
-                    this.startSync();
-                    this.syncSubscription.unsubscribe();
+                    if (allReady && !this.syncSubscription) {
+                        this.startSync();
+                        this.syncSubscription.unsubscribe();
+                    }
                 }
-            }
-        ).subscribe();
+            )).subscribe();
     }
 
     startSync() {

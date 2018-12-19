@@ -15,7 +15,7 @@ describe('Videogular Player', () => {
             secondary: {id: 'secondary'}
         };
 
-        expect(api.getDefaultMedia()).toEqual({id: 'main'});
+        expect(api.getDefaultMedia()).toEqual(<IPlayable>{id: 'main'});
     });
 
     describe('getMasterMedia', () => {
@@ -25,7 +25,7 @@ describe('Videogular Player', () => {
                 secondary: {id: 'secondary', vgMaster: true}
             };
 
-            expect(api.getMasterMedia()).toEqual({id: 'secondary', vgMaster: true});
+            expect(api.getMasterMedia()).toEqual(<any>{id: 'secondary', vgMaster: true});
         });
         it('Should get the default media when no master is defined', () => {
             api.medias = {
@@ -43,7 +43,7 @@ describe('Videogular Player', () => {
             secondary: {id: 'secondary'}
         };
 
-        expect(api.getMediaById()).toEqual(api);
+        expect(api.getMediaById()).toEqual(<any>api);
     });
 
     it('Should get the api if we pass an *', () => {
@@ -52,7 +52,7 @@ describe('Videogular Player', () => {
             secondary: {id: 'secondary'}
         };
 
-        expect(api.getMediaById('*')).toEqual(api);
+        expect(api.getMediaById('*')).toEqual(<any>api);
     });
 
     it('Should get a media object if we pass an id', () => {
@@ -61,7 +61,7 @@ describe('Videogular Player', () => {
             secondary: {id: 'secondary'}
         };
 
-        expect(api.getMediaById('main')).toEqual({id: 'main'});
+        expect(api.getMediaById('main')).toEqual(<IPlayable>{id: 'main'});
     });
 
     it('Should play all medias', () => {
