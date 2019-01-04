@@ -19,12 +19,12 @@ describe('Videogular Player', () => {
     });
 
     it('Should create polyfills on init', () => {
-        expect(fsAPI.polyfill.enabled).toBe('webkitFullscreenEnabled');
-        expect(fsAPI.polyfill.element).toBe('webkitFullscreenElement');
-        expect(fsAPI.polyfill.request).toBe('webkitRequestFullscreen');
-        expect(fsAPI.polyfill.exit).toBe('webkitExitFullscreen');
-        expect(fsAPI.polyfill.onchange).toBe('webkitfullscreenchange');
-        expect(fsAPI.polyfill.onerror).toBe('webkitfullscreenerror');
+        expect(fsAPI.polyfill.enabled).toBe('fullscreenEnabled');
+        expect(fsAPI.polyfill.element).toBe('fullscreenElement');
+        expect(fsAPI.polyfill.request).toBe('requestFullscreen');
+        expect(fsAPI.polyfill.exit).toBe('exitFullscreen');
+        expect(fsAPI.polyfill.onchange).toBe('fullscreenchange');
+        expect(fsAPI.polyfill.onerror).toBe('fullscreenerror');
     });
 
     it('Should request an element to enter in fullscreen mode (desktop)', () => {
@@ -68,11 +68,11 @@ describe('Videogular Player', () => {
     });
 
     it('Should enter in fullscreen mode', () => {
-        spyOn(<any>elem, 'webkitRequestFullscreen').and.callThrough();
+        spyOn(<any>elem, 'requestFullscreen').and.callThrough();
 
         fsAPI.enterElementInFullScreen(elem);
 
-        expect((<any>elem).webkitRequestFullscreen).toHaveBeenCalled();
+        expect((<any>elem).requestFullscreen).toHaveBeenCalled();
     });
 
     it('Should request an element to exit from fullscreen mode (native)', () => {

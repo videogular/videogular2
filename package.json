@@ -26,7 +26,7 @@
     "cz-conventional-changelog": "2.0.0",
     "es-module-loader": "2.2.8",
     "http-server": "0.10.0",
-    "husky": "0.13.4",
+    "husky": "^1.3.0",
     "jasmine-core": "2.5.2",
     "karma": "1.5.0",
     "karma-chrome-launcher": "^2.1.1",
