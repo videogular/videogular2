@@ -22,6 +22,7 @@ declare let Hls;
 })
 export class VgHLS implements OnInit, OnChanges, OnDestroy {
     @Input() vgHls:string;
+    @Input() vgHlsHeaders: {[key: string]: string} = {};
 
     @Output() onGetBitrates: EventEmitter<BitrateOption[]> = new EventEmitter();
 
@@ -59,6 +60,9 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
             this.config.xhrSetup = (xhr, url) => {
                 // Send cookies
                 xhr.withCredentials = true;
+                for (const key of Object.keys(this.vgHlsHeaders)) {
+                    xhr.setRequestHeader(key, this.vgHlsHeaders[key]);
+                }
             };
         }
 
