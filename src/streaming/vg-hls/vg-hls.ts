@@ -56,15 +56,15 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
             autoStartLoad: this.preload
         };
 
-        if (this.crossorigin === 'use-credentials') {
-            this.config.xhrSetup = (xhr, url) => {
-                // Send cookies
+        this.config.xhrSetup = (xhr, url) => {
+            // Send cookies
+            if (this.crossorigin === 'use-credentials') {
                 xhr.withCredentials = true;
-                for (const key of Object.keys(this.vgHlsHeaders)) {
-                    xhr.setRequestHeader(key, this.vgHlsHeaders[key]);
-                }
-            };
-        }
+            }
+            for (const key of Object.keys(this.vgHlsHeaders)) {
+                xhr.setRequestHeader(key, this.vgHlsHeaders[key]);
+            }
+        };
 
         this.createPlayer();
 
@@ -84,6 +84,9 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     ngOnChanges(changes:SimpleChanges) {
         if (changes['vgHls'] && changes['vgHls'].currentValue) {
             this.createPlayer();
+        }
+        else if (changes['vgHlsHeaders'] && changes['vgHlsHeaders'].currentValue) {
+            // Do nothing. We don't want to create a or destroy a player if the headers change.
         }
         else {
             this.destroyPlayer();
