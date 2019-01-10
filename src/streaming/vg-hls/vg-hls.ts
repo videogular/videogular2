@@ -96,7 +96,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         }
 
         // It's a HLS source
-        if (this.vgHls && this.vgHls.indexOf('m3u8') > -1 && Hls.isSupported()) {
+        if (this.vgHls && this.vgHls.indexOf('m3u8') > -1 && Hls.isSupported() && this.API.isPlayerReady) {
             let video:HTMLVideoElement = this.ref.nativeElement;
 
             this.hls = new Hls(this.config);
