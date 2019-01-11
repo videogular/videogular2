@@ -39,6 +39,7 @@ describe('Videogular Media', () => {
     });
 
     it('Should load a new media if a change on dom have been happened', () => {
+        jasmine.clock().uninstall();
         jasmine.clock().install();
 
         spyOn(elem, 'load').and.callThrough();

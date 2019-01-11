@@ -22,6 +22,7 @@ declare let Hls;
 })
 export class VgHLS implements OnInit, OnChanges, OnDestroy {
     @Input() vgHls:string;
+    @Input() vgHlsHeaders: {[key: string]: string} = {};
 
     @Output() onGetBitrates: EventEmitter<BitrateOption[]> = new EventEmitter();
 
@@ -55,12 +56,15 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
             autoStartLoad: this.preload
         };
 
-        if (this.crossorigin === 'use-credentials') {
-            this.config.xhrSetup = (xhr, url) => {
-                // Send cookies
+        this.config.xhrSetup = (xhr, url) => {
+            // Send cookies
+            if (this.crossorigin === 'use-credentials') {
                 xhr.withCredentials = true;
-            };
-        }
+            }
+            for (const key of Object.keys(this.vgHlsHeaders)) {
+                xhr.setRequestHeader(key, this.vgHlsHeaders[key]);
+            }
+        };
 
         this.createPlayer();
 
@@ -81,6 +85,9 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         if (changes['vgHls'] && changes['vgHls'].currentValue) {
             this.createPlayer();
         }
+        else if (changes['vgHlsHeaders'] && changes['vgHlsHeaders'].currentValue) {
+            // Do nothing. We don't want to create a or destroy a player if the headers change.
+        }
         else {
             this.destroyPlayer();
         }
@@ -92,7 +99,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         }
 
         // It's a HLS source
-        if (this.vgHls && this.vgHls.indexOf('m3u8') > -1 && Hls.isSupported()) {
+        if (this.vgHls && this.vgHls.indexOf('m3u8') > -1 && Hls.isSupported() && this.API.isPlayerReady) {
             let video:HTMLVideoElement = this.ref.nativeElement;
 
             this.hls = new Hls(this.config);
