@@ -46,6 +46,7 @@ This module is dependant of `hls.js` library and you need to install via `npm in
 | Input | Description |
 |--- |--- |
 | vgHls | Url to an HLS m3u8 file. |
+| vgHlsHeaders | Key/Value pairs that will be added as headers to the m3u8 file. Key is header name. Value is header value. |
 
 ## Outputs
 
@@ -59,6 +60,7 @@ This module is dependant of `hls.js` library and you need to install via `npm in
 <vg-player>
     <video #myMedia
            [vgHls]="'http://static.videogular.com/assets/videos/videogular.m3u8'"
+           [vgHlsHeaders]="headers"
            (onGetBitrates)="hlsBitrates = $event"
            id="my-video"
            type="video/mp4"
