@@ -1,9 +1,9 @@
 import {VgControls} from "./vg-controls";
 import {VgControlsHidden} from './../core/services/vg-controls-hidden';
-import {ElementRef} from "@angular/core";
+import {ChangeDetectorRef, ElementRef} from "@angular/core";
 import {VgAPI} from "../core/services/vg-api";
-
-
+import {VgMedia} from "../core/vg-media/vg-media";
+import { VgMediaElement } from '../core/vg-media/vg-media-element';
 import { VgStates } from '../core/states/vg-states';
 
 describe('Controls Bar', () => {
@@ -11,6 +11,19 @@ describe('Controls Bar', () => {
     let ref:ElementRef;
     let api:VgAPI;
     let hidden: VgControlsHidden;
+    let media:VgMedia;
+    let cdRef:ChangeDetectorRef;
+    let elem = new VgMediaElement();
+    elem.duration = 100;
+    elem.currentTime = 0;
+    elem.volume = 1;
+    elem.playbackRate = 1;
+    elem.buffered = {
+        length: 2,
+        start: () => {return 0;},
+        end: () => {return 50;}
+    };
+    elem.id = 'testVideo';
 
     beforeEach(() => {
         jasmine.clock().uninstall();
@@ -20,12 +33,29 @@ describe('Controls Bar', () => {
         hidden = new VgControlsHidden();
 
         ref = {
-            nativeElement: {
-                getAttribute: (name) => {
-                    return name;
-                }
-            }
+            nativeElement: elem
         };
+
+        cdRef = {
+            detectChanges: () => {},
+            markForCheck: () => {},
+            detach: () => {},
+            reattach: () => {},
+            checkNoChanges: () => {}
+        };
+
+        media = new VgMedia(api, cdRef);
+        media.vgMedia = elem;
+        media.subscriptions = {
+            // Native events
+            pause: {subscribe:() => {}},
+            play: {subscribe:() => {}},            
+            // Advertisement only events
+            startAds: {subscribe:() => {}},
+            endAds: {subscribe:() => {}},
+        };
+        api.registerMedia(media);
+        
 
         controls = new VgControls(api, ref, hidden);
     });
@@ -83,10 +113,9 @@ describe('Controls Bar', () => {
 
     it('Should hide controls when is playing', () => {
         spyOn(hidden, 'state').and.callFake(() => {});
-
+        controls.onPlayerReady();
         controls.vgAutohide = true;
-        api.medias = [{state: VgStates.VG_PLAYING}];
-
+        media.state = VgStates.VG_PLAYING;
         controls.hide();
 
         jasmine.clock().tick(3100);
@@ -95,11 +124,12 @@ describe('Controls Bar', () => {
     });
 
     it('Should not hide controls if player is paused', () => {
+        controls.onPlayerReady();
         controls.hideControls = false;
         controls.vgAutohide = false;
 
         controls.vgAutohide = true;
-        api.medias = [{state: VgStates.VG_PAUSED}];
+        media.state = VgStates.VG_PAUSED;
 
         controls.hide();
 

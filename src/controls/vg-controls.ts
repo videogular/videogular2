@@ -73,7 +73,14 @@ export class VgControls implements OnInit, AfterViewInit, OnDestroy {
     }
 
     onPlayerReady() {
-        this.target = this.API.getMediaById(this.vgFor);
+        if(this.vgFor)
+        {
+            this.target = this.API.getMediaById(this.vgFor);
+        }
+        else
+        {
+            this.target = this.API.getDefaultMedia();
+        }
 
         this.subscriptions.push(this.target.subscriptions.play.subscribe(this.onPlay.bind(this)));
         this.subscriptions.push(this.target.subscriptions.pause.subscribe(this.onPause.bind(this)));
@@ -128,7 +135,7 @@ export class VgControls implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private hideAsync() {
-        if (this.API.state === VgStates.VG_PLAYING) {
+        if (this.target.state === VgStates.VG_PLAYING) {
             this.timer = setTimeout(() => {
                 this.hideControls = true;
                 this.hidden.state(true);
