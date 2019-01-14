@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
-import { Observable ,  Subscription ,  Subject, fromEvent } from "rxjs";
-import {map} from "rxjs/operators";
+import { Observable, Subscription, Subject, fromEvent } from "rxjs";
+import { map } from "rxjs/operators";
 
 import { VgStates } from '../states/vg-states';
 import { VgAPI } from '../services/vg-api';

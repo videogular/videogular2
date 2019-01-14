@@ -1,14 +1,14 @@
-import {VgMedia} from "./vg-media";
-import {VgAPI} from "../services/vg-api";
-import {ChangeDetectorRef, ElementRef} from "@angular/core";
-import {VgStates} from "../states/vg-states";
+import { VgMedia } from "./vg-media";
+import { VgAPI } from "../services/vg-api";
+import { ChangeDetectorRef } from "@angular/core";
+import { VgStates } from "../states/vg-states";
 import { VgMediaElement } from './vg-media-element';
 import { fakeAsync, tick } from '@angular/core/testing';
 
 
 describe('Videogular Media', () => {
     let media:VgMedia;
-    let ref:ElementRef;
+    let ref:{ nativeElement: VgMediaElement };
     let cdRef:ChangeDetectorRef;
     let api:VgAPI;
     let elem = new VgMediaElement();
@@ -37,6 +37,7 @@ describe('Videogular Media', () => {
         api = new VgAPI();
         media = new VgMedia(api, cdRef);
         media.vgMedia = elem;
+        elem.currentTime = 0;
     });
 
     it('Should load a new media if a change on dom have been happened', <any>fakeAsync((): void => {
