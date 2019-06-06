@@ -32,13 +32,13 @@
     "http-server": "0.11.1",
     "husky": "^1.3.0",
     "jasmine-core": "^3.3.0",
-    "karma": "^3.1.3",
+    "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-firefox-launcher": "^1.1.0",
     "karma-coverage": "^1.1.2",
+    "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1",
     "karma-spec-reporter": "^0.0.32",
-    "parallelshell": "2.0.0",
+    "npm-run-all": "4.1.5",
     "reflect-metadata": "^0.1.10",
     "remap-istanbul": "0.9.5",
     "rimraf": "2.6.1",
@@ -53,7 +53,7 @@
   },
   "scripts": {
     "commitmsg": "validate-commit-msg",
-    "prebuild": "npm run clean",
+    "prebuild": "",
     "build": "ngc",
     "postbuild": "npm test",
     "build:travis": "ngc",
@@ -62,14 +62,13 @@
     "precommit": "npm test",
     "commit": "git-cz",
     "coverage": "http-server -c-1 -o -s -p 9875 ./coverage",
-    "start": "parallelshell \"npm run watch:ts\" \"npm run start:coverage-server\"",
+    "start": "run-p \"watch:ts\" \"start:coverage-server\"",
     "start:coverage-server": "http-server -c-1 -o -p 9875 ./coverage",
     "test": "karma start karma.conf.js",
     "posttest": "remap-istanbul -i ./coverage/coverage-final.json -o coverage -t html",
     "report-coverage": "cat ./coverage/coverage-final.json | ./node_modules/.bin/remap-istanbul -o coverage-remapped.json",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "watch:ts": "watch \"npm run build\" src",
-    "parallelshell": "parallelshell",
+    "watch:ts": "\"npm run build -w\"",
     "lint": "tslint '**/*.ts' -e 'node_modules/**/*' -e 'compiled/**/**'  --fix --noUnusedParameters --noUnusedLocals"
   },
   "engines": {
@@ -83,8 +82,7 @@
     "javascript"
   ],
   "author": "Raúl Jiménez <elecash@gmail.com>",
-  "contributors": [
-    {
+  "contributors": [{
       "name": "Alberto García",
       "email": "cernhelm@gmail.com"
     },
