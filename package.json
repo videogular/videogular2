@@ -53,7 +53,7 @@
   },
   "scripts": {
     "commitmsg": "validate-commit-msg",
-    "prebuild": "",
+    "prebuild": "npm run clean",
     "build": "ngc",
     "postbuild": "npm test",
     "build:travis": "ngc",
@@ -68,7 +68,7 @@
     "posttest": "remap-istanbul -i ./coverage/coverage-final.json -o coverage -t html",
     "report-coverage": "cat ./coverage/coverage-final.json | ./node_modules/.bin/remap-istanbul -o coverage-remapped.json",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "watch:ts": "\"npm run build -w\"",
+    "watch:ts": "\"npm run build -- -w\"",
     "lint": "tslint '**/*.ts' -e 'node_modules/**/*' -e 'compiled/**/**'  --fix --noUnusedParameters --noUnusedLocals"
   },
   "engines": {
