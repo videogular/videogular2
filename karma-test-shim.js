@@ -2,6 +2,7 @@
 Error.stackTraceLimit = Infinity;
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
+jasmine.random = false;
 
 // // Cancel Karma's synchronous start,
 // // we will call `__karma__.start()` later, once all the specs are loaded.

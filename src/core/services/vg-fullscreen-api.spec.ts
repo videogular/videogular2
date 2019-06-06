@@ -1,6 +1,5 @@
 import {QueryList} from "@angular/core";
 import {VgFullscreenAPI} from "./vg-fullscreen-api";
-import {VgMedia} from "../vg-media/vg-media";
 import {VgUtils} from "./vg-utils";
 
 describe('Videogular Player', () => {
@@ -80,7 +79,7 @@ describe('Videogular Player', () => {
 
         (<any>document).mockedExitFunction = () => {};
 
-        spyOn(document, 'mockedExitFunction').and.callThrough();
+        spyOn(document, 'mockedExitFunction' as any).and.callThrough();
 
         fsAPI.exit();
 
@@ -93,7 +92,7 @@ describe('Videogular Player', () => {
 
         (<any>document).mockedExitFunction = () => {};
 
-        spyOn(document, 'mockedExitFunction').and.callThrough();
+        spyOn(document, 'mockedExitFunction' as any).and.callThrough();
 
         fsAPI.nativeFullscreen = false;
         fsAPI.exit();
