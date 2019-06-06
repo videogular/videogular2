@@ -50,7 +50,15 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         this.crossorigin = this.ref.nativeElement.getAttribute('crossorigin');
         this.preload = this.ref.nativeElement.getAttribute('preload') !== 'none';
         this.vgFor = this.ref.nativeElement.getAttribute('vgFor');
-        this.target = this.API.getMediaById(this.vgFor);
+        
+        if(this.vgFor)
+        {
+            this.target = this.API.getMediaById(this.vgFor);
+        }
+        else{
+            this.target = this.API.getDefaultMedia();
+        }
+        
 
         this.config = <IHLSConfig>{
             autoStartLoad: this.preload
@@ -131,6 +139,13 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
                     this.onGetBitrates.emit(videoList);
                 }
             );
+            this.hls.on(
+                Hls.Events.LEVEL_LOADED,
+                (event, data) => {
+                    this.target.isLive = data.details.live;
+                }
+            );
+
             this.hls.loadSource(this.vgHls);
             this.hls.attachMedia(video);
         }
@@ -159,5 +174,6 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
     ngOnDestroy() {
         this.subscriptions.forEach(s => s.unsubscribe());
         this.destroyPlayer();
+        delete this.hls;
     }
 }
