@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@angular/animations": "^7.1.4",
+    "@angular/cli": "8.0.1",
     "@angular/common": "^7.1.4",
     "@angular/compiler": "^7.1.4",
     "@angular/compiler-cli": "^7.0.4",
@@ -49,7 +50,7 @@
     "typescript": "~3.1.1",
     "validate-commit-msg": "2.12.1",
     "watch": "1.0.2",
-    "zone.js": "^0.8.26"
+    "zone.js": "0.9.1"
   },
   "scripts": {
     "prebuild": "npm run clean",
