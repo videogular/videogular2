@@ -41,12 +41,12 @@ export class VgImaAds implements OnInit, OnDestroy {
     elem: HTMLElement;
     target: IPlayable;
     ima: Ima;
-    isFullscreen: boolean = false;
+    isFullscreen = false;
     skipButton: HTMLElement;
 
     subscriptions: Subscription[] = [];
 
-    @HostBinding('style.display') displayState: string = 'none';
+    @HostBinding('style.display') displayState = 'none';
 
     constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI) {
         this.elem = ref.nativeElement;

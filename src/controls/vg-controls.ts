@@ -38,12 +38,12 @@ export class VgControls implements OnInit, AfterViewInit, OnDestroy {
     elem: HTMLElement;
     target: any;
 
-    @HostBinding('style.pointer-events') isAdsPlaying: string = 'initial';
-    @HostBinding('class.hide') hideControls: boolean = false;
+    @HostBinding('style.pointer-events') isAdsPlaying = 'initial';
+    @HostBinding('class.hide') hideControls = false;
 
     @Input() vgFor: string;
-    @Input() vgAutohide: boolean = false;
-    @Input() vgAutohideTime: number = 3;
+    @Input() vgAutohide = false;
+    @Input() vgAutohideTime = 3;
 
     private timer: any;
     private hideTimer: any;

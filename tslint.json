@@ -1,4 +1,10 @@
 {
+    "linterOptions": {
+        "exclude": [
+            "node_modules/**/*",
+            "compiled/**/*"
+        ]
+    },
     "rulesDirectory": [
         "node_modules/codelyzer"
     ],
@@ -46,7 +52,7 @@
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": false,
         "no-unused-expression": true,
-        "no-use-before-declare": true,
+
         "no-var-keyword": true,
         "object-literal-sort-keys": false,
         "one-line": [
@@ -89,16 +95,14 @@
         "directive-selector": [true, "attribute", "vg", "camelCase"],
         "component-selector": [true, "element", "vg", "kebab-case"],
 
-        "use-input-property-decorator": true,
-        "use-output-property-decorator": true,
-        "use-host-property-decorator": true,
+        "no-inputs-metadata-property": true,
+        "no-outputs-metadata-property": true,
+        "no-host-metadata-property": true,
         "no-input-rename": true,
         "no-output-rename": true,
         "use-life-cycle-interface": true,
         "use-pipe-transform-interface": true,
         "component-class-suffix": false,
-        "directive-class-suffix": false,
-        "templates-use-public": true,
-        "invoke-injectable": true
+        "directive-class-suffix": false
     }
 }

@@ -42,7 +42,7 @@ export class VgFullscreen implements OnInit, OnDestroy {
     elem: HTMLElement;
     vgFor: string;
     target: Object;
-    isFullscreen: boolean = false;
+    isFullscreen = false;
 
     subscriptions: Subscription[] = [];
 

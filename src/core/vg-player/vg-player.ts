@@ -45,9 +45,9 @@ import { VgControlsHidden } from '../services/vg-controls-hidden';
 export class VgPlayer implements AfterContentInit, OnDestroy {
     elem: HTMLElement;
 
-    @HostBinding('class.fullscreen') isFullscreen: boolean = false;
-    @HostBinding('class.native-fullscreen') isNativeFullscreen: boolean = false;
-    @HostBinding('class.controls-hidden') areControlsHidden: boolean = false;
+    @HostBinding('class.fullscreen') isFullscreen = false;
+    @HostBinding('class.native-fullscreen') isNativeFullscreen = false;
+    @HostBinding('class.controls-hidden') areControlsHidden = false;
     @HostBinding('style.z-index') zIndex: string;
 
     @Output()

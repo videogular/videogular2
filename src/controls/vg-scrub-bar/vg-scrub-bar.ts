@@ -82,15 +82,15 @@ import { Subscription } from 'rxjs';
     ` ]
 })
 export class VgScrubBar implements OnInit, OnDestroy {
-    @HostBinding('class.hide') hideScrubBar: boolean = false;
+    @HostBinding('class.hide') hideScrubBar = false;
 
     @Input() vgFor: string;
-    @Input() vgSlider: boolean = true;
+    @Input() vgSlider = true;
 
     elem: HTMLElement;
     target: any;
-    isSeeking: boolean = false;
-    wasPlaying: boolean = false;
+    isSeeking = false;
+    wasPlaying = false;
 
     subscriptions: Subscription[] = [];
 
@@ -151,7 +151,7 @@ export class VgScrubBar implements OnInit, OnDestroy {
     }
 
     protected getTouchOffset(event: any) {
-        let offsetLeft: number = 0;
+        let offsetLeft = 0;
         let element: any = event.target;
         while (element) {
             offsetLeft += element.offsetLeft;

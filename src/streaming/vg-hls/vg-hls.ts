@@ -51,8 +51,7 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         this.preload = this.ref.nativeElement.getAttribute('preload') !== 'none';
         this.vgFor = this.ref.nativeElement.getAttribute('vgFor');
         
-        if(this.vgFor)
-        {
+        if(this.vgFor){
             this.target = this.API.getMediaById(this.vgFor);
         }
         else{

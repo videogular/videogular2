@@ -47,7 +47,7 @@ export class VgScrubBarCuePoints implements OnInit, OnChanges, OnDestroy {
 
     elem: HTMLElement;
     target: any;
-    onLoadedMetadataCalled: boolean = false;
+    onLoadedMetadataCalled = false;
     cuePoints: Array<any> = [];
 
     subscriptions: Subscription[] = [];

@@ -8,8 +8,8 @@ export class VgFullscreenAPI {
     polyfill: any;
     onchange: string;
     onerror: string;
-    nativeFullscreen: boolean = true;
-    isFullscreen: boolean = false;
+    nativeFullscreen = true;
+    isFullscreen = false;
     isAvailable: boolean;
     videogularElement: HTMLElement;
     medias: QueryList<VgMedia>;

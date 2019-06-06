@@ -6,6 +6,8 @@
         "target": "es5",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "inlineSourceMap": true,
         "inlineSources": true,
         "declaration": true,

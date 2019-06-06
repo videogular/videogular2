@@ -7,25 +7,23 @@
     "url": "https://github.com/videogular/videogular2"
   },
   "peerDependencies": {
-    "@angular/core": "^7.1.0",
     "rxjs": "^6.3.0"
   },
   "devDependencies": {
-    "@angular/animations": "^7.1.4",
+    "@angular/animations": "^8.0.0",
     "@angular/cli": "8.0.1",
-    "@angular/common": "^7.1.4",
-    "@angular/compiler": "^7.1.4",
-    "@angular/compiler-cli": "^7.0.4",
-    "@angular/core": "^7.1.4",
-    "@angular/http": "^7.1.4",
-    "@angular/platform-browser": "^7.1.4",
-    "@angular/platform-browser-dynamic": "^7.1.4",
-    "@angular/platform-server": "^7.1.4",
+    "@angular/common": "^8.0.0",
+    "@angular/compiler": "^8.0.0",
+    "@angular/compiler-cli": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/platform-browser": "^8.0.0",
+    "@angular/platform-browser-dynamic": "^8.0.0",
+    "@angular/platform-server": "^8.0.0",
     "@types/bluebird": "^3.5.25",
     "@types/core-js": "0.9.46",
     "@types/jasmine": "^3.3.1",
     "@types/node": "10.12.12",
-    "codelyzer": "^4.5.0",
+    "codelyzer": "5.1.0",
     "commitizen": "2.9.6",
     "core-js": "^2.6.0",
     "cz-conventional-changelog": "2.0.0",
@@ -46,8 +44,8 @@
     "rxjs": "^6.3.0",
     "semantic-release": "6.3.2",
     "systemjs": "^0.20.19",
-    "tslint": "^5.11.0",
-    "typescript": "~3.1.1",
+    "tslint": "5.17.0",
+    "typescript": "~3.4.5",
     "validate-commit-msg": "2.12.1",
     "watch": "1.0.2",
     "zone.js": "0.9.1"
@@ -68,7 +66,7 @@
     "report-coverage": "cat ./coverage/coverage-final.json | ./node_modules/.bin/remap-istanbul -o coverage-remapped.json",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "watch:ts": "\"npm run build -- -w\"",
-    "lint": "tslint '**/*.ts' -e 'node_modules/**/*' -e 'compiled/**/**'  --fix --noUnusedParameters --noUnusedLocals"
+    "lint": "tslint -p tsconfig.json -c tslint.json --fix"
   },
   "husky": {
     "hooks": {
@@ -87,8 +85,7 @@
     "javascript"
   ],
   "author": "Raúl Jiménez <elecash@gmail.com>",
-  "contributors": [
-    {
+  "contributors": [{
       "name": "Alberto García",
       "email": "cernhelm@gmail.com"
     },
