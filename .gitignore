@@ -34,3 +34,7 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 .angulardoc.json
+
+
+# VS Code
+.vscode

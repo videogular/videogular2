@@ -65,7 +65,7 @@
     "posttest": "remap-istanbul -i ./coverage/coverage-final.json -o coverage -t html",
     "report-coverage": "cat ./coverage/coverage-final.json | ./node_modules/.bin/remap-istanbul -o coverage-remapped.json",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "watch:ts": "\"npm run build -- -w\"",
+    "watch:ts": "watch \"npm run build\" src",
     "lint": "tslint -p tsconfig.json -c tslint.json --fix"
   },
   "husky": {
@@ -85,7 +85,8 @@
     "javascript"
   ],
   "author": "Raúl Jiménez <elecash@gmail.com>",
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Alberto García",
       "email": "cernhelm@gmail.com"
     },

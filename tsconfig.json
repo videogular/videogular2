@@ -4,6 +4,7 @@
         "noImplicitAny": false,
         "module": "commonjs",
         "target": "es5",
+        "outDir": "compiled",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "noUnusedLocals": true,
@@ -19,6 +20,6 @@
         "coverage/*"
     ],
     "angularCompilerOptions": {
-        "genDir": "compiled"
+        "skipTemplateCodegen": true
     }
 }
