@@ -50,19 +50,19 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
         this.crossorigin = this.ref.nativeElement.getAttribute('crossorigin');
         this.preload = this.ref.nativeElement.getAttribute('preload') !== 'none';
         this.vgFor = this.ref.nativeElement.getAttribute('vgFor');
-        
+
         if(this.vgFor){
             this.target = this.API.getMediaById(this.vgFor);
         }
         else{
             this.target = this.API.getDefaultMedia();
         }
-        
+
 
         this.config = <IHLSConfig>{
             autoStartLoad: this.preload
         };
-
+        // @ts-ignore
         this.config.xhrSetup = (xhr, url) => {
             // Send cookies
             if (this.crossorigin === 'use-credentials') {
@@ -110,9 +110,8 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
             let video:HTMLVideoElement = this.ref.nativeElement;
 
             this.hls = new Hls(this.config);
-            this.hls.on(
-                Hls.Events.MANIFEST_PARSED,
-                (event, data) => {
+            // @ts-ignore
+            this.hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
                     const videoList = [];
 
                     videoList.push({
@@ -138,9 +137,8 @@ export class VgHLS implements OnInit, OnChanges, OnDestroy {
                     this.onGetBitrates.emit(videoList);
                 }
             );
-            this.hls.on(
-                Hls.Events.LEVEL_LOADED,
-                (event, data) => {
+            // @ts-ignore
+            this.hls.on(Hls.Events.LEVEL_LOADED, (event, data) => {
                     this.target.isLive = data.details.live;
                 }
             );

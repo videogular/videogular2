@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable, QueryList } from '@angular/core';
 import { VgUtils } from './vg-utils';
 import { VgMedia } from '../vg-media/vg-media';
-import { Subscription ,  Observable, fromEvent } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 
 @Injectable()
 export class VgFullscreenAPI {
@@ -83,7 +83,7 @@ export class VgFullscreenAPI {
         }
 
         if (VgUtils.isiOSDevice()) {
-            this.polyfill = APIs.ios
+            this.polyfill = APIs.ios;
         }
 
         this.isAvailable = (this.polyfill != null);

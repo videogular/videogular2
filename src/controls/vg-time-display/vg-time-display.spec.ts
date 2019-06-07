@@ -6,6 +6,7 @@ describe('Time Display', () => {
     let timeDisplay:VgTimeDisplay;
     let ref:ElementRef;
     let api:VgAPI;
+    // @ts-ignore
     let renderer;
 
     beforeEach(() => {

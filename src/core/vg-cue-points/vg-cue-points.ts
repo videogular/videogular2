@@ -1,15 +1,15 @@
-import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output, DoCheck } from '@angular/core';
 import { VgEvents } from '../events/vg-events';
 import { Observable ,  Subscription, fromEvent } from 'rxjs';
 
 @Directive({
     selector: '[vgCuePoints]'
 })
-export class VgCuePoints implements OnInit, OnDestroy {
-    @Output('onEnterCuePoint') onEnterCuePoint: EventEmitter<any> = new EventEmitter();
-    @Output('onUpdateCuePoint') onUpdateCuePoint: EventEmitter<any> = new EventEmitter();
-    @Output('onExitCuePoint') onExitCuePoint: EventEmitter<any> = new EventEmitter();
-    @Output('onCompleteCuePoint') onCompleteCuePoint: EventEmitter<any> = new EventEmitter();
+export class VgCuePoints implements OnInit, OnDestroy, DoCheck {
+    @Output() onEnterCuePoint: EventEmitter<any> = new EventEmitter();
+    @Output() onUpdateCuePoint: EventEmitter<any> = new EventEmitter();
+    @Output() onExitCuePoint: EventEmitter<any> = new EventEmitter();
+    @Output() onCompleteCuePoint: EventEmitter<any> = new EventEmitter();
 
     subscriptions: Subscription[] = [];
     cuesSubscriptions: Subscription[] = [];

@@ -40,7 +40,7 @@ describe('Scrub bar', () => {
             detach: () => {},
             reattach: () => {},
             checkNoChanges: () => {}
-        }
+        };
 
         api = new VgAPI();
         media = new VgMedia(api, cdRef);

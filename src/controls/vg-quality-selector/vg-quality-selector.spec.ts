@@ -3,6 +3,8 @@ import { VgAPI } from "../../core/services/vg-api";
 import { ElementRef } from "@angular/core";
 
 describe('Quality Selector control', () => {
+    
+    // @ts-ignore
     let vgQualitySelector: VgQualitySelector;
 
     beforeEach(() => {

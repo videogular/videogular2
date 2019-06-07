@@ -1,7 +1,6 @@
 import { Component, ElementRef, HostBinding, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { VgAPI } from '../core/services/vg-api';
 import { IPlayable } from '../core/vg-media/i-playable';
-import { VgStates } from '../core/states/vg-states';
 import { Subscription } from 'rxjs';
 
 @Component({

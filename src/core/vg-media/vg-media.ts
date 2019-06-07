@@ -166,7 +166,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.canPlayAllSubscription = combineLatest(canPlayAll).pipe(
             map((...params) => {
                     const checkReadyState = (event) => {
-                        return event.target.readyState === 4
+                        return event.target.readyState === 4;
                     };
                     let allReady: boolean = params.some(checkReadyState);
 
@@ -319,21 +319,21 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
     get textTracks() {
         return this.vgMedia.textTracks;
     }
-
+    // @ts-ignore
     onCanPlay(event: any) {
         this.isBufferDetected = false;
         this.bufferDetected.next(this.isBufferDetected);
         this.canPlay = true;
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onCanPlayThrough(event: any) {
         this.isBufferDetected = false;
         this.bufferDetected.next(this.isBufferDetected);
         this.canPlayThrough = true;
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onLoadMetadata(event: any) {
         this.isMetadataLoaded = true;
 
@@ -350,23 +350,23 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.isLive = (t === Infinity);
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onWait(event: any) {
         this.isWaiting = true;
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onComplete(event: any) {
         this.isCompleted = true;
         this.state = VgStates.VG_ENDED;
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onStartPlaying(event: any) {
         this.state = VgStates.VG_PLAYING;
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onPlay(event: any) {
         this.state = VgStates.VG_PLAYING;
 
@@ -379,7 +379,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.startBufferCheck();
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onPause(event: any) {
         this.state = VgStates.VG_PAUSED;
 
@@ -392,7 +392,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         this.stopBufferCheck();
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onTimeUpdate(event: any) {
         let end = this.buffered.length - 1;
 
@@ -407,7 +407,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         }
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onProgress(event: any) {
         let end = this.buffered.length - 1;
 
@@ -416,12 +416,12 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
         }
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onVolumeChange(event: any) {
         // TODO: Save to localstorage the current volume
         this.ref.detectChanges();
     }
-
+    // @ts-ignore
     onError(event: any) {
         // TODO: Handle error messages
         this.ref.detectChanges();

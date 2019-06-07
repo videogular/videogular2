@@ -6,7 +6,7 @@ import { VgHLS } from "./vg-hls/vg-hls";
 export interface IDRMLicenseServer {
     [index: string]: {
         serverURL: string;
-    }
+    };
 }
 
 @NgModule({

@@ -116,7 +116,7 @@ export class VgQualitySelector implements OnInit, OnChanges, OnDestroy {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['bitrates'].currentValue && changes['bitrates'].currentValue.length) {
-            this.bitrates.forEach(item => item.label = item.label || Math.round(item.bitrate / 1000).toString())
+            this.bitrates.forEach(item => item.label = item.label || Math.round(item.bitrate / 1000).toString());
         }
     }
 
