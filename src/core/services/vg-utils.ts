@@ -27,13 +27,13 @@ export class VgUtils {
     // Very simple mobile detection, not 100% reliable
     static isMobileDevice() {
         return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf("IEMobile") !== -1);
-    };
+    }
 
     static isiOSDevice() {
         return (navigator.userAgent.match(/ip(hone|ad|od)/i) && !navigator.userAgent.match(/(iemobile)[\/\s]?([\w\.]*)/i));
-    };
+    }
 
     static isCordova() {
         return document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
-    };
+    }
 }

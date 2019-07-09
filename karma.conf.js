@@ -26,8 +26,9 @@ module.exports = function(config) {
 
             {pattern: 'karma-test-shim.js', included: true, watched: true},
 
+
             // Our built application code
-            {pattern: 'src/**/*.js', included: false, watched: true},
+            {pattern: 'compiled/**/*.js', included: false, watched: true},
 
             // paths loaded via Angular's component compiler
             // (these paths need to be rewritten, see proxies section)

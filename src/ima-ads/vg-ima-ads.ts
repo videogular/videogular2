@@ -41,12 +41,12 @@ export class VgImaAds implements OnInit, OnDestroy {
     elem: HTMLElement;
     target: IPlayable;
     ima: Ima;
-    isFullscreen: boolean = false;
+    isFullscreen = false;
     skipButton: HTMLElement;
 
     subscriptions: Subscription[] = [];
 
-    @HostBinding('style.display') displayState: string = 'none';
+    @HostBinding('style.display') displayState = 'none';
 
     constructor(ref: ElementRef, public API: VgAPI, public fsAPI: VgFullscreenAPI) {
         this.elem = ref.nativeElement;
@@ -176,7 +176,7 @@ export class VgImaAds implements OnInit, OnDestroy {
         this.ima.adsManager = evt.getAdsManager(this.target);
         this.processAdsManager(this.ima.adsManager);
     }
-
+    // @ts-ignore
     processAdsManager(adsManager: google.ima.AdsManager) {
         const w = this.API.videogularElement.offsetWidth;
         const h = this.API.videogularElement.offsetHeight;
@@ -243,7 +243,7 @@ export class VgImaAds implements OnInit, OnDestroy {
         this.onAdStart.emit(true);
         this.hide();
     }
-
+    // @ts-ignore
     onAdError(evt) {
         if (this.ima.adsManager) {
             this.ima.adsManager.destroy();

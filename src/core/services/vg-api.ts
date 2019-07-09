@@ -8,7 +8,7 @@ export class VgAPI {
     medias:Object = {};// TODO: refactor to Set<IPlayable> 
     videogularElement: any;
     playerReadyEvent: EventEmitter<any> = new EventEmitter(true);
-    isPlayerReady: boolean = false;
+    isPlayerReady = false;
     fsAPI: VgFullscreenAPI;
 
     constructor() {

@@ -8,7 +8,6 @@ import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('Videogular Media', () => {
     let media:VgMedia;
-    let ref:{ nativeElement: VgMediaElement };
     let cdRef:ChangeDetectorRef;
     let api:VgAPI;
     let elem = new VgMediaElement();
@@ -24,9 +23,7 @@ describe('Videogular Media', () => {
     elem.id = 'testVideo';
 
     beforeEach(() => {
-        ref = {
-            nativeElement: elem
-        };
+
         cdRef = {
             detectChanges: () => {},
             markForCheck: () => {},

@@ -24,7 +24,8 @@ export interface IMediaElement {
      */
     readonly buffered: TimeRanges;
     /**
-     * Gets or sets a flag that indicates whether the client provides a set of controls for the media (in case the developer does not include controls for the player).
+     * Gets or sets a flag that indicates whether the client provides a set of controls for
+     * the media (in case the developer does not include controls for the player).
      */
     controls: boolean;
     crossOrigin: string | null;
@@ -42,7 +43,8 @@ export interface IMediaElement {
      */
     defaultPlaybackRate: number;
     /**
-     * Returns the duration in seconds of the current media resource. A NaN value is returned if duration is not available, or Infinity if the media resource is streaming.
+     * Returns the duration in seconds of the current media resource. A NaN value is returned if duration
+     * is not available, or Infinity if the media resource is streaming.
      */
     readonly duration: number;
     /**
@@ -76,7 +78,8 @@ export interface IMediaElement {
      */
     msPlayToDisabled: boolean;
     /**
-     * Gets or sets the path to the preferred media source. This enables the Play To target device to stream the media content, which can be DRM protected, from a different location, such as a cloud media server.
+     * Gets or sets the path to the preferred media source. This enables the Play To target device to
+     * stream the media content, which can be DRM protected, from a different location, such as a cloud media server.
      */
     msPlayToPreferredSourceUri: string;
     /**
@@ -106,7 +109,8 @@ export interface IMediaElement {
      */
     readonly paused: boolean;
     /**
-     * Gets or sets the current rate of speed for the media resource to play. This speed is expressed as a multiple of the normal speed of the media resource.
+     * Gets or sets the current rate of speed for the media resource to play. This speed is
+     * expressed as a multiple of the normal speed of the media resource.
      */
     playbackRate: number;
     /**
@@ -161,7 +165,8 @@ export interface IMediaElement {
      */
     msSetMediaProtectionManager(mediaProtectionManager?: any): void;
     /**
-     * Pauses the current playback and sets paused to TRUE. This can be used to test whether the media is playing or paused. You can also use the pause or play events to tell whether the media is playing or not.
+     * Pauses the current playback and sets paused to TRUE. This can be used to test whether the media is
+     * playing or paused. You can also use the pause or play events to tell whether the media is playing or not.
      */
     pause(): void;
     /**

@@ -96,7 +96,7 @@ describe('Videogular Player', () => {
 
     it('Should get duration', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let duration = api.duration;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('duration');
@@ -112,7 +112,7 @@ describe('Videogular Player', () => {
 
     it('Should get state', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let state = api.state;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('state');
@@ -128,7 +128,7 @@ describe('Videogular Player', () => {
 
     it('Should get currentTime', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let currentTime = api.currentTime;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('currentTime');
@@ -144,7 +144,7 @@ describe('Videogular Player', () => {
 
     it('Should get volume', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let volume = api.volume;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('volume');
@@ -160,7 +160,7 @@ describe('Videogular Player', () => {
 
     it('Should get playbackRate', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let playbackRate = api.playbackRate;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('playbackRate');
@@ -168,7 +168,7 @@ describe('Videogular Player', () => {
 
     it('Should get canPlay', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let canPlay = api.canPlay;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('canPlay');
@@ -176,7 +176,7 @@ describe('Videogular Player', () => {
 
     it('Should get canPlayThrough', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let canPlayThrough = api.canPlayThrough;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('canPlayThrough');
@@ -184,7 +184,7 @@ describe('Videogular Player', () => {
 
     it('Should get isMetadataLoaded', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let isMetadataLoaded = api.isMetadataLoaded;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('isMetadataLoaded');
@@ -192,7 +192,7 @@ describe('Videogular Player', () => {
 
     it('Should get isWaiting', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let isWaiting = api.isWaiting;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('isWaiting');
@@ -200,7 +200,7 @@ describe('Videogular Player', () => {
 
     it('Should get isCompleted', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let isCompleted = api.isCompleted;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('isCompleted');
@@ -208,7 +208,7 @@ describe('Videogular Player', () => {
 
     it('Should get time', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let time = api.time;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('time');
@@ -216,7 +216,7 @@ describe('Videogular Player', () => {
 
     it('Should get buffer', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let time = api.buffer;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('buffer');
@@ -224,7 +224,7 @@ describe('Videogular Player', () => {
 
     it('Should get buffered', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let buffered = api.buffered;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('buffered');
@@ -232,7 +232,7 @@ describe('Videogular Player', () => {
 
     it('Should get subscriptions', () => {
         spyOn(api, '$$getAllProperties').and.callFake(() => {});
-
+        // @ts-ignore
         let subscriptions = api.subscriptions;
 
         expect(api.$$getAllProperties).toHaveBeenCalledWith('subscriptions');

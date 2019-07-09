@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs';
              [attr.aria-valuetext]="getPercentage() + '%'">
             <ng-content></ng-content>
         </div>
-        
+
     `,
     styles: [ `
         vg-scrub-bar {
@@ -46,7 +46,7 @@ import { Subscription } from 'rxjs';
             -ms-transition: bottom 1s, opacity 0.5s;
             transition: bottom 1s, opacity 0.5s;
         }
-        
+
         vg-scrub-bar .scrubBar {
             position: relative;
             display: flex;
@@ -82,15 +82,15 @@ import { Subscription } from 'rxjs';
     ` ]
 })
 export class VgScrubBar implements OnInit, OnDestroy {
-    @HostBinding('class.hide') hideScrubBar: boolean = false;
+    @HostBinding('class.hide') hideScrubBar = false;
 
     @Input() vgFor: string;
-    @Input() vgSlider: boolean = true;
+    @Input() vgSlider = true;
 
     elem: HTMLElement;
     target: any;
-    isSeeking: boolean = false;
-    wasPlaying: boolean = false;
+    isSeeking = false;
+    wasPlaying = false;
 
     subscriptions: Subscription[] = [];
 
@@ -151,7 +151,7 @@ export class VgScrubBar implements OnInit, OnDestroy {
     }
 
     protected getTouchOffset(event: any) {
-        let offsetLeft: number = 0;
+        let offsetLeft = 0;
         let element: any = event.target;
         while (element) {
             offsetLeft += element.offsetLeft;
@@ -214,18 +214,16 @@ export class VgScrubBar implements OnInit, OnDestroy {
             }
         }
     }
-
-    @HostListener('document:touchcancel', [ '$event' ])
-    onTouchCancelScrubBar($event: any) {
+    // @ts-ignore
+    @HostListener('document:touchcancel', [ '$event' ]) onTouchCancelScrubBar($event: any) {
         if (this.target) {
             if (!this.target.isLive && this.vgSlider && this.isSeeking) {
                 this.touchEnd();
             }
         }
     }
-
-    @HostListener('document:touchend', [ '$event' ])
-    onTouchEndScrubBar($event: any) {
+    // @ts-ignore
+    @HostListener('document:touchend', [ '$event' ]) onTouchEndScrubBar($event: any) {
         if (this.target) {
             if (!this.target.isLive && this.vgSlider && this.isSeeking) {
                 this.touchEnd();

@@ -76,7 +76,9 @@ export class VgDASH implements OnInit, OnChanges, OnDestroy {
 
                 if (this.vgDRMToken) {
                     for (let drmServer in drmOptions) {
-                        drmOptions[drmServer].httpRequestHeaders = { Authorization: this.vgDRMToken };
+                        if(drmServer.hasOwnProperty(drmServer)) {
+                            drmOptions[drmServer].httpRequestHeaders = { Authorization: this.vgDRMToken };
+                        }
                     }
                 }
             }

@@ -21,7 +21,7 @@ describe('Cue points', () => {
 
         cuePoints.ngOnInit();
 
-        expect(cuePoints.onLoad$).toBeDefined()
+        expect(cuePoints.onLoad$).toBeDefined();
     });
 
     xit('Should handle enter/exit events', () => {
@@ -31,7 +31,7 @@ describe('Cue points', () => {
         };
 
         let track = event.target.addTextTrack('captions', 'test');
-        let cue = track.addCue(new TextTrackCue(1, 2, 'cue 1')); // Illegal Constructor
+        track.addCue(new TextTrackCue(1, 2, 'cue 1')); // Illegal Constructor
 
         cuePoints.onLoad(event);
         expect(cuePoints.onEnter$).toBeDefined();

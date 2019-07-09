@@ -59,8 +59,8 @@ export class VgUtcPipe implements PipeTransform {
 })
 export class VgTimeDisplay implements OnInit, OnDestroy {
     @Input() vgFor: string;
-    @Input() vgProperty: string = 'current';
-    @Input() vgFormat: string = 'mm:ss';
+    @Input() vgProperty = 'current';
+    @Input() vgFormat = 'mm:ss';
 
     elem: HTMLElement;
     target: any;

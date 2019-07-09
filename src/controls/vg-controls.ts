@@ -1,6 +1,5 @@
 import {
-    Component, Input, OnInit, ElementRef, HostBinding, AfterViewInit, ViewEncapsulation,
-    EventEmitter, Output, OnDestroy
+    Component, Input, OnInit, ElementRef, HostBinding, AfterViewInit, ViewEncapsulation, OnDestroy
 } from '@angular/core';
 import { Observable ,  Subscription } from 'rxjs';
 import { VgAPI } from '../core/services/vg-api';
@@ -29,7 +28,7 @@ import {fromEvent} from 'rxjs';
             transition: bottom 1s;
         }
 
-        vg-controls.hide {  
+        vg-controls.hide {
             bottom: -50px;
         }
     `]
@@ -38,21 +37,20 @@ export class VgControls implements OnInit, AfterViewInit, OnDestroy {
     elem: HTMLElement;
     target: any;
 
-    @HostBinding('style.pointer-events') isAdsPlaying: string = 'initial';
-    @HostBinding('class.hide') hideControls: boolean = false;
+    @HostBinding('style.pointer-events') isAdsPlaying = 'initial';
+    @HostBinding('class.hide') hideControls = false;
 
     @Input() vgFor: string;
-    @Input() vgAutohide: boolean = false;
-    @Input() vgAutohideTime: number = 3;
+    @Input() vgAutohide = false;
+    @Input() vgAutohideTime = 3;
 
     private timer: any;
-    private hideTimer: any;
 
     mouseMove$: Observable<any>;
     touchStart$: Observable<any>;
 
     subscriptions: Subscription[] = [];
-
+    // @ts-ignore
     constructor(private API: VgAPI, private ref: ElementRef, private hidden: VgControlsHidden) {
         this.elem = ref.nativeElement;
     }

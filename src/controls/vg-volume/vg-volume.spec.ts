@@ -102,7 +102,7 @@ describe('Volume control', () => {
             vgVol.volumeBarRef = {
               nativeElement: {
                 getBoundingClientRect() {
-                  return { left: 5, width: 100 }
+                  return { left: 5, width: 100 };
                 }
               }
             };

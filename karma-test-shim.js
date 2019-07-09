@@ -17,7 +17,7 @@ function isSpecFile(path) {
 }
 
 function isBuiltFile(path) {
-    var builtPath = '/base/src/';
+    var builtPath = '/base/compiled/';
     return isJsFile(path) && (path.substr(0, builtPath.length) == builtPath);
 }
 
@@ -41,7 +41,6 @@ System.config(
             '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
             '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
             '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
-            '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 
@@ -51,11 +50,10 @@ System.config(
             '@angular/compiler/testing': 'npm:@angular/compiler/bundles/compiler-testing.umd.js',
             '@angular/platform-browser/testing': 'npm:@angular/platform-browser/bundles/platform-browser-testing.umd.js',
             '@angular/platform-browser-dynamic/testing': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
-            '@angular/http/testing': 'npm:@angular/http/bundles/http-testing.umd.js',
             '@angular/router/testing': 'npm:@angular/router/bundles/router-testing.umd.js',
             '@angular/forms/testing': 'npm:@angular/forms/bundles/forms-testing.umd.js',
 
-            'app': 'base/src'
+            'app': 'base/compiled/src'
         },
         packages: {
             'rxjs/operators': { defaultExtension: 'js', main: 'index' },

@@ -3,7 +3,7 @@ import { IMediaElement } from './i-media-element';
 export class VgMediaElement implements IMediaElement {
     id: string;
     elem: any;
-    get audioTracks(): AudioTrackList { return null; };
+    get audioTracks(): AudioTrackList { return null; }
     autoplay: boolean;
     buffered: TimeRanges;
     controls: boolean;
@@ -51,11 +51,11 @@ export class VgMediaElement implements IMediaElement {
     NETWORK_IDLE: number;
     NETWORK_LOADING: number;
     NETWORK_NO_SOURCE: number;
-
+    // @ts-ignore
     addTextTrack(kind: string, label?: string, language?: string): TextTrack {
         return null;
     }
-
+    // @ts-ignore
     canPlayType(type: string): string {
         return null;
     }
@@ -69,13 +69,13 @@ export class VgMediaElement implements IMediaElement {
     msGetAsCastingSource(): any {
         return null;
     }
-
+    // @ts-ignore
     msInsertAudioEffect(activatableClassId: string, effectRequired: boolean, config?: any): void {
     }
-
+    // @ts-ignore
     msSetMediaKeys(mediaKeys: MSMediaKeys): void {
     }
-
+    // @ts-ignore
     msSetMediaProtectionManager(mediaProtectionManager?: any): void {
     }
 
@@ -85,11 +85,11 @@ export class VgMediaElement implements IMediaElement {
     play(): Promise<any> {
         return null;
     }
-
+    // @ts-ignore
     setMediaKeys(mediaKeys: MediaKeys | any): Promise<void> {
         return null;
     }
-
+    // @ts-ignore
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void {
     }
 }
