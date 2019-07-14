@@ -1,6 +1,7 @@
 import {VgScrubBar} from "./vg-scrub-bar";
 import {VgAPI} from "../../core/services/vg-api";
 import {ChangeDetectorRef, ElementRef} from "@angular/core";
+import { ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import {VgControlsHidden} from './../../core/services/vg-controls-hidden';
 import {VgMedia} from "../../core/vg-media/vg-media";
 import { VgStates } from '../../core/states/vg-states';
@@ -43,7 +44,7 @@ describe('Scrub bar', () => {
         };
 
         api = new VgAPI();
-        media = new VgMedia(api, cdRef);
+        media = new VgMedia(api, cdRef, ɵPLATFORM_BROWSER_ID);
         media.vgMedia = elem;
         vgControlsHiddenState = new VgControlsHidden();
 

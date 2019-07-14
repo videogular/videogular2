@@ -1,6 +1,7 @@
 import { VgMedia } from "./vg-media";
 import { VgAPI } from "../services/vg-api";
 import { ChangeDetectorRef } from "@angular/core";
+import { ɵPLATFORM_BROWSER_ID } from '@angular/common';
 import { VgStates } from "../states/vg-states";
 import { VgMediaElement } from './vg-media-element';
 import { fakeAsync, tick } from '@angular/core/testing';
@@ -32,7 +33,7 @@ describe('Videogular Media', () => {
             checkNoChanges: () => {}
         };
         api = new VgAPI();
-        media = new VgMedia(api, cdRef);
+        media = new VgMedia(api, cdRef, ɵPLATFORM_BROWSER_ID);
         media.vgMedia = elem;
         elem.currentTime = 0;
     });

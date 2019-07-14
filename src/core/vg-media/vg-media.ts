@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, OnInit, Directive, Input, OnDestroy } from "@angular/core";
+import { ChangeDetectorRef, OnInit, Directive, Input, OnDestroy, Inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from '@angular/common';
 import { IPlayable, IMediaSubscriptions } from "./i-playable";
 import { Observable, Subscription, Subject, fromEvent } from "rxjs";
 import { map } from "rxjs/operators";
@@ -65,7 +66,7 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     playPromise: Promise<any>;
 
-    constructor(private api: VgAPI, private ref: ChangeDetectorRef) {
+    constructor(private api: VgAPI, private ref: ChangeDetectorRef, @Inject(PLATFORM_ID) private platformId: Object) {
 
     }
 
@@ -491,31 +492,32 @@ export class VgMedia implements OnInit, OnDestroy, IPlayable {
 
     ngOnDestroy() {
         this.vgMedia.src = '';
-        this.mutationObs.unsubscribe();
-        this.canPlayObs.unsubscribe();
-        this.canPlayThroughObs.unsubscribe();
-        this.loadedMetadataObs.unsubscribe();
-        this.waitingObs.unsubscribe();
-        this.progressObs.unsubscribe();
-        this.endedObs.unsubscribe();
-        this.playingObs.unsubscribe();
-        this.playObs.unsubscribe();
-        this.pauseObs.unsubscribe();
-        this.timeUpdateObs.unsubscribe();
-        this.volumeChangeObs.unsubscribe();
-        this.errorObs.unsubscribe();
+        if (isPlatformBrowser(this.platformId)) {
+            this.mutationObs.unsubscribe();
+            this.canPlayObs.unsubscribe();
+            this.canPlayThroughObs.unsubscribe();
+            this.loadedMetadataObs.unsubscribe();
+            this.waitingObs.unsubscribe();
+            this.progressObs.unsubscribe();
+            this.endedObs.unsubscribe();
+            this.playingObs.unsubscribe();
+            this.playObs.unsubscribe();
+            this.pauseObs.unsubscribe();
+            this.timeUpdateObs.unsubscribe();
+            this.volumeChangeObs.unsubscribe();
+            this.errorObs.unsubscribe();
 
-        if (this.checkBufferSubscription) {
-            this.checkBufferSubscription.unsubscribe();
+            if (this.checkBufferSubscription) {
+                this.checkBufferSubscription.unsubscribe();
+            }
+
+            if (this.syncSubscription) {
+                this.syncSubscription.unsubscribe();
+            }
+
+            this.bufferDetected.complete();
+            this.bufferDetected.unsubscribe();
         }
-
-        if(this.syncSubscription) {
-            this.syncSubscription.unsubscribe();
-        }
-
-        this.bufferDetected.complete();
-        this.bufferDetected.unsubscribe();
-
         this.api.unregisterMedia(this);
     }
 }
