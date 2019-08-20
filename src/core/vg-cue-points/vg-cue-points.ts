@@ -57,7 +57,7 @@ export class VgCuePoints implements OnInit, OnDestroy, DoCheck {
     }
 
     ngDoCheck() {
-        if (this.ref.nativeElement.track.cues) {
+        if (this.ref.nativeElement.track && this.ref.nativeElement.track.cues) {
             const changes = this.totalCues !== this.ref.nativeElement.track.cues.length;
 
             if (changes) {
