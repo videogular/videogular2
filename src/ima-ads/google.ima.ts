@@ -7,6 +7,7 @@ declare namespace google {
         export class AdDisplayContainer {
             constructor(containerElement:HTMLElement);
             initialize():void;
+            destroy():void;
         }
 
         /**
