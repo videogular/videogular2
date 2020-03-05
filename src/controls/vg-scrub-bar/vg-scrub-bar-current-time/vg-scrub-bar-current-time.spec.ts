@@ -56,5 +56,18 @@ describe('Scrub bar current time', () => {
 
             expect(percent).toEqual('25%');
         });
+
+        it('should return 27% when current time is 3 and total time is 11', () => {
+            scrubBarCurrentTime.target = {
+                time: {
+                    current: 3,
+                    total: 11
+                }
+            };
+
+            let percent = scrubBarCurrentTime.getPercentage();
+
+            expect(percent).toEqual('27%');
+        });
     });
 });
