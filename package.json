@@ -25,14 +25,14 @@
     "@types/jasmine": "^3.3.1",
     "@types/node": "10.12.12",
     "codelyzer": "5.1.0",
-    "commitizen": "2.9.6",
+    "commitizen": "4.1.2",
     "core-js": "^2.6.0",
     "cz-conventional-changelog": "2.0.0",
     "es-module-loader": "2.3.0",
-    "http-server": "0.11.1",
+    "http-server": "0.12.3",
     "husky": "^2.4.0",
     "jasmine-core": "^3.3.0",
-    "karma": "^4.1.0",
+    "karma": "5.0.5",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
     "karma-firefox-launcher": "^1.1.0",
@@ -43,10 +43,10 @@
     "remap-istanbul": "0.9.5",
     "rimraf": "2.6.1",
     "rxjs": "6.5.2",
-    "semantic-release": "6.3.2",
+    "semantic-release": "17.0.7",
     "systemjs": "^0.20.19",
     "tslint": "5.17.0",
-    "typescript": "~3.4.5",
+    "typescript": "~3.5.3",
     "validate-commit-msg": "2.12.1",
     "watch": "1.0.2",
     "zone.js": "0.9.1"
@@ -94,6 +94,10 @@
     {
       "name": "Joan Llenas Masó",
       "email": "joan.llenas.maso@gmail.com"
+    },
+    {
+      "name": "Jaime 'Gondola' Oliveira",
+      "email": "jaime.amo18@gmail.com"
     }
   ],
   "license": "MIT",

@@ -67,7 +67,7 @@ export class VgFullscreen implements OnInit, OnDestroy {
     }
 
     onChangeFullscreen(fsState: boolean) {
-        this.ariaValue = fsState ? 'fullscren mode' : 'normal mode';
+        this.ariaValue = fsState ? 'fullscreen mode' : 'normal mode';
         this.isFullscreen = fsState;
     }
 
