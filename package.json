@@ -75,9 +75,6 @@
       "commit-msg": "validate-commit-msg"
     }
   },
-  "engines": {
-    "node": ">=10.9.0 <11.0.0"
-  },
   "keywords": [
     "video",
     "player",
