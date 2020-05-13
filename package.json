@@ -43,7 +43,7 @@
     "remap-istanbul": "0.9.5",
     "rimraf": "2.6.1",
     "rxjs": "6.5.2",
-    "semantic-release": "6.3.2",
+    "semantic-release": "^12.0.0",
     "systemjs": "^0.20.19",
     "tslint": "5.17.0",
     "typescript": "~3.5.3",
