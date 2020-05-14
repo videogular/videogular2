@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
              [attr.aria-valuenow]="getPercentage()"
              aria-valuemin="0"
              aria-valuemax="100"
-             [attr.aria-valuetext]="getPercentage() + '%'">
+             [attr.aria-valuetext]="getPercentage()">
             <ng-content></ng-content>
         </div>
 
@@ -246,7 +246,7 @@ export class VgScrubBar implements OnInit, OnDestroy {
     }
 
     getPercentage() {
-        return this.target ? ((this.target.time.current * 100) / this.target.time.total) + '%' : '0%';
+        return this.target ? Math.round((this.target.time.current * 100) / this.target.time.total) + '%' : '0%';
     }
 
     onHideScrubBar(hide: boolean) {
