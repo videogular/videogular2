@@ -22,7 +22,7 @@ In this example `currentStream` can contain either an `mpd`, `m3u8` or `mp4` fil
 </vg-player>
 ```
 
-This module is dependant of `dashjs` library and you need to install via `npm install dashjs --save` and include it on your `.angular-cli.json` config file:
+This module is dependant of `dashjs` library and you need to install via `npm install dashjs --save` and include it on your `.angular.json` config file:
 
 ```json
 {

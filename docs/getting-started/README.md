@@ -16,7 +16,7 @@ npm install @types/core-js --save-dev
 
 ## Adding the icon font
 
-If you want to, you can use the official Videogular font to set icons on your buttons and controls. To do that you need to add a CSS on you `.angular-cli.json` file available on the root of your project.
+If you want to, you can use the official Videogular font to set icons on your buttons and controls. To do that you need to add a CSS on you `.angular.json` file available on the root of your project.
 
 ```json
 {
