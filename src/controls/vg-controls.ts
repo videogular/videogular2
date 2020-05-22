@@ -72,6 +72,7 @@ export class VgControls implements OnInit, AfterViewInit, OnDestroy {
 
     onPlayerReady() {
         this.target = this.API.getMediaById(this.vgFor);
+        if (!this.target || !this.target.subscriptions) { return; }
 
         this.subscriptions.push(this.target.subscriptions.play.subscribe(this.onPlay.bind(this)));
         this.subscriptions.push(this.target.subscriptions.pause.subscribe(this.onPause.bind(this)));
