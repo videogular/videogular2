@@ -1,3 +1,4 @@
+require('karma-firefox-launcher')
 module.exports = function(config) {
     var configuration = {
         basePath: '.',
