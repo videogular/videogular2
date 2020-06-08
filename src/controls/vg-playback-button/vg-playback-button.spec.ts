@@ -1,12 +1,13 @@
 import { VgPlaybackButton } from './vg-playback-button';
 import { VgAPI } from '../../core/services/vg-api';
-import { ElementRef } from '@angular/core';
+import { ElementRef, ChangeDetectorRef } from '@angular/core';
 import { VgStates } from '../../core/states/vg-states';
 
 describe('Playback Button', () => {
   let playbackButton: VgPlaybackButton;
   let ref: ElementRef;
   let api: VgAPI;
+  let cdr: ChangeDetectorRef;
 
   beforeEach(() => {
     ref = {
@@ -27,7 +28,9 @@ describe('Playback Button', () => {
       }
     };
 
-    playbackButton = new VgPlaybackButton(ref, api);
+    cdr = { detectChanges: () => {}, markForCheck: () => {}, checkNoChanges: () => {}, detach: () => {}, reattach: () => {} };
+
+    playbackButton = new VgPlaybackButton(ref, api, cdr);
   });
 
   it('Should set playbackIndex default value to 1', () => {

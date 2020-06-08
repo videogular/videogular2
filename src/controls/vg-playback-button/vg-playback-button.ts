@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, OnInit, ViewEncapsulation, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { VgAPI } from '../../core/services/vg-api';
 import { Subscription } from 'rxjs';
 
@@ -51,7 +51,7 @@ export class VgPlaybackButton implements OnInit, OnDestroy {
 
     ariaValue = 1;
 
-    constructor(ref: ElementRef, public API: VgAPI) {
+    constructor(ref: ElementRef, public API: VgAPI, public cdr: ChangeDetectorRef) {
         this.elem = ref.nativeElement;
         this.playbackValues = [ '0.5', '1.0', '1.5', '2.0' ];
         this.playbackIndex = 1;
@@ -93,6 +93,8 @@ export class VgPlaybackButton implements OnInit, OnDestroy {
         else {
             this.target.playbackRate[ this.vgFor ] = (this.playbackValues[ this.playbackIndex ]);
         }
+
+        this.detectChanges();
     }
 
     getPlaybackRate() {
@@ -102,5 +104,13 @@ export class VgPlaybackButton implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscriptions.forEach(s => s.unsubscribe());
+    }
+
+    detectChanges() {
+      try {
+        this.cdr.detectChanges();
+      } catch(e) {
+        console.warn(e);
+      }
     }
 }
