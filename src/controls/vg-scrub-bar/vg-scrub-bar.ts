@@ -178,7 +178,8 @@ export class VgScrubBar implements OnInit, OnDestroy {
     onMouseMoveScrubBar($event: any) {
         if (this.target) {
             if (!this.target.isLive && this.vgSlider && this.isSeeking) {
-                this.seekMove($event.offsetX);
+                const dif = (((window.innerWidth - this.elem.offsetWidth)/2)).toFixed(0);
+                this.seekMove(Number($event.clientX) - Number(dif));
             }
         }
     }
@@ -187,7 +188,8 @@ export class VgScrubBar implements OnInit, OnDestroy {
     onMouseUpScrubBar($event: any) {
         if (this.target) {
             if (!this.target.isLive && this.vgSlider && this.isSeeking) {
-                this.seekEnd($event.offsetX);
+                const dif = (((window.innerWidth - this.elem.offsetWidth)/2)).toFixed(0);
+                this.seekEnd(Number($event.clientX) - Number(dif));
             }
         }
     }
