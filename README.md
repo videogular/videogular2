@@ -1,3 +1,7 @@
+# ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ DEPRECATED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+Use new library published [here](https://github.com/videogular/ngx-videogular)
+
+
 # Videogular
 [![travis build](https://travis-ci.org/videogular/videogular2.svg?branch=master)](https://travis-ci.org/videogular/videogular2)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/2fdevs/videogular?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
