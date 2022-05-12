@@ -1,4 +1,4 @@
-# ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ DEPRECATED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+# ⚠️⚠️⚠️⚠️⚠️⚠️⚠️ DEPRECATED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️
 Use new library published [here](https://github.com/videogular/ngx-videogular)
 
 
