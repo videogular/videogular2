@@ -248,8 +248,8 @@ describe('Videogular Player', () => {
 
         api.seekTime(10);
 
-        expect(api.$$seek).toHaveBeenCalledWith(<IPlayable>{id: 'main'}, 10, false);
-        expect(api.$$seek).toHaveBeenCalledWith(<IPlayable>{id: 'secondary'}, 10, false);
+        expect(api.$$seek).toHaveBeenCalledWith({id: 'main'} as IPlayable, 10, false);
+        expect(api.$$seek).toHaveBeenCalledWith({id: 'secondary'} as IPlayable, 10, false);
     });
 
     it('Should seek to a specified time by percentage', () => {
@@ -262,8 +262,8 @@ describe('Videogular Player', () => {
 
         api.seekTime(10, true);
 
-        expect(api.$$seek).toHaveBeenCalledWith(<IPlayable>{id: 'main'}, 10, true);
-        expect(api.$$seek).toHaveBeenCalledWith(<IPlayable>{id: 'secondary'}, 10, true);
+        expect(api.$$seek).toHaveBeenCalledWith({id: 'main'} as IPlayable, 10, true);
+        expect(api.$$seek).toHaveBeenCalledWith({id: 'secondary'} as IPlayable, 10, true);
     });
 
     it('Should seek media files to a specified time by second', () => {
